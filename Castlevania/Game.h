@@ -48,12 +48,19 @@ public:
 	void InitKeyboard(LPKEYEVENTHANDLER handler);
 
 	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha);
+	void FillColor(int r = 0, int g = 0, int b = 0);
 	void ProcessKeyboard();
 	int IsKeyDown(int KeyCode);
 
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return spriteHandler; }
+
+	static void SweptAABB(
+		float ml, float mt, float mr, float mb,
+		float dx, float dy,
+		float sl, float st, float sr, float sb,
+		float& t, float& nx, float& ny);
 
 };
 
