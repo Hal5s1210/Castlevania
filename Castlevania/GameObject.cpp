@@ -14,7 +14,7 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void GameObject::Update(DWORD dt)
 {
 	this->dt = dt;
 	dx = vx * dt;
@@ -112,7 +112,7 @@ void GameObject::FilterCollision(
 
 void Block::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
-	GameObject::Update(dt, objects);
+	GameObject::Update(dt);
 
 	std::vector<LPCOEVENT> coEvents;
 

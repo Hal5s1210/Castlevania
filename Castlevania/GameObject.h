@@ -65,7 +65,7 @@ public:
 	void PauseAnimation() { animation->Pause(); }
 	void PlayAnimtion() { animation->Play(); }
 
-	virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
+	virtual void Update(DWORD dt);
 	virtual void Render() = 0;
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b) = 0;
 

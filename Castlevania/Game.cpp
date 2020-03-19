@@ -18,6 +18,12 @@ Game::~Game()
 	if (!backBuffer) backBuffer->Release();
 	if (!d3ddv) d3ddv->Release();
 	if (!d3d) d3d->Release();
+	if (!didv)
+	{
+		didv->Unacquire();
+		didv->Release();
+	}
+	if (!di) di->Release();
 }
 
 Game* Game::GetInstance()

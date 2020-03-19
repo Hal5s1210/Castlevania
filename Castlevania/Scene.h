@@ -1,11 +1,11 @@
 #pragma once
 
 #define TITLE_SCENE_ID			0
-#define TITLE_SCENE_TEX_ID		1000
+#define TITLE_SCENE_TEX_ID		1001
 #define TITLE_SCENE_DIR			L"Resources\\Textures\\NES - Castlevania - Title Screen.png"
 
 #define INTRO_SCENE_ID			1
-#define INTRO_SCENE_TEX_ID		2000
+#define INTRO_SCENE_TEX_ID		1002
 #define INTRO_SCENE_DIR			L"Resources\\Textures\\NES - Castlevania - Cutscenes & Credits.png"
 
 
