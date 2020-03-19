@@ -37,6 +37,12 @@ void Sprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTE
 	sprites[id] = sprite;
 }
 
+void Sprites::Remove(int id)
+{
+	delete sprites[id];
+	sprites.erase(id);
+}
+
 
 
 
@@ -66,11 +72,13 @@ void Animation::Draw(float x, float y, int alpha)
 		DWORD t = frames[currentFrame]->Time;
 		if (now - lastFrameTime > t)
 		{
-			currentFrame++;
 			lastFrameTime = now;
+
+			if (!paused)
+				currentFrame++;
+
 			if (currentFrame == frames.size()) currentFrame = 0;
 		}
-
 	}
 
 	frames[currentFrame]->Sprite->Draw(x, y, alpha);
@@ -94,4 +102,10 @@ Animations* Animations::GetInstance()
 void Animations::Add(int id, LPANIMATION animation)
 {
 	animations[id] = animation;
+}
+
+void Animations::Remove(int id)
+{
+	delete animations[id];
+	animations.erase(id);
 }

@@ -37,7 +37,7 @@ protected:
 
 	int state;
 
-	std::vector<LPANIMATION> animations;
+	LPANIMATION animation;
 
 
 	LPCOEVENT SweptAABBEx(LPGAMEOBJECT coO);
@@ -55,12 +55,15 @@ public:
 	void SetPosition(float x, float y) { this->x = x; this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx; this->vy = vy; }
 	void SetState(int state) { this->state = state; }
+	void SetAnimation(int animationId);
 
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 	int GetState() { return state; }
+	int GetFrame() { return animation->GetFrame(); }
 
-	void AddAnimation(int animationId);
+	void PauseAnimation() { animation->Pause(); }
+	void PlayAnimtion() { animation->Play(); }
 
 	virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	virtual void Render() = 0;

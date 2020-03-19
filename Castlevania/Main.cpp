@@ -61,8 +61,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			castlevania->Update(dt);
 			castlevania->Render();
 		}
-		else
-			Sleep(tickPerFrame - dt);
+		else Sleep(tickPerFrame - dt);
 	}
 
 	return 0;

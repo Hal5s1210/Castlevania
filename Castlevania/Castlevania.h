@@ -3,15 +3,9 @@
 #include <d3d9.h>
 #include <vector>
 #include "Game.h"
+#include "Keyboard.h"
 #include "GameObject.h"
-
-class GameKeyHandler : public KeyEventHandler
-{
-public:
-	void KeyState(BYTE* state);
-	void OnKeyDown(int KeyCode);
-	void OnKeyUp(int KeyCode);
-};
+#include "Scene.h"
 
 
 class Castlevania
@@ -20,10 +14,9 @@ private:
 	LPDIRECT3DDEVICE9 d3ddv;
 	LPD3DXSPRITE spriteHandler;
 
-	GameKeyHandler* keyHandler;
+	KeyEventHandler* keyHandler;
 
-	LPGAMEOBJECT player;
-	std::vector<LPGAMEOBJECT> objects;
+	Scenes* scenes;
 
 public:
 	Castlevania();

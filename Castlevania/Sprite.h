@@ -36,6 +36,7 @@ public:
 	static Sprites* GetInstance();
 
 	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	void Remove(int id);
 	LPSPRITE Get(int id) { return sprites[id]; }
 
 };
@@ -61,6 +62,7 @@ private:
 
 	DWORD lastFrameTime;
 	int currentFrame;
+	bool paused;
 
 	std::vector<LPFRAME> frames;
 
@@ -68,6 +70,10 @@ public:
 	Animation();
 
 	void AddFrame(int spriteId, int time = 100);
+	void Reset() { currentFrame = 0; }
+	void Pause() { paused = true; }
+	void Play() { paused = false; }
+	int GetFrame() { return currentFrame; }
 	void Draw(float x, float y, int alpha = 255);
 
 };
@@ -89,6 +95,7 @@ public:
 	static Animations* GetInstance();
 
 	void Add(int id, LPANIMATION animation);
+	void Remove(int id);
 	LPANIMATION Get(int id) { return animations[id]; }
 
 };
