@@ -1,7 +1,9 @@
 #include <Windows.h>
 #include "Debug.h"
 #include "Game.h"
+#include "Sound.h"
 #include "Castlevania.h"
+
 
 #define WINDOW_CLASS_NAME L"GameWindow"
 #define MAIN_WINDOW_TITLE L"Castlevania"
@@ -29,6 +31,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Castlevania* castlevania =  new Castlevania;
 
 	game->InitKeyboard(castlevania->GetKeyHandler());
+
+	Sound* sound = Sound::GetInstance();
+
+	sound->Init(hwnd);
 
 	castlevania->LoadResources();
 
@@ -61,8 +67,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			castlevania->Update(dt);
 			castlevania->Render();
 		}
-		else
-			Sleep(tickPerFrame - dt);
+		else Sleep(tickPerFrame - dt);
 	}
 
 	return 0;

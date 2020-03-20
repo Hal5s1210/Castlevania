@@ -14,17 +14,17 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void GameObject::Update(DWORD dt)
 {
 	this->dt = dt;
 	dx = vx * dt;
 	dy = vy * dt;
 }
 
-void GameObject::AddAnimation(int animationId)
+void GameObject::SetSprite(int spriteId)
 {
-	LPANIMATION ani = Animations::GetInstance()->Get(animationId);
-	animations.push_back(ani);
+	sprite = Sprites::GetInstance()->Get(spriteId);
+	sprite->Reset();
 }
 
 LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
@@ -112,7 +112,7 @@ void GameObject::FilterCollision(
 
 void Block::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
-	GameObject::Update(dt, objects);
+	GameObject::Update(dt);
 
 	std::vector<LPCOEVENT> coEvents;
 
@@ -143,7 +143,7 @@ void Block::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 void Block::Render()
 {
-	animations[0]->Draw(x, y);
+	sprite->Draw(x, y);
 }
 void Block::GetBoundingBox(float& l, float& t, float& r, float& b)
 {

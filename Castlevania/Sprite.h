@@ -7,14 +7,32 @@
 class Sprite
 {
 private:
-	int id;
-	RECT rect;
+	struct Frame 
+	{
+		RECT Rect;
+		int Time;
+
+		Frame(RECT rect, int time) :Rect(rect), Time(time) {}
+
+	};
+	typedef Frame* LPFRAME;
 
 	LPDIRECT3DTEXTURE9 texture;
 
-public:
-	Sprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	DWORD lastFrameTime;
+	int currentFrame;
+	bool paused;
 
+	std::vector<LPFRAME> frames;
+
+public:
+	Sprite(LPDIRECT3DTEXTURE9 tex);
+
+	void AddFrame(int left, int top, int width, int height, int time = 100);
+	void Reset() { currentFrame = 0; }
+	void Pause() { paused = true; }
+	void Play() { paused = false; }
+	int GetFrame() { return currentFrame; }
 	void Draw(float x, float y, int alpha = 255);
 
 };
@@ -35,60 +53,8 @@ public:
 
 	static Sprites* GetInstance();
 
-	void Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex);
+	void Add(int id, LPSPRITE sprite);
+	void Remove(int id);
 	LPSPRITE Get(int id) { return sprites[id]; }
-
-};
-
-
-
-
-
-
-
-class Animation
-{
-private:
-	struct Frame 
-	{
-		LPSPRITE Sprite;
-		int Time;
-
-		Frame(LPSPRITE sprite, int time) :Sprite(sprite), Time(time) {}
-
-	};
-	typedef Frame* LPFRAME;
-
-	DWORD lastFrameTime;
-	int currentFrame;
-
-	std::vector<LPFRAME> frames;
-
-public:
-	Animation();
-
-	void AddFrame(int spriteId, int time = 100);
-	void Draw(float x, float y, int alpha = 255);
-
-};
-typedef Animation* LPANIMATION;
-
-
-
-
-class Animations
-{
-private:
-	static Animations* _instance;
-
-	std::unordered_map<int, LPANIMATION> animations;
-
-public:
-	Animations();
-
-	static Animations* GetInstance();
-
-	void Add(int id, LPANIMATION animation);
-	LPANIMATION Get(int id) { return animations[id]; }
 
 };
