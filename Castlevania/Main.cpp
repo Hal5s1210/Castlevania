@@ -4,6 +4,7 @@
 #include "Sound.h"
 #include "Castlevania.h"
 
+
 #define WINDOW_CLASS_NAME L"GameWindow"
 #define MAIN_WINDOW_TITLE L"Castlevania"
 

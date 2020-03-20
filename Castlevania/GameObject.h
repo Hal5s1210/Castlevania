@@ -37,7 +37,7 @@ protected:
 
 	int state;
 
-	LPANIMATION animation;
+	LPSPRITE sprite;
 
 
 	LPCOEVENT SweptAABBEx(LPGAMEOBJECT coO);
@@ -55,15 +55,15 @@ public:
 	void SetPosition(float x, float y) { this->x = x; this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx; this->vy = vy; }
 	void SetState(int state) { this->state = state; }
-	void SetAnimation(int animationId);
+	void SetSprite(int spriteId);
 
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 	int GetState() { return state; }
-	int GetFrame() { return animation->GetFrame(); }
+	int GetFrame() { return sprite->GetFrame(); }
 
-	void PauseAnimation() { animation->Pause(); }
-	void PlayAnimtion() { animation->Play(); }
+	void PauseAnimation() { sprite->Pause(); }
+	void PlayAnimtion() { sprite->Play(); }
 
 	virtual void Update(DWORD dt);
 	virtual void Render() = 0;

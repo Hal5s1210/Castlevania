@@ -1,12 +1,7 @@
 #pragma once
 
 #define TITLE_SCENE_ID			0
-#define TITLE_SCENE_TEX_ID		1001
-#define TITLE_SCENE_DIR			L"Resources\\Textures\\NES - Castlevania - Title Screen.png"
-
 #define INTRO_SCENE_ID			1
-#define INTRO_SCENE_TEX_ID		1002
-#define INTRO_SCENE_DIR			L"Resources\\Textures\\NES - Castlevania - Cutscenes & Credits.png"
 
 
 #include <vector>
@@ -19,7 +14,7 @@ protected:
 	bool sceneStart;
 	bool sceneEnd;
 	int id;
-	std::vector<LPGAMEOBJECT> mapObj;
+	std::vector<LPGAMEOBJECT> mapObjs;
 	std::vector<LPGAMEOBJECT> items;
 	std::vector<LPGAMEOBJECT> enemies;
 

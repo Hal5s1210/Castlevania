@@ -21,10 +21,10 @@ void GameObject::Update(DWORD dt)
 	dy = vy * dt;
 }
 
-void GameObject::SetAnimation(int animationId)
+void GameObject::SetSprite(int spriteId)
 {
-	animation = Animations::GetInstance()->Get(animationId);
-	animation->Reset();
+	sprite = Sprites::GetInstance()->Get(spriteId);
+	sprite->Reset();
 }
 
 LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
@@ -143,7 +143,7 @@ void Block::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 void Block::Render()
 {
-	animation->Draw(x, y);
+	sprite->Draw(x, y);
 }
 void Block::GetBoundingBox(float& l, float& t, float& r, float& b)
 {

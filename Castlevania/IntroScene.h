@@ -1,25 +1,22 @@
 #pragma once
 
-#define INTRO_BG_SPRITE_ID			1000
-#define INTRO_BG_ANIMATION_ID		2000
+#define INTRO_BG_TEX_ID				1000 
+#define INTRO_BG_TEX_DIR			L"Resources\\Textures\\IntroBG.png"
+#define INTRO_BAT_TEX_ID			1100 
+#define INTRO_BAT_TEX_DIR			L"Resources\\Textures\\IntroBat.png"
+#define INTRO_CLOUD_TEX_ID			1200 
+#define INTRO_CLOUD_TEX_DIR			L"Resources\\Textures\\IntroCloud.png"
 
-#define INTRO_BAT_SPRITE_1_ID		1100
-#define INTRO_BAT_SPRITE_2_ID		1101
-#define INTRO_BAT_ANIMATION_ID		2100
+#define INTRO_BG_SPRITE_ID			2000
+#define INTRO_BAT_SPRITE_ID			2100
+#define INTRO_CLOUD_SPRITE_ID		2200
+#define INTRO_SIMON_SPRITE_1_ID		2300
+#define INTRO_SIMON_SPRITE_2_ID		2301
 
-#define INTRO_CLOUD_SPRITE_ID		1200
-#define INTRO_CLOUD_ANIMATION_ID	2200
 
-
-#define INTRO_SIMON_SPRITE_1_ID		1300
-#define INTRO_SIMON_SPRITE_2_ID		1301
-#define INTRO_SIMON_SPRITE_3_ID		1302
-#define INTRO_SIMON_SPRITE_4_ID		1303
-#define INTRO_SIMON_ANIMATION_1_ID	2300
-#define INTRO_SIMON_ANIMATION_2_ID	2301
-
-#define INTRO_SONG_ID				1000
+#define INTRO_SONG_ID				3000
 #define INTRO_SONG_DIR				"Resources\\Sounds\\01. Introduction (Castle Gate).wav"
+
 
 #include "Scene.h" 
 

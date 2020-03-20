@@ -3,7 +3,6 @@
 #include <dsound.h>
 #include <unordered_map>
 
-
 class Sound
 {
 	static Sound* _instance;

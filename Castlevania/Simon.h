@@ -1,7 +1,7 @@
 #pragma once
 
-#define SIMON_TEX_ID			1000
-#define SIMON_TEX_DIR			L"Resources\\Textures\\NES - Castlevania - Simon Belmont.png"
+#define SIMON_TEX_ID			0000
+#define SIMON_TEX_DIR			L"Resources\\Textures\\Simon.png"
 
 class Simon
 {

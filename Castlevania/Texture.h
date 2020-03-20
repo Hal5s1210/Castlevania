@@ -15,6 +15,7 @@ public:
 	static Textures* GetInstance();
 
 	void Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor);
+	void Remove(int id);
 	LPDIRECT3DTEXTURE9 Get(int id) { return textures[id]; }
 
 };

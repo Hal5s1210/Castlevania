@@ -1,16 +1,17 @@
 #pragma once
 
-#define TITLE_BG_SPRITE_ID				1000
-#define TITLE_BG_ANIMATION_ID			2000
+#define TITLE_BG_TEX_ID				1000
+#define TITLE_BG_TEX_DIR				L"Resources\\Textures\\TitleBG.png"
+#define TITLE_BAT_TEX_ID			1100
+#define TITLE_BAT_TEX_DIR				L"Resources\\Textures\\TitleBat.png"
+#define TITLE_TEXT_TEX_ID			1200
+#define TITLE_TEXT_TEX_DIR				L"Resources\\Textures\\TitleText.png"
 
-#define TITLE_BAT_SPRITE_ID				1100
-#define TITLE_BAT_ANIMATION_1_ID		2100
-#define TITLE_BAT_ANIMATION_2_ID		2101
-
-#define START_TEXT_SPRITE_1_ID			1200
-#define START_TEXT_SPRITE_2_ID			1201
-#define START_TEXT_ANIMATION_1_ID		2200
-#define START_TEXT_ANIMATION_2_ID		2201
+#define TITLE_BG_SPRITE_ID			2000
+#define TITLE_BAT_SPRITE_1_ID		2100
+#define TITLE_BAT_SPRITE_2_ID		2101
+#define TITLE_TEXT_SPRITE_1_ID		2200
+#define TITLE_TEXT_SPRITE_2_ID		2201
 
 #include "Scene.h" 
 

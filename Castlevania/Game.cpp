@@ -76,7 +76,7 @@ void Game::Init(HWND hWnd)
 
 void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha = 255)
 {
-	D3DXVECTOR3 p(x, y, 0);
+	D3DXVECTOR3 p(floor(x), floor(y), 0);
 	spriteHandler->Draw(texture, &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 

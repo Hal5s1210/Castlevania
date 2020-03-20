@@ -54,3 +54,10 @@ void Textures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 
 	DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s \n", id, filePath);
 }
+
+void Textures::Remove(int id)
+{
+	if (!textures[id]) textures[id]->Release();
+	textures.erase(id);
+}
+

@@ -1,65 +1,26 @@
 #include "Sprite.h"
 #include "Game.h"
 
-Sprite::Sprite(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
+
+Sprite::Sprite(LPDIRECT3DTEXTURE9 tex)
 {
-	this->id = id;
-	rect.left = left;
-	rect.top = top;
-	rect.right = right;
-	rect.bottom = bottom;
 	texture = tex;
-}
-
-void Sprite::Draw(float x, float y, int alpha)
-{
-	Game::GetInstance()->Draw(x, y, texture, rect, alpha);
-}
-
-
-
-
-Sprites* Sprites::_instance = 0;
-
-Sprites::Sprites()
-{
-}
-
-Sprites* Sprites::GetInstance()
-{
-	if (!_instance) _instance = new Sprites;
-	return _instance;
-}
-
-void Sprites::Add(int id, int left, int top, int right, int bottom, LPDIRECT3DTEXTURE9 tex)
-{
-	LPSPRITE sprite = new Sprite(id, left, top, right, bottom, tex);
-	sprites[id] = sprite;
-}
-
-void Sprites::Remove(int id)
-{
-	delete sprites[id];
-	sprites.erase(id);
-}
-
-
-
-
-Animation::Animation()
-{
 	currentFrame = -1;
 	lastFrameTime = -1;
 }
 
-void Animation::AddFrame(int spriteId, int time)
+void Sprite::AddFrame(int left, int top, int width, int height, int time)
 {
-	LPSPRITE sprite = Sprites::GetInstance()->Get(spriteId);
-	LPFRAME frame = new Frame(sprite, time);
+	RECT rect;
+	rect.left = left;
+	rect.top = top;
+	rect.right = left + width;
+	rect.bottom = top + height;
+	LPFRAME frame = new Frame(rect, time);
 	frames.push_back(frame);
 }
 
-void Animation::Draw(float x, float y, int alpha)
+void Sprite::Draw(float x, float y, int alpha)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -81,31 +42,31 @@ void Animation::Draw(float x, float y, int alpha)
 		}
 	}
 
-	frames[currentFrame]->Sprite->Draw(x, y, alpha);
+	Game::GetInstance()->Draw(x, y, texture, frames[currentFrame]->Rect, alpha);
 }
 
 
 
 
-Animations* Animations::_instance = 0;
+Sprites* Sprites::_instance = 0;
 
-Animations::Animations()
+Sprites::Sprites()
 {
 }
 
-Animations* Animations::GetInstance()
+Sprites* Sprites::GetInstance()
 {
-	if (!_instance) _instance = new Animations;
+	if (!_instance) _instance = new Sprites;
 	return _instance;
 }
 
-void Animations::Add(int id, LPANIMATION animation)
+void Sprites::Add(int id, LPSPRITE sprite)
 {
-	animations[id] = animation;
+	sprites[id] = sprite;
 }
 
-void Animations::Remove(int id)
+void Sprites::Remove(int id)
 {
-	delete animations[id];
-	animations.erase(id);
+	if (!sprites[id]) delete sprites[id];
+	sprites.erase(id);
 }
