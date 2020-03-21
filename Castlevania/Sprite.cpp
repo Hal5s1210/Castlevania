@@ -2,14 +2,15 @@
 #include "Game.h"
 
 
-Sprite::Sprite(LPDIRECT3DTEXTURE9 tex)
+Animation::Animation(LPTEXTURE tex)
 {
 	texture = tex;
+	paused = false;
 	currentFrame = -1;
 	lastFrameTime = -1;
 }
 
-void Sprite::AddFrame(int left, int top, int width, int height, int time)
+void Animation::AddFrame(int left, int top, int width, int height, int time)
 {
 	RECT rect;
 	rect.left = left;
@@ -20,7 +21,7 @@ void Sprite::AddFrame(int left, int top, int width, int height, int time)
 	frames.push_back(frame);
 }
 
-void Sprite::Draw(float x, float y, int alpha)
+void Animation::Draw(float x, float y, int alpha, bool flip)
 {
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -38,35 +39,35 @@ void Sprite::Draw(float x, float y, int alpha)
 			if (!paused)
 				currentFrame++;
 
-			if (currentFrame == frames.size()) currentFrame = 0;
+			if (currentFrame >= frames.size()) currentFrame = 0;
 		}
 	}
 
-	Game::GetInstance()->Draw(x, y, texture, frames[currentFrame]->Rect, alpha);
+	Game::GetInstance()->Draw(x, y, texture, frames[currentFrame]->Rect, alpha, flip);
 }
 
 
 
 
-Sprites* Sprites::_instance = 0;
+Animations* Animations::_instance = 0;
 
-Sprites::Sprites()
+Animations::Animations()
 {
 }
 
-Sprites* Sprites::GetInstance()
+Animations* Animations::GetInstance()
 {
-	if (!_instance) _instance = new Sprites;
+	if (!_instance) _instance = new Animations;
 	return _instance;
 }
 
-void Sprites::Add(int id, LPSPRITE sprite)
+void Animations::Add(int id, LPANIMATION animation)
 {
-	sprites[id] = sprite;
+	animations[id] = animation;
 }
 
-void Sprites::Remove(int id)
+void Animations::Remove(int id)
 {
-	if (!sprites[id]) delete sprites[id];
-	sprites.erase(id);
+	if (!animations[id]) delete animations[id];
+	animations.erase(id);
 }

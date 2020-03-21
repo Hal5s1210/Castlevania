@@ -10,22 +10,19 @@ void TitleScene::LoadScene()
 	Textures::GetInstance()->Add(TITLE_TEXT_TEX_ID, TITLE_TEXT_TEX_DIR, D3DCOLOR_XRGB(0, 128, 0));
 
 	bg = new TitleBG;
-	bg->SetSprite(TITLE_BG_SPRITE_ID);
 	bg->SetPosition(0, 0);
 	mapObjs.push_back(bg);
 
 	bat = new TitleBat;
-	bat->SetSprite(TITLE_BAT_SPRITE_1_ID);
 	bat->SetPosition(184, 104);
 	mapObjs.push_back(bat);
 
 	text = new StartText;
-	text->SetSprite(TITLE_TEXT_SPRITE_1_ID);
 	text->SetPosition(72, 136);
 	mapObjs.push_back(text);
 
-	sceneStart = true;
 	OutputDebugString(L"[INFO] TitleScene loaded OK\n");
+	sceneStart = true;
 }
 
 void TitleScene::EndScene()
@@ -54,17 +51,15 @@ void TitleScene::Update(DWORD dt)
 		if (now - time > 2000)
 			sceneEnd = true;
 	}
+
+	for (LPGAMEOBJECT o : mapObjs)
+		o->Update(dt);
 }
 
 void TitleScene::Render()
 {
 	if (enter)
 		bat->PauseAnimation();
-
-	if (bat->GetFrame() == 39)
-	{
-		bat->SetSprite(TITLE_BAT_SPRITE_2_ID);
-	}
 
 	for (LPGAMEOBJECT o : mapObjs)
 		o->Render();
@@ -77,50 +72,53 @@ void TitleScene::ButtonDown(int keyCode)
 		if (!enter)
 		{
 			enter = true;
-			text->SetSprite(TITLE_TEXT_SPRITE_2_ID);
+			text->SetState(TITLE_TEXT_ANIMATION_2);
 		}
 	}
 }
 
 void TitleScene::ButtonUp(int keyCode)
 {
-
 }
+
+
 
 
 #pragma region TitleBG
 
 TitleBG::TitleBG()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(TITLE_BG_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(TITLE_BG_TEX_ID);
 
-	LPSPRITE s = new Sprite(texture);
+	LPANIMATION s = new Animation(texture);
 	s->AddFrame(0, 0, 256, 240);
-	sprites->Add(TITLE_BG_SPRITE_ID, s);
+	AddAnimation(s);
+
+	SetState(TITLE_BG_ANIMATION);
 }
 
 TitleBG::~TitleBG()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	sprites->Remove(TITLE_BG_SPRITE_ID);
+	animations.clear();
 }
 
 void TitleBG::Render()
 {
-	sprite->Draw(x, y);
+	animations[currentAnimation]->Draw(x, y);
 }
 
 #pragma endregion
+
+
+
 
 #pragma region TitleBat
 
 TitleBat::TitleBat()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(TITLE_BAT_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(TITLE_BAT_TEX_ID);
 
-	LPSPRITE s1 = new Sprite(texture);
+	LPANIMATION s1 = new Animation(texture);
 	for (int y = 0; y < 4; y++)
 	{
 		for (int x = 0; x < 10; x++)
@@ -128,57 +126,68 @@ TitleBat::TitleBat()
 			s1->AddFrame(x * 72, y * 56, 72, 56, 50);
 		}
 	}
-	sprites->Add(TITLE_BAT_SPRITE_1_ID, s1);
+	AddAnimation(s1);
 
-	LPSPRITE s2 = new Sprite(texture);
+	LPANIMATION s2 = new Animation(texture);
 	s2->AddFrame(576, 168, 72, 56, 50);
 	s2->AddFrame(504, 168, 72, 56, 50);
 	s2->AddFrame(576, 168, 72, 56, 50);
 	s2->AddFrame(648, 168, 72, 56, 50);
-	sprites->Add(TITLE_BAT_SPRITE_2_ID, s2);
+	AddAnimation(s2);
+
+	SetState(TITLE_BAT_ANIMATION_1);
+}
+
+void TitleBat::Update(DWORD dt)
+{
+	if (animations[currentAnimation]->GetFrame() == 39)
+	{
+		SetState(TITLE_BAT_ANIMATION_2);
+	}
 }
 
 void TitleBat::Render()
 {
-	sprite->Draw(x, y);
+	animations[currentAnimation]->Draw(x, y);
+
 }
 
 TitleBat::~TitleBat()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	sprites->Remove(TITLE_BAT_SPRITE_1_ID);
-	sprites->Remove(TITLE_BAT_SPRITE_2_ID);
+	animations.clear();
 }
 
 #pragma endregion
+
+
+
 
 #pragma region StartText
 
 StartText::StartText()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(TITLE_TEXT_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(TITLE_TEXT_TEX_ID);
 
-	LPSPRITE s1 = new Sprite(texture);
+	LPANIMATION s1 = new Animation(texture);
 	s1->AddFrame(0, 0, 112, 8);
-	sprites->Add(TITLE_TEXT_SPRITE_1_ID, s1);
+	AddAnimation(s1);
 
-	LPSPRITE s2 = new Sprite(texture);
+	LPANIMATION s2 = new Animation(texture);
 	s2->AddFrame(0, 0, 112, 8);
 	s2->AddFrame(0, 8, 112, 8);
-	sprites->Add(TITLE_TEXT_SPRITE_2_ID, s2);
+	AddAnimation(s2);
+
+	SetState(TITLE_TEXT_ANIMATION_1);
 }
 
 void StartText::Render()
 {
-	sprite->Draw(x, y);
+	animations[currentAnimation]->Draw(x, y);
 }
 
 StartText::~StartText()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	sprites->Remove(TITLE_TEXT_SPRITE_1_ID);
-	sprites->Remove(TITLE_TEXT_SPRITE_2_ID);
+	animations.clear();
 }
 
 #pragma endregion

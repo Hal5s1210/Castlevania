@@ -74,10 +74,27 @@ void Game::Init(HWND hWnd)
 	OutputDebugString(L"[INFO] InitGame done;\n");
 }
 
-void Game::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha = 255)
+void Game::Draw(float x, float y, LPTEXTURE texture, RECT rect, int alpha, bool flip)
 {
-	D3DXVECTOR3 p(floor(x), floor(y), 0);
-	spriteHandler->Draw(texture, &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+
+	if (flip)
+	{
+		D3DXMATRIX a, b;
+		spriteHandler->GetTransform(&a);
+		D3DXMatrixTransformation2D(&b, &D3DXVECTOR2(int(x), int(y)), 0.f, &D3DXVECTOR2(-1.f, 1.f), NULL, 0.f, NULL);
+
+		D3DXVECTOR3 p(floor(x - (rect.right - rect.left)), floor(y), 0);
+
+		spriteHandler->SetTransform(&(a * b));
+		spriteHandler->Draw(texture->GetTexture(), &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+		spriteHandler->SetTransform(&a);
+	}
+	else
+	{
+		D3DXVECTOR3 p(floor(x), floor(y), 0);
+
+		spriteHandler->Draw(texture->GetTexture(), &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	}
 }
 
 void Game::FillColor(int r, int g, int b)

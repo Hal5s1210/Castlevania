@@ -4,10 +4,10 @@
 #include <unordered_map>
 #include <vector>
 
-class Sprite
+class Animation
 {
 private:
-	struct Frame 
+	struct Frame
 	{
 		RECT Rect;
 		int Time;
@@ -17,7 +17,7 @@ private:
 	};
 	typedef Frame* LPFRAME;
 
-	LPDIRECT3DTEXTURE9 texture;
+	LPTEXTURE texture;
 
 	DWORD lastFrameTime;
 	int currentFrame;
@@ -26,35 +26,34 @@ private:
 	std::vector<LPFRAME> frames;
 
 public:
-	Sprite(LPDIRECT3DTEXTURE9 tex);
+	Animation(LPTEXTURE tex);
 
 	void AddFrame(int left, int top, int width, int height, int time = 100);
-	void Reset() { currentFrame = 0; }
 	void Pause() { paused = true; }
 	void Play() { paused = false; }
 	int GetFrame() { return currentFrame; }
-	void Draw(float x, float y, int alpha = 255);
+	void Draw(float x, float y, int alpha = 255, bool flip = false);
 
 };
-typedef Sprite* LPSPRITE;
+typedef Animation* LPANIMATION;
 
 
 
 
-class Sprites
+class Animations
 {
 private:
-	static Sprites* _instance;
+	static Animations* _instance;
 
-	std::unordered_map<int, LPSPRITE> sprites;
+	std::unordered_map<int, LPANIMATION> animations;
 
 public:
-	Sprites();
+	Animations();
 
-	static Sprites* GetInstance();
+	static Animations* GetInstance();
 
-	void Add(int id, LPSPRITE sprite);
+	void Add(int id, LPANIMATION animation);
 	void Remove(int id);
-	LPSPRITE Get(int id) { return sprites[id]; }
+	LPANIMATION Get(int id) { return animations[id]; }
 
 };

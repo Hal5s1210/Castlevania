@@ -15,30 +15,25 @@ void IntroScene::LoadScene()
 	sound->Play(INTRO_SONG_ID);
 
 	bg = new IntroBG;
-	bg->SetSprite(INTRO_BG_SPRITE_ID);
 	bg->SetPosition(0, 48);
 	mapObjs.push_back(bg);
 
 	bat1 = new IntroBat;
-	bat1->SetSprite(INTRO_BAT_SPRITE_ID);
 	bat1->SetPosition(30, 108);
 	bat1->SetSpeed(0.01, -0.007);
 	mapObjs.push_back(bat1);
 
 	bat2 = new IntroBat;
-	bat2->SetSprite(INTRO_BAT_SPRITE_ID);
 	bat2->SetPosition(160, 74);
 	bat2->SetSpeed(-0.006, 0);
 	mapObjs.push_back(bat2);
 
 	cloud = new IntroCloud;
-	cloud->SetSprite(INTRO_CLOUD_SPRITE_ID);
 	cloud->SetPosition(240, 76);
 	cloud->SetSpeed(-0.006, 0);
 	mapObjs.push_back(cloud);
 
 	simon = new IntroSimon;
-	simon->SetSprite(INTRO_SIMON_SPRITE_1_ID);
 	simon->SetPosition(240, 177);
 	simon->SetSpeed(-0.03, 0);
 	mapObjs.push_back(simon);
@@ -72,14 +67,6 @@ void IntroScene::Update(DWORD dt)
 	if (x <= 128)
 		bat2->SetSpeed(-0.0015, -0.004);
 
-	simon->GetPosition(x, y);
-	if (x < 120)
-	{
-		simon->SetSprite(INTRO_SIMON_SPRITE_2_ID);
-		simon->SetSpeed(0, 0);
-		simon->SetPosition(120, 177);
-	}
-
 	for (LPGAMEOBJECT o : mapObjs)
 		o->Update(dt);
 
@@ -95,48 +82,52 @@ void IntroScene::Render()
 
 
 
+
 #pragma region IntroBG
 
 IntroBG::IntroBG()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(INTRO_BG_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(INTRO_BG_TEX_ID);
 
-	LPSPRITE s = new Sprite(texture);
+	LPANIMATION s = new Animation(texture);
 	s->AddFrame(0, 0, 256, 192);
-	sprites->Add(INTRO_BG_SPRITE_ID, s);
+	AddAnimation(s);
+
+	SetState(INTRO_BG_ANIMATION);
 }
 
 IntroBG::~IntroBG()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	sprites->Remove(INTRO_BG_SPRITE_ID);
+	animations.clear();
 }
 
 void IntroBG::Render()
 {
-	sprite->Draw(x, y);
+	animations[currentAnimation]->Draw(x, y);
 }
 
 #pragma endregion
+
+
+
 
 #pragma region IntroBat
 
 IntroBat::IntroBat()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(INTRO_BAT_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(INTRO_BAT_TEX_ID);
 
-	LPSPRITE s = new Sprite(texture);
+	LPANIMATION s = new Animation(texture);
 	s->AddFrame(0, 0, 8, 8);
 	s->AddFrame(8, 0, 8, 8);
-	sprites->Add(INTRO_BAT_SPRITE_ID, s);
+	AddAnimation(s);
+
+	SetState(INTRO_BAT_ANIMATION);
 }
 
 IntroBat::~IntroBat()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	sprites->Remove(INTRO_BAT_SPRITE_ID);
+	animations.clear();
 }
 
 void IntroBat::Update(DWORD dt)
@@ -149,27 +140,30 @@ void IntroBat::Update(DWORD dt)
 
 void IntroBat::Render()
 {
-	sprite->Draw(x, y);
+	animations[currentAnimation]->Draw(x, y);
 }
 
 #pragma endregion
+
+
+
 
 #pragma region IntroCould
 
 IntroCloud::IntroCloud()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(INTRO_CLOUD_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(INTRO_CLOUD_TEX_ID);
 
-	LPSPRITE s = new Sprite(texture);
+	LPANIMATION s = new Animation(texture);
 	s->AddFrame(0, 0, 32, 16);
-	sprites->Add(INTRO_CLOUD_SPRITE_ID, s);
+	AddAnimation(s);
+
+	SetState(INTRO_CLOUD_ANIMATION);
 }
 
 IntroCloud::~IntroCloud()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	sprites->Remove(INTRO_CLOUD_SPRITE_ID);
+	animations.clear();
 }
 
 void IntroCloud::Update(DWORD dt)
@@ -182,37 +176,46 @@ void IntroCloud::Update(DWORD dt)
 
 void IntroCloud::Render()
 {
-	sprite->Draw(x, y);
+	animations[currentAnimation]->Draw(x, y);
 }
 #pragma endregion
+
+
+
 
 #pragma region IntroSimon
 
 IntroSimon::IntroSimon()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	LPDIRECT3DTEXTURE9 texture = Textures::GetInstance()->Get(SIMON_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(SIMON_TEX_ID);
 
-	LPSPRITE s1 = new Sprite(texture);
+	LPANIMATION s1 = new Animation(texture);
 	s1->AddFrame(0, 0, 16, 32);
 	s1->AddFrame(0, 32, 16, 32);
 	s1->AddFrame(16, 32, 16, 32);
 	s1->AddFrame(0, 32, 16, 32);
-	sprites->Add(INTRO_SIMON_SPRITE_1_ID, s1);
+	AddAnimation(s1);
 
-	LPSPRITE s2 = new Sprite(texture);
+	LPANIMATION s2 = new Animation(texture);
 	s2->AddFrame(80, 0, 16, 32);
-	sprites->Add(INTRO_SIMON_SPRITE_2_ID, s2);
+	AddAnimation(s2);
+
+	SetState(INTRO_SIMON_ANIMATION_1);
 }
 IntroSimon::~IntroSimon()
 {
-	Sprites* sprites = Sprites::GetInstance();
-	sprites->Remove(INTRO_SIMON_SPRITE_1_ID);
-	sprites->Remove(INTRO_SIMON_SPRITE_2_ID);
+	animations.clear();
 }
 
 void IntroSimon::Update(DWORD dt)
 {
+	if (x < 120)
+	{
+		SetState(INTRO_SIMON_ANIMATION_2);
+		SetSpeed(0, 0);
+		SetPosition(120, 177);
+	}
+
 	GameObject::Update(dt);
 
 	x += dx;
@@ -221,7 +224,7 @@ void IntroSimon::Update(DWORD dt)
 
 void IntroSimon::Render()
 {
-	sprite->Draw(x, y);
+	animations[currentAnimation]->Draw(x, y);
 }
 
 #pragma endregion

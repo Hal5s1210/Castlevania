@@ -1,20 +1,25 @@
 #pragma once
 
-#define INTRO_BG_TEX_ID				1000 
+#define INTRO_BG_TEX_ID				1
 #define INTRO_BG_TEX_DIR			L"Resources\\Textures\\IntroBG.png"
-#define INTRO_BAT_TEX_ID			1100 
+
+#define INTRO_BAT_TEX_ID			2
 #define INTRO_BAT_TEX_DIR			L"Resources\\Textures\\IntroBat.png"
-#define INTRO_CLOUD_TEX_ID			1200 
+
+#define INTRO_CLOUD_TEX_ID			3
 #define INTRO_CLOUD_TEX_DIR			L"Resources\\Textures\\IntroCloud.png"
 
-#define INTRO_BG_SPRITE_ID			2000
-#define INTRO_BAT_SPRITE_ID			2100
-#define INTRO_CLOUD_SPRITE_ID		2200
-#define INTRO_SIMON_SPRITE_1_ID		2300
-#define INTRO_SIMON_SPRITE_2_ID		2301
+#define INTRO_BG_ANIMATION			0
+
+#define INTRO_BAT_ANIMATION			0
+
+#define INTRO_CLOUD_ANIMATION		0
+
+#define INTRO_SIMON_ANIMATION_1		0
+#define INTRO_SIMON_ANIMATION_2		1
 
 
-#define INTRO_SONG_ID				3000
+#define INTRO_SONG_ID				0
 #define INTRO_SONG_DIR				"Resources\\Sounds\\01. Introduction (Castle Gate).wav"
 
 
@@ -51,6 +56,7 @@ public:
 	IntroBG();
 	~IntroBG();
 
+	void SetState(int state) { currentAnimation = state; }
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
 };
@@ -62,6 +68,7 @@ public:
 	IntroBat();
 	~IntroBat();
 
+	void SetState(int state) { currentAnimation = state; }
 	void Update(DWORD dt);
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
@@ -74,6 +81,7 @@ public:
 	IntroCloud();
 	~IntroCloud();
 
+	void SetState(int state) { currentAnimation = state; }
 	void Update(DWORD dt);
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
@@ -86,6 +94,7 @@ public:
 	IntroSimon();
 	~IntroSimon();
 
+	void SetState(int state) { currentAnimation = state; }
 	void Update(DWORD dt);
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}

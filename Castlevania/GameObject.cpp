@@ -8,6 +8,9 @@ GameObject::GameObject()
 	vx = vy = 0;
 	dx = dy = 0;
 	dt = 0;
+	currentAnimation = -1;
+	state = 0;
+	flip = false;
 }
 
 GameObject::~GameObject()
@@ -19,12 +22,6 @@ void GameObject::Update(DWORD dt)
 	this->dt = dt;
 	dx = vx * dt;
 	dy = vy * dt;
-}
-
-void GameObject::SetSprite(int spriteId)
-{
-	sprite = Sprites::GetInstance()->Get(spriteId);
-	sprite->Reset();
 }
 
 LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
@@ -60,6 +57,8 @@ LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
 
 void GameObject::CalcPotentialCollisions(std::vector<LPGAMEOBJECT>* coObjects, std::vector<LPCOEVENT>& coEvents)
 {
+	if (coObjects == NULL) return;
+
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOEVENT e = SweptAABBEx(coObjects->at(i));
@@ -104,51 +103,4 @@ void GameObject::FilterCollision(
 
 	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
-}
-
-
-
-
-
-void Block::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
-{
-	GameObject::Update(dt);
-
-	std::vector<LPCOEVENT> coEvents;
-
-	CalcPotentialCollisions(objects, coEvents);
-
-	if (coEvents.empty())
-	{
-		x += dx;
-		y += dy;
-	}
-	else 
-	{
-		std::vector<LPCOEVENT> coEventResults;
-		float min_tx, min_ty, nx, ny;
-
-		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
-
-		x += dx * min_tx + nx * 0.4;
-		y += dy * min_ty + ny * 0.4;
-
-		if (nx != 0) vx = -vx;
-		if (ny != 0) vy = -vy;
-
-	}
-
-
-}
-
-void Block::Render()
-{
-	sprite->Draw(x, y);
-}
-void Block::GetBoundingBox(float& l, float& t, float& r, float& b)
-{
-	l = x;
-	t = y;
-	r = l + 20;
-	b = t + 20;
 }

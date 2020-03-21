@@ -5,6 +5,8 @@
 #include <d3dx9.h>
 #include <dinput.h>
 
+#include "Texture.h"
+
 #define KEYBOARD_BUFFER_SIZE 1024
 
 class KeyEventHandler
@@ -47,7 +49,7 @@ public:
 	void Init(HWND hWnd);
 	void InitKeyboard(LPKEYEVENTHANDLER handler);
 
-	void Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha);
+	void Draw(float x, float y, LPTEXTURE texture, RECT rect, int alpha = 255, bool flip = false);
 	void FillColor(int r = 0, int g = 0, int b = 0);
 	void ProcessKeyboard();
 	int IsKeyDown(int KeyCode);
