@@ -13,8 +13,14 @@ public:
 	void EndScene();
 	void Update(DWORD dt);
 	void Render();
-	void ButtonDown(int keyCode);
-	void ButtonUp(int keyCode);
 
+};
+
+class GameKeyHandler : public KeyEventHandler
+{
+public:
+	void KeyState(BYTE* state);
+	void OnKeyDown(int KeyCode);
+	void OnKeyUp(int KeyCode);
 };
 

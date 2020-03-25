@@ -8,7 +8,6 @@ Castlevania::Castlevania()
 {
 	d3ddv = 0;
 	spriteHandler = 0;
-	keyHandler = 0;
 }
 
 Castlevania::~Castlevania()
@@ -17,8 +16,8 @@ Castlevania::~Castlevania()
 
 void Castlevania::LoadResources()
 {
-	d3ddv = Game::GetInstance()->GetDirect3DDevice();
-	spriteHandler = Game::GetInstance()->GetSpriteHandler();
+	d3ddv = Graphics::GetInstance()->GetDirect3DDevice();
+	spriteHandler = Graphics::GetInstance()->GetSpriteHandler();
 
 	scenes = Scenes::GetInstance();
 	scenes->LoadResource();
@@ -27,12 +26,15 @@ void Castlevania::LoadResources()
 
 void Castlevania::Update(DWORD dt)
 {
+	Input::GetInstance()->GetKeyHandler(scenes->GetKeyHandler());
+	Input::GetInstance()->ProcessKeyboard();
+
 	scenes->Update(dt);
 }
 
 void Castlevania::Render()
 {
-	Game::GetInstance()->FillColor();
+	Graphics::GetInstance()->FillColor();
 
 	if (SUCCEEDED(d3ddv->BeginScene()))
 	{
@@ -46,10 +48,4 @@ void Castlevania::Render()
 	}
 
 	d3ddv->Present(NULL, NULL, NULL, NULL);
-}
-
-LPKEYEVENTHANDLER Castlevania::GetKeyHandler()
-{
-	if (!keyHandler) keyHandler = new Keyboard;
-	return keyHandler;
 }

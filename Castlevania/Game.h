@@ -1,68 +1,49 @@
 #pragma once
 
+#define WINDOW_CLASS_NAME L"GameWindow"
+#define MAIN_WINDOW_TITLE L"Castlevania"
+
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
+#define SCREEN_WIDTH 256
+#define SCREEN_HEIGHT 240
+
+#define MAX_FRAME_RATE 60
+
+
 #include <Windows.h>
-#include <d3d9.h>
-#include <d3dx9.h>
-#include <dinput.h>
+#include "Debug.h"
+#include "Graphics.h"
+#include "Input.h"
+#include "Sound.h"
 
-#include "Texture.h"
-
-#define KEYBOARD_BUFFER_SIZE 1024
-
-class KeyEventHandler
-{
-public:
-	virtual void KeyState(BYTE* state) = 0;
-	virtual void OnKeyDown(int KeyCode) = 0;
-	virtual void OnKeyUp(int KeyCode) = 0;
-};
-
-typedef KeyEventHandler* LPKEYEVENTHANDLER;
 
 class Game
 {
 private:
-	static Game* _instance;
+	HWND _hwnd;
+	Graphics* _graphics;
+	Input* _input;
+	Sound* _sound;
 
-	HWND hWnd;				
+	MSG msg;
+	int done;
+	DWORD frameStart;
+	DWORD tickPerFrame;
 
-	LPDIRECT3D9 d3d;
-	LPDIRECT3DDEVICE9 d3ddv;
+	HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, LPCTSTR WindowTitle, int ScreenWidth, int ScreenHeight);
 
-	LPDIRECT3DSURFACE9 backBuffer;
-	LPD3DXSPRITE spriteHandler;
-
-	LPDIRECTINPUT8 di;
-	LPDIRECTINPUTDEVICE8 didv;
-
-	BYTE  keyStates[256];
-	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];
-
-	LPKEYEVENTHANDLER keyHandler;
+protected:
+	virtual void Update(DWORD dt) = 0;
+	virtual void Render() = 0;
 
 public:
 	Game();
 	~Game();
 
-	static Game* GetInstance();
-
-	void Init(HWND hWnd);
-	void InitKeyboard(LPKEYEVENTHANDLER handler);
-
-	void Draw(float x, float y, LPTEXTURE texture, RECT rect, int alpha = 255, bool flip = false);
-	void FillColor(int r = 0, int g = 0, int b = 0);
-	void ProcessKeyboard();
-	bool IsKeyDown(int KeyCode);
-
-	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return d3ddv; }
-	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
-	LPD3DXSPRITE GetSpriteHandler() { return spriteHandler; }
-
-	static void SweptAABB(
-		float ml, float mt, float mr, float mb,
-		float dx, float dy,
-		float sl, float st, float sr, float sb,
-		float& t, float& nx, float& ny);
+	bool Init(HINSTANCE hInstance, int nCmdShow, LPCTSTR WindowTitle, int screenW, int screenH , int FrameRate);
+	virtual void LoadResources() = 0;
+	void Run();
 
 };
 
+LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

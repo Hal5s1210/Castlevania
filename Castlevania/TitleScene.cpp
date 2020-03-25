@@ -1,10 +1,9 @@
 #include "TitleScene.h"
-#include "Keyboard.h"
 
 void TitleScene::LoadScene()
 {
+	keyHandler = new TitleKeyHandler;
 	id = TITLE_SCENE_ID;
-
 	Textures::GetInstance()->Add(TITLE_BG_TEX_ID, TITLE_BG_TEX_DIR, D3DCOLOR_XRGB(0, 128, 0));
 	Textures::GetInstance()->Add(TITLE_BAT_TEX_ID, TITLE_BAT_TEX_DIR, D3DCOLOR_XRGB(0, 128, 0));
 	Textures::GetInstance()->Add(TITLE_TEXT_TEX_ID, TITLE_TEXT_TEX_DIR, D3DCOLOR_XRGB(0, 128, 0));
@@ -65,22 +64,32 @@ void TitleScene::Render()
 		o->Render();
 }
 
-void TitleScene::ButtonDown(int keyCode)
+void TitleScene::Enter()
 {
-	if (keyCode == BUTTON_START)
+	if (!enter)
 	{
-		if (!enter)
-		{
-			enter = true;
-			text->SetAnimation(TITLE_TEXT_ANIMATION_2);
-		}
+		enter = true;
+		text->SetAnimation(TITLE_TEXT_ANIMATION_2);
 	}
 }
 
-void TitleScene::ButtonUp(int keyCode)
+
+
+void TitleKeyHandler::KeyState(BYTE* state) 
 {
 }
 
+void TitleKeyHandler::OnKeyDown(int KeyCode)
+{
+	if (KeyCode == BUTTON_START)
+	{
+		Enter();
+	}
+}
+
+void TitleKeyHandler::OnKeyUp(int KeyCode)
+{
+}
 
 
 

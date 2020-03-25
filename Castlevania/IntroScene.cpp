@@ -4,6 +4,7 @@
 
 void IntroScene::LoadScene()
 {
+	keyHandler = 0;
 	id = INTRO_SCENE_ID;
 	Textures::GetInstance()->Add(INTRO_BG_TEX_ID, INTRO_BG_TEX_DIR, D3DCOLOR_XRGB(255, 255, 255));
 	Textures::GetInstance()->Add(INTRO_BAT_TEX_ID, INTRO_BAT_TEX_DIR, D3DCOLOR_XRGB(116, 116, 116));

@@ -9,7 +9,6 @@ GameObject::GameObject()
 	dx = dy = 0;
 	dt = 0;
 	currentAnimation = -1;
-	state = 0;
 	flip = false;
 }
 
@@ -44,7 +43,7 @@ LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
 
 	GetBoundingBox(ml, mt, mr, mb);
 
-	Game::SweptAABB(
+	Graphics::SweptAABB(
 		ml, mt, mr, mb,
 		dx, dy,
 		sl, st, sr, sb,

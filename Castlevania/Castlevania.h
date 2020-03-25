@@ -1,31 +1,25 @@
 #pragma once
-#include <Windows.h>
-#include <d3d9.h>
-#include <vector>
 #include "Game.h"
 #include "Keyboard.h"
 #include "GameObject.h"
 #include "Scene.h"
 
 
-class Castlevania
+class Castlevania : public Game
 {
 private:
 	LPDIRECT3DDEVICE9 d3ddv;
 	LPD3DXSPRITE spriteHandler;
 
-	KeyEventHandler* keyHandler;
-
 	Scenes* scenes;
+
+	void Update(DWORD dt);
+	void Render();
 
 public:
 	Castlevania();
 	~Castlevania();
 
 	void LoadResources();
-	void Update(DWORD dt);
-	void Render();
-
-	LPKEYEVENTHANDLER GetKeyHandler();
 };
 

@@ -43,7 +43,7 @@ void Animation::Draw(float x, float y, int alpha, bool flip)
 		}
 	}
 
-	Game::GetInstance()->Draw(x, y, texture, frames[currentFrame]->Rect, alpha, flip);
+	Graphics::GetInstance()->Draw(x, y, texture, frames[currentFrame]->Rect, alpha, flip);
 }
 
 

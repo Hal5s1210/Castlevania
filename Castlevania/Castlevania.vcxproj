@@ -147,10 +147,11 @@
     <ClCompile Include="Castlevania.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="IntroScene.cpp" />
-    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Simon.cpp" />
@@ -163,10 +164,11 @@
     <ClInclude Include="Castlevania.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="IntroScene.h" />
-    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KonoDioDa.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simon.h" />

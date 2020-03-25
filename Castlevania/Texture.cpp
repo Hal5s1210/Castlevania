@@ -27,7 +27,7 @@ void Textures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 		return;
 	}
 
-	LPDIRECT3DDEVICE9 d3ddv = Game::GetInstance()->GetDirect3DDevice();
+	LPDIRECT3DDEVICE9 d3ddv = Graphics::GetInstance()->GetDirect3DDevice();
 
 	LPDIRECT3DTEXTURE9 texture;
 

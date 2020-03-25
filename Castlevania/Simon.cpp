@@ -62,7 +62,8 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
-	vy += GRAVITY;
+	float dg = dt * GRAVITY;
+	vy += dg;
 
 	std::vector<LPCOEVENT> coEvents;
 
@@ -76,17 +77,20 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	else
 	{
 		std::vector<LPCOEVENT> coEventResults;
-		float min_tx, min_ty;
+		float min_tx, min_ty, nx, ny;
 
 		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
 
-		x += dx * min_tx + nx;
-		y += dy * min_ty + ny;
+		x += dx * min_tx + nx * (dg + 0.1f);
+		y += dy * min_ty + ny * (dg+ 0.1f);
 
+		if (nx != 0)
+		{
+			vx = 0;
+		}
 		if (ny != 0)
 		{
 			vy = 0;
-			GoIdle();
 		}
 	}
 
@@ -130,28 +134,15 @@ void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void Simon::GoIdle()
 {
-	Game* game = Game::GetInstance();
-
 	if (attack)
 		return;
 
 	if (!crounch)
 	{
-		if (game->IsKeyDown(PAD_LEFT))
-		{ 
-			GoLeft(true);
-			return;
-		}
-		else if (game->IsKeyDown(PAD_RIGHT))
-		{
-			GoRight(true);
-			return;
-		}
-		else
-			SetAnimation(SIMON_IDLE_ANIMATION);
+		SetAnimation(SIMON_IDLE_ANIMATION);
 	}
 	else SetAnimation(SIMON_CROUNCH_ANIMATION);
-	if (ny == -1) vx = 0;
+	vx = 0;
 }
 
 
@@ -160,10 +151,8 @@ void Simon::GoLeft(bool active)
 	if (attack)
 		return;
 
-	if (active && nx != -1)
+	if (active)
 	{
-		if (ny != -1)
-			return;
 		SetAnimation(SIMON_WALK_ANIMATION);
 		vx = -SIMON_SPEED;
 		flip = false;
@@ -179,10 +168,8 @@ void Simon::GoRight(bool active)
 	if (attack)
 		return;
 
-	if (active && nx != 1)
+	if (active)
 	{
-		if (ny != -1)
-			return;
 		SetAnimation(SIMON_WALK_ANIMATION);
 		vx = SIMON_SPEED;
 		flip = true;
@@ -200,8 +187,6 @@ void Simon::Crounch(bool active)
 
 	if (active)
 	{
-		if (ny != -1)
-			return;
 		SetAnimation(SIMON_CROUNCH_ANIMATION);
 		crounch = true;
 		vx = 0;
@@ -230,9 +215,5 @@ void Simon::Attack()
 	else
 		SetAnimation(SIMON_ATTACK_1_ANIMATION);
 	attack = true;
-	if (ny == -1) vx = 0;
-}
-
-void Simon::Gravity()
-{
+	vx = 0;
 }

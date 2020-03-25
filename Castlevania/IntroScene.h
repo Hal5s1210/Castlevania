@@ -45,10 +45,9 @@ public:
 	void EndScene();
 	void Update(DWORD dt);
 	void Render();
-	void ButtonDown(int keyCode) {}
-	void ButtonUp(int keyCode) {}
 
 };
+
 
 class IntroBG :public GameObject
 {

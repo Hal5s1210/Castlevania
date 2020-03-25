@@ -1,8 +1,8 @@
 #include "GameScene.h"
-#include "Keyboard.h"
 
 void GameScene::LoadScene()
 {
+	keyHandler = new GameKeyHandler;
 	Textures::GetInstance()->Add(SIMON_TEX_ID, SIMON_TEX_DIR, D3DCOLOR_XRGB(116, 116, 116));
 	Textures::GetInstance()->Add(-100, L"Resources\\Textures\\red.bmp", D3DCOLOR_XRGB(116, 116, 116));
 
@@ -44,11 +44,21 @@ void GameScene::Render()
 	simon->Render();
 }
 
-void GameScene::ButtonDown(int keyCode)
+
+
+
+
+void GameKeyHandler::KeyState(BYTE* state)
 {
+}
+
+void GameKeyHandler::OnKeyDown(int KeyCode)
+{
+	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+
 	if (simon)
 	{
-		switch (keyCode)
+		switch (KeyCode)
 		{
 		case PAD_LEFT:
 			simon->GoLeft(true);
@@ -74,11 +84,13 @@ void GameScene::ButtonDown(int keyCode)
 	}
 }
 
-void GameScene::ButtonUp(int keyCode)
+void GameKeyHandler::OnKeyUp(int KeyCode)
 {
+	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+
 	if (simon)
 	{
-		switch (keyCode)
+		switch (KeyCode)
 		{
 		case PAD_LEFT:
 			simon->GoLeft(false);

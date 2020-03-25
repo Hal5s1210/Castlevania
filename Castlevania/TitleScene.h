@@ -37,10 +37,19 @@ public:
 	void EndScene();
 	void Update(DWORD dt);
 	void Render();
-	void ButtonDown(int keyCode);
-	void ButtonUp(int keyCode);
+
+	void Enter();
 
 };
+
+class TitleKeyHandler : public KeyEventHandler
+{
+public:
+	void KeyState(BYTE* state);
+	void OnKeyDown(int KeyCode);
+	void OnKeyUp(int KeyCode);
+};
+
 
 
 class TitleBG : public GameObject

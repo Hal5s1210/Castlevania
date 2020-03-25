@@ -44,6 +44,7 @@ bool Sound::Init(HWND hwnd)
 	if (FAILED(hr))
 		return false;
 
+	OutputDebugString(L"[INFO] InitSound done;\n");
 	return true;
 }
 

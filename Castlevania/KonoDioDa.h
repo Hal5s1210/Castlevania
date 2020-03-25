@@ -38,6 +38,7 @@ class KonoDioDa : public Scene
 public:
 	void LoadScene()
 	{
+		keyHandler = 0;
 		Textures::GetInstance()->Add(DIO_TEX_ID, DIO_TEX_DIR, D3DCOLOR_XRGB(116, 116, 116));
 
 		dio = new Dio;
@@ -60,7 +61,5 @@ public:
 	{
 		dio->Render();
 	}
-	void ButtonDown(int keyCode) {}
-	void ButtonUp(int keyCode) {}
 };
 

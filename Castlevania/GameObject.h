@@ -32,11 +32,8 @@ protected:
 	float x, y;
 	float vx, vy;
 	float dx, dy;
-	float nx, ny;
 
 	DWORD dt;
-
-	int state;
 
 	bool flip;
 
@@ -99,10 +96,12 @@ public:
 	{
 		animations[currentAnimation]->Draw(x, y);
 	}
+
 	void GetBoundingBox(float& l, float& t, float& r, float& b)
 	{
-		l = x + 1; t = y + 1;
-		r = l + 14;
-		b = t + 14;
+		l = x;
+		t = y;
+		r = l + 16;
+		b = t + 16;
 	}
 };

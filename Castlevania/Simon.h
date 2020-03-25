@@ -11,9 +11,9 @@
 #define SIMON_HITED_ANIMATION		5
 #define SIMON_DEAD_ANIMATION		6
 
-#define SIMON_SPEED					0.05
-#define JUMP_FORCE					-0.4;
-#define GRAVITY						0.05;
+#define SIMON_SPEED					0.1f
+#define JUMP_FORCE					-0.5f;
+#define GRAVITY						0.002f;
 
 #include "GameObject.h"
 
@@ -23,6 +23,7 @@ private:
 	bool attack;
 	bool crounch;
 	bool jump;
+	bool onground;
 
 public:
 	Simon();
@@ -34,7 +35,6 @@ public:
 	void Crounch(bool active);
 	void Jump();
 	void Attack();
-	void Gravity();
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render();

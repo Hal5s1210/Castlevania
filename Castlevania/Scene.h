@@ -5,8 +5,8 @@
 
 
 #include <vector>
-#include "GameObject.h"
 #include "Game.h"
+#include "GameObject.h"
 
 class Scene
 {
@@ -14,6 +14,9 @@ protected:
 	bool sceneStart;
 	bool sceneEnd;
 	int id;
+
+	LPKEYEVENTHANDLER keyHandler;
+
 	std::vector<LPGAMEOBJECT> mapObjs;
 	std::vector<LPGAMEOBJECT> items;
 	std::vector<LPGAMEOBJECT> enemies;
@@ -23,13 +26,12 @@ public:
 	bool IsEnd() { return sceneEnd; }
 	int GetId() { return id; }
 
+	virtual LPKEYEVENTHANDLER GetKeyHandler() { return keyHandler; }
+
 	virtual void LoadScene() = 0;
 	virtual void EndScene() = 0;
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
-
-	virtual void ButtonDown(int keyCode) = 0;
-	virtual void ButtonUp(int keyCode) = 0;
 
 };
 typedef Scene* LPSCENE;
@@ -49,6 +51,7 @@ public:
 	void Update(DWORD dt);
 	void Render();
 
+	LPKEYEVENTHANDLER GetKeyHandler() { return scenes[currentScene]->GetKeyHandler(); }
 	LPSCENE CurrentScene() { return scenes[currentScene]; }
 	void NextScene() { currentScene++; }
 
