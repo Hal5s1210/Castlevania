@@ -49,7 +49,6 @@ public:
 	TitleBG();
 	~TitleBG();
 
-	void SetState(int state) { currentAnimation = state; }
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
 
@@ -62,7 +61,6 @@ public:
 	TitleBat();
 	~TitleBat();
 
-	void SetState(int state) { currentAnimation = state; }
 	void Update(DWORD dt);
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
@@ -76,7 +74,6 @@ public:
 	StartText();
 	~StartText();
 
-	void SetState(int state) { currentAnimation = state; }
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
 

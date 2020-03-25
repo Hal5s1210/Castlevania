@@ -122,7 +122,7 @@ IntroBat::IntroBat()
 	s->AddFrame(8, 0, 8, 8);
 	AddAnimation(s);
 
-	SetState(INTRO_BAT_ANIMATION);
+	SetAnimation(INTRO_BAT_ANIMATION);
 }
 
 IntroBat::~IntroBat()
@@ -158,7 +158,7 @@ IntroCloud::IntroCloud()
 	s->AddFrame(0, 0, 32, 16);
 	AddAnimation(s);
 
-	SetState(INTRO_CLOUD_ANIMATION);
+	SetAnimation(INTRO_CLOUD_ANIMATION);
 }
 
 IntroCloud::~IntroCloud()
@@ -200,7 +200,7 @@ IntroSimon::IntroSimon()
 	s2->AddFrame(80, 0, 16, 32);
 	AddAnimation(s2);
 
-	SetState(INTRO_SIMON_ANIMATION_1);
+	SetAnimation(INTRO_SIMON_ANIMATION_1);
 }
 IntroSimon::~IntroSimon()
 {
@@ -211,7 +211,7 @@ void IntroSimon::Update(DWORD dt)
 {
 	if (x < 120)
 	{
-		SetState(INTRO_SIMON_ANIMATION_2);
+		SetAnimation(INTRO_SIMON_ANIMATION_2);
 		SetSpeed(0, 0);
 		SetPosition(120, 177);
 	}

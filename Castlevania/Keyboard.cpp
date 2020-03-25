@@ -15,15 +15,6 @@ void Keyboard::OnKeyDown(int KeyCode)
 	LPSCENE scene = Scenes::GetInstance()->CurrentScene();
 	if (!scene) return;
 
-	/*switch (KeyCode)
-	{
-	case BUTTON_START:
-		if (scene->GetId() == TITLE_SCENE_ID)
-		{
-			scene->ButtonDown(BUTTON_START);
-		}
-		break;
-	}*/
 	scene->ButtonDown(KeyCode);
 }
 
@@ -34,14 +25,5 @@ void Keyboard::OnKeyUp(int KeyCode)
 	LPSCENE scene = Scenes::GetInstance()->CurrentScene();
 	if (!scene) return;
 
-	/*switch (KeyCode)
-	{
-	case BUTTON_START:
-		if (scene->GetId() == TITLE_SCENE_ID)
-		{
-			scene->ButtonUp(BUTTON_START);
-		}
-		break;
-	}*/
 	scene->ButtonUp(KeyCode);
 }

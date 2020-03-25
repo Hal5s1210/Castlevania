@@ -167,6 +167,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="KonoDioDa.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sound.h" />

@@ -17,7 +17,7 @@ void Animation::AddFrame(int left, int top, int width, int height, int time)
 	rect.top = top;
 	rect.right = left + width;
 	rect.bottom = top + height;
-	LPFRAME frame = new Frame(rect, time);
+	LPSRPITE frame = new Sprite(rect, time);
 	frames.push_back(frame);
 }
 

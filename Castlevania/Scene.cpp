@@ -2,6 +2,7 @@
 #include "TitleScene.h"
 #include "IntroScene.h"
 #include "GameScene.h"
+#include "KonoDioDa.h"
 #include "Debug.h"
 
 Scenes* Scenes::_instance = 0;
@@ -15,6 +16,7 @@ Scenes* Scenes::GetInstance()
 void Scenes::LoadResource()
 {
 	//scenes.push_back(new TitleScene);
+	//scenes.push_back(new KonoDioDa);
 	//scenes.push_back(new IntroScene);
 	scenes.push_back(new GameScene);
 	scenes.push_back(NULL);

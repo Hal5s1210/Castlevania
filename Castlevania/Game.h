@@ -52,7 +52,7 @@ public:
 	void Draw(float x, float y, LPTEXTURE texture, RECT rect, int alpha = 255, bool flip = false);
 	void FillColor(int r = 0, int g = 0, int b = 0);
 	void ProcessKeyboard();
-	int IsKeyDown(int KeyCode);
+	bool IsKeyDown(int KeyCode);
 
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }

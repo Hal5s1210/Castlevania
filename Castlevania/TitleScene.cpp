@@ -72,7 +72,7 @@ void TitleScene::ButtonDown(int keyCode)
 		if (!enter)
 		{
 			enter = true;
-			text->SetState(TITLE_TEXT_ANIMATION_2);
+			text->SetAnimation(TITLE_TEXT_ANIMATION_2);
 		}
 	}
 }
@@ -94,7 +94,7 @@ TitleBG::TitleBG()
 	s->AddFrame(0, 0, 256, 240);
 	AddAnimation(s);
 
-	SetState(TITLE_BG_ANIMATION);
+	SetAnimation(TITLE_BG_ANIMATION);
 }
 
 TitleBG::~TitleBG()
@@ -135,14 +135,14 @@ TitleBat::TitleBat()
 	s2->AddFrame(648, 168, 72, 56, 50);
 	AddAnimation(s2);
 
-	SetState(TITLE_BAT_ANIMATION_1);
+	SetAnimation(TITLE_BAT_ANIMATION_1);
 }
 
 void TitleBat::Update(DWORD dt)
 {
-	if (animations[currentAnimation]->GetFrame() == 39)
+	if (animations[currentAnimation]->CurrentFrameIndex() == 39)
 	{
-		SetState(TITLE_BAT_ANIMATION_2);
+		SetAnimation(TITLE_BAT_ANIMATION_2);
 	}
 }
 
@@ -177,7 +177,7 @@ StartText::StartText()
 	s2->AddFrame(0, 8, 112, 8);
 	AddAnimation(s2);
 
-	SetState(TITLE_TEXT_ANIMATION_1);
+	SetAnimation(TITLE_TEXT_ANIMATION_1);
 }
 
 void StartText::Render()

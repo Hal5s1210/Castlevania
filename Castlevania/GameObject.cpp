@@ -83,8 +83,8 @@ void GameObject::FilterCollision(
 	int min_ix = -1;
 	int min_iy = -1;
 
-	nx = 0.0f;
-	ny = 0.0f;
+	nx = 0;
+	ny = 0;
 
 	coEventsResult.clear();
 

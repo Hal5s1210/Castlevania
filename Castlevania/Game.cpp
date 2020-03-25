@@ -195,7 +195,7 @@ void Game::ProcessKeyboard()
 	}
 }
 
-int Game::IsKeyDown(int KeyCode)
+bool Game::IsKeyDown(int KeyCode)
 {
 	return (keyStates[KeyCode] & 0x80) > 0;
 }

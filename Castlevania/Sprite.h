@@ -4,26 +4,29 @@
 #include <unordered_map>
 #include <vector>
 
+struct Sprite
+{
+	RECT Rect;
+	int Time;
+
+	Sprite(RECT rect, int time) :Rect(rect), Time(time) {}
+
+};
+typedef Sprite* LPSRPITE;
+
+
+
+
 class Animation
 {
 private:
-	struct Frame
-	{
-		RECT Rect;
-		int Time;
-
-		Frame(RECT rect, int time) :Rect(rect), Time(time) {}
-
-	};
-	typedef Frame* LPFRAME;
-
 	LPTEXTURE texture;
 
 	DWORD lastFrameTime;
 	int currentFrame;
 	bool paused;
 
-	std::vector<LPFRAME> frames;
+	std::vector<LPSRPITE> frames;
 
 public:
 	Animation(LPTEXTURE tex);
@@ -31,7 +34,9 @@ public:
 	void AddFrame(int left, int top, int width, int height, int time = 100);
 	void Pause() { paused = true; }
 	void Play() { paused = false; }
-	int GetFrame() { return currentFrame; }
+	void Reset() { if (frames.size() != 0) currentFrame = 0; }
+	int CurrentFrameIndex() { return currentFrame; }
+	LPSRPITE GetFrame() { if (currentFrame >= 0) return frames[currentFrame]; return NULL; }
 	void Draw(float x, float y, int alpha = 255, bool flip = false);
 
 };

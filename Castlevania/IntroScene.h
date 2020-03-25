@@ -68,7 +68,6 @@ public:
 	IntroBat();
 	~IntroBat();
 
-	void SetState(int state) { currentAnimation = state; }
 	void Update(DWORD dt);
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
@@ -81,7 +80,6 @@ public:
 	IntroCloud();
 	~IntroCloud();
 
-	void SetState(int state) { currentAnimation = state; }
 	void Update(DWORD dt);
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
@@ -94,7 +92,6 @@ public:
 	IntroSimon();
 	~IntroSimon();
 
-	void SetState(int state) { currentAnimation = state; }
 	void Update(DWORD dt);
 	void Render();
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}

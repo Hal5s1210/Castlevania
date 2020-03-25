@@ -5,20 +5,36 @@
 
 #define SIMON_IDLE_ANIMATION		0
 #define SIMON_WALK_ANIMATION		1
+#define SIMON_CROUNCH_ANIMATION		2
+#define SIMON_ATTACK_1_ANIMATION	3
+#define SIMON_ATTACK_2_ANIMATION	4
+#define SIMON_HITED_ANIMATION		5
+#define SIMON_DEAD_ANIMATION		6
 
-#define SIMON_STATE_IDLE			0
-#define SIMON_STATE_WALK_LEFT		1
-#define SIMON_STATE_WALK_RIGHT		2
+#define SIMON_SPEED					0.05
+#define JUMP_FORCE					-0.4;
+#define GRAVITY						0.05;
 
 #include "GameObject.h"
 
 class Simon : public GameObject
 {
+private:
+	bool attack;
+	bool crounch;
+	bool jump;
+
 public:
 	Simon();
 	~Simon();
 
-	void SetState(int state);
+	void GoIdle();
+	void GoLeft(bool active);
+	void GoRight(bool active);
+	void Crounch(bool active);
+	void Jump();
+	void Attack();
+	void Gravity();
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render();

@@ -32,6 +32,7 @@ protected:
 	float x, y;
 	float vx, vy;
 	float dx, dy;
+	float nx, ny;
 
 	DWORD dt;
 
@@ -57,13 +58,12 @@ public:
 
 	void SetPosition(float x, float y) { this->x = x; this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx; this->vy = vy; }
-	void SetState(int state) { this->state = state; }
 
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
-	int GetState() { return state; }
 
 	void AddAnimation(LPANIMATION animation) { animations.push_back(animation); }
+	void SetAnimation(int animation) { currentAnimation = animation; animations[currentAnimation]->Reset(); }
 	void PauseAnimation() { animations[currentAnimation]->Pause(); }
 	void PlayAnimtion() { animations[currentAnimation]->Play(); }
 
@@ -71,4 +71,38 @@ public:
 	virtual void Render() = 0;
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b) = 0;
 
+};
+
+
+
+
+class Platform :public GameObject
+{
+public:
+	Platform()
+	{
+		LPTEXTURE texture = Textures::GetInstance()->Get(-100);
+
+		LPANIMATION s = new Animation(texture);
+		s->AddFrame(0, 0, 16, 16);
+		AddAnimation(s);
+
+		SetAnimation(0);
+	}
+
+	~Platform()
+	{
+		animations.clear();
+	}
+
+	void Render() 
+	{
+		animations[currentAnimation]->Draw(x, y);
+	}
+	void GetBoundingBox(float& l, float& t, float& r, float& b)
+	{
+		l = x + 1; t = y + 1;
+		r = l + 14;
+		b = t + 14;
+	}
 };
