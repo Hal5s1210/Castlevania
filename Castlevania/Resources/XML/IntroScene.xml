@@ -1,0 +1,56 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<Textures>
+	<Texture Id = "1">
+		<Path>Resources\Textures\IntroBG.png</Path>
+		<R>255</R>
+		<G>255</G>
+		<B>255</B>
+	</Texture>
+	<Texture Id = "2">
+		<Path>Resources\Textures\IntroBat.png</Path>
+		<R>116</R>
+		<G>116</G>
+		<B>116</B>
+	</Texture>
+	<Texture Id = "3">
+		<Path>Resources\Textures\IntroCloud.png</Path>
+		<R>116</R>
+		<G>116</G>
+		<B>116</B>
+	</Texture>
+	<Texture Id = "4">
+		<Path>Resources\Textures\Simon.png</Path>
+		<R>116</R>
+		<G>116</G>
+		<B>116</B>
+	</Texture>
+</Textures>
+
+<Sounds>
+	<Sound Id = "1">
+		<Path>Resources\Sounds\01. Introduction (Castle Gate).wav</Path>
+	</Sound>
+</Sounds>
+
+<Objects>
+	<Object Id = "3">
+		<X>0</X>
+		<Y>48</Y>
+	</Object>
+	<Object Id = "4">
+		<X>30</X>
+		<Y>108</Y>
+	</Object>
+	<Object Id = "4">
+		<X>160</X>
+		<Y>74</Y>
+	</Object>
+	<Object Id = "5">
+		<X>240</X>
+		<Y>76</Y>
+	</Object>
+	<Object Id = "6">
+		<X>240</X>
+		<Y>177</Y>
+	</Object>
+</Objects>

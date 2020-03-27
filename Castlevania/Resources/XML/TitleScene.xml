@@ -1,0 +1,36 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<Textures>
+	<Texture Id = "1">
+		<Path>Resources\Textures\TitleBG.png</Path>
+		<R>0</R>
+		<G>128</G>
+		<B>0</B>
+	</Texture>
+	<Texture Id = "2">
+		<Path>Resources\Textures\TitleBat.png</Path>
+		<R>0</R>
+		<G>128</G>
+		<B>0</B>
+	</Texture>
+	<Texture Id = "3">
+		<Path>Resources\Textures\TitleText.png</Path>
+		<R>0</R>
+		<G>128</G>
+		<B>0</B>
+	</Texture>
+</Textures>
+
+<Objects>
+	<Object Id = "1">
+		<X>0</X>
+		<Y>0</Y>
+	</Object>
+	<Object Id = "2">
+		<X>184</X>
+		<Y>104</Y>
+	</Object>
+	<Object Id = "3">
+		<X>72</X>
+		<Y>136</Y>
+	</Object>
+</Objects>
