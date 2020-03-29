@@ -1,56 +1,37 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
-<Textures>
-	<Texture Id = "1">
-		<Path>Resources\Textures\IntroBG.png</Path>
-		<R>255</R>
-		<G>255</G>
-		<B>255</B>
-	</Texture>
-	<Texture Id = "2">
-		<Path>Resources\Textures\IntroBat.png</Path>
-		<R>116</R>
-		<G>116</G>
-		<B>116</B>
-	</Texture>
-	<Texture Id = "3">
-		<Path>Resources\Textures\IntroCloud.png</Path>
-		<R>116</R>
-		<G>116</G>
-		<B>116</B>
-	</Texture>
-	<Texture Id = "4">
-		<Path>Resources\Textures\Simon.png</Path>
-		<R>116</R>
-		<G>116</G>
-		<B>116</B>
-	</Texture>
-</Textures>
+<Scene>
+	<Textures>
+    <Texture Id="4" path="Resources\Textures\IntroBG.png" red="255" green="255" blue="255"/>
+    <Texture Id="5" path="Resources\Textures\IntroBat.png" red="116" green="116" blue="116"/>
+    <Texture Id="6" path="Resources\Textures\IntroCloud.png" red="116" green="116" blue="116"/>
+    <Texture Id="0" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
+	</Textures>
 
-<Sounds>
-	<Sound Id = "1">
-		<Path>Resources\Sounds\01. Introduction (Castle Gate).wav</Path>
-	</Sound>
-</Sounds>
+	<Sounds>
+		<Sound Id="0" path="Resources\Sounds\01. Introduction (Castle Gate).wav"/>
+	</Sounds>
 
-<Objects>
-	<Object Id = "3">
-		<X>0</X>
-		<Y>48</Y>
-	</Object>
-	<Object Id = "4">
-		<X>30</X>
-		<Y>108</Y>
-	</Object>
-	<Object Id = "4">
-		<X>160</X>
-		<Y>74</Y>
-	</Object>
-	<Object Id = "5">
-		<X>240</X>
-		<Y>76</Y>
-	</Object>
-	<Object Id = "6">
-		<X>240</X>
-		<Y>177</Y>
-	</Object>
-</Objects>
+	<Objects>
+    <Object Id="4">
+      <Position x="0" y="0"/>
+      <Speed x="0" y="0"/>
+    </Object>
+		<Object Id="5">
+      <Position x="30" y="60"/>
+      <Speed x="0.01" y="-0.007"/>
+		</Object>
+		<Object Id="5">
+      <Position x="160" y="26"/>
+      <Speed x="-0.006" y="-0.0025"/>
+		</Object>
+		<Object Id="6">
+      <Position x="240" y="28"/>
+      <Speed x="-0.0075" y="0"/>
+		</Object>
+		<Object Id="7">
+      <Position x="240" y="129"/>
+      <Speed x="-0.03" y="0"/>
+		</Object>
+	</Objects>
+  
+</Scene>

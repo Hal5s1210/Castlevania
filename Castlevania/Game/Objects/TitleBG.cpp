@@ -3,21 +3,16 @@
 
 TitleBG::TitleBG()
 {
-	LPTEXTURE texture = Textures::GetInstance()->Get(TITLE_BG_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(TEXTURE_TITLEBG_ID);
 
 	LPANIMATION s = new Animation(texture);
 	s->AddFrame(0, 0, 256, 240);
-	AddAnimation(s);
+	AddAnimation("ani", s);
 
-	SetAnimation(TITLE_BG_ANIMATION);
+	SetAnimation("ani");
 }
 
-TitleBG::~TitleBG()
+void TitleBG::Render(float x, float y)
 {
-	animations.clear();
-}
-
-void TitleBG::Render()
-{
-	animations[currentAnimation]->Draw(x, y);
+	currentAnimation->Draw(this->x + x, this->y + y);
 }

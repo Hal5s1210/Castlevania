@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\Framework\Scene.h"
+#include "Scene.h"
 #include "..\Objects\Simon.h"
 
 class GameScene : public Scene
@@ -14,16 +14,10 @@ public:
 	void UpdateScene(DWORD dt);
 	void RenderScene();
 
-	Simon* GetSimon() { return simon; }
-
-};
-
-class GameKeyHandler : public KeyEventHandler
-{
-public:
-	GameKeyHandler(Scene* s) :KeyEventHandler(s) {}
 	void KeyState(BYTE* state);
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
+
+	Simon* GetSimon() { return simon; }
 };
 

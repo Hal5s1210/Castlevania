@@ -16,18 +16,14 @@
 
 class Scene;
 
-class KeyEventHandler
+class IKeyEventHandler
 {
-protected:
-	Scene* scene;
 public:
-	KeyEventHandler(Scene* s) { scene = s; }
-
 	virtual void KeyState(BYTE* state) = 0;
 	virtual void OnKeyDown(int KeyCode) = 0;
 	virtual void OnKeyUp(int KeyCode) = 0;
 };
-typedef KeyEventHandler* LPKEYEVENTHANDLER;
+typedef IKeyEventHandler* LPKEYEVENTHANDLER;
 
 
 

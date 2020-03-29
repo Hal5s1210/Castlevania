@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
-#include "Sprite.h"
+#include <unordered_map>
+#include "..\..\Framework\Sprite.h"
 
 class GameObject;
 typedef GameObject* LPGAMEOBJECT;
@@ -37,8 +37,8 @@ protected:
 
 	bool flip;
 
-	std::vector<LPANIMATION> animations;
-	int currentAnimation;
+	std::unordered_map<const char*, LPANIMATION> animations;
+	LPANIMATION currentAnimation;
 
 
 	LPCOEVENT SweptAABBEx(LPGAMEOBJECT coO);
@@ -59,57 +59,13 @@ public:
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
-	void AddAnimation(LPANIMATION animation) { animations.push_back(animation); }
-	void SetAnimation(int animation) { currentAnimation = animation; animations[currentAnimation]->Reset(); }
-	void PauseAnimation() { animations[currentAnimation]->Pause(); }
-	void PlayAnimtion() { animations[currentAnimation]->Play(); }
+	void AddAnimation(const char* id, LPANIMATION animation) { animations[id] = animation; }
+	void SetAnimation(const char* id) { currentAnimation = animations[id]; }
+	void PauseAnimation() { currentAnimation->Pause(); }
+	void PlayAnimtion() { currentAnimation->Play(); }
 
 	virtual void Update(DWORD dt);
-	virtual void Render() = 0;
+	virtual void Render(float x = 0, float y = 0) = 0;
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b) = 0;
 
-};
-
-
-
-class Generator
-{
-public:
-	virtual LPGAMEOBJECT ObjectCreate(int id) = 0;
-	virtual LPGAMEOBJECT MapCreate(int id) = 0;
-	virtual LPGAMEOBJECT EnemyCreate(int id) = 0;
-};
-
-
-class Platform :public GameObject
-{
-public:
-	Platform()
-	{
-		LPTEXTURE texture = Textures::GetInstance()->Get(-100);
-
-		LPANIMATION s = new Animation(texture);
-		s->AddFrame(0, 0, 16, 16);
-		AddAnimation(s);
-
-		SetAnimation(0);
-	}
-
-	~Platform()
-	{
-		animations.clear();
-	}
-
-	void Render() 
-	{
-		animations[currentAnimation]->Draw(x, y);
-	}
-
-	void GetBoundingBox(float& l, float& t, float& r, float& b)
-	{
-		l = x;
-		t = y;
-		r = l + 16;
-		b = t + 16;
-	}
 };

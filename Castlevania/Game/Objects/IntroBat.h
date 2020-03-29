@@ -1,19 +1,15 @@
 #pragma once
 
-#define INTRO_BAT_TEX_ID			2
-
-#define INTRO_BAT_ANIMATION			0
-
-#include "..\..\Framework\GameObject.h"
+#include "..\ID.h"
+#include "GameObject.h"
 
 class IntroBat : public GameObject
 {
 public:
 	IntroBat();
-	~IntroBat();
 
 	void Update(DWORD dt);
-	void Render();
+	void Render(float x = 0, float y = 0);
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
 };
 

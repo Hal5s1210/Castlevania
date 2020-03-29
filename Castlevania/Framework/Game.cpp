@@ -7,6 +7,8 @@ Game::Game()
 	_graphics = Graphics::GetInstance();
 	_input = Input::GetInstance();
 	_sound = Sound::GetInstance();
+
+	view = Viewport::GetInstance();
 }
 
 
@@ -15,6 +17,7 @@ Game::~Game()
 	delete _graphics;
 	delete _input;
 	delete _sound;
+	delete view;
 }
 
 
@@ -49,6 +52,8 @@ bool Game::Init(HINSTANCE hInstance, int nCmdShow, LPCTSTR WindowTitle, int Scre
 	}
 
 	tickPerFrame = 1000 / FrameRate;
+
+	view->SetSize(ScreenW, ScreenH);
 
 	OutputDebugString(L"[INFO] CreateWindow done\n");
 	return true;

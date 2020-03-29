@@ -6,23 +6,27 @@
 
 #include <vector>
 
-#include "Input.h"
-#include "Sound.h"
-#include "Debug.h"
-#include "GameObject.h"
-#include "..\Dependencies\pugixml\src\pugixml.hpp"
+#include "..\..\Framework\Input.h"
+#include "..\..\Framework\Sound.h"
+#include "..\..\Framework\Debug.h"
+#include "..\Objects\ObjectGenerator.h"
+#include "..\Map\Map.h"
+#include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 
-class Scene
+class Scene : public IKeyEventHandler
 {
 protected:
 	bool sceneStart;
 	bool sceneEnd;
 	int id;
+	float x, y;
 
-	Generator* generator;
 	LPKEYEVENTHANDLER keyHandler;
+	
+	Map* map;
 
+	LPGAMEOBJECT player;
 	std::vector<LPGAMEOBJECT> mapObjs;
 	std::vector<LPGAMEOBJECT> items;
 	std::vector<LPGAMEOBJECT> enemies;
@@ -35,6 +39,7 @@ public:
 	int GetId() { return id; }
 
 	LPKEYEVENTHANDLER GetKeyHandler() { return keyHandler; }
+	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 
 	virtual void LoadScene() = 0;
 	virtual void UpdateScene(DWORD dt) = 0;
@@ -61,7 +66,7 @@ public:
 	void Add(LPSCENE scene);
 	LPSCENE GetScene() { return scenes[currentScene]; }
 	LPKEYEVENTHANDLER GetKeyHandler() { return scenes[currentScene]->GetKeyHandler(); }
-	void NextScene() { currentScene++; }
+	void NextScene() { if (currentScene < scenes.size())currentScene++; }
 
 };
 

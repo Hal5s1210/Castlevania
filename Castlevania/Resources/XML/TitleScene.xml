@@ -1,36 +1,25 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
-<Textures>
-	<Texture Id = "1">
-		<Path>Resources\Textures\TitleBG.png</Path>
-		<R>0</R>
-		<G>128</G>
-		<B>0</B>
-	</Texture>
-	<Texture Id = "2">
-		<Path>Resources\Textures\TitleBat.png</Path>
-		<R>0</R>
-		<G>128</G>
-		<B>0</B>
-	</Texture>
-	<Texture Id = "3">
-		<Path>Resources\Textures\TitleText.png</Path>
-		<R>0</R>
-		<G>128</G>
-		<B>0</B>
-	</Texture>
-</Textures>
+<Scene>
+	<Textures>
+    <Texture Id="1" path="Resources\Textures\TitleBG.png" red="0" green="128" blue="0"/>
+    <Texture Id="2" path="Resources\Textures\TitleBat.png" red="0" green="128" blue="0"/>
+    <Texture Id="3" path="Resources\Textures\TitleText.png" red="0" green="128" blue="0"/>
+	</Textures>
 
-<Objects>
-	<Object Id = "1">
-		<X>0</X>
-		<Y>0</Y>
-	</Object>
-	<Object Id = "2">
-		<X>184</X>
-		<Y>104</Y>
-	</Object>
-	<Object Id = "3">
-		<X>72</X>
-		<Y>136</Y>
-	</Object>
-</Objects>
+	<Objects>
+		<Object Id="1">
+      <Position x="0" y="0" />
+      <Speed x="0" y="0"/>
+			<VY>0</VY>
+		</Object>
+		<Object Id="2">
+      <Position x="184" y="104" />
+      <Speed x="0" y="0"/>
+		</Object>
+		<Object Id="3">
+      <Position x="72" y="136" />
+      <Speed x="0" y="0"/>
+		</Object>
+	</Objects>
+  
+</Scene>

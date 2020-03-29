@@ -29,21 +29,16 @@ void Animation::Draw(float x, float y, int alpha, bool flip)
 		currentFrame = 0;
 		lastFrameTime = now;
 	}
-	else
-	{
-		DWORD t = frames[currentFrame]->Time;
-		if (now - lastFrameTime > t)
-		{
-			lastFrameTime = now;
-
-			if (!paused)
-				currentFrame++;
-
-			if (currentFrame >= frames.size()) currentFrame = 0;
-		}
-	}
 
 	Graphics::GetInstance()->Draw(x, y, texture, frames[currentFrame]->Rect, alpha, flip);
+
+	DWORD t = frames[currentFrame]->Time;
+	if (now - lastFrameTime > t)
+	{
+		lastFrameTime = now;
+		if (!paused) currentFrame++;
+		if (currentFrame >= frames.size()) currentFrame = -1;
+	}
 }
 
 

@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Framework\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Castlevania.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -40,9 +37,6 @@
       <Filter>Source Files\Framework</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Input.cpp">
-      <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Framework\Scene.cpp">
       <Filter>Source Files\Framework</Filter>
     </ClCompile>
     <ClCompile Include="Framework\Sound.cpp">
@@ -90,6 +84,24 @@
     <ClCompile Include="Game\Objects\IntroCloud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Objects\IntroSimon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Viewport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scenes\Scene.cpp">
+      <Filter>Source Files\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Map\Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Map\Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Castlevania.h">
@@ -101,16 +113,10 @@
     <ClInclude Include="Framework\Game.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\GameObject.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Graphics.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Input.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Scene.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Sound.h">
@@ -159,6 +165,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\IntroCloud.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ID.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\IntroSimon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Viewport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scenes\Scene.h">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Map\Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Map\Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

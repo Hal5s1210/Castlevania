@@ -1,7 +1,6 @@
 #pragma once
 #include "..\Framework\Game.h"
-#include "..\Framework\GameObject.h"
-#include "..\Framework\Scene.h"
+#include "..\Game\Scenes\Scene.h"
 
 
 class Castlevania : public Game

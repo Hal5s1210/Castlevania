@@ -1,20 +1,13 @@
 #include "GameScene.h"
 
+
 void GameScene::LoadScene()
 {
-	keyHandler = new GameKeyHandler(this);
-	Textures::GetInstance()->Add(SIMON_TEX_ID, SIMON_TEX_DIR, D3DCOLOR_XRGB(116, 116, 116));
-	Textures::GetInstance()->Add(-100, L"Resources\\Textures\\red.bmp", D3DCOLOR_XRGB(116, 116, 116));
+	x = 0;
+	y = 48;
+	LoadFromFile(L"Resources\\XML\\GameScene.xml");
 
-	simon = new Simon;
-	simon->SetPosition(132, 108);
-
-	for (int i = 0; i < 10; i++)
-	{
-		Platform* p = new Platform;
-		p->SetPosition(16 * i + 48, 160);
-		mapObjs.push_back(p);
-	}
+	simon = dynamic_cast<Simon*>(player);
 
 	OutputDebugString(L"[INFO] GameScene loaded OK\n");
 	sceneStart = true;
@@ -24,8 +17,7 @@ void GameScene::EndScene()
 {
 	delete simon;
 
-	Textures* textures = Textures::GetInstance();
-	textures->Remove(SIMON_TEX_ID);
+	Textures::GetInstance()->Clear();
 
 	OutputDebugString(L"[INFO] GameScene ended OK\n");
 }
@@ -37,45 +29,47 @@ void GameScene::UpdateScene(DWORD dt)
 
 void GameScene::RenderScene()
 {
+	map->Render(x, y);
 	for (LPGAMEOBJECT o : mapObjs)
 	{
-		o->Render();
+		o->Render(x, y);
 	}
-	simon->Render();
+	simon->Render(x, y);
 }
 
 
 
 
 
-void GameKeyHandler::KeyState(BYTE* state)
+void GameScene::KeyState(BYTE* state)
 {
+	Input* input = Input::GetInstance();
+	if (simon)
+	{
+		if (input->IsKeyDown(PAD_LEFT))
+			simon->GoLeft();
+		else if (input->IsKeyDown(PAD_RIGHT))
+			simon->GoRight();
+		else if (input->IsKeyDown(PAD_DOWN))
+			simon->Crounch();
+		else simon->GoIdle();
+	}
 }
 
-void GameKeyHandler::OnKeyDown(int KeyCode)
+void  GameScene::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
-	Simon* simon = dynamic_cast<GameScene*>(scene)->GetSimon();
 
 	if (simon)
 	{
 		switch (KeyCode)
 		{
-		case PAD_LEFT:
-			simon->GoLeft(true);
-			break;
-
-		case PAD_RIGHT:
-			simon->GoRight(true);
-			break;
-
-		case PAD_DOWN:
-			simon->Crounch(true);
-			break;
-
 		case BUTTON_A:
-			simon->Attack();
+			if (Input::GetInstance()->IsKeyDown(PAD_UP))
+				simon->SubAttack();
+			else if (Input::GetInstance()->IsKeyDown(PAD_DOWN))
+				simon->Attack(true);
+			else simon->Attack(false);
 			break;
 
 		case BUTTON_B:
@@ -86,13 +80,11 @@ void GameKeyHandler::OnKeyDown(int KeyCode)
 	}
 }
 
-void GameKeyHandler::OnKeyUp(int KeyCode)
+void  GameScene::OnKeyUp(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 
-	Simon* simon = dynamic_cast<GameScene*>(scene)->GetSimon();
-
-	if (simon)
+	/*if (simon)
 	{
 		switch (KeyCode)
 		{
@@ -109,5 +101,5 @@ void GameKeyHandler::OnKeyUp(int KeyCode)
 			break;
 
 		}
-	}
+	}*/
 }

@@ -3,12 +3,12 @@
 
 Simon::Simon()
 {
-	LPTEXTURE texture = Textures::GetInstance()->Get(SIMON_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(TEXTURE_SIMON_ID);
 
 	//idle
 	LPANIMATION s0 = new Animation(texture);
 	s0->AddFrame(0, 0, 16, 32);
-	AddAnimation(s0);
+	AddAnimation("idle", s0);
 
 	//walk
 	LPANIMATION s1 = new Animation(texture);
@@ -16,53 +16,53 @@ Simon::Simon()
 	s1->AddFrame(0, 32, 16, 32);
 	s1->AddFrame(16, 32, 16, 32);
 	s1->AddFrame(0, 32, 16, 32);
-	AddAnimation(s1);
+	AddAnimation("walk", s1);
 
 	//crounch
 	LPANIMATION s2 = new Animation(texture);
 	s2->AddFrame(0, 64, 16, 24);
-	AddAnimation(s2);
-	
+	AddAnimation("crounch", s2);
+
 	//attack1
 	LPANIMATION s3 = new Animation(texture);
-	s3->AddFrame(0, 96, 24, 32);
-	s3->AddFrame(24, 96, 18, 32);
-	s3->AddFrame(42, 96, 24, 32);
-	AddAnimation(s3);
+	s3->AddFrame(0, 96, 24, 32, 50);
+	s3->AddFrame(24, 96, 18, 32, 50);
+	s3->AddFrame(48, 96, 18, 32, 50);
+	AddAnimation("attack1", s3);
 
 	//attack2
 	LPANIMATION s4 = new Animation(texture);
-	s4->AddFrame(0, 128, 24, 24);
-	s4->AddFrame(24, 128, 18, 24);
-	s4->AddFrame(42, 128, 24, 24);
-	AddAnimation(s4);
+	s4->AddFrame(0, 128, 24, 24, 50);
+	s4->AddFrame(24, 128, 18, 24, 50);
+	s4->AddFrame(48, 128, 18, 24, 50);
+	AddAnimation("attack2", s4);
 
 	//hitted
 	LPANIMATION s5 = new Animation(texture);
 	s5->AddFrame(16, 64, 16, 32);
-	AddAnimation(s5);
+	AddAnimation("hitted", s5);
 
 	//dead
 	LPANIMATION s6 = new Animation(texture);
 	s6->AddFrame(32, 64, 16, 32);
 	s6->AddFrame(48, 64, 32, 16);
-	AddAnimation(s6);
+	AddAnimation("dead", s6);
 
-	SetAnimation(SIMON_IDLE_ANIMATION);
+	SetAnimation("idle");
+	attack = false;
+	crounch = false;
+	onair = true;
+
 }
-
 Simon::~Simon()
 {
-	//Animations* sprites = Animations::GetInstance();
-	animations.clear();
 }
 
 void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
-	float dg = dt * GRAVITY;
-	vy += dg;
+	 vy += dt * GRAVITY;
 
 	std::vector<LPCOEVENT> coEvents;
 
@@ -80,8 +80,9 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
 
-		x += dx * min_tx + nx * (dg + 0.1f);
-		y += dy * min_ty + ny * (dg+ 0.1f);
+		x += dx * min_tx + nx * 0.4f;
+		if(onair) 
+			y += dy * min_ty + ny * 0.4f;
 
 		if (nx != 0)
 		{
@@ -90,37 +91,35 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		if (ny != 0)
 		{
 			vy = 0;
+			if (ny == -1) onair = false;
+			//GoIdle();
 		}
 	}
 
-
+	Viewport::GetInstance()->SetPosition(x - 112, 0);
 }
 
-void Simon::Render()
+void Simon::Render(float x, float y)
 {
-	int prevIndex = animations[currentAnimation]->CurrentFrameIndex();
+	float X = this->x + x;
+	float Y = this->y + y;
 
-	float X = x;
-	float Y = y;
+	LPSRPITE frame = currentAnimation->GetFrame();
+	RECT r = frame->Rect;
+	if (flip) X += 16 - (r.right - r.left);
+	Y += 32 - (r.bottom - r.top);
 
-	LPSRPITE frame = animations[currentAnimation]->GetFrame();
-	if (frame)
-	{
-		RECT r = frame->Rect;
-		X += 16 - (r.right - r.left);
-		Y += 32 - (r.bottom - r.top);
-	}
-
-	animations[currentAnimation]->Draw(X, Y, 255, flip);
+	currentAnimation->Draw(X, Y, 255, flip);
 
 	if (attack)
 	{
-		if (prevIndex == 2 && animations[currentAnimation]->CurrentFrameIndex() == 0)
+		if (currentAnimation->CurrentFrameIndex() == -1)
 		{
 			attack = false;
 			GoIdle();
 		}
 	}
+	
 }
 
 void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -136,83 +135,71 @@ void Simon::GoIdle()
 	if (attack)
 		return;
 
-	if (!crounch)
+	if (onair)
 	{
-		SetAnimation(SIMON_IDLE_ANIMATION);
-	}
-	else SetAnimation(SIMON_CROUNCH_ANIMATION);
-	vx = 0;
-}
-
-
-void Simon::GoLeft(bool active)
-{
-	if (attack)
-		return;
-
-	if (active)
-	{
-		SetAnimation(SIMON_WALK_ANIMATION);
-		vx = -SIMON_SPEED;
-		flip = false;
+		SetAnimation("crounch");
 	}
 	else
 	{
-		GoIdle();
-	}
-}
-
-void Simon::GoRight(bool active)
-{
-	if (attack)
-		return;
-
-	if (active)
-	{
-		SetAnimation(SIMON_WALK_ANIMATION);
-		vx = SIMON_SPEED;
-		flip = true;
-	}
-	else
-	{
-		GoIdle();
-	}
-}
-
-void Simon::Crounch(bool active)
-{
-	if (attack)
-		return;
-
-	if (active)
-	{
-		SetAnimation(SIMON_CROUNCH_ANIMATION);
-		crounch = true;
+		SetAnimation("idle");
 		vx = 0;
 	}
-	else
-	{
-		crounch = false;
-		GoIdle();
-	}
+}
+
+
+void Simon::GoLeft()
+{
+	if (attack || onair)
+		return;
+
+	SetAnimation("walk");
+	vx = -SIMON_SPEED;
+	flip = false;
+	
+}
+
+void Simon::GoRight()
+{
+	if (attack || onair)
+		return;
+
+	SetAnimation("walk");
+	vx = SIMON_SPEED;
+	flip = true;
+}
+
+void Simon::Crounch()
+{
+	if (attack || onair)
+		return;
+
+	SetAnimation("crounch");
+	vx = 0;
 }
 
 void Simon::Jump()
 {
-	if (!jump)
+	if (!onair)
 	{
 		vy = JUMP_FORCE;
-		SetAnimation(SIMON_CROUNCH_ANIMATION);
+		onair = true;
+		SetAnimation("crounch");
 	}
 }
 
-void Simon::Attack()
+void Simon::Attack(bool crounch)
 {
-
-	if (crounch)
-		SetAnimation(SIMON_ATTACK_2_ANIMATION);
+	if (crounch && !onair)
+		SetAnimation("attack2");
 	else
-		SetAnimation(SIMON_ATTACK_1_ANIMATION);
+		SetAnimation("attack1");
 	attack = true;
-	vx = 0;
+	if (!onair) vx = 0;
+}
+
+void Simon::SubAttack()
+{
+	SetAnimation("attack1");
+	attack = true;
+	if (!onair) vx = 0;
 }

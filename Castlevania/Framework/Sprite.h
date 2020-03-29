@@ -36,7 +36,7 @@ public:
 	void Play() { paused = false; }
 	void Reset() { if (frames.size() != 0) currentFrame = 0; }
 	int CurrentFrameIndex() { return currentFrame; }
-	LPSRPITE GetFrame() { if (currentFrame >= 0) return frames[currentFrame]; return NULL; }
+	LPSRPITE GetFrame() { if (currentFrame != -1) return frames[currentFrame]; return frames[0]; }
 	void Draw(float x, float y, int alpha = 255, bool flip = false);
 
 };

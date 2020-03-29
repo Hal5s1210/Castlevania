@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "Viewport.h"
 #include "Debug.h"
 
 Graphics* Graphics::_instance = 0;
@@ -66,14 +67,20 @@ bool Graphics::Init(HWND hWnd)
 
 void Graphics::Draw(float x, float y, LPTEXTURE texture, RECT rect, int alpha, bool flip)
 {
+	float cam_x, cam_y;
+	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+
+	float xx, yy;
+	xx = x - cam_x;
+	yy = y - cam_y;
 
 	if (flip)
 	{
 		D3DXMATRIX a, b;
 		spriteHandler->GetTransform(&a);
-		D3DXMatrixTransformation2D(&b, &D3DXVECTOR2(int(x), int(y)), 0.f, &D3DXVECTOR2(-1.f, 1.f), NULL, 0.f, NULL);
+		D3DXMatrixTransformation2D(&b, &D3DXVECTOR2(int(xx), int(yy)), 0.f, &D3DXVECTOR2(-1.f, 1.f), NULL, 0.f, NULL);
 
-		D3DXVECTOR3 p(floor(x - (rect.right - rect.left)), floor(y), 0);
+		D3DXVECTOR3 p(floor(xx - (rect.right - rect.left)), floor(yy), 0);
 
 		spriteHandler->SetTransform(&(a * b));
 		spriteHandler->Draw(texture->GetTexture(), &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
@@ -81,7 +88,7 @@ void Graphics::Draw(float x, float y, LPTEXTURE texture, RECT rect, int alpha, b
 	}
 	else
 	{
-		D3DXVECTOR3 p(floor(x), floor(y), 0);
+		D3DXVECTOR3 p(floor(xx), floor(yy), 0);
 
 		spriteHandler->Draw(texture->GetTexture(), &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	}

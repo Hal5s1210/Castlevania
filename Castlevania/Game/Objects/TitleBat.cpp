@@ -2,7 +2,7 @@
 
 TitleBat::TitleBat()
 {
-	LPTEXTURE texture = Textures::GetInstance()->Get(TITLE_BAT_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(TEXTURE_TITLEBAT_ID);
 
 	LPANIMATION s1 = new Animation(texture);
 	for (int y = 0; y < 4; y++)
@@ -12,34 +12,28 @@ TitleBat::TitleBat()
 			s1->AddFrame(x * 72, y * 56, 72, 56, 50);
 		}
 	}
-	AddAnimation(s1);
+	AddAnimation("ani1", s1);
 
 	LPANIMATION s2 = new Animation(texture);
 	s2->AddFrame(576, 168, 72, 56, 50);
 	s2->AddFrame(504, 168, 72, 56, 50);
 	s2->AddFrame(576, 168, 72, 56, 50);
 	s2->AddFrame(648, 168, 72, 56, 50);
-	AddAnimation(s2);
+	AddAnimation("ani2", s2);
 
-	SetAnimation(TITLE_BAT_ANIMATION_1);
+	SetAnimation("ani1");
 }
 
 void TitleBat::Update(DWORD dt)
 {
-	if (animations[currentAnimation]->CurrentFrameIndex() == 39)
+	if (currentAnimation->CurrentFrameIndex() == 39)
 	{
-		SetAnimation(TITLE_BAT_ANIMATION_2);
+		SetAnimation("ani2");
 	}
 }
 
-void TitleBat::Render()
+void TitleBat::Render(float x, float y)
 {
-	animations[currentAnimation]->Draw(x, y);
-
-}
-
-TitleBat::~TitleBat()
-{
-	animations.clear();
+	currentAnimation->Draw(this->x + x, this->y + y);
 }
 

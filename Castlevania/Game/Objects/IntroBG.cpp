@@ -2,21 +2,17 @@
 
 IntroBG::IntroBG()
 {
-	LPTEXTURE texture = Textures::GetInstance()->Get(INTRO_BG_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(TEXTURE_INTROBG_ID);
 
 	LPANIMATION s = new Animation(texture);
 	s->AddFrame(0, 0, 256, 192);
-	AddAnimation(s);
+	AddAnimation("ani", s);
 
-	SetState(INTRO_BG_ANIMATION);
+	SetAnimation("ani");
 }
 
-IntroBG::~IntroBG()
-{
-	animations.clear();
-}
 
-void IntroBG::Render()
+void IntroBG::Render(float x, float y)
 {
-	animations[currentAnimation]->Draw(x, y);
+	currentAnimation->Draw(this->x + x, this->y + y);
 }

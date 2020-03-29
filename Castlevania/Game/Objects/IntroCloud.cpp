@@ -3,18 +3,13 @@
 
 IntroCloud::IntroCloud()
 {
-	LPTEXTURE texture = Textures::GetInstance()->Get(INTRO_CLOUD_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(TEXTURE_INTROCLOUD_ID);
 
 	LPANIMATION s = new Animation(texture);
 	s->AddFrame(0, 0, 32, 16);
-	AddAnimation(s);
+	AddAnimation("ani", s);
 
-	SetAnimation(INTRO_CLOUD_ANIMATION);
-}
-
-IntroCloud::~IntroCloud()
-{
-	animations.clear();
+	SetAnimation("ani");
 }
 
 void IntroCloud::Update(DWORD dt)
@@ -25,7 +20,7 @@ void IntroCloud::Update(DWORD dt)
 	y += dy;
 }
 
-void IntroCloud::Render()
+void IntroCloud::Render(float x, float y)
 {
-	animations[currentAnimation]->Draw(x, y);
+	currentAnimation->Draw(this->x + x, this->y + y);
 }

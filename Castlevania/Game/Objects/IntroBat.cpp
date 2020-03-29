@@ -3,20 +3,16 @@
 
 IntroBat::IntroBat()
 {
-	LPTEXTURE texture = Textures::GetInstance()->Get(INTRO_BAT_TEX_ID);
+	LPTEXTURE texture = Textures::GetInstance()->Get(TEXTURE_INTROBAT_ID);
 
 	LPANIMATION s = new Animation(texture);
 	s->AddFrame(0, 0, 8, 8);
 	s->AddFrame(8, 0, 8, 8);
-	AddAnimation(s);
+	AddAnimation("ani", s);
 
-	SetAnimation(INTRO_BAT_ANIMATION);
+	SetAnimation("ani");
 }
 
-IntroBat::~IntroBat()
-{
-	animations.clear();
-}
 
 void IntroBat::Update(DWORD dt)
 {
@@ -26,7 +22,7 @@ void IntroBat::Update(DWORD dt)
 	y += dy;
 }
 
-void IntroBat::Render()
+void IntroBat::Render(float x, float y)
 {
-	animations[currentAnimation]->Draw(x, y);
+	currentAnimation->Draw(this->x + x, this->y + y);
 }

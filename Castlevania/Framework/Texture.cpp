@@ -67,3 +67,13 @@ void Textures::Remove(int id)
 	textures.erase(id);
 }
 
+void Textures::Clear()
+{
+	for (std::unordered_map<int,LPTEXTURE>::iterator itr = textures.begin(); itr !=  textures.end();itr++)
+	{
+		if (itr->second) delete itr->second;
+	}
+	textures.clear();
+}
+
+

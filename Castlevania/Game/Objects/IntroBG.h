@@ -1,18 +1,13 @@
 #pragma once
 
-#define INTRO_BG_TEX_ID				1
-
-#define INTRO_BG_ANIMATION			0
-
-#include "..\..\Framework\GameObject.h"
+#include "..\ID.h"
+#include "GameObject.h"
 
 class IntroBG :public GameObject
 {
 public:
 	IntroBG();
-	~IntroBG();
 
-	void SetState(int state) { currentAnimation = state; }
-	void Render();
+	void Render(float x = 0, float y = 0);
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
 };

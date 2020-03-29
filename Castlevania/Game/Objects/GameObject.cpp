@@ -1,6 +1,6 @@
 #include "GameObject.h"
 #include <algorithm>
-#include "Game.h"
+#include "..\..\Framework\Graphics.h"
 
 GameObject::GameObject()
 {
@@ -8,12 +8,15 @@ GameObject::GameObject()
 	vx = vy = 0;
 	dx = dy = 0;
 	dt = 0;
-	currentAnimation = -1;
+	currentAnimation = 0;
 	flip = false;
 }
 
 GameObject::~GameObject()
 {
+	for (std::unordered_map<const char*, LPANIMATION>::iterator itr = animations.begin(); itr != animations.end(); itr++)
+		if (itr->second) delete itr->second;
+	animations.clear();
 }
 
 void GameObject::Update(DWORD dt)

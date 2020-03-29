@@ -15,6 +15,7 @@
 #include "Graphics.h"
 #include "Input.h"
 #include "Sound.h"
+#include "Viewport.h"
 
 
 class Game
@@ -24,6 +25,7 @@ private:
 	Graphics* _graphics;
 	Input* _input;
 	Sound* _sound;
+	Viewport* view;
 
 	MSG msg;
 	int done;
