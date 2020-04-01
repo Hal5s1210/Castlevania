@@ -76,7 +76,7 @@ void Scene::LoadFromFile(const wchar_t* filepath)
 	{
 		map = new Map;
 		map->LoadMap(mapNode);
-		map->GetMapObject(&mapObjs);
+		map->GetMapObject(mapNode, &mapObjs);
 	}
 
 	OutputDebugString(L"[INFO] Load Scene map done\n");
@@ -90,9 +90,9 @@ void Scene::LoadFromFile(const wchar_t* filepath)
 
 		LPGAMEOBJECT o = Generator::PlayerCreate();
 
-		int x, y;
-		x = playerNode.child(L"Position").attribute(L"x").as_int();
-		y = playerNode.child(L"Position").attribute(L"y").as_int();
+		float x, y;
+		x = playerNode.child(L"Position").attribute(L"x").as_float();
+		y = playerNode.child(L"Position").attribute(L"y").as_float();
 		o->SetPosition(x, y);
 
 		float vx, vy;

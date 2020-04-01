@@ -8,7 +8,7 @@ void GameScene::LoadScene()
 	LoadFromFile(L"Resources\\XML\\GameScene.xml");
 
 	simon = dynamic_cast<Simon*>(player);
-
+	Sound::GetInstance()->Play(SOUND_COUNTYARD_ID);
 	OutputDebugString(L"[INFO] GameScene loaded OK\n");
 	sceneStart = true;
 }
@@ -30,10 +30,6 @@ void GameScene::UpdateScene(DWORD dt)
 void GameScene::RenderScene()
 {
 	map->Render(x, y);
-	for (LPGAMEOBJECT o : mapObjs)
-	{
-		o->Render(x, y);
-	}
 	simon->Render(x, y);
 }
 
@@ -66,10 +62,20 @@ void  GameScene::OnKeyDown(int KeyCode)
 		{
 		case BUTTON_A:
 			if (Input::GetInstance()->IsKeyDown(PAD_UP))
-				simon->SubAttack();
+			{
+				simon->ReadySubWeapon();
+				simon->Attack(false);
+			}
 			else if (Input::GetInstance()->IsKeyDown(PAD_DOWN))
+			{
+				simon->ReadyWeapon();
 				simon->Attack(true);
-			else simon->Attack(false);
+			}
+			else
+			{
+				simon->ReadyWeapon();
+				simon->Attack(false);
+			}
 			break;
 
 		case BUTTON_B:
@@ -83,23 +89,4 @@ void  GameScene::OnKeyDown(int KeyCode)
 void  GameScene::OnKeyUp(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
-
-	/*if (simon)
-	{
-		switch (KeyCode)
-		{
-		case PAD_LEFT:
-			simon->GoLeft(false);
-			break;
-
-		case PAD_RIGHT:
-			simon->GoRight(false);
-			break;
-
-		case PAD_DOWN:
-			simon->Crounch(false);
-			break;
-
-		}
-	}*/
 }

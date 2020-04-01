@@ -35,17 +35,20 @@
     <ClCompile Include="Game\Main.cpp" />
     <ClCompile Include="Game\Objects\Simon.cpp" />
     <ClCompile Include="Game\Scenes\TitleScene.cpp" />
-    <ClCompile Include="Game\Objects\ObjectGenerator.cpp" />
-    <ClCompile Include="Game\Objects\TitleBG.cpp" />
-    <ClCompile Include="Game\Objects\TitleBat.cpp" />
-    <ClCompile Include="Game\Objects\TitleText.cpp" />
-    <ClCompile Include="Game\Objects\IntroBG.cpp" />
-    <ClCompile Include="Game\Objects\IntroBat.cpp" />
-    <ClCompile Include="Game\Objects\IntroCloud.cpp" />
-    <ClCompile Include="Game\Objects\IntroSimon.cpp" />
+    <ClCompile Include="Game\Objects\Generator.cpp" />
+    <ClCompile Include="Game\Objects\Others\TitleBG.cpp" />
+    <ClCompile Include="Game\Objects\Others\TitleBat.cpp" />
+    <ClCompile Include="Game\Objects\Others\TitleText.cpp" />
+    <ClCompile Include="Game\Objects\Others\IntroBG.cpp" />
+    <ClCompile Include="Game\Objects\Others\IntroBat.cpp" />
+    <ClCompile Include="Game\Objects\Others\IntroCloud.cpp" />
+    <ClCompile Include="Game\Objects\Others\IntroSimon.cpp" />
     <ClCompile Include="Game\Map\Grid.cpp" />
     <ClCompile Include="Game\Map\Map.cpp" />
     <ClCompile Include="Framework\Viewport.cpp" />
+    <ClCompile Include="Game\Objects\Weapons\Whip.cpp" />
+    <ClCompile Include="Game\Objects\Weapons\MorningStar.cpp" />
+    <ClCompile Include="Game\Objects\Weapons\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dependencies\pugixml\src\pugiconfig.hpp" />
@@ -65,17 +68,20 @@
     <ClInclude Include="Game\Scenes\IntroScene.h" />
     <ClInclude Include="Game\Objects\Simon.h" />
     <ClInclude Include="Game\Scenes\TitleScene.h" />
-    <ClInclude Include="Game\Objects\ObjectGenerator.h" />
-    <ClInclude Include="Game\Objects\TitleBG.h" />
-    <ClInclude Include="Game\Objects\TitleBat.h" />
-    <ClInclude Include="Game\Objects\TitleText.h" />
-    <ClInclude Include="Game\Objects\IntroBG.h" />
-    <ClInclude Include="Game\Objects\IntroBat.h" />
-    <ClInclude Include="Game\Objects\IntroCloud.h" />
-    <ClInclude Include="Game\Objects\IntroSimon.h" />
+    <ClInclude Include="Game\Objects\Generator.h" />
+    <ClInclude Include="Game\Objects\Others\TitleBG.h" />
+    <ClInclude Include="Game\Objects\Others\TitleBat.h" />
+    <ClInclude Include="Game\Objects\Others\TitleText.h" />
+    <ClInclude Include="Game\Objects\Others\IntroBG.h" />
+    <ClInclude Include="Game\Objects\Others\IntroBat.h" />
+    <ClInclude Include="Game\Objects\Others\IntroCloud.h" />
+    <ClInclude Include="Game\Objects\Others\IntroSimon.h" />
     <ClInclude Include="Game\Map\Grid.h" />
     <ClInclude Include="Game\Map\Map.h" />
     <ClInclude Include="Framework\Viewport.h" />
+    <ClInclude Include="Game\Objects\Weapons\Whip.h" />
+    <ClInclude Include="Game\Objects\Weapons\MorningStar.h" />
+    <ClInclude Include="Game\Objects\Weapons\Weapon.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

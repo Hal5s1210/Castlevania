@@ -2,13 +2,6 @@
 #include <locale>
 #include <codecvt>
 
-Map::~Map()
-{
-	for (int i = 0; i < height; i++)
-		delete[] mapMatrix[i];
-	delete[] mapMatrix;
-}
-
 void Map::LoadMap(pugi::xml_node node)
 {
 	int id = node.attribute(L"tileset").as_int();
@@ -19,7 +12,6 @@ void Map::LoadMap(pugi::xml_node node)
 	tileH = node.attribute(L"tileH").as_int();
 
 	LoadTiles();
-	LoadCollisionTiles(node.child(L"CollisionTiles"));
 	LoadMatrix(node.child(L"Matrix"));
 	
 }
@@ -28,15 +20,16 @@ void Map::Render(float sx, float sy)
 {
 	Graphics* g = Graphics::GetInstance();
 	Viewport* view = Viewport::GetInstance();
-	float x, y;
-	view->GetPosition(x, y);
-	int w, h;
-	view->GetSize(w, h);
-	int X, Y, XW, YH;
-	X = max(x / tileW, 0);
-	Y = max(y / tileH, 0);
-	XW = min((x + w) / tileW + 1, width);
-	YH = min((y + h) / tileH + 1, height);
+
+	float cam_x, cam_y;
+	view->GetPosition(cam_x, cam_y);
+	int cam_w, cam_h;
+	view->GetSize(cam_w, cam_h);
+
+	int X = max(cam_x / tileW, 0);
+	int Y = max(cam_y / tileH, 0);
+	int XW = min((cam_x + cam_w) / tileW + 1, width);
+	int YH = min((cam_y + cam_h) / tileH + 1, height);
 
 
 	for (int i = Y; i < YH; i++)
@@ -68,41 +61,17 @@ void Map::LoadTiles()
 	}
 }
 
-void Map::LoadCollisionTiles(pugi::xml_node node)
-{
-	using convert_type = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_type, wchar_t> converter;
-	std::wstring str = node.text().as_string();
-	std::string converted_str = converter.to_bytes(str);
-	collisionTiles = split(converted_str, ',');
-}
-
 void Map::LoadMatrix(pugi::xml_node node)
 {
-	mapMatrix = new int* [height];
-	for (int i = 0; i < height; i++)
-		mapMatrix[i] = new int[width];
-
-	int i = 0, j = 0;
 	using convert_type = std::codecvt_utf8<wchar_t>;
 	std::wstring_convert<convert_type, wchar_t> converter;
+
 	for(pugi::xml_node n : node)
 	{
 		std::wstring str = n.text().as_string();
 		std::string converted_str = converter.to_bytes(str);
-
-		std::vector<int> substr = split(converted_str, ',');
-
-		for (int s : substr)
-		{
-			mapMatrix[i][j] = s;
-			j++;
-			if (j == width)
-			{
-				j = 0;
-				i++;
-			}
-		}
+		std::vector<int> row = split(converted_str, ',');
+		mapMatrix.push_back(row);
 	}
 }
 
@@ -121,24 +90,24 @@ std::vector<int> Map::split(const std::string& s, char delimiter)
 	return out;
 }
 
-void Map::GetMapObject(std::vector<LPGAMEOBJECT>* objlist)
+void Map::GetMapObject(pugi::xml_node node, std::vector<LPGAMEOBJECT>* objlist)
 {
-	std::vector<int>::iterator it;
-
-	for (int i = 0; i < height; i++)
+	pugi::xml_node objects = node.child(L"MapObjects");
+	for (pugi::xml_node n : objects)
 	{
-		for (int j = 0; j < width; j++)
-		{
-			it = std::find_if(collisionTiles.begin(), collisionTiles.end(), [&](int& o) { return o == mapMatrix[i][j]; });
-			if(it != collisionTiles.end())
-			{
-				Platform* p = new Platform;
-				p->SetBoundSize(tileW, tileH);
-				p->SetPosition(j * tileW, i * tileW);
+		Platform* p = new Platform;
 
-				objlist->push_back(p);
-			}
-		}
+		float x, y;
+		x = n.child(L"Position").attribute(L"x").as_float();
+		y = n.child(L"Position").attribute(L"y").as_float();
+		p->SetPosition(x, y);
+
+		float w, h;
+		w = n.child(L"Size").attribute(L"w").as_int();
+		h = n.child(L"Size").attribute(L"h").as_int();
+		p->SetBoundSize(w, h);
+
+		objlist->push_back(p);
 	}
 }
 

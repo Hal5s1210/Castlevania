@@ -9,7 +9,7 @@
 #include "..\..\Framework\Input.h"
 #include "..\..\Framework\Sound.h"
 #include "..\..\Framework\Debug.h"
-#include "..\Objects\ObjectGenerator.h"
+#include "..\Objects\Generator.h"
 #include "..\Map\Map.h"
 #include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 

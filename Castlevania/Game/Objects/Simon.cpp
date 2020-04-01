@@ -1,5 +1,8 @@
 #include "Simon.h"
+#include "Weapons\Whip.h"
+#include "Weapons\MorningStar.h"
 #include "..\..\Framework\Game.h"
+#include "..\Map\Map.h"
 
 Simon::Simon()
 {
@@ -26,15 +29,15 @@ Simon::Simon()
 	//attack1
 	LPANIMATION s3 = new Animation(texture);
 	s3->AddFrame(0, 96, 24, 32, 50);
-	s3->AddFrame(24, 96, 18, 32, 50);
-	s3->AddFrame(48, 96, 18, 32, 50);
+	s3->AddFrame(24, 96, 16, 32, 50);
+	s3->AddFrame(48, 96, 16, 32, 100);
 	AddAnimation("attack1", s3);
 
 	//attack2
 	LPANIMATION s4 = new Animation(texture);
 	s4->AddFrame(0, 128, 24, 24, 50);
-	s4->AddFrame(24, 128, 18, 24, 50);
-	s4->AddFrame(48, 128, 18, 24, 50);
+	s4->AddFrame(24, 128, 16, 24, 50);
+	s4->AddFrame(48, 128, 16, 24, 100);
 	AddAnimation("attack2", s4);
 
 	//hitted
@@ -49,6 +52,12 @@ Simon::Simon()
 	AddAnimation("dead", s6);
 
 	SetAnimation("idle");
+
+	weaponlevel = 0;
+	weapons.push_back(new NoWeapon);
+	weapons.push_back(new Whip);
+	weapons.push_back(new MorningStar);
+
 	attack = false;
 	crounch = false;
 	onair = true;
@@ -62,7 +71,11 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
-	 vy += dt * GRAVITY;
+	if (onair) jumpTime = (GetTickCount() - jumpStartTime) / 1000;
+	else jumpTime = 0;
+
+	float g = (jumpTime == 0 ? 1 : jumpTime) * dt * GRAVITY;
+	vy += g;
 
 	std::vector<LPCOEVENT> coEvents;
 
@@ -81,19 +94,29 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
 
 		x += dx * min_tx + nx * 0.4f;
-		if(onair) 
+		if (onair)
 			y += dy * min_ty + ny * 0.4f;
 
-		if (nx != 0)
+		for (LPCOEVENT coEvent : coEventResults)
 		{
-			vx = 0;
+			LPGAMEOBJECT o = coEvent->obj;
+
+			if (dynamic_cast<Platform*>(o))
+			{
+				if (coEvent->nx != 0)
+				{
+					vx = 0;
+				}
+
+				if (coEvent->ny != 0)
+				{
+					vy = 0;
+					if (onair) attack = false;
+					onair = false;
+				}
+			}
 		}
-		if (ny != 0)
-		{
-			vy = 0;
-			if (ny == -1) onair = false;
-			//GoIdle();
-		}
+
 	}
 
 	Viewport::GetInstance()->SetPosition(x - 112, 0);
@@ -104,16 +127,27 @@ void Simon::Render(float x, float y)
 	float X = this->x + x;
 	float Y = this->y + y;
 
+	int i = currentAnimation->CurrentFrameIndex();
 	LPSRPITE frame = currentAnimation->GetFrame();
 	RECT r = frame->Rect;
-	if (flip) X += 16 - (r.right - r.left);
-	Y += 32 - (r.bottom - r.top);
+	float fixX = flip ? 16 - (r.right - r.left) : 0;
+	float fixY = 32 - (r.bottom - r.top);
+	if (flip) X += fixX;
+	Y += fixY;
 
 	currentAnimation->Draw(X, Y, 255, flip);
 
 	if (attack)
 	{
-		if (currentAnimation->CurrentFrameIndex() == -1)
+		currentweapon->SetPosition(X + fixX, Y);
+		currentweapon->SetFrameIndex(i);
+		float w, h;
+		w = r.right - r.left;
+		h = r.bottom - r.top;
+
+		currentweapon->Render(w, h, flip);
+
+		if (currentAnimation->IsFrameReset())
 		{
 			attack = false;
 			GoIdle();
@@ -182,6 +216,7 @@ void Simon::Jump()
 	if (!onair)
 	{
 		vy = JUMP_FORCE;
+		jumpStartTime = GetTickCount();
 		onair = true;
 		SetAnimation("crounch");
 	}
@@ -189,17 +224,32 @@ void Simon::Jump()
 
 void Simon::Attack(bool crounch)
 {
+	if (attack)
+		return;
+
 	if (crounch && !onair)
 		SetAnimation("attack2");
 	else
 		SetAnimation("attack1");
+	currentAnimation->Reset();
 	attack = true;
 	if (!onair) vx = 0;
 }
 
-void Simon::SubAttack()
+void Simon::ReadyWeapon()
 {
-	SetAnimation("attack1");
-	attack = true;
-	if (!onair) vx = 0;
+	switch (weaponlevel)
+	{
+	case 0:
+		currentweapon = weapons[1];
+		break;
+	case 1:
+		currentweapon = weapons[2];
+		break;
+	}
+}
+
+void Simon::ReadySubWeapon()
+{
+	currentweapon = weapons[0];
 }

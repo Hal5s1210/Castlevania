@@ -8,6 +8,7 @@
 #define TEXTURE_INTROBG_ID				4
 #define TEXTURE_INTROBAT_ID				5
 #define TEXTURE_INTROCLOUD_ID			6
+#define TEXTURE_WEAPON_ID				7
 #endif // !TEXTURE_ID
 
 #ifndef TILESET_ID
@@ -27,5 +28,6 @@
 
 #ifndef SOUND_ID
 #define SOUND_INTRO_ID					0
+#define SOUND_COUNTYARD_ID				1
 #endif // !SOUND_ID
 

@@ -25,6 +25,7 @@ private:
 	DWORD lastFrameTime;
 	int currentFrame;
 	bool paused;
+	bool frameReset;
 
 	std::vector<LPSRPITE> frames;
 
@@ -34,7 +35,9 @@ public:
 	void AddFrame(int left, int top, int width, int height, int time = 100);
 	void Pause() { paused = true; }
 	void Play() { paused = false; }
-	void Reset() { if (frames.size() != 0) currentFrame = 0; }
+	void Reset() { if (frames.size() != 0) currentFrame = -1; }
+	void SetFrameIndex(int i);
+	bool IsFrameReset() { return frameReset; }
 	int CurrentFrameIndex() { return currentFrame; }
 	LPSRPITE GetFrame() { if (currentFrame != -1) return frames[currentFrame]; return frames[0]; }
 	void Draw(float x, float y, int alpha = 255, bool flip = false);

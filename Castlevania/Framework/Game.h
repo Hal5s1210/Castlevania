@@ -1,14 +1,6 @@
 #pragma once
 
-#define WINDOW_CLASS_NAME L"GameWindow"
-#define MAIN_WINDOW_TITLE L"Castlevania"
-
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)
-#define SCREEN_WIDTH 256
-#define SCREEN_HEIGHT 240
-
-#define MAX_FRAME_RATE 60
-
 
 #include <Windows.h>
 #include "Debug.h"

@@ -2,12 +2,12 @@
 <Scene>
 	<Textures>
     <Texture Id="0" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
+    <Texture Id="7" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
     <Texture Id="-100" path="Resources\Textures\red.bmp" red="116" green="116" blue="116"/>
     <Texture Id="100" path="Resources\Textures\Tileset1.png" red="255" green="0" blue="255"/>
 	</Textures>
 
   <Map tileset="100" width="48" height="12" tileW="16" tileH="16">
-    <CollisionTiles>16</CollisionTiles>
     <Matrix>
       <row>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,23,24,25,24,25,26,27</row>
       <row>1,1,2,3,2,3,2,3,2,3,2,3,1,1,1,1,1,1,2,3,2,3,2,3,2,3,2,3,1,1,1,1,1,1,1,1,1,1,1,1,49,32,33,34,33,33,35,27</row>
@@ -22,7 +22,25 @@
       <row>16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16</row>
       <row>27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27</row>
     </Matrix>
+    <MapObjects>
+      <Object>
+        <Position x="-16" y="0"/>
+        <Size w="16" h="192"/>
+      </Object>
+      <Object>
+        <Position x="0" y="160"/>
+        <Size w="768" h="16"/>
+      </Object>
+      <Object>
+        <Position x="768" y="0"/>
+        <Size w="16" h="192"/>
+      </Object>
+    </MapObjects>
   </Map>
+
+  <Sounds>
+    <Sound Id="1" path="Resources\Sounds\02. Vampire Killer (Courtyard).wav"/>
+  </Sounds>
   
   <Player>
     <Position x="112" y="122" />

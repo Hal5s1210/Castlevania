@@ -6,7 +6,6 @@ class IntroScene : public Scene
 {
 private:
 	DWORD time;
-	bool soundplay;
 
 public:
 	void LoadScene();

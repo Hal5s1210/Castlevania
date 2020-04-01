@@ -17,20 +17,16 @@ private:
 	int tileH;
 	int width;
 	int height;
-	int** mapMatrix;
+	std::vector<std::vector<int>> mapMatrix;
 	std::vector<RECT> tiles;
-	std::vector<int> collisionTiles;
 
 	void LoadTiles();
-	void LoadCollisionTiles(pugi::xml_node node);
 	void LoadMatrix(pugi::xml_node node);
 	std::vector<int> split(const std::string& s, char delimiter);
 
 public:
-	~Map();
-
 	void LoadMap(pugi::xml_node node);
-	void GetMapObject(std::vector<LPGAMEOBJECT>* objlist);
+	void GetMapObject(pugi::xml_node node, std::vector<LPGAMEOBJECT>* objlist);
 	void Render(float x = 0, float y = 0);
 };
 

@@ -11,19 +11,27 @@
 #endif // !SIMON_ANI
 
 #define SIMON_SPEED					0.05f
-#define JUMP_FORCE					-0.5f;
-#define GRAVITY						0.002f;
+#define JUMP_FORCE					-0.25f;
+#define GRAVITY						0.00075f;
 
 #include "..\ID.h"
 #include "GameObject.h"
+#include "Weapons\Whip.h"
 
 class Simon : public GameObject
 {
 private:
+	DWORD jumpTime;
+	DWORD jumpStartTime;
+
 	bool attack;
 	bool crounch;
 	bool onair;
 	bool onstair;
+
+	Weapon* currentweapon;
+	std::vector<Weapon*> weapons;
+	int weaponlevel;
 
 public:
 	Simon();
@@ -35,7 +43,8 @@ public:
 	void Crounch();
 	void Jump();
 	void Attack(bool crounch);
-	void SubAttack();
+	void ReadyWeapon();
+	void ReadySubWeapon();
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render(float x = 0, float y = 0);

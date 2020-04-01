@@ -21,24 +21,45 @@ void Animation::AddFrame(int left, int top, int width, int height, int time)
 	frames.push_back(frame);
 }
 
+void Animation::SetFrameIndex(int i)
+{
+	if (i >= 0 && i< frames.size())
+	{
+		currentFrame = i;
+		lastFrameTime = GetTickCount();
+	}
+}
+
 void Animation::Draw(float x, float y, int alpha, bool flip)
 {
 	DWORD now = GetTickCount();
+	int i = currentFrame;
+
 	if (currentFrame == -1)
 	{
-		currentFrame = 0;
+		currentFrame = i = 0;
+		frameReset = false;
 		lastFrameTime = now;
 	}
-
-	Graphics::GetInstance()->Draw(x, y, texture, frames[currentFrame]->Rect, alpha, flip);
-
-	DWORD t = frames[currentFrame]->Time;
-	if (now - lastFrameTime > t)
+	else
 	{
-		lastFrameTime = now;
-		if (!paused) currentFrame++;
-		if (currentFrame >= frames.size()) currentFrame = -1;
+		DWORD t = frames[currentFrame]->Time;
+		if (now - lastFrameTime > t)
+		{
+			lastFrameTime = now;
+			frameReset = false;
+
+			if (!paused) currentFrame++;
+
+			if (currentFrame >= frames.size())
+			{
+				currentFrame = 0;
+				frameReset = true;
+			}
+		}
 	}
+	
+	Graphics::GetInstance()->Draw(x, y, texture, frames[i]->Rect, alpha, flip);
 }
 
 

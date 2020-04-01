@@ -7,6 +7,7 @@ void IntroScene::LoadScene()
 	keyHandler = 0;
 	LoadFromFile(L"Resources\\XML\\IntroScene.xml");
 
+	Sound::GetInstance()->Play(SOUND_INTRO_ID);
 	OutputDebugString(L"[INFO] IntroScene loaded OK\n");
 	time = GetTickCount();
 	sceneStart = true;
@@ -25,12 +26,6 @@ void IntroScene::EndScene()
 
 void IntroScene::UpdateScene(DWORD dt)
 {
-	if (!soundplay)
-	{
-		Sound::GetInstance()->Play(SOUND_INTRO_ID);
-		soundplay = true;
-	}
-
 	for (LPGAMEOBJECT o : mapObjs)
 		o->Update(dt);
 
