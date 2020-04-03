@@ -27,7 +27,20 @@ void IntroScene::EndScene()
 void IntroScene::UpdateScene(DWORD dt)
 {
 	for (LPGAMEOBJECT o : mapObjs)
+	{
+		if (o->GetID() == 7)
+		{
+			float x, y;
+			o->GetPosition(x, y);
+			if (x < 120)
+			{
+				o->SetPosition(120, y);
+				o->SetSpeed(0, 0);
+				o->SetAnimation(1);
+			}
+		}
 		o->Update(dt);
+	}
 
 	if (GetTickCount() - time >= 7000)
 	{

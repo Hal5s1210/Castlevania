@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Object id="100">
+  <Texture id="7"/>
+
+  <Animations>
+    <Animation id="frame0">
+      <Frame x="80" y="80" w="8" h="16"/>
+    </Animation>
+    <Animation id="frame11">
+      <Frame x="0" y="0" w="8" h="32"/>
+    </Animation>
+    <Animation id="frame12">
+      <Frame x="40" y="0" w="16" h="24"/>
+    </Animation>
+    <Animation id="frame13">
+      <Frame x="0" y="32" w="28" h="16"/>
+    </Animation>
+    <Animation id="frame21">
+      <Frame x="16" y="0" w="8" h="32"/>
+    </Animation>
+    <Animation id="frame22">
+      <Frame x="72" y="0" w="16" h="24"/>
+    </Animation>
+    <Animation id="frame23">
+      <Frame x="0" y="48" w="28" h="16"/>
+    </Animation>
+    <Animation id="frame31">
+      <Frame x="8" y="0" w="8" h="16"/>
+      <Frame x="16" y="0" w="8" h="16"/>
+      <Frame x="24" y="0" w="8" h="16"/>
+      <Frame x="32" y="0" w="8" h="16"/>
+    </Animation>
+    <Animation id="frame32">
+      <Frame x="56" y="0" w="16" h="24"/>
+      <Frame x="72" y="0" w="16" h="24"/>
+      <Frame x="88" y="0" w="16" h="24"/>
+      <Frame x="104" y="0" w="16" h="24"/>
+    </Animation>
+    <Animation id="frame33">
+      <Frame x="28" y="32" w="44" h="16"/>
+      <Frame x="72" y="32" w="44" h="16"/>
+      <Frame x="28" y="48" w="44" h="16"/>
+      <Frame x="72" y="48" w="44" h="16"/>
+    </Animation>
+  </Animations>
+
+</Object>

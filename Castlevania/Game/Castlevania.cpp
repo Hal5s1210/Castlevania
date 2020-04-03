@@ -21,8 +21,8 @@ void Castlevania::LoadResources()
 	d3ddv = Graphics::GetInstance()->GetDirect3DDevice();
 	spriteHandler = Graphics::GetInstance()->GetSpriteHandler();
 
-	//scenes->Add(new TitleScene);
-	//scenes->Add(new IntroScene);
+	scenes->Add(new TitleScene);
+	scenes->Add(new IntroScene);
 	scenes->Add(new GameScene);
 }
 

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Object id="6">
+  <Texture id="6"/>
+  
+  <Animations>
+    <Animation id="ani">
+      <Frame x="0" y="0" w="32" h="16"/>
+    </Animation>
+  </Animations>
+  
+</Object>

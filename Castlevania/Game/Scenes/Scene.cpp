@@ -69,18 +69,6 @@ void Scene::LoadFromFile(const wchar_t* filepath)
 
 	OutputDebugString(L"[INFO] Load Scene sound done\n");
 
-	// Load Map
-	//
-	pugi::xml_node mapNode = root.child(L"Map");
-	if (mapNode)
-	{
-		map = new Map;
-		map->LoadMap(mapNode);
-		map->GetMapObject(mapNode, &mapObjs);
-	}
-
-	OutputDebugString(L"[INFO] Load Scene map done\n");
-
 	// Load Player
 	//
 	pugi::xml_node playerNode = root.child(L"Player");
@@ -105,27 +93,39 @@ void Scene::LoadFromFile(const wchar_t* filepath)
 
 	OutputDebugString(L"[INFO] Load Scene player done\n");
 
-	// Load Object
+	// Load Map
 	//
-	pugi::xml_node objectNode = root.child(L"Objects");
-	for (pugi::xml_node node : objectNode)
+	pugi::xml_node mapNode = root.child(L"Map");
+	if (mapNode)
 	{
-		int id = node.attribute(L"Id").as_int();
+		map = new Map;
+		map->LoadMap(mapNode);
 
-		LPGAMEOBJECT o = Generator::ObjectCreate(id);
+		// Load Object
+		//
+		pugi::xml_node objectNode = mapNode.child(L"Objects");
+		for (pugi::xml_node node : objectNode)
+		{
+			int id = node.attribute(L"Id").as_int();
 
-		int x, y;
-		x = node.child(L"Position").attribute(L"x").as_int();
-		y = node.child(L"Position").attribute(L"y").as_int();
-		o->SetPosition(x, y);
+			LPGAMEOBJECT o = Generator::ObjectCreate(id);
 
-		float vx, vy;
-		vx = node.child(L"Speed").attribute(L"x").as_float();
-		vy = node.child(L"Speed").attribute(L"y").as_float();
-		o->SetSpeed(vx, vy);
+			int x, y;
+			x = node.child(L"Position").attribute(L"x").as_int();
+			y = node.child(L"Position").attribute(L"y").as_int();
+			o->SetPosition(x, y);
 
-		mapObjs.push_back(o);
+			float vx, vy;
+			vx = node.child(L"Speed").attribute(L"x").as_float();
+			vy = node.child(L"Speed").attribute(L"y").as_float();
+			o->SetSpeed(vx, vy);
+
+			mapObjs.push_back(o);
+		}
+
 	}
+
+	OutputDebugString(L"[INFO] Load Scene map done\n");
 
 	OutputDebugString(L"[INFO] Load Scene object done\n");
 

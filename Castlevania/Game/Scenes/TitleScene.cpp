@@ -41,19 +41,10 @@ void TitleScene::UpdateScene(DWORD dt)
 
 void TitleScene::RenderScene()
 {
-	if (enter)
-	{
-		for (LPGAMEOBJECT o : mapObjs)
-		{
-			if (dynamic_cast<TitleBat*>(o))
-			{
-				o->PauseAnimation();
-			}
-		}
-	}
-
 	for (LPGAMEOBJECT o : mapObjs)
+	{
 		o->Render(x, y);
+	}
 }
 
 void TitleScene::Enter()
@@ -63,9 +54,14 @@ void TitleScene::Enter()
 		enter = true;
 		for (LPGAMEOBJECT o : mapObjs)
 		{
-			if (dynamic_cast<TitleText*>(o))
+			if (o->GetID() == TITLETEXT_ID)
 			{
-				o->SetAnimation("ani2");
+				o->SetAnimation(1);
+			}
+
+			if (o->GetID() == TITLEBAT_ID)
+			{
+				o->PauseAnimation();
 			}
 		}
 	}

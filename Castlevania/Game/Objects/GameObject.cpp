@@ -1,6 +1,9 @@
 #include "GameObject.h"
 #include <algorithm>
+#include <locale>
+#include <codecvt>
 #include "..\..\Framework\Graphics.h"
+#include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 GameObject::GameObject()
 {
@@ -14,8 +17,8 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	for (std::unordered_map<const char*, LPANIMATION>::iterator itr = animations.begin(); itr != animations.end(); itr++)
-		if (itr->second) delete itr->second;
+	for (LPANIMATION ani : animations)
+		delete ani;
 	animations.clear();
 }
 
@@ -24,6 +27,38 @@ void GameObject::Update(DWORD dt)
 	this->dt = dt;
 	dx = vx * dt;
 	dy = vy * dt;
+}
+
+void GameObject::Init(const wchar_t* path)
+{
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file(path);
+	if (!result)
+	{
+		OutputDebugString(L"[ERROR] Load object failed\n");
+		return;
+	}
+	pugi::xml_node root = doc.child(L"Object");
+	this->id = root.attribute(L"id").as_int();
+
+	int textureid = root.child(L"Texture").attribute(L"id").as_int();
+	LPTEXTURE texture = Textures::GetInstance()->Get(textureid);
+
+	for (pugi::xml_node ani : root.child(L"Animations"))
+	{
+		int x, y, w, h;
+		LPANIMATION s = new Animation(texture);
+		for (pugi::xml_node frame : ani)
+		{
+			x = frame.attribute(L"x").as_int();
+			y = frame.attribute(L"y").as_int();
+			w = frame.attribute(L"w").as_int();
+			h = frame.attribute(L"h").as_int();
+			s->AddFrame(x, y, w, h);
+		}
+		AddAnimation(s);
+	}
+	OutputDebugString(L"[INFO] Load object done\n");
 }
 
 LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)

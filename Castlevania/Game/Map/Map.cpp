@@ -2,18 +2,22 @@
 #include <locale>
 #include <codecvt>
 
-void Map::LoadMap(pugi::xml_node node)
+void Map::LoadMap(pugi::xml_node mapNode)
 {
-	int id = node.attribute(L"tileset").as_int();
+	pugi::xml_node info = mapNode.child(L"MapInfo");
+	if (!info) return;
+
+	int id = info.attribute(L"tileset").as_int();
+	tileW = info.attribute(L"tileW").as_int();
+	height = info.attribute(L"height").as_int();
+	width = info.attribute(L"width").as_int();
+	tileH = info.attribute(L"tileH").as_int();
+
 	tileset = Textures::GetInstance()->Get(id);
-	tileW = node.attribute(L"tileW").as_int();
-	height = node.attribute(L"height").as_int();
-	width = node.attribute(L"width").as_int();
-	tileH = node.attribute(L"tileH").as_int();
 
 	LoadTiles();
-	LoadMatrix(node.child(L"Matrix"));
-	
+	LoadMatrix(mapNode.child(L"Matrix"));
+	LoadCollisionTile(mapNode.child(L"CollisionTile"));
 }
 
 void Map::Render(float sx, float sy)
@@ -75,6 +79,16 @@ void Map::LoadMatrix(pugi::xml_node node)
 	}
 }
 
+void Map::LoadCollisionTile(pugi::xml_node node)
+{
+	using convert_type = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_type, wchar_t> converter;
+	std::wstring str = node.text().as_string();
+	std::string converted_str = converter.to_bytes(str);
+	collisionTiles = split(converted_str, ',');
+}
+
+
 std::vector<int> Map::split(const std::string& s, char delimiter)
 {
 	std::vector<int> out;
@@ -89,25 +103,3 @@ std::vector<int> Map::split(const std::string& s, char delimiter)
 
 	return out;
 }
-
-void Map::GetMapObject(pugi::xml_node node, std::vector<LPGAMEOBJECT>* objlist)
-{
-	pugi::xml_node objects = node.child(L"MapObjects");
-	for (pugi::xml_node n : objects)
-	{
-		Platform* p = new Platform;
-
-		float x, y;
-		x = n.child(L"Position").attribute(L"x").as_float();
-		y = n.child(L"Position").attribute(L"y").as_float();
-		p->SetPosition(x, y);
-
-		float w, h;
-		w = n.child(L"Size").attribute(L"w").as_int();
-		h = n.child(L"Size").attribute(L"h").as_int();
-		p->SetBoundSize(w, h);
-
-		objlist->push_back(p);
-	}
-}
-

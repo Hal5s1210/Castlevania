@@ -84,31 +84,16 @@
     <ClCompile Include="Game\Objects\Weapons\Whip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Weapons\MorningStar.cpp">
+    <ClCompile Include="Game\Objects\Others\Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Weapons\Weapon.cpp">
+    <ClCompile Include="Game\Objects\SimpleObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Others\IntroBat.cpp">
+    <ClCompile Include="Game\Objects\Others\Candle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Others\IntroBG.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\IntroCloud.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\IntroSimon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\TitleBat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\TitleBG.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\TitleText.cpp">
+    <ClCompile Include="Game\Objects\Others\Touch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,31 +164,16 @@
     <ClInclude Include="Game\Objects\Weapons\Whip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Weapons\MorningStar.h">
+    <ClInclude Include="Game\Objects\Others\Block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Weapons\Weapon.h">
+    <ClInclude Include="Game\Objects\SimpleObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Others\IntroBat.h">
+    <ClInclude Include="Game\Objects\Others\Candle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Others\IntroBG.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\IntroCloud.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\IntroSimon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\TitleBat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\TitleBG.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\TitleText.h">
+    <ClInclude Include="Game\Objects\Others\Touch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -24,6 +24,19 @@
 #define INTROBAT_ID						5
 #define INTROCLOUD_ID					6
 #define INTROSIMON_ID					7
+#define BLOCK_ID						8
+#endif // !OBJECT_ID
+
+#ifndef OBJECT_SOURCES_PATH
+#define SIMON_PATH						L"Resources\\XML\\Simon.xml"
+#define TITLEBG_PATH					L"Resources\\XML\\TitleBg.xml"
+#define TITLEBAT_PATH					L"Resources\\XML\\TitleBat.xml"
+#define TITLETEXT_PATH					L"Resources\\XML\\TitleText.xml"
+#define INTROBG_PATH					L"Resources\\XML\\IntroBg.xml"
+#define INTROBAT_PATH					L"Resources\\XML\\IntroBat.xml"
+#define INTROCLOUD_PATH					L"Resources\\XML\\IntroCloud.xml"
+#define INTROSIMON_PATH					L"Resources\\XML\\IntroSimon.xml"
+#define WHIP_PATH						L"Resources\\XML\\Whip.xml"
 #endif // !OBJECT_ID
 
 #ifndef SOUND_ID

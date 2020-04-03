@@ -9,8 +9,6 @@ typedef GameObject* LPGAMEOBJECT;
 struct CoEvent;
 typedef CoEvent* LPCOEVENT;
 
-
-
 struct CoEvent
 {
 	LPGAMEOBJECT obj;
@@ -29,6 +27,8 @@ struct CoEvent
 class GameObject
 {
 protected:
+	int id;
+
 	float x, y;
 	float vx, vy;
 	float dx, dy;
@@ -37,7 +37,7 @@ protected:
 
 	bool flip;
 
-	std::unordered_map<const char*, LPANIMATION> animations;
+	std::vector<LPANIMATION> animations;
 	LPANIMATION currentAnimation;
 
 
@@ -53,16 +53,20 @@ public:
 	GameObject();
 	~GameObject();
 
+	int GetID() { return id; }
+
 	void SetPosition(float x, float y) { this->x = x; this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx; this->vy = vy; }
 
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
-	void AddAnimation(const char* id, LPANIMATION animation) { animations[id] = animation; }
-	void SetAnimation(const char* id) { currentAnimation = animations[id]; }
+	void AddAnimation(LPANIMATION animation) { animations.push_back(animation); }
+	void SetAnimation(int i) { currentAnimation = animations[i]; }
 	void PauseAnimation() { currentAnimation->Pause(); }
 	void PlayAnimtion() { currentAnimation->Play(); }
+
+	virtual void Init(const wchar_t* path);
 
 	virtual void Update(DWORD dt);
 	virtual void Render(float x = 0, float y = 0) = 0;
