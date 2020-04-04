@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Animation.cpp" />
+    <ClCompile Include="Game\Objects\Others\Candle.cpp" />
+    <ClCompile Include="Game\Objects\Others\Block.cpp" />
     <ClCompile Include="Dependencies\pugixml\src\pugixml.cpp" />
     <ClCompile Include="Framework\Debug.cpp" />
     <ClCompile Include="Framework\Game.cpp" />
@@ -31,26 +34,21 @@
     <ClCompile Include="Framework\Texture.cpp" />
     <ClCompile Include="Game\Castlevania.cpp" />
     <ClCompile Include="Game\Scenes\GameScene.cpp" />
-    <ClCompile Include="Game\Scenes\IntroScene.cpp" />
     <ClCompile Include="Game\Main.cpp" />
     <ClCompile Include="Game\Objects\Simon.cpp" />
-    <ClCompile Include="Game\Scenes\TitleScene.cpp" />
     <ClCompile Include="Game\Objects\Generator.cpp" />
-    <ClCompile Include="Game\Objects\Others\TitleBG.cpp" />
-    <ClCompile Include="Game\Objects\Others\TitleBat.cpp" />
-    <ClCompile Include="Game\Objects\Others\TitleText.cpp" />
-    <ClCompile Include="Game\Objects\Others\IntroBG.cpp" />
-    <ClCompile Include="Game\Objects\Others\IntroBat.cpp" />
-    <ClCompile Include="Game\Objects\Others\IntroCloud.cpp" />
-    <ClCompile Include="Game\Objects\Others\IntroSimon.cpp" />
     <ClCompile Include="Game\Map\Grid.cpp" />
-    <ClCompile Include="Game\Map\Map.cpp" />
+    <ClCompile Include="Game\Map\Tilemap.cpp" />
     <ClCompile Include="Framework\Viewport.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Whip.cpp" />
-    <ClCompile Include="Game\Objects\Weapons\MorningStar.cpp" />
-    <ClCompile Include="Game\Objects\Weapons\Weapon.cpp" />
+    <ClCompile Include="Game\Objects\Others\Torch.cpp" />
+    <ClCompile Include="Game\Map\TileSet.cpp" />
+    <ClCompile Include="Game\Parser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Animation.h" />
+    <ClInclude Include="Game\Objects\Others\Candle.h" />
+    <ClInclude Include="Game\Objects\Others\Block.h" />
     <ClInclude Include="Dependencies\pugixml\src\pugiconfig.hpp" />
     <ClInclude Include="Dependencies\pugixml\src\pugixml.hpp" />
     <ClInclude Include="Framework\Debug.h" />
@@ -65,23 +63,15 @@
     <ClInclude Include="Game\Castlevania.h" />
     <ClInclude Include="Game\ID.h" />
     <ClInclude Include="Game\Scenes\GameScene.h" />
-    <ClInclude Include="Game\Scenes\IntroScene.h" />
     <ClInclude Include="Game\Objects\Simon.h" />
-    <ClInclude Include="Game\Scenes\TitleScene.h" />
     <ClInclude Include="Game\Objects\Generator.h" />
-    <ClInclude Include="Game\Objects\Others\TitleBG.h" />
-    <ClInclude Include="Game\Objects\Others\TitleBat.h" />
-    <ClInclude Include="Game\Objects\Others\TitleText.h" />
-    <ClInclude Include="Game\Objects\Others\IntroBG.h" />
-    <ClInclude Include="Game\Objects\Others\IntroBat.h" />
-    <ClInclude Include="Game\Objects\Others\IntroCloud.h" />
-    <ClInclude Include="Game\Objects\Others\IntroSimon.h" />
     <ClInclude Include="Game\Map\Grid.h" />
-    <ClInclude Include="Game\Map\Map.h" />
+    <ClInclude Include="Game\Map\Tilemap.h" />
     <ClInclude Include="Framework\Viewport.h" />
     <ClInclude Include="Game\Objects\Weapons\Whip.h" />
-    <ClInclude Include="Game\Objects\Weapons\MorningStar.h" />
-    <ClInclude Include="Game\Objects\Weapons\Weapon.h" />
+    <ClInclude Include="Game\Objects\Others\Torch.h" />
+    <ClInclude Include="Game\Map\TileSet.h" />
+    <ClInclude Include="Game\Parser.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

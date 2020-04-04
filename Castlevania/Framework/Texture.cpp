@@ -16,6 +16,8 @@ Textures* Textures::GetInstance()
 
 void Textures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 {
+	if (textures[id] != NULL) return;
+
 	D3DXIMAGE_INFO info;
 
 	HRESULT hr = D3DXGetImageInfoFromFile(filePath, &info);

@@ -54,12 +54,6 @@
     <ClCompile Include="Game\Scenes\GameScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scenes\TitleScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scenes\IntroScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Objects\Simon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -68,9 +62,6 @@
     </ClCompile>
     <ClCompile Include="Game\Scenes\Scene.cpp">
       <Filter>Source Files\Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Map\Map.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Objects\GameObject.cpp">
       <Filter>Source Files</Filter>
@@ -84,31 +75,25 @@
     <ClCompile Include="Game\Objects\Weapons\Whip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Weapons\MorningStar.cpp">
+    <ClCompile Include="Game\Objects\Others\Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Weapons\Weapon.cpp">
+    <ClCompile Include="Game\Objects\Others\Candle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Others\IntroBat.cpp">
+    <ClCompile Include="Game\Objects\Others\Torch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Others\IntroBG.cpp">
+    <ClCompile Include="Framework\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Others\IntroCloud.cpp">
+    <ClCompile Include="Game\Map\TileSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Others\IntroSimon.cpp">
+    <ClCompile Include="Game\Map\Tilemap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Others\TitleBat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\TitleBG.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\TitleText.cpp">
+    <ClCompile Include="Game\Parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -146,12 +131,6 @@
     <ClInclude Include="Game\Scenes\GameScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scenes\TitleScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scenes\IntroScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Objects\Simon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -163,9 +142,6 @@
     </ClInclude>
     <ClInclude Include="Game\Scenes\Scene.h">
       <Filter>Header Files\Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Map\Map.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\GameObject.h">
       <Filter>Header Files</Filter>
@@ -179,31 +155,25 @@
     <ClInclude Include="Game\Objects\Weapons\Whip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Weapons\MorningStar.h">
+    <ClInclude Include="Game\Objects\Others\Block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Weapons\Weapon.h">
+    <ClInclude Include="Game\Objects\Others\Candle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Others\IntroBat.h">
+    <ClInclude Include="Game\Objects\Others\Torch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Others\IntroBG.h">
+    <ClInclude Include="Framework\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Others\IntroCloud.h">
+    <ClInclude Include="Game\Map\TileSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Others\IntroSimon.h">
+    <ClInclude Include="Game\Map\Tilemap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Others\TitleBat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\TitleBG.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\TitleText.h">
+    <ClInclude Include="Game\Parser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,64 +4,38 @@
 #include <unordered_map>
 #include <vector>
 
-struct Sprite
-{
-	RECT Rect;
-	int Time;
-
-	Sprite(RECT rect, int time) :Rect(rect), Time(time) {}
-
-};
-typedef Sprite* LPSRPITE;
-
-
-
-
-class Animation
+class Sprite
 {
 private:
+	int id;
 	LPTEXTURE texture;
-
-	DWORD lastFrameTime;
-	int currentFrame;
-	bool paused;
-	bool frameReset;
-
-	std::vector<LPSRPITE> frames;
-
+	RECT rect;
 public:
-	Animation(LPTEXTURE tex);
+	Sprite(int id, int textureid, int l, int t, int r, int b);
 
-	void AddFrame(int left, int top, int width, int height, int time = 100);
-	void Pause() { paused = true; }
-	void Play() { paused = false; }
-	void Reset() { if (frames.size() != 0) currentFrame = -1; }
-	void SetFrameIndex(int i);
-	bool IsFrameReset() { return frameReset; }
-	int CurrentFrameIndex() { return currentFrame; }
-	LPSRPITE GetFrame() { if (currentFrame != -1) return frames[currentFrame]; return frames[0]; }
+	RECT GetRect() { return rect; }
 	void Draw(float x, float y, int alpha = 255, bool flip = false);
-
 };
-typedef Animation* LPANIMATION;
+typedef Sprite* LPSPRITE;
 
 
-
-
-class Animations
+class Sprites
 {
 private:
-	static Animations* _instance;
+	static Sprites* _instance;
 
-	std::unordered_map<int, LPANIMATION> animations;
+	std::unordered_map<int, LPSPRITE> sprites;
 
 public:
-	Animations();
+	Sprites();
 
-	static Animations* GetInstance();
+	static Sprites* GetInstance();
 
-	void Add(int id, LPANIMATION animation);
+	void Add(int id, LPSPRITE sprite);
 	void Remove(int id);
-	LPANIMATION Get(int id) { return animations[id]; }
+	LPSPRITE Get(int id) { return sprites[id]; }
 
 };
+
+
+

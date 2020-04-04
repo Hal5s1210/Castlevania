@@ -1,89 +1,42 @@
 #include "Sprite.h"
 #include "Game.h"
 
-
-Animation::Animation(LPTEXTURE tex)
+Sprite::Sprite(int id, int textureid, int l, int t, int w, int h)
 {
-	texture = tex;
-	paused = false;
-	currentFrame = -1;
-	lastFrameTime = -1;
+	this->id = id;
+	texture = Textures::GetInstance()->Get(textureid);
+	rect.left = l;
+	rect.top = t;
+	rect.right = l + w;
+	rect.bottom = t + h;
 }
 
-void Animation::AddFrame(int left, int top, int width, int height, int time)
+void Sprite::Draw(float x, float y, int alpha, bool flip)
 {
-	RECT rect;
-	rect.left = left;
-	rect.top = top;
-	rect.right = left + width;
-	rect.bottom = top + height;
-	LPSRPITE frame = new Sprite(rect, time);
-	frames.push_back(frame);
-}
-
-void Animation::SetFrameIndex(int i)
-{
-	if (i >= 0 && i< frames.size())
-	{
-		currentFrame = i;
-		lastFrameTime = GetTickCount();
-	}
-}
-
-void Animation::Draw(float x, float y, int alpha, bool flip)
-{
-	DWORD now = GetTickCount();
-	int i = currentFrame;
-
-	if (currentFrame == -1)
-	{
-		currentFrame = i = 0;
-		frameReset = false;
-		lastFrameTime = now;
-	}
-	else
-	{
-		DWORD t = frames[currentFrame]->Time;
-		if (now - lastFrameTime > t)
-		{
-			lastFrameTime = now;
-			frameReset = false;
-
-			if (!paused) currentFrame++;
-
-			if (currentFrame >= frames.size())
-			{
-				currentFrame = 0;
-				frameReset = true;
-			}
-		}
-	}
-	
-	Graphics::GetInstance()->Draw(x, y, texture, frames[i]->Rect, alpha, flip);
+	Graphics::GetInstance()->Draw(x, y, texture, rect, alpha, flip);
 }
 
 
+Sprites* Sprites::_instance = 0;
 
-
-Animations* Animations::_instance = 0;
-
-Animations::Animations()
+Sprites::Sprites()
 {
 }
 
-Animations* Animations::GetInstance()
+Sprites* Sprites::GetInstance()
 {
-	if (!_instance) _instance = new Animations;
+	if (!_instance) _instance = new Sprites;
 	return _instance;
 }
 
-void Animations::Add(int id, LPANIMATION animation)
+void Sprites::Add(int id, LPSPRITE animation)
 {
-	animations[id] = animation;
+	if (sprites[id] != NULL) return;
+	sprites[id] = animation;
 }
 
-void Animations::Remove(int id)
+void Sprites::Remove(int id)
 {
-	if (!animations[id]) delete animations[id];
-	animations.erase(id);
+	if (!sprites[id]) delete sprites[id];
+	sprites.erase(id);
 }

@@ -1,6 +1,9 @@
 #include "GameObject.h"
 #include <algorithm>
+#include <locale>
+#include <codecvt>
 #include "..\..\Framework\Graphics.h"
+#include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 GameObject::GameObject()
 {
@@ -8,22 +11,34 @@ GameObject::GameObject()
 	vx = vy = 0;
 	dx = dy = 0;
 	dt = 0;
-	currentAnimation = 0;
 	flip = false;
 }
 
 GameObject::~GameObject()
 {
-	for (std::unordered_map<const char*, LPANIMATION>::iterator itr = animations.begin(); itr != animations.end(); itr++)
-		if (itr->second) delete itr->second;
+	for (ANIMATION ani : animations)
+		delete ani.first;
 	animations.clear();
 }
+
+void GameObject::AddAnimation(LPANIMATION animation)
+{
+	ANIMATION ani;
+	ani.first = animation;
+	ani.second = -1;
+	animations.push_back(ani);
+}
+
 
 void GameObject::Update(DWORD dt)
 {
 	this->dt = dt;
 	dx = vx * dt;
 	dy = vy * dt;
+}
+
+void GameObject::Init(const wchar_t* path)
+{
 }
 
 LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)

@@ -1,32 +1,23 @@
 #include "Generator.h"
 
+LPGAMEOBJECT Generator::PlayerCreate()
+{
+	Simon* simon = new Simon;
+	simon->Init(SIMON_PATH);
+	simon->SetAnimation(0);
+
+	return simon;
+}
+
 LPGAMEOBJECT Generator::ObjectCreate(int id)
 {
+	LPGAMEOBJECT obj = 0;
+
 	switch (id)
 	{
-	case TITLEBG_ID:
-		return new TitleBG;
-
-	case TITLEBAT_ID:
-		return new TitleBat;
-
-	case TITLETEXT_ID:
-		return new TitleText;
-
-	case INTROBG_ID:
-		return new IntroBG;
-
-	case INTROBAT_ID:
-		return new IntroBat;
-
-	case INTROCLOUD_ID:
-		return new IntroCloud;
-
-	case INTROSIMON_ID:
-		return new IntroSimon;
-
 	default:
-		return NULL;
 		break;
 	}
+
+	return obj;
 }
