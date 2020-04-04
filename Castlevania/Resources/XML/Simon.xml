@@ -1,37 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Object id="0">
-  <Texture id="0"/>
+<Object>
+  <Textures>
+    <Texture id="1000" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
+  </Textures>
+
+  <Sprites>
+    <!--Simon idle-->
+    <Sprite id="1000" texture="1000" x="0" y="0" w="16" h="32"/>
+    <!--Simon walk-->
+    <Sprite id="1010" texture="1000" x="0" y="32" w="16" h="32"/>
+    <Sprite id="1011" texture="1000" x="16" y="32" w="16" h="32"/>
+    <!--Simon crounch-->
+    <Sprite id="1020" texture="1000" x="0" y="64" w="16" h="24"/>
+    <!--Simon attack-->
+    <Sprite id="1030" texture="1000" x="0" y="96" w="24" h="32"/>
+    <Sprite id="1031" texture="1000" x="24" y="96" w="16" h="32"/>
+    <Sprite id="1032" texture="1000" x="48" y="96" w="16" h="32"/>
+    <!--Simon crouch attack-->
+    <Sprite id="1040" texture="1000" x="0" y="128" w="24" h="24"/>
+    <Sprite id="1041" texture="1000" x="24" y="128" w="16" h="24"/>
+    <Sprite id="1042" texture="1000" x="48" y="128" w="16" h="24"/>
+    <!--Simon hitted-->
+    <Sprite id="1050" texture="1000" x="16" y="64" w="16" h="32"/>
+    <!--Simon dead-->
+    <Sprite id="1060" texture="1000" x="32" y="64" w="16" h="32"/>
+    <Sprite id="1061" texture="1000" x="48" y="64" w="32" h="16"/>
+  </Sprites>
   
   <Animations>
-    <Animation id="idle">
-      <Frame x="0" y="0" w="16" h="32"/>
+    <!--Simon dead-->
+    <Animation id="1000">
+      <Frame sprite="1000" time="100"/>
     </Animation>
-    <Animation id="walk">
-      <Frame x="0" y="0" w="16" h="32"/>
-      <Frame x="0" y="32" w="16" h="32"/>
-      <Frame x="16" y="32" w="16" h="32"/>
-      <Frame x="0" y="32" w="16" h="32"/>
+    <!--Simon walk-->
+    <Animation id="1001">
+      <Frame sprite="1000" time="100"/>
+      <Frame sprite="1010" time="100"/>
+      <Frame sprite="1011" time="100"/>
+      <Frame sprite="1010" time="100"/>
     </Animation>
-    <Animation id="crounch">
-      <Frame x="0" y="64" w="16" h="24"/>
+    <!--Simon crounch-->
+    <Animation id="1002">
+      <Frame sprite="1020" time="100"/>
     </Animation>
-    <Animation id="attack1">
-      <Frame x="0" y="96" w="24" h="32"/>
-      <Frame x="24" y="96" w="16" h="32"/>
-      <Frame x="48" y="96" w="16" h="32"/>
+    <!--Simon attack-->
+    <Animation id="1003">
+      <Frame sprite="1030" time="100"/>
+      <Frame sprite="1031" time="100"/>
+      <Frame sprite="1032" time="100"/>
     </Animation>
-    <Animation id="attack2">
-      <Frame x="0" y="128" w="24" h="32"/>
-      <Frame x="24" y="128" w="16" h="32"/>
-      <Frame x="48" y="128" w="16" h="32"/>
+    <!--Simon crounch attack-->
+    <Animation id="1004">
+      <Frame sprite="1040" time="100"/>
+      <Frame sprite="1041" time="100"/>
+      <Frame sprite="1042" time="100"/>
     </Animation>
-    <Animation id="hitted">
-      <Frame x="16" y="64" w="16" h="32"/>
+    <!--Simon hitted-->
+    <Animation id="1005">
+      <Frame sprite="1050" time="100"/>
     </Animation>
-    <Animation id="dead">
-      <Frame x="32" y="64" w="16" h="32"/>
-      <Frame x="48" y="64" w="32" h="16"/>
+    <!--Simon dead-->
+    <Animation id="1006">
+      <Frame sprite="1060" time="100"/>
+      <Frame sprite="1061" time="100"/>
     </Animation>
   </Animations>
+  
+  <AnimationSets>
+    <Set>
+      <Animation id="1000"/>
+      <Animation id="1001"/>
+      <Animation id="1002"/>
+      <Animation id="1003"/>
+      <Animation id="1004"/>
+      <Animation id="1005"/>
+      <Animation id="1006"/>
+    </Set>
+  </AnimationSets>
   
 </Object>

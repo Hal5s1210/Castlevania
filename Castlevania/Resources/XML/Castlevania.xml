@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Castlevania>
+  <Setting>
+    <StartScene>0</StartScene>
+  </Setting>
+
+  <Scenes>
+    <Scene id="" path=""/>
+  </Scenes>
+</Castlevania>

@@ -11,12 +11,13 @@
 #endif // !SIMON_ANI
 
 #define SIMON_SPEED					0.05f
-#define JUMP_FORCE					-0.25f;
-#define GRAVITY						0.00075f;
+#define JUMP_FORCE					-0.2f;
+#define GRAVITY						0.0005f;
 
 #include "..\ID.h"
 #include "GameObject.h"
 #include "Weapons\Whip.h"
+#include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 class Simon : public GameObject
 {
@@ -43,6 +44,8 @@ public:
 	void Attack(bool crounch);
 	void ReadyWeapon();
 	void ReadySubWeapon();
+
+	void LoadAnimationSet(pugi::xml_node node);
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render(float x = 0, float y = 0);

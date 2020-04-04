@@ -3,7 +3,6 @@
 #include "..\ID.h"
 #include "GameObject.h"
 #include "Simon.h"
-#include "SimpleObject.h"
 #include "Others\Block.h"
 
 class Generator

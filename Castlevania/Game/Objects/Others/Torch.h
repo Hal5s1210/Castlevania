@@ -2,7 +2,7 @@
 
 #include "..\GameObject.h"
 
-class Candle: public GameObject
+class Torch : public GameObject
 {
 public:
 	void Update(DWORD dt);

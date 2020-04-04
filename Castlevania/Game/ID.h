@@ -9,6 +9,8 @@
 #define TEXTURE_INTROBAT_ID				5
 #define TEXTURE_INTROCLOUD_ID			6
 #define TEXTURE_WEAPON_ID				7
+#define TEXTURE_CANDLE_ID				8
+#define TEXTURE_TORCH_ID				9
 #endif // !TEXTURE_ID
 
 #ifndef TILESET_ID
@@ -25,6 +27,8 @@
 #define INTROCLOUD_ID					6
 #define INTROSIMON_ID					7
 #define BLOCK_ID						8
+#define CANDLE_ID						9
+#define TORCH_ID						10
 #endif // !OBJECT_ID
 
 #ifndef OBJECT_SOURCES_PATH
@@ -37,6 +41,8 @@
 #define INTROCLOUD_PATH					L"Resources\\XML\\IntroCloud.xml"
 #define INTROSIMON_PATH					L"Resources\\XML\\IntroSimon.xml"
 #define WHIP_PATH						L"Resources\\XML\\Whip.xml"
+#define CANDLE_PATH						L"Resources\\XML\\Candle.xml"
+#define TORCH_PATH						L"Resources\\XML\\Torch.xml"
 #endif // !OBJECT_ID
 
 #ifndef SOUND_ID

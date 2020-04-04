@@ -7,11 +7,12 @@ Whip::Whip()
 
 void Whip::SetFrameIndex(int i)
 {
-	int index = i;
+	index = i;
 
 	if (!isWhip)
 	{
 		SetAnimation(0);
+		return;
 	}
 
 	if (level == 1)
@@ -70,8 +71,8 @@ void Whip::Render(float x, float y, bool flip)
 	float X = this->x;
 	float Y = this->y;
 
-	LPSRPITE frame = currentAnimation->GetFrame();
-	RECT r = frame->Rect;
+	LPSPRITE sprite = currentAnimation.first->GetFrame(currentAnimation.second);
+	RECT r = sprite->GetRect();
 	int w = r.right - r.left;
 
 	if (!isWhip)
@@ -80,7 +81,7 @@ void Whip::Render(float x, float y, bool flip)
 		{
 			if (!flip) X -= w;
 			else X += x;
-			currentAnimation->Draw(X, Y, 255, flip);
+			currentAnimation.first->Draw(currentAnimation.second, X, Y, 255, flip);
 		}
 		return;
 	}
@@ -100,7 +101,7 @@ void Whip::Render(float x, float y, bool flip)
 			if (!flip) X -= w;
 			else X += x;
 		}
-		currentAnimation->Draw(X, Y, 255, flip);
+		currentAnimation.first->Draw(currentAnimation.second, X, Y, 255, flip);
 	}
 }
 

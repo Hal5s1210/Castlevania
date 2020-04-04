@@ -6,23 +6,28 @@ Simon::Simon()
 {
 	whip = new Whip;
 	whip->Init(WHIP_PATH);
+	flip = true;
 	attack = false;
 	crounch = false;
 	onair = true;
+	jumpStartTime = -1;
 }
+
 Simon::~Simon()
 {
+	delete whip;
+}
+
+void Simon::LoadAnimationSet(pugi::xml_node node)
+{
+
 }
 
 void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
-	if (onair) jumpTime = (GetTickCount() - jumpStartTime) / 1000;
-	else jumpTime = 0;
-
-	float g = (jumpTime == 0 ? 1 : jumpTime) * GRAVITY;
-	//vy += g * dt;
+	vy += dt * GRAVITY;
 
 	std::vector<LPCOEVENT> coEvents;
 
@@ -41,32 +46,47 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
 
 		x += dx * min_tx + nx * 0.4f;
-		if (onair)
-			y += dy * min_ty + ny * 0.4f;
+		y += dy * min_ty + ny * 0.4f;
 
+		if (nx != 0)
+		{
+			vx = 0;
+		}
+
+		if (ny != 0)
+		{
+			vy = 0;
+			if (onair) attack = false;
+			onair = false;
+		}
 		for (LPCOEVENT coEvent : coEventResults)
 		{
 			LPGAMEOBJECT o = coEvent->obj;
 
 			if (dynamic_cast<Block*>(o))
 			{
-				if (coEvent->nx != 0)
-				{
-					vx = 0;
-				}
-
-				if (coEvent->ny != 0)
-				{
-					vy = 0;
-					if (onair) attack = false;
-					onair = false;
-				}
+				
 			}
 		}
 
 	}
 
-	Viewport::GetInstance()->SetPosition(x - 112, 0);
+
+	float cam_x, cam_y;
+	int cam_w, cam_h;
+	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+	Viewport::GetInstance()->GetSize(cam_w, cam_h);
+	if (x < cam_x)
+	{
+		x = cam_x;
+		vx = 0;
+	}
+	else if (x > cam_x + cam_w - 16)
+	{
+		x = cam_x + cam_h;
+		vx = 0;
+
+	}
 }
 
 void Simon::Render(float x, float y)
@@ -74,15 +94,15 @@ void Simon::Render(float x, float y)
 	float X = this->x + x;
 	float Y = this->y + y;
 
-	int i = currentAnimation->CurrentFrameIndex();
-	LPSRPITE frame = currentAnimation->GetFrame();
-	RECT r = frame->Rect;
+	int i = currentAnimation.second;
+	LPSPRITE sprite = currentAnimation.first->GetFrame(currentAnimation.second);
+	RECT r = sprite->GetRect();
 	float fixX = flip ? 16 - (r.right - r.left) : 0;
 	float fixY = 32 - (r.bottom - r.top);
 	if (flip) X += fixX;
 	Y += fixY;
 
-	currentAnimation->Draw(X, Y, 255, flip);
+	currentAnimation.first->Draw(currentAnimation.second, X, Y, 255, flip);
 
 	if (attack)
 	{
@@ -94,7 +114,7 @@ void Simon::Render(float x, float y)
 
 		whip->Render(w, h, flip);
 
-		if (currentAnimation->IsFrameReset())
+		if (currentAnimation.first->IsFrameReset())
 		{
 			attack = false;
 			GoIdle();
@@ -175,10 +195,10 @@ void Simon::Attack(bool crounch)
 		return;
 
 	if (crounch && !onair)
-		SetAnimation(ATTACK_1);
-	else
 		SetAnimation(ATTACK_2);
-	currentAnimation->Reset();
+	else
+		SetAnimation(ATTACK_1);
+	currentAnimation.second = -1;
 	attack = true;
 	if (!onair) vx = 0;
 }

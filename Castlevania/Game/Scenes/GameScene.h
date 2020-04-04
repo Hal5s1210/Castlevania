@@ -7,12 +7,15 @@ class GameScene : public Scene
 {
 private:
 	Simon* simon;
+	void AdjustView();
 
 public:
-	void LoadScene();
-	void EndScene();
-	void UpdateScene(DWORD dt);
-	void RenderScene();
+	GameScene(LPCWSTR filepath) :Scene(filepath) {}
+
+	void Load();
+	void Unload();
+	void Update(DWORD dt);
+	void Render();
 
 	void KeyState(BYTE* state);
 	void OnKeyDown(int KeyCode);

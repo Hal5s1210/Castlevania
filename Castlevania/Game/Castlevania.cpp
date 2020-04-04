@@ -1,7 +1,5 @@
 #include "Castlevania.h"
 #include "..\Framework\Debug.h"
-#include "Scenes\TitleScene.h"
-#include "Scenes\IntroScene.h"
 #include "Scenes\GameScene.h"
 
 
@@ -21,9 +19,7 @@ void Castlevania::LoadResources()
 	d3ddv = Graphics::GetInstance()->GetDirect3DDevice();
 	spriteHandler = Graphics::GetInstance()->GetSpriteHandler();
 
-	scenes->Add(new TitleScene);
-	scenes->Add(new IntroScene);
-	scenes->Add(new GameScene);
+	scenes->Add(0, new GameScene(L"Resources\\XML\\GameScene.xml"));
 }
 
 void Castlevania::Update(DWORD dt)

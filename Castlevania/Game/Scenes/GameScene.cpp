@@ -1,19 +1,18 @@
 #include "GameScene.h"
 
 
-void GameScene::LoadScene()
+void GameScene::Load()
 {
 	x = 0;
 	y = 48;
-	LoadFromFile(L"Resources\\XML\\GameScene.xml");
+	LoadFromFile();
 
-	simon = dynamic_cast<Simon*>(player);
+	//simon = dynamic_cast<Simon*>(player);
 	Sound::GetInstance()->Play(SOUND_COUNTYARD_ID);
 	OutputDebugString(L"[INFO] GameScene loaded OK\n");
-	sceneStart = true;
 }
 
-void GameScene::EndScene()
+void GameScene::Unload()
 {
 	delete simon;
 
@@ -22,15 +21,30 @@ void GameScene::EndScene()
 	OutputDebugString(L"[INFO] GameScene ended OK\n");
 }
 
-void GameScene::UpdateScene(DWORD dt)
+void GameScene::Update(DWORD dt)
 {
-	simon->Update(dt, &mapObjs);
+	simon->Update(dt, &objects);
+	float simon_x, simon_y;
+	simon->GetPosition(simon_x, simon_y);
+	Viewport::GetInstance()->SetPosition(simon_x - 112, 0);
+	AdjustView();
 }
 
-void GameScene::RenderScene()
+void GameScene::Render()
 {
-	map->Render(x, y);
+	tilemap->Render(x, y);
 	simon->Render(x, y);
+}
+
+void GameScene::AdjustView()
+{
+	float cam_x, cam_y;
+	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+
+	if (cam_x < 0) cam_x = 0;
+	if (cam_x > 512) cam_x = 512;
+
+	Viewport::GetInstance()->SetPosition(cam_x, cam_y);
 }
 
 

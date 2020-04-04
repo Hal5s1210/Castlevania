@@ -1,7 +1,7 @@
 #pragma once
 
 #include <unordered_map>
-#include "..\..\Framework\Sprite.h"
+#include "..\..\Framework\Animation.h"
 
 class GameObject;
 typedef GameObject* LPGAMEOBJECT;
@@ -36,9 +36,9 @@ protected:
 	DWORD dt;
 
 	bool flip;
-
-	std::vector<LPANIMATION> animations;
-	LPANIMATION currentAnimation;
+	
+	std::vector<ANIMATION> animations;
+	ANIMATION currentAnimation;
 
 
 	LPCOEVENT SweptAABBEx(LPGAMEOBJECT coO);
@@ -61,10 +61,10 @@ public:
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
-	void AddAnimation(LPANIMATION animation) { animations.push_back(animation); }
+	void AddAnimation(LPANIMATION animation);
 	void SetAnimation(int i) { currentAnimation = animations[i]; }
-	void PauseAnimation() { currentAnimation->Pause(); }
-	void PlayAnimtion() { currentAnimation->Play(); }
+	void PauseAnimation() { currentAnimation.first->Pause(); }
+	void PlayAnimtion() { currentAnimation.first->Play(); }
 
 	virtual void Init(const wchar_t* path);
 
