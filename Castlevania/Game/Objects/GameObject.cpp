@@ -37,10 +37,6 @@ void GameObject::Update(DWORD dt)
 	dy = vy * dt;
 }
 
-void GameObject::Init(const wchar_t* path)
-{
-}
-
 LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
 {
 	float sl, st, sr, sb;		// static object bbox

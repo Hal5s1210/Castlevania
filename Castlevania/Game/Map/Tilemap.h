@@ -3,7 +3,7 @@
 #include <vector>
 #include <sstream>
 #include "..\..\Dependencies\pugixml\src\pugixml.hpp"
-#include "TileSet.h"
+#include "Tileset.h"
 
 class Tilemap
 {

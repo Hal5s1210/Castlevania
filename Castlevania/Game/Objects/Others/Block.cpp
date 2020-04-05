@@ -7,3 +7,8 @@ void Block::GetBoundingBox(float& l, float& t, float& r, float& b)
 	r = l + w;
 	b = r + h;
 }
+
+LPGAMEOBJECT Block::Clone()
+{
+	return new Block(*this);
+}

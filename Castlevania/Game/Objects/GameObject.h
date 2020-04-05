@@ -66,7 +66,7 @@ public:
 	void PauseAnimation() { currentAnimation.first->Pause(); }
 	void PlayAnimtion() { currentAnimation.first->Play(); }
 
-	virtual void Init(const wchar_t* path);
+	virtual LPGAMEOBJECT Clone() = 0;
 
 	virtual void Update(DWORD dt);
 	virtual void Render(float x = 0, float y = 0) = 0;

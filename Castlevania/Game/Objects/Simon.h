@@ -45,7 +45,7 @@ public:
 	void ReadyWeapon();
 	void ReadySubWeapon();
 
-	void LoadAnimationSet(pugi::xml_node node);
+	LPGAMEOBJECT Clone() { return NULL; }
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render(float x = 0, float y = 0);

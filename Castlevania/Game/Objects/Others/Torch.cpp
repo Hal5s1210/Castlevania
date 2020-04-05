@@ -17,3 +17,8 @@ void Torch::GetBoundingBox(float& l, float& t, float& r, float& b)
 	r = l + 16;
 	b = t + 32;
 }
+
+LPGAMEOBJECT Torch::Clone()
+{
+	return new Torch(*this);
+}

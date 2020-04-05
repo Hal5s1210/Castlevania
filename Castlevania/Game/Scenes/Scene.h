@@ -11,8 +11,9 @@
 #include "..\..\Framework\Debug.h"
 #include "..\..\Framework\Viewport.h"
 #include "..\Parser.h"
-#include "..\Objects\Generator.h"
+#include "..\Objects\Spawner.h"
 #include "..\Map\TileMap.h"
+#include "..\Map\Grid.h"
 #include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 
@@ -23,6 +24,8 @@ protected:
 	LPCWSTR filePath;
 	
 	Simon* player;
+
+	Grid* grid;
 	Tilemap* tilemap;
 
 	std::vector<LPGAMEOBJECT> objects;

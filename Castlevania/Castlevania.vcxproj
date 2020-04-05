@@ -36,13 +36,13 @@
     <ClCompile Include="Game\Scenes\GameScene.cpp" />
     <ClCompile Include="Game\Main.cpp" />
     <ClCompile Include="Game\Objects\Simon.cpp" />
-    <ClCompile Include="Game\Objects\Generator.cpp" />
+    <ClCompile Include="Game\Objects\Spawner.cpp" />
     <ClCompile Include="Game\Map\Grid.cpp" />
     <ClCompile Include="Game\Map\Tilemap.cpp" />
     <ClCompile Include="Framework\Viewport.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Whip.cpp" />
     <ClCompile Include="Game\Objects\Others\Torch.cpp" />
-    <ClCompile Include="Game\Map\TileSet.cpp" />
+    <ClCompile Include="Game\Map\Tileset.cpp" />
     <ClCompile Include="Game\Parser.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -64,13 +64,13 @@
     <ClInclude Include="Game\ID.h" />
     <ClInclude Include="Game\Scenes\GameScene.h" />
     <ClInclude Include="Game\Objects\Simon.h" />
-    <ClInclude Include="Game\Objects\Generator.h" />
+    <ClInclude Include="Game\Objects\Spawner.h" />
     <ClInclude Include="Game\Map\Grid.h" />
     <ClInclude Include="Game\Map\Tilemap.h" />
     <ClInclude Include="Framework\Viewport.h" />
     <ClInclude Include="Game\Objects\Weapons\Whip.h" />
     <ClInclude Include="Game\Objects\Others\Torch.h" />
-    <ClInclude Include="Game\Map\TileSet.h" />
+    <ClInclude Include="Game\Map\Tileset.h" />
     <ClInclude Include="Game\Parser.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

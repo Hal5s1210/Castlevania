@@ -6,25 +6,26 @@
 
   <Sprites>
     <!--Simon Whip 0-->
-    <Sprite id="9000" texture="9000" x="48" y="64" w="32" h="16"/>
+    <Sprite id="9000" texture="9000" x="80" y="80" w="8" h="16"/>
     <!--Simon Whip 1-->
-    <Sprite id="9010" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9011" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9012" texture="9000" x="48" y="64" w="32" h="16"/>
+    <Sprite id="9010" texture="9000" x="0" y="0" w="8" h="32"/>
+    <Sprite id="9011" texture="9000" x="40" y="0" w="16" h="24"/>
+    <Sprite id="9012" texture="9000" x="0" y="32" w="28" h="16"/>
     <!--Simon Whip 2-->
-    <Sprite id="9020" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9021" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9022" texture="9000" x="48" y="64" w="32" h="16"/>
+    <Sprite id="9020" texture="9000" x="16" y="0" w="8" h="32"/>
+    <Sprite id="9021" texture="9000" x="72" y="0" w="16" h="24"/>
+    <Sprite id="9022" texture="9000" x="0" y="48" w="44" h="16"/>
     <!--Simon Whip 3-->
-    <Sprite id="9030" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9031" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9032" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9033" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9034" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9035" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9036" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9037" texture="9000" x="48" y="64" w="32" h="16"/>
-    <Sprite id="9038" texture="9000" x="48" y="64" w="32" h="16"/>
+    <Sprite id="9030" texture="9000" x="8" y="0" w="8" h="32"/>
+    <Sprite id="9031" texture="9000" x="24" y="0" w="8" h="32"/>
+    <Sprite id="9032" texture="9000" x="32" y="0" w="8" h="32"/>
+    <Sprite id="9033" texture="9000" x="56" y="0" w="16" h="24"/>
+    <Sprite id="9034" texture="9000" x="88" y="0" w="16" h="24"/>
+    <Sprite id="9035" texture="9000" x="104" y="0" w="16" h="24"/>
+    <Sprite id="9036" texture="9000" x="28" y="32" w="44" h="16"/>
+    <Sprite id="9037" texture="9000" x="72" y="32" w="44" h="16"/>
+    <Sprite id="9038" texture="9000" x="28" y="48" w="44" h="16"/>
+    <Sprite id="9039" texture="9000" x="72" y="48" w="44" h="16"/>
   </Sprites>
 
   <Animations>
@@ -34,47 +35,46 @@
     </Animation>
     <!--Whip 1-->
     <Animation id="9010">
-      <Frame sprite="9000" time="100"/>
+      <Frame sprite="9010" time="100"/>
     </Animation>
     <Animation id="9011">
-      <Frame sprite="9000" time="100"/>
+      <Frame sprite="9011" time="100"/>
     </Animation>
     <Animation id="9012">
-      <Frame sprite="9000" time="100"/>
+      <Frame sprite="9012" time="100"/>
     </Animation>
     <!--Whip 2-->
     <Animation id="9020">
-      <Frame sprite="9000" time="100"/>
+      <Frame sprite="9020" time="100"/>
     </Animation>
     <Animation id="9021">
-      <Frame sprite="9000" time="100"/>
+      <Frame sprite="9021" time="100"/>
     </Animation>
     <Animation id="9022">
-      <Frame sprite="9000" time="100"/>
+      <Frame sprite="9022" time="100"/>
     </Animation>
     <!--Whip 3-->
     <Animation id="9030">
-      <Frame sprite="9000" time="100"/>
-      <Frame sprite="9000" time="100"/>
-      <Frame sprite="9000" time="100"/>
-      <Frame sprite="9000" time="100"/>
+      <Frame sprite="9030" time="100"/>
+      <Frame sprite="9020" time="100"/>
+      <Frame sprite="9031" time="100"/>
+      <Frame sprite="9032" time="100"/>
     </Animation>
     <Animation id="9031">
-      <Frame sprite="9000" time="100"/>
-      <Frame sprite="9000" time="100"/>
-      <Frame sprite="9000" time="100"/>
-      <Frame sprite="9000" time="100"/>
+      <Frame sprite="9033" time="100"/>
+      <Frame sprite="9021" time="100"/>
+      <Frame sprite="9034" time="100"/>
+      <Frame sprite="9035" time="100"/>
     </Animation>
     <Animation id="9032">
-      <Frame sprite="9000" time="100"/>
-      <Frame sprite="9000" time="100"/>
-      <Frame sprite="9000" time="100"/>
-      <Frame sprite="9000" time="100"/>
+      <Frame sprite="9036" time="100"/>
+      <Frame sprite="9037" time="100"/>
+      <Frame sprite="9038" time="100"/>
+      <Frame sprite="9039" time="100"/>
     </Animation>
   </Animations>
 
   <AnimationSets>
-    <Set>
       <Animation id="9000"/>
       <Animation id="9010"/>
       <Animation id="9011"/>
@@ -85,49 +85,6 @@
       <Animation id="9030"/>
       <Animation id="9031"/>
       <Animation id="9032"/>
-    </Set>
   </AnimationSets>
-
-  <Animations>
-    <Animation id="frame0">
-      <Frame x="80" y="80" w="8" h="16" t="100"/>
-    </Animation>
-    <Animation id="frame11">
-      <Frame x="0" y="0" w="8" h="32" t="100"/>
-    </Animation>
-    <Animation id="frame12">
-      <Frame x="40" y="0" w="16" h="24" t="100"/>
-    </Animation>
-    <Animation id="frame13">
-      <Frame x="0" y="32" w="28" h="16" t="100"/>
-    </Animation>
-    <Animation id="frame21">
-      <Frame x="16" y="0" w="8" h="32" t="100"/>
-    </Animation>
-    <Animation id="frame22">
-      <Frame x="72" y="0" w="16" h="24" t="100"/>
-    </Animation>
-    <Animation id="frame23">
-      <Frame x="0" y="48" w="28" h="16" t="100"/>
-    </Animation>
-    <Animation id="frame31">
-      <Frame x="8" y="0" w="8" h="16" t="10"/>
-      <Frame x="16" y="0" w="8" h="16" t="10"/>
-      <Frame x="24" y="0" w="8" h="16" t="10"/>
-      <Frame x="32" y="0" w="8" h="16" t="10"/>
-    </Animation>
-    <Animation id="frame32">
-      <Frame x="56" y="0" w="16" h="24" t="10"/>
-      <Frame x="72" y="0" w="16" h="24" t="10"/>
-      <Frame x="88" y="0" w="16" h="24" t="10"/>
-      <Frame x="104" y="0" w="16" h="24" t="10"/>
-    </Animation>
-    <Animation id="frame33">
-      <Frame x="28" y="32" w="44" h="16" t="10"/>
-      <Frame x="72" y="32" w="44" h="16" t="10"/>
-      <Frame x="28" y="48" w="44" h="16" t="10"/>
-      <Frame x="72" y="48" w="44" h="16" t="10"/>
-    </Animation>
-  </Animations>
 
 </Object>

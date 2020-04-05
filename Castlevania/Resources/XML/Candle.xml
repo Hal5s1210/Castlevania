@@ -17,9 +17,7 @@
   </Animations>
 
   <AnimationSets>
-    <Set>
       <Animation id="2010"/>
-    </Set>
   </AnimationSets>
 
 </Object>

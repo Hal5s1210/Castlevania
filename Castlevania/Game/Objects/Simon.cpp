@@ -1,11 +1,9 @@
 #include "Simon.h"
 #include "..\..\Framework\Game.h"
-#include "Generator.h"
+#include "Spawner.h"
 
 Simon::Simon()
 {
-	whip = new Whip;
-	whip->Init(WHIP_PATH);
 	flip = true;
 	attack = false;
 	crounch = false;
@@ -18,10 +16,6 @@ Simon::~Simon()
 	delete whip;
 }
 
-void Simon::LoadAnimationSet(pugi::xml_node node)
-{
-
-}
 
 void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {

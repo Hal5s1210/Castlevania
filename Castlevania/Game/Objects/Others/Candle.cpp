@@ -17,3 +17,8 @@ void Candle::GetBoundingBox(float& l, float& t, float& r, float& b)
 	r = l + 8;
 	b = t + 16;
 }
+
+LPGAMEOBJECT Candle::Clone()
+{
+	return new Candle(*this);
+}

@@ -3,6 +3,7 @@
 #include "..\Framework\Sprite.h"
 #include "..\Framework\Animation.h"
 #include "..\Framework\Sound.h"
+#include "Objects/Spawner.h"
 
 void Parser::Parse_Texture(pugi::xml_node root)
 {
@@ -82,10 +83,43 @@ void Parser::Parse_Object(pugi::xml_node root)
 		pugi::xml_parse_result result = doc.load_file(path);
 		if (!result) continue;
 
-		pugi::xml_node root = doc.child(L"Simon");
+		pugi::xml_node root = doc.child(L"Object");
 
 		Parser::Parse_Texture(root.child(L"Textures"));
 		Parser::Parse_Sprite(root.child(L"Sprites"));
 		Parser::Parse_Animation(root.child(L"Animations"));
+
+		Spawner::GetInstance()->CreateObjectSpawner(id, root.child(L"AnimationSet"));
+	}
+}
+
+void Parser::Parse_AnimationSet(LPGAMEOBJECT obj, pugi::xml_node root)
+{
+	for (pugi::xml_node node : root)
+	{
+		int animation_id = node.attribute(L"id").as_int();
+		LPANIMATION ani = Animations::GetInstance()->Get(animation_id);
+		obj->AddAnimation(ani);
+	}
+}
+
+void Parser::Parse_Grid(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cells, pugi::xml_node root)
+{
+	for (pugi::xml_node cell : root)
+	{
+		int i = cell.attribute(L"row").as_int();
+		int j = cell.attribute(L"column").as_int();
+
+		for (pugi::xml_node obj : cell)
+		{
+			int id = obj.attribute(L"type").as_int();
+			float x = obj.attribute(L"x").as_float();
+			float y = obj.attribute(L"y").as_float();
+
+			LPGAMEOBJECT o = Spawner::GetInstance()->SpawnObject(id);
+			o->SetPosition(x, y);
+
+			cells->at(i).at(j).push_back(o);
+		}
 	}
 }

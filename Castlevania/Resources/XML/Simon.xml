@@ -67,7 +67,6 @@
   </Animations>
   
   <AnimationSets>
-    <Set>
       <Animation id="1000"/>
       <Animation id="1001"/>
       <Animation id="1002"/>
@@ -75,7 +74,6 @@
       <Animation id="1004"/>
       <Animation id="1005"/>
       <Animation id="1006"/>
-    </Set>
   </AnimationSets>
   
 </Object>

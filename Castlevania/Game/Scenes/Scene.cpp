@@ -3,8 +3,6 @@
 #include "..\..\Framework\Animation.h"
 
 
-
-
 void Scene::LoadFromFile()
 {
 	pugi::xml_document doc;
@@ -22,6 +20,12 @@ void Scene::LoadFromFile()
 	Parser::Parse_Animation(root.child(L"Animations"));
 	Parser::Parse_Sound(root.child(L"Sounds"));
 	Parser::Parse_Object(root.child(L"Objects"));
+
+	tilemap = new Tilemap;
+	tilemap->LoadMap(root.child(L"Tilemap"));
+
+	grid = new Grid;
+	grid->Grid_Init(root.child(L"Grid"));
 
 	OutputDebugString(L"[ERROR] Load Scene file done\n");
 }

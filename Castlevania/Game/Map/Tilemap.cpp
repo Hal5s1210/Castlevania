@@ -9,7 +9,7 @@ void Tilemap::LoadMap(pugi::xml_node mapNode)
 	pugi::xml_node info = mapNode.child(L"Map");
 	if (!info) return;
 
-	int id = info.attribute(L"tileset").as_int();
+	int id = info.attribute(L"Tileset").as_int();
 
 	tileset = Tilesets::GetInstance()->Get(id);
 
