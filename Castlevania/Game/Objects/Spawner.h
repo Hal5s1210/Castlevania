@@ -15,9 +15,12 @@ private:
 	std::unordered_map<int, LPGAMEOBJECT> spawners;
 
 public:
+	Spawner();
+
 	static Spawner* GetInstance();
 
-	void CreateObjectSpawner(int id, pugi::xml_node root);
+	void CreateObjectSpawner(int id);
+	LPGAMEOBJECT GetSpawner(int id) { return spawners[id]; }
 	LPGAMEOBJECT SpawnObject(int id);
 };
 

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Animation.cpp" />
+    <ClCompile Include="Game\Board.cpp" />
     <ClCompile Include="Game\Objects\Others\Candle.cpp" />
     <ClCompile Include="Game\Objects\Others\Block.cpp" />
     <ClCompile Include="Dependencies\pugixml\src\pugixml.cpp" />
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Animation.h" />
+    <ClInclude Include="Game\Board.h" />
     <ClInclude Include="Game\Objects\Others\Candle.h" />
     <ClInclude Include="Game\Objects\Others\Block.h" />
     <ClInclude Include="Dependencies\pugixml\src\pugiconfig.hpp" />

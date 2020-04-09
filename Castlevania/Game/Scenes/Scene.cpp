@@ -16,16 +16,12 @@ void Scene::LoadFromFile()
 	pugi::xml_node root = doc.child(L"Scene");
 
 	Parser::Parse_Texture(root.child(L"Textures"));
-	Parser::Parse_Sprite(root.child(L"Sprites"));
-	Parser::Parse_Animation(root.child(L"Animations"));
 	Parser::Parse_Sound(root.child(L"Sounds"));
 	Parser::Parse_Object(root.child(L"Objects"));
-
-	tilemap = new Tilemap;
-	tilemap->LoadMap(root.child(L"Tilemap"));
-
-	grid = new Grid;
-	grid->Grid_Init(root.child(L"Grid"));
+	Parser::Parse_Player(&player, root.child(L"Player"));
+	Parser::Parse_Tileset(root.child(L"Tilesets"));
+	Parser::Parse_Tilemap(&tilemap, root.child(L"Tilemap"));
+	Parser::Parse_Grid(&grid, root.child(L"Grid"));
 
 	OutputDebugString(L"[ERROR] Load Scene file done\n");
 }
@@ -43,7 +39,18 @@ Scenes* Scenes::GetInstance()
 void Scenes::Add(int id, LPSCENE scene)
 {
 	scenes[id] = scene;
-	currentScene = id;
+	currentID = id;
+}
+
+
+void Scenes::NextScene(int id)
+{
+	LPSCENE current = scenes[currentID];
+	if (current->IsLoaded())
+		current->Unload();
+
+	current = scenes[id];
+	current->Load();
 }
 
 

@@ -11,6 +11,9 @@ private:
 	bool isWhip;
 public:
 	Whip();
+
+	LPGAMEOBJECT Clone() { return NULL; }
+
 	void UseWhip(bool use) { isWhip = use; }
 	void SetFrameIndex(int i);
 	void Render(float x = 0, float y = 0) {}

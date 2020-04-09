@@ -1,4 +1,8 @@
 #include "Parser.h"
+
+#include <locale>
+#include <codecvt>
+
 #include "..\Framework\Texture.h"
 #include "..\Framework\Sprite.h"
 #include "..\Framework\Animation.h"
@@ -85,11 +89,12 @@ void Parser::Parse_Object(pugi::xml_node root)
 
 		pugi::xml_node root = doc.child(L"Object");
 
-		Parser::Parse_Texture(root.child(L"Textures"));
 		Parser::Parse_Sprite(root.child(L"Sprites"));
 		Parser::Parse_Animation(root.child(L"Animations"));
 
-		Spawner::GetInstance()->CreateObjectSpawner(id, root.child(L"AnimationSet"));
+		Spawner::GetInstance()->CreateObjectSpawner(id);
+		LPGAMEOBJECT obj = Spawner::GetInstance()->GetSpawner(id);
+		Parser::Parse_AnimationSet(obj, root.child(L"AnimationSet"));
 	}
 }
 
@@ -103,7 +108,128 @@ void Parser::Parse_AnimationSet(LPGAMEOBJECT obj, pugi::xml_node root)
 	}
 }
 
-void Parser::Parse_Grid(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cells, pugi::xml_node root)
+
+void Parser::Parse_Player(Simon** player, pugi::xml_node root)
+{
+	LPCWSTR path = root.child(L"Resource").attribute(L"path").value();
+	pugi::xml_document doc;
+	pugi::xml_parse_result result;
+
+	result = doc.load_file(path);
+	if (!result) return;
+
+	pugi::xml_node node = doc.child(L"Object");
+
+	Parser::Parse_Sprite(node.child(L"Sprites"));
+	Parser::Parse_Animation(node.child(L"Animations"));
+	
+	(*player) = new Simon;
+
+	Parser::Parse_Whip((*player)->GetWhip(), root.child(L"Weapon"));
+
+	Parser::Parse_AnimationSet((*player), node.child(L"AnimationSet"));
+	
+	float x = root.child(L"Position").attribute(L"x").as_int();
+	float y = root.child(L"Position").attribute(L"y").as_int();
+
+	(*player)->SetPosition(x, y);
+
+}
+
+void Parser::Parse_Whip(Whip* whip, pugi::xml_node root)
+{
+	LPCWSTR path = root.attribute(L"path").value();
+	pugi::xml_document doc;
+	pugi::xml_parse_result result;
+
+	result = doc.load_file(path);
+	if (!result) return;
+
+	pugi::xml_node node = doc.child(L"Object");
+
+	Parser::Parse_Sprite(node.child(L"Sprites"));
+	Parser::Parse_Animation(node.child(L"Animations"));
+	Parser::Parse_AnimationSet(whip, node.child(L"AnimationSet"));
+}
+
+
+
+void Parser::Parse_Tileset(pugi::xml_node root)
+{
+	for (pugi::xml_node set : root)
+	{
+		int id = set.attribute(L"id").as_int();
+		int textureid = set.attribute(L"texture").as_int();
+		int tileW = set.attribute(L"tileW").as_int();
+		int tileH = set.attribute(L"tileH").as_int();
+
+		Tilesets::GetInstance()->Add(id, textureid, tileW, tileH);
+	}
+}
+
+void Parser::Parse_Tilemap(Tilemap** tilemap, pugi::xml_node root)
+{
+	if (!root) return;
+
+	pugi::xml_node map = root.child(L"Map");
+
+	int id = map.attribute(L"tileset").as_int();
+
+	LPTILESET tileset = Tilesets::GetInstance()->Get(id);
+
+	int w = map.attribute(L"width").as_int();
+	int h = map.attribute(L"height").as_int();
+	int tileW = map.attribute(L"tileW").as_int();
+	int tileH = map.attribute(L"tileH").as_int();
+
+	*tilemap = new Tilemap(tileset, w, h, tileW, tileH);
+	Parser::Parse_TilemapMatrix((*tilemap)->GetMatrix(), map.child(L"Matrix"));
+}
+
+void Parser::Parse_TilemapMatrix(std::vector<std::vector<int>>* matrix, pugi::xml_node root)
+{
+	using convert_type = std::codecvt_utf8<wchar_t>;
+	std::wstring_convert<convert_type, wchar_t> converter;
+
+	for (pugi::xml_node r : root)
+	{
+		std::wstring str = r.text().as_string();
+		std::string converted_str = converter.to_bytes(str);
+		std::vector<int> row = Parser::split(converted_str, ',');
+		matrix->push_back(row);
+	}
+}
+
+std::vector<int> Parser::split(const std::string& s, char delimiter)
+{
+	std::vector<int> out;
+	std::stringstream ss(s);
+
+	std::string item;
+
+	while (std::getline(ss, item, delimiter))
+	{
+		out.push_back(std::stoi(item));
+	}
+
+	return out;
+}
+
+
+void Parser::Parse_Grid(Grid** grid, pugi::xml_node root)
+{
+	if (!root) return;
+
+	int w = root.attribute(L"width").as_int();
+	int h = root.attribute(L"height").as_int();
+	int cellW = root.attribute(L"cellW").as_int();
+	int cellH = root.attribute(L"cellH").as_int();
+
+	(*grid) = new Grid(w, h, cellW, cellH);
+	Parser::Parse_Cell((*grid)->GetCells(), root);
+}
+
+void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cells, pugi::xml_node root)
 {
 	for (pugi::xml_node cell : root)
 	{

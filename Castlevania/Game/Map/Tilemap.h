@@ -13,12 +13,13 @@ private:
 	int tileH;
 	int width;
 	int height;
-	std::vector<std::vector<int>> mapMatrix;
-
-	void LoadMatrix(pugi::xml_node node);
-	std::vector<int> split(const std::string& s, char delimiter);
+	std::vector<std::vector<int>> matrix;
 
 public:
-	void LoadMap(pugi::xml_node node);
+	Tilemap(LPTILESET tileset, int w, int h, int tw, int th) :
+		tileset(tileset), width(w), height(h), tileW(tw), tileH(th) {}
+
+	std::vector<std::vector<int>>* GetMatrix() { return &matrix; }
+
 	void Render(float x = 0, float y = 0);
 };

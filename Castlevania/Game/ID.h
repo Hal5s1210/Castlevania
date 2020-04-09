@@ -12,9 +12,9 @@
 #endif // !TILESET_ID
 
 #ifndef OBJECT_ID
+#define BLOCK_ID						-1
 #define SIMON_ID						0
 #define WHIP_ID							1
-#define BLOCK_ID						8
 #define CANDLE_ID						9
 #define TORCH_ID						10
 #endif // !OBJECT_ID

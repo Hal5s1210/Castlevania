@@ -38,7 +38,7 @@ protected:
 	bool flip;
 	
 	std::vector<ANIMATION> animations;
-	ANIMATION currentAnimation;
+	ANIMATION* currentAnimation;
 
 
 	LPCOEVENT SweptAABBEx(LPGAMEOBJECT coO);
@@ -62,9 +62,9 @@ public:
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
 	void AddAnimation(LPANIMATION animation);
-	void SetAnimation(int i) { currentAnimation = animations[i]; }
-	void PauseAnimation() { currentAnimation.first->Pause(); }
-	void PlayAnimtion() { currentAnimation.first->Play(); }
+	void SetAnimation(int i) { currentAnimation = &animations[i]; }
+	void PauseAnimation() { currentAnimation->first->Pause(); }
+	void PlayAnimtion() { currentAnimation->first->Play(); }
 
 	virtual LPGAMEOBJECT Clone() = 0;
 

@@ -20,6 +20,7 @@ void Castlevania::LoadResources()
 	spriteHandler = Graphics::GetInstance()->GetSpriteHandler();
 
 	scenes->Add(0, new GameScene(L"Resources\\XML\\GameScene.xml"));
+	scenes->NextScene(0);
 }
 
 void Castlevania::Update(DWORD dt)

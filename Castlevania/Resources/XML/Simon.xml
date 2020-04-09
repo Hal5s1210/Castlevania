@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Object>
-  <Textures>
-    <Texture id="1000" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
-  </Textures>
 
   <Sprites>
     <!--Simon idle-->
@@ -66,7 +63,7 @@
     </Animation>
   </Animations>
   
-  <AnimationSets>
+  <AnimationSet>
       <Animation id="1000"/>
       <Animation id="1001"/>
       <Animation id="1002"/>
@@ -74,6 +71,6 @@
       <Animation id="1004"/>
       <Animation id="1005"/>
       <Animation id="1006"/>
-  </AnimationSets>
+  </AnimationSet>
   
 </Object>

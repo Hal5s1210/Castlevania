@@ -21,31 +21,47 @@
 
 class Simon : public GameObject
 {
+public:
+	enum eState
+	{
+		Idle,
+		WalkL,
+		WalkR,
+		Crounch,
+		Attack,
+		SubWeapon,
+		Jump,
+		OnAir,
+		Hitted,
+		Dead
+	};
+
 private:
 	DWORD jumpTime;
 	DWORD jumpStartTime;
 
-	bool attack;
 	bool crounch;
+	bool attack;
 	bool onair;
 	bool onstair;
+	bool hitted;
+	bool dead;
 
 	Whip* whip;
+
+	eState state;
+
+	void ProcessState();
 
 public:
 	Simon();
 	~Simon();
 
-	void GoIdle();
-	void GoLeft();
-	void GoRight();
-	void Crounch();
-	void Jump();
-	void Attack(bool crounch);
-	void ReadyWeapon();
-	void ReadySubWeapon();
-
 	LPGAMEOBJECT Clone() { return NULL; }
+
+	Whip* GetWhip() { return whip; }
+
+	void SetState(eState state);
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render(float x = 0, float y = 0);

@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Scene.h"
+#include "..\Board.h"
 #include "..\Objects\Simon.h"
 
 class GameScene : public Scene
 {
 private:
-	Simon* simon;
+	Board* board;
 	void AdjustView();
 
 public:
@@ -20,7 +21,5 @@ public:
 	void KeyState(BYTE* state);
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
-
-	Simon* GetSimon() { return simon; }
 };
 

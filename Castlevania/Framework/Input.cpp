@@ -57,7 +57,7 @@ bool Input::Init(HWND hwnd)
 
 	hr = didv->Acquire();
 
-	DebugOut(L"[INFO] InitInput done\n");
+	NSDebug::DebugOut(L"[INFO] InitInput done\n");
 	return true;
 }
 
@@ -76,7 +76,7 @@ void Input::ProcessKeyboard()
 			hr = didv->Acquire();
 			if (hr == DI_OK)
 			{
-				DebugOut(L"[INFO] Keyboard re-acquired!\n");
+				NSDebug::DebugOut(L"[INFO] Keyboard re-acquired!\n");
 			}
 		}
 		hr = didv->GetDeviceState(sizeof(keyStates), keyStates);
@@ -88,7 +88,7 @@ void Input::ProcessKeyboard()
 	hr = didv->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), keyEvents, &dwElements, 0);
 	if (FAILED(hr))
 	{
-		DebugOut(L"[ERROR] DINPUT::GetDeviceData failed. Error: %d\n", hr);
+		NSDebug::DebugOut(L"[ERROR] DINPUT::GetDeviceData failed. Error: %d\n", hr);
 		return;
 	}
 

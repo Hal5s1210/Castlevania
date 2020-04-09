@@ -7,4 +7,8 @@
 #include <time.h>
 #include <stdlib.h>
 
-void DebugOut(const wchar_t* fmt, ...);
+namespace NSDebug
+{
+	void DebugOut(const wchar_t* fmt, ...);
+	void RenderBoundBox(float x, float y, int l, int t, int r, int b);
+}

@@ -5,7 +5,7 @@ Tileset::Tileset(LPTEXTURE texture, int w, int h)
 {
 	this->texture = texture;
 	tileWidth = w;
-	tileHeight - h;
+	tileHeight = h;
 }
 
 

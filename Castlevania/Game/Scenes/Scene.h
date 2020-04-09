@@ -21,10 +21,10 @@ class Scene : public IKeyEventHandler
 {
 protected:
 	float x, y;
+	bool loaded;
 	LPCWSTR filePath;
 	
 	Simon* player;
-
 	Grid* grid;
 	Tilemap* tilemap;
 
@@ -34,6 +34,8 @@ protected:
 
 public:
 	Scene(LPCWSTR filepath) { filePath = filepath; }
+	
+	bool IsLoaded() { return loaded; }
 
 	virtual void Load() = 0;
 	virtual void Unload() = 0;
@@ -49,13 +51,13 @@ class Scenes
 private:
 	static Scenes* _instance;
 	std::unordered_map<int, LPSCENE> scenes;
-	int currentScene;
+	int currentID;
 
 public:
 	static Scenes* GetInstance();
 
 	void Add(int id, LPSCENE scene);
-	LPSCENE GetScene() { return scenes[currentScene]; }
+	LPSCENE GetScene() { return scenes[currentID]; }
 	void NextScene(int id);
 
 };

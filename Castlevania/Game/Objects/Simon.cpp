@@ -4,11 +4,13 @@
 
 Simon::Simon()
 {
+	whip = new Whip;
 	flip = true;
 	attack = false;
 	crounch = false;
 	onair = true;
 	jumpStartTime = -1;
+	state = Simon::Idle;
 }
 
 Simon::~Simon()
@@ -19,6 +21,8 @@ Simon::~Simon()
 
 void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+	ProcessState();
+
 	GameObject::Update(dt);
 
 	vy += dt * GRAVITY;
@@ -88,30 +92,33 @@ void Simon::Render(float x, float y)
 	float X = this->x + x;
 	float Y = this->y + y;
 
-	int i = currentAnimation.second;
-	LPSPRITE sprite = currentAnimation.first->GetFrame(currentAnimation.second);
-	RECT r = sprite->GetRect();
-	float fixX = flip ? 16 - (r.right - r.left) : 0;
-	float fixY = 32 - (r.bottom - r.top);
+	int i = currentAnimation->second;
+	LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+	RECT rect = sprite->GetRect();
+	float fixX = 16 - (rect.right - rect.left);
+	float fixY = 32 - (rect.bottom - rect.top);
 	if (flip) X += fixX;
 	Y += fixY;
 
-	currentAnimation.first->Draw(currentAnimation.second, X, Y, 255, flip);
+	currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
+
+	/*float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
+	NSDebug::RenderBoundBox(X - (flip ? fixX : 0), Y, l, t, r, b);*/
 
 	if (attack)
 	{
 		whip->SetPosition(X + fixX, Y);
 		whip->SetFrameIndex(i);
 		float w, h;
-		w = r.right - r.left;
-		h = r.bottom - r.top;
+		w = rect.right - rect.left;
+		h = rect.bottom - rect.top;
 
 		whip->Render(w, h, flip);
 
-		if (currentAnimation.first->IsFrameReset())
+		if (currentAnimation->first->IsFrameReset())
 		{
 			attack = false;
-			GoIdle();
 		}
 	}
 	
@@ -119,90 +126,157 @@ void Simon::Render(float x, float y)
 
 void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x;
-	t = y;
+	float X = this->x;
+	float Y = this->y;
+
+	LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+	RECT rect = sprite->GetRect();
+	float fixX = 16 - (rect.right - rect.left);
+	float fixY = 32 - (rect.bottom - rect.top);
+	Y += fixY;
+
+	l = X - (flip ? fixX : 0);
+	t = Y;
 	r = l + 16;
-	b = t + 32;
+	b = t + 32 - fixY;
 }
 
-void Simon::GoIdle()
+void Simon::SetState(eState state)
 {
-	if (attack)
+	if (hitted || dead)
 		return;
 
-	if (onair)
+	switch (state)
 	{
-		SetAnimation(CROUNCH);
+	case Simon::Idle:
+		if (attack) break;
+		if (onair)
+		{
+			this->state = Simon::OnAir;
+			break;
+		}
+		this->state = state;
+		break;
+
+	case Simon::WalkL:
+	case Simon::WalkR:
+		if (attack) break;
+		if (onair)
+		{
+			this->state = Simon::OnAir;
+			break;
+		}
+		this->state = state;
+		break;
+
+	case Simon::Crounch:
+		if (attack) break;
+		if (onair)
+		{
+			this->state = Simon::OnAir;
+			break;
+		}
+		this->state = state;
+		break;
+		
+	case Simon::Attack:
+		this->state = state;
+		break;
+
+	case Simon::Jump:
+		if (attack) break;
+		this->state = state;
+		break;
+
+	default:
+		this->state = state;
+		break;
 	}
-	else
+}
+
+void Simon::ProcessState()
+{
+	switch (state)
 	{
+	case Simon::Idle:
 		SetAnimation(IDLE);
+		crounch = false;
 		vx = 0;
-	}
-}
+		break;
 
+	case Simon::WalkL:
+		SetAnimation(WALK);
+		vx = -SIMON_SPEED;
+		crounch = false;
+		flip = false;
+		break;
 
-void Simon::GoLeft()
-{
-	if (attack || onair)
-		return;
+	case Simon::WalkR:
+		SetAnimation(WALK);
+		vx = SIMON_SPEED;
+		crounch = false;
+		flip = true;
+		break;
 
-	SetAnimation(WALK);
-	vx = -SIMON_SPEED;
-	flip = false;
-	
-}
-
-void Simon::GoRight()
-{
-	if (attack || onair)
-		return;
-
-	SetAnimation(WALK);
-	vx = SIMON_SPEED;
-	flip = true;
-}
-
-void Simon::Crounch()
-{
-	if (attack || onair)
-		return;
-
-	SetAnimation(CROUNCH);
-	vx = 0;
-}
-
-void Simon::Jump()
-{
-	if (!onair)
-	{
-		vy = JUMP_FORCE;
-		jumpStartTime = GetTickCount();
-		onair = true;
+	case Simon::Crounch:
 		SetAnimation(CROUNCH);
+		crounch = true;
+		vx = 0;
+		break;
+
+	case Simon::Attack:
+		if (!attack)
+		{
+			whip->UseWhip(true);
+			if (crounch)
+				SetAnimation(ATTACK_2);
+			else
+				SetAnimation(ATTACK_1);
+			currentAnimation->second = -1;
+			crounch = false;
+			attack = true;
+			if (!onair) vx = 0;
+		}
+		break;
+
+	case Simon::SubWeapon:
+		if (!attack)
+		{
+			whip->UseWhip(false);
+			if (crounch)
+				SetAnimation(ATTACK_2);
+			else
+				SetAnimation(ATTACK_1);
+			currentAnimation->second = -1;
+			crounch = false;
+			attack = true;
+			if (!onair) vx = 0;
+		}
+		break;
+
+	case Simon::Jump:
+		if (!onair)
+		{
+			vy = JUMP_FORCE;
+			jumpStartTime = GetTickCount();
+			crounch = false;
+			onair = true;
+			SetAnimation(CROUNCH);
+		}
+		break;
+
+	case Simon::OnAir:
+		if (onair)
+		{
+			SetAnimation(CROUNCH);
+		}
+		break;
+
+	case Simon::Hitted:
+		break;
+	case Simon::Dead:
+		break;
+	default:
+		break;
 	}
-}
-
-void Simon::Attack(bool crounch)
-{
-	if (attack)
-		return;
-
-	if (crounch && !onair)
-		SetAnimation(ATTACK_2);
-	else
-		SetAnimation(ATTACK_1);
-	currentAnimation.second = -1;
-	attack = true;
-	if (!onair) vx = 0;
-}
-
-void Simon::ReadyWeapon()
-{
-	whip->UseWhip(true);
-}
-
-void Simon::ReadySubWeapon()
-{
-	whip->UseWhip(false);
 }

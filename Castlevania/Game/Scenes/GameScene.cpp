@@ -6,34 +6,48 @@ void GameScene::Load()
 	x = 0;
 	y = 48;
 	LoadFromFile();
-
-	//simon = dynamic_cast<Simon*>(player);
+	board = new Board;
+	loaded = true;
 	Sound::GetInstance()->Play(SOUND_COUNTYARD_ID);
 	OutputDebugString(L"[INFO] GameScene loaded OK\n");
 }
 
 void GameScene::Unload()
 {
-	delete simon;
+	//delete simon;
 
 	Textures::GetInstance()->Clear();
-
+	loaded = false;
 	OutputDebugString(L"[INFO] GameScene ended OK\n");
 }
 
 void GameScene::Update(DWORD dt)
 {
-	simon->Update(dt, &objects);
-	float simon_x, simon_y;
-	simon->GetPosition(simon_x, simon_y);
-	Viewport::GetInstance()->SetPosition(simon_x - 112, 0);
+	grid->GetObjectlist(&objects);
+
+	player->Update(dt, &objects);
+
+
+	float player_x, player_y;
+	player->GetPosition(player_x, player_y);
+	Viewport::GetInstance()->SetPosition(player_x - 112, 0);
 	AdjustView();
+
+	board->Update(dt);
 }
 
 void GameScene::Render()
 {
 	tilemap->Render(x, y);
-	simon->Render(x, y);
+
+	board->Render();
+
+	for (LPGAMEOBJECT obj : objects)
+	{
+		obj->Render(x, y);
+	}
+
+	player->Render(x, y);
 }
 
 void GameScene::AdjustView()
@@ -54,53 +68,58 @@ void GameScene::AdjustView()
 void GameScene::KeyState(BYTE* state)
 {
 	Input* input = Input::GetInstance();
-	if (simon)
+	if (player)
 	{
-		if (input->IsKeyDown(PAD_LEFT))
-			simon->GoLeft();
+		if (input->IsKeyDown(PAD_DOWN))
+		{
+			player->SetState(Simon::Crounch);
+		}
+		else if (input->IsKeyDown(PAD_LEFT))
+		{
+			player->SetState(Simon::WalkL);
+		}
 		else if (input->IsKeyDown(PAD_RIGHT))
-			simon->GoRight();
-		else if (input->IsKeyDown(PAD_DOWN))
-			simon->Crounch();
-		else simon->GoIdle();
+		{
+			player->SetState(Simon::WalkR);
+		}
+		else
+		{
+			player->SetState(Simon::Idle);
+		}
+
 	}
+
 }
 
 void  GameScene::OnKeyDown(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	NSDebug::DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
-	if (simon)
+	if (player)
 	{
 		switch (KeyCode)
 		{
 		case BUTTON_A:
 			if (Input::GetInstance()->IsKeyDown(PAD_UP))
 			{
-				simon->ReadySubWeapon();
-				simon->Attack(false);
-			}
-			else if (Input::GetInstance()->IsKeyDown(PAD_DOWN))
-			{
-				simon->ReadyWeapon();
-				simon->Attack(true);
+				player->SetState(Simon::SubWeapon);
 			}
 			else
 			{
-				simon->ReadyWeapon();
-				simon->Attack(false);
+				player->SetState(Simon::Attack);
 			}
 			break;
 
 		case BUTTON_B:
-			simon->Jump();
+			player->SetState(Simon::Jump);
 			break;
 
 		}
 	}
+
 }
 
 void  GameScene::OnKeyUp(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+	NSDebug::DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }

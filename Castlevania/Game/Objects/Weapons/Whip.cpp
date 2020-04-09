@@ -71,7 +71,7 @@ void Whip::Render(float x, float y, bool flip)
 	float X = this->x;
 	float Y = this->y;
 
-	LPSPRITE sprite = currentAnimation.first->GetFrame(currentAnimation.second);
+	LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
 	RECT r = sprite->GetRect();
 	int w = r.right - r.left;
 
@@ -81,7 +81,7 @@ void Whip::Render(float x, float y, bool flip)
 		{
 			if (!flip) X -= w;
 			else X += x;
-			currentAnimation.first->Draw(currentAnimation.second, X, Y, 255, flip);
+			currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
 		}
 		return;
 	}
@@ -101,7 +101,7 @@ void Whip::Render(float x, float y, bool flip)
 			if (!flip) X -= w;
 			else X += x;
 		}
-		currentAnimation.first->Draw(currentAnimation.second, X, Y, 255, flip);
+		currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
 	}
 }
 

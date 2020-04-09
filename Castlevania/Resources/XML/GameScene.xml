@@ -1,7 +1,12 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 <Scene>
 	<Textures>
+    <Texture id="1000" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
+    <Texture id="9000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
+    <Texture id="2000" path="Resources\Textures\Item_and_Objects.png" red="116" green="116" blue="116"/>
     <Texture id="5000" path="Resources\Textures\Tileset1.png" red="255" green="0" blue="255"/>
+    <Texture id="-10000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
+    <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
 	</Textures>
   
   <Sounds>
@@ -9,66 +14,20 @@
   </Sounds>
   
   <Objects>
-    <Object type ="0" path="Resources\XML\Simon.xml"/>
-    <Object type ="1" path="Resources\XML\Torch.xml"/>
+    <Object type ="10" path="Resources\XML\Torch.xml"/>
   </Objects>
-  
-  <Blocks>
-    <Block x="0" y="160" w="768" h="16"/>
 
-    <!--<Block x="0"  y="160"/>
-      <Block x="16" y="160"/>
-      <Block x="32" y="160"/>
-      <Block x="48" y="160"/>
-      <Block x="64" y="160"/>
-      <Block x="80" y="160"/>
-      <Block x="96" y="160"/>
-      <Block x="112" y="160"/>
-      <Block x="128" y="160"/>
-      <Block x="144" y="160"/>
-      <Block x="160" y="160"/>
-      <Block x="176" y="160"/>
-      <Block x="192" y="160"/>
-      <Block x="208" y="160"/>
-      <Block x="224" y="160"/>
-      <Block x="240" y="160"/>
-      <Block x="256" y="160"/>
-      <Block x="272" y="160"/>
-      <Block x="288" y="160"/>
-      <Block x="304" y="160"/>
-      <Block x="320" y="160"/>
-      <Block x="336" y="160"/>
-      <Block x="352" y="160"/>
-      <Block x="368" y="160"/>
-      <Block x="384" y="160"/>
-      <Block x="400" y="160"/>
-      <Block x="416" y="160"/>
-      <Block x="432" y="160"/>
-      <Block x="448" y="160"/>
-      <Block x="464" y="160"/>
-      <Block x="480" y="160"/>
-      <Block x="496" y="160"/>
-      <Block x="512" y="160"/>
-      <Block x="528" y="160"/>
-      <Block x="544" y="160"/>
-      <Block x="560" y="160"/>
-      <Block x="576" y="160"/>
-      <Block x="592" y="160"/>
-      <Block x="608" y="160"/>
-      <Block x="624" y="160"/>
-      <Block x="640" y="160"/>
-      <Block x="656" y="160"/>
-      <Block x="672" y="160"/>
-      <Block x="688" y="160"/>
-      <Block x="704" y="160"/>
-      <Block x="720" y="160"/>
-      <Block x="736" y="160"/>
-      <Block x="752" y="160"/>-->
+  <Player>
+    <Resource path="Resources\XML\Simon.xml"/>
+    <Weapon path="Resources\XML\Whip.xml"/>
+    <Position x="16" y="112"/>
+  </Player>
 
-  </Blocks>
+  <Tilesets>
+    <Tileset id="5000" texture="5000" tileW="16" tileH="16"/>    
+  </Tilesets>
   
   <Tilemap>
-    <Tileset id="5000" texture="5000" tileW="16" tileH="16"/>
     <Map tileset="5000" width="48" height="12" tileW="16" tileH="16">
       <Matrix>
         <Row>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,23,24,25,24,25,26,27</Row>
@@ -87,9 +46,71 @@
     </Map>
   </Tilemap>
 
-  <Grid width="" height="" cellW="" cellH="">
-    <Cell row="" column="">
-      <Object type="" x="" y=""/>
+  <Grid width="6" height="2" cellW="128" cellH="96">
+    <Cell row="1" column="0">
+      <Object type="-1" x="0"  y="160"/>
+      <Object type="-1" x="16" y="160"/>
+      <Object type="-1" x="32" y="160"/>
+      <Object type="-1" x="48" y="160"/>
+      <Object type="-1" x="64" y="160"/>
+      <Object type="-1" x="80" y="160"/>
+      <Object type="-1" x="96" y="160"/>
+      <Object type="-1" x="112" y="160"/>
+    </Cell>
+
+    <Cell row="1" column="1">
+      <Object type="-1" x="128" y="160"/>
+      <Object type="-1" x="144" y="160"/>
+      <Object type="-1" x="160" y="160"/>
+      <Object type="-1" x="176" y="160"/>
+      <Object type="-1" x="192" y="160"/>
+      <Object type="-1" x="208" y="160"/>
+      <Object type="-1" x="224" y="160"/>
+      <Object type="-1" x="240" y="160"/>
+    </Cell>
+
+    <Cell row="1" column="2">
+      <Object type="-1" x="256" y="160"/>
+      <Object type="-1" x="272" y="160"/>
+      <Object type="-1" x="288" y="160"/>
+      <Object type="-1" x="304" y="160"/>
+      <Object type="-1" x="320" y="160"/>
+      <Object type="-1" x="336" y="160"/>
+      <Object type="-1" x="352" y="160"/>
+      <Object type="-1" x="368" y="160"/>
+    </Cell>
+
+    <Cell row="1" column="3">
+      <Object type="-1" x="384" y="160"/>
+      <Object type="-1" x="400" y="160"/>
+      <Object type="-1" x="416" y="160"/>
+      <Object type="-1" x="432" y="160"/>
+      <Object type="-1" x="448" y="160"/>
+      <Object type="-1" x="464" y="160"/>
+      <Object type="-1" x="480" y="160"/>
+      <Object type="-1" x="496" y="160"/>
+    </Cell>
+
+    <Cell row="1" column="4">
+      <Object type="-1" x="512" y="160"/>
+      <Object type="-1" x="528" y="160"/>
+      <Object type="-1" x="544" y="160"/>
+      <Object type="-1" x="560" y="160"/>
+      <Object type="-1" x="576" y="160"/>
+      <Object type="-1" x="592" y="160"/>
+      <Object type="-1" x="608" y="160"/>
+      <Object type="-1" x="624" y="160"/>
+    </Cell>
+
+    <Cell row="1" column="5">
+      <Object type="-1" x="640" y="160"/>
+      <Object type="-1" x="656" y="160"/>
+      <Object type="-1" x="672" y="160"/>
+      <Object type="-1" x="688" y="160"/>
+      <Object type="-1" x="704" y="160"/>
+      <Object type="-1" x="720" y="160"/>
+      <Object type="-1" x="736" y="160"/>
+      <Object type="-1" x="752" y="160"/>
     </Cell>
   </Grid>
   

@@ -80,7 +80,7 @@ void Graphics::Draw(float x, float y, LPTEXTURE texture, RECT rect, int alpha, b
 		spriteHandler->GetTransform(&a);
 		D3DXMatrixTransformation2D(&b, &D3DXVECTOR2(int(xx), int(yy)), 0.f, &D3DXVECTOR2(-1.f, 1.f), NULL, 0.f, NULL);
 
-		D3DXVECTOR3 p(floor(xx - (rect.right - rect.left)), floor(yy), 0);
+		D3DXVECTOR3 p(int(xx - (rect.right - rect.left)), int(yy), 0);
 
 		spriteHandler->SetTransform(&(a * b));
 		spriteHandler->Draw(texture->GetTexture(), &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
@@ -88,7 +88,7 @@ void Graphics::Draw(float x, float y, LPTEXTURE texture, RECT rect, int alpha, b
 	}
 	else
 	{
-		D3DXVECTOR3 p(floor(xx), floor(yy), 0);
+		D3DXVECTOR3 p(int(xx), int(yy), 0);
 
 		spriteHandler->Draw(texture->GetTexture(), &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	}

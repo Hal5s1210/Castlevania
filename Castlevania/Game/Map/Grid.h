@@ -14,7 +14,10 @@ private:
 	std::vector<std::vector<std::vector<LPGAMEOBJECT>>> cells;
 
 public:
-	void Grid_Init(pugi::xml_node node);
+	Grid(int w, int h, int cw, int ch);
+
+	std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* GetCells() { return &cells; }
+
 	void GetObjectlist(std::vector<LPGAMEOBJECT>* list);
 
 };

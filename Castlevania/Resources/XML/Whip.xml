@@ -1,21 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Object>
-  <Textures>
-    <Texture id="9000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
-  </Textures>
 
   <Sprites>
-    <!--Simon Whip 0-->
+    <!--Whip 0-->
     <Sprite id="9000" texture="9000" x="80" y="80" w="8" h="16"/>
-    <!--Simon Whip 1-->
+    <!--Whip 1-->
     <Sprite id="9010" texture="9000" x="0" y="0" w="8" h="32"/>
     <Sprite id="9011" texture="9000" x="40" y="0" w="16" h="24"/>
     <Sprite id="9012" texture="9000" x="0" y="32" w="28" h="16"/>
-    <!--Simon Whip 2-->
+    <!--Whip 2-->
     <Sprite id="9020" texture="9000" x="16" y="0" w="8" h="32"/>
     <Sprite id="9021" texture="9000" x="72" y="0" w="16" h="24"/>
     <Sprite id="9022" texture="9000" x="0" y="48" w="44" h="16"/>
-    <!--Simon Whip 3-->
+    <!--Whip 3-->
     <Sprite id="9030" texture="9000" x="8" y="0" w="8" h="32"/>
     <Sprite id="9031" texture="9000" x="24" y="0" w="8" h="32"/>
     <Sprite id="9032" texture="9000" x="32" y="0" w="8" h="32"/>
@@ -74,7 +71,7 @@
     </Animation>
   </Animations>
 
-  <AnimationSets>
+  <AnimationSet>
       <Animation id="9000"/>
       <Animation id="9010"/>
       <Animation id="9011"/>
@@ -85,6 +82,6 @@
       <Animation id="9030"/>
       <Animation id="9031"/>
       <Animation id="9032"/>
-  </AnimationSets>
+  </AnimationSet>
 
 </Object>
