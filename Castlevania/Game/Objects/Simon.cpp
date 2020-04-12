@@ -1,5 +1,4 @@
 #include "Simon.h"
-#include "..\..\Framework\Game.h"
 #include "Spawner.h"
 
 Simon::Simon()
@@ -43,48 +42,79 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
 
-		x += dx * min_tx + nx * 0.4f;
-		y += dy * min_ty + ny * 0.4f;
+		float ddx, ddy;
 
-		if (nx != 0)
-		{
-			vx = 0;
-		}
+		ddx = dx;
+		ddy = dy;
 
-		if (ny != 0)
-		{
-			vy = 0;
-			if (onair) attack = false;
-			onair = false;
-		}
 		for (LPCOEVENT coEvent : coEventResults)
 		{
 			LPGAMEOBJECT o = coEvent->obj;
 
 			if (dynamic_cast<Block*>(o))
 			{
-				
+				ddx = dx * min_tx + nx * 0.4f;
+				if(ny == -1)ddy = dy * min_ty + ny * 0.4f;
+
+				if (nx != 0)
+				{
+					vx = 0;
+				}
+
+				if (ny == -1)
+				{
+					vy = 0;
+					if (onair && attack)
+					{
+						vx = 0;
+					}
+					onair = false;
+				}
+			}
+			else
+			{
+				ddx = dx;
+				ddy = dy;
 			}
 		}
 
+		x += ddx;
+		y += ddy;
+
 	}
 
-
-	float cam_x, cam_y;
-	int cam_w, cam_h;
-	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
-	Viewport::GetInstance()->GetSize(cam_w, cam_h);
-	if (x < cam_x)
+	if (attack)
 	{
-		x = cam_x;
-		vx = 0;
-	}
-	else if (x > cam_x + cam_w - 16)
-	{
-		x = cam_x + cam_h;
-		vx = 0;
+		float whip_x = x;
+		float whip_y = y;
 
+		LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+		RECT rect = sprite->GetRect();
+		if (flip) whip_x += 16;
+		whip_y += 32 - (rect.bottom - rect.top);
+
+		whip->SetPosition(whip_x, whip_y);
+		whip->SetFlip(flip);
+
+		whip->Update(dt, objects);
 	}
+
+
+	//float cam_x, cam_y;
+	//int cam_w, cam_h;
+	//Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+	//Viewport::GetInstance()->GetSize(cam_w, cam_h);
+	//if (x < cam_x)
+	//{
+	//	x = cam_x;
+	//	vx = 0;
+	//}
+	//else if (x > cam_x + cam_w - 16)
+	//{
+	//	x = cam_x + cam_h;
+	//	vx = 0;
+	//
+	//}
 }
 
 void Simon::Render(float x, float y)
@@ -102,19 +132,14 @@ void Simon::Render(float x, float y)
 
 	currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
 
-	/*float l, t, r, b;
+	float l, t, r, b;
 	GetBoundingBox(l, t, r, b);
-	NSDebug::RenderBoundBox(X - (flip ? fixX : 0), Y, l, t, r, b);*/
+	NSDebug::RenderBoundBox(x, y, l, t, r, b);
 
 	if (attack)
 	{
-		whip->SetPosition(X + fixX, Y);
 		whip->SetFrameIndex(i);
-		float w, h;
-		w = rect.right - rect.left;
-		h = rect.bottom - rect.top;
-
-		whip->Render(w, h, flip);
+		whip->Render(x, y);
 
 		if (currentAnimation->first->IsFrameReset())
 		{
@@ -135,7 +160,7 @@ void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 	float fixY = 32 - (rect.bottom - rect.top);
 	Y += fixY;
 
-	l = X - (flip ? fixX : 0);
+	l = X;
 	t = Y;
 	r = l + 16;
 	b = t + 32 - fixY;

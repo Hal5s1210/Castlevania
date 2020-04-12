@@ -53,7 +53,7 @@ bool Game::Init(HINSTANCE hInstance, int nCmdShow, LPCTSTR WindowTitle, int Scre
 
 	tickPerFrame = 1000 / FrameRate;
 
-	view->SetSize(ScreenW, ScreenH);
+	view->SetSize(ScreenW, ScreenH - 48);
 
 	OutputDebugString(L"[INFO] CreateWindow done\n");
 	return true;

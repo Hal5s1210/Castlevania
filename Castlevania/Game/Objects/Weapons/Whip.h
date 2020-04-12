@@ -11,14 +11,16 @@ private:
 	bool isWhip;
 public:
 	Whip();
-
 	LPGAMEOBJECT Clone() { return NULL; }
 
+
 	void UseWhip(bool use) { isWhip = use; }
+	void SetFlip(bool flip) { this->flip = flip; }
 	void SetFrameIndex(int i);
-	void Render(float x = 0, float y = 0) {}
-	void Render(float x = 0, float y = 0, bool flip = false);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+
+	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
+	void Render(float x = 0, float y = 0);
 
 };
 

@@ -1,42 +1,29 @@
-#include "GameScene.h"
+#include "PlayScene.h"
 
 
-void GameScene::Load()
+void PlayScene::Load()
 {
-	x = 0;
-	y = 48;
-	LoadFromFile();
+	Scene::Load();
 	board = new Board;
-	loaded = true;
-	Sound::GetInstance()->Play(SOUND_COUNTYARD_ID);
-	OutputDebugString(L"[INFO] GameScene loaded OK\n");
 }
 
-void GameScene::Unload()
+void PlayScene::Unload()
 {
-	//delete simon;
-
-	Textures::GetInstance()->Clear();
-	loaded = false;
-	OutputDebugString(L"[INFO] GameScene ended OK\n");
+	Scene::Unload();
 }
 
-void GameScene::Update(DWORD dt)
+void PlayScene::Update(DWORD dt)
 {
 	grid->GetObjectlist(&objects);
 
 	player->Update(dt, &objects);
 
-
-	float player_x, player_y;
-	player->GetPosition(player_x, player_y);
-	Viewport::GetInstance()->SetPosition(player_x - 112, 0);
 	AdjustView();
 
 	board->Update(dt);
 }
 
-void GameScene::Render()
+void PlayScene::Render()
 {
 	tilemap->Render(x, y);
 
@@ -50,13 +37,23 @@ void GameScene::Render()
 	player->Render(x, y);
 }
 
-void GameScene::AdjustView()
+void PlayScene::AdjustView()
 {
-	float cam_x, cam_y;
-	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+	float player_x, player_y;
 
-	if (cam_x < 0) cam_x = 0;
-	if (cam_x > 512) cam_x = 512;
+	player->GetPosition(player_x, player_y);
+	Viewport::GetInstance()->SetPosition(player_x - 112, player_y - 80);
+
+	float cam_x, cam_y;
+	int cam_w, cam_h;
+
+	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+	Viewport::GetInstance()->GetSize(cam_w, cam_h);
+
+	RECT area = tilemap->GetAreaRect();
+
+	//if (cam_x < area.left) cam_x = area.left;
+	//if (cam_x > area.right - cam_w) cam_x = area.right - 32;
 
 	Viewport::GetInstance()->SetPosition(cam_x, cam_y);
 }
@@ -64,10 +61,12 @@ void GameScene::AdjustView()
 
 
 
-
-void GameScene::KeyState(BYTE* state)
+void PlaySceneKeyHandler::KeyState(BYTE* state)
 {
 	Input* input = Input::GetInstance();
+
+	Simon* player = scene->GetPlayer();
+
 	if (player)
 	{
 		if (input->IsKeyDown(PAD_DOWN))
@@ -86,14 +85,15 @@ void GameScene::KeyState(BYTE* state)
 		{
 			player->SetState(Simon::Idle);
 		}
-
 	}
 
 }
 
-void  GameScene::OnKeyDown(int KeyCode)
+void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 {
 	NSDebug::DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+
+	Simon* player = scene->GetPlayer();
 
 	if (player)
 	{
@@ -119,7 +119,7 @@ void  GameScene::OnKeyDown(int KeyCode)
 
 }
 
-void  GameScene::OnKeyUp(int KeyCode)
+void  PlaySceneKeyHandler::OnKeyUp(int KeyCode)
 {
 	NSDebug::DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }

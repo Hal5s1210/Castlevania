@@ -1,8 +1,10 @@
 #include "Whip.h"
+#include "..\Spawner.h"
+#include "..\..\..\Framework\Collision.h"
 
 Whip::Whip()
 {
-	level = 1;
+	level = 3;
 }
 
 void Whip::SetFrameIndex(int i)
@@ -65,46 +67,90 @@ void Whip::SetFrameIndex(int i)
 	}
 }
 
+void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+{
+	std::vector<LPGAMEOBJECT> coObjects;
 
-void Whip::Render(float x, float y, bool flip)
+	for (LPGAMEOBJECT obj : (*objects))
+	{
+		float l, t, r, b;
+		GetBoundingBox(l, t, r, b);
+		float lo, to, ro, bo;
+		obj->GetBoundingBox(lo, to, ro, bo);
+
+		if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
+			coObjects.push_back(obj);
+	}
+
+	if (!coObjects.empty())
+	{
+		bool hit = false;
+		for (LPGAMEOBJECT obj : coObjects)
+		{
+			if (dynamic_cast<Torch*>(obj))
+				hit = true;
+		}
+		if (hit)
+			OutputDebugString(L"Whip hit a torch\n");
+	}
+}
+
+void Whip::Render(float x, float y)
 {
 	float X = this->x;
 	float Y = this->y;
 
 	LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
-	RECT r = sprite->GetRect();
-	int w = r.right - r.left;
+	RECT rect = sprite->GetRect();
+	int w = rect.right - rect.left;
 
 	if (!isWhip)
 	{
 		if (index == 2)
 		{
 			if (!flip) X -= w;
-			else X += x;
-			currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
+			currentAnimation->first->Draw(currentAnimation->second, X + x, Y + y, 255, flip);
 		}
-		return;
 	}
 	else
 	{
-		if (index <= 0)
+		if (index < 2)
 		{
-			if (!flip)X += x;
-		}
-		else if (index == 1)
-		{
-			if (!flip) X += x;
-			else X -= w;
+			if (!flip)X += 16;
+			else X -= 16 + w;
 		}
 		else if (index == 2)
 		{
 			if (!flip) X -= w;
-			else X += x;
 		}
-		currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
+		currentAnimation->first->Draw(currentAnimation->second, X + x, Y + y, 255, flip);
+
+		float l, t, r, b;
+		GetBoundingBox(l, t, r, b);
+		NSDebug::RenderBoundBox(x, y, l, t, r, b);
 	}
 }
 
 void Whip::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
+	if (index == 2)
+	{
+		LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+		RECT rect = sprite->GetRect();
+		int w = rect.right - rect.left;
+		int h = rect.bottom - rect.top;
+
+		l = x;
+
+		if (!flip) l -= w;
+
+		t = y;
+		r = l + w;
+		b = t + h;
+	}
+	else
+	{
+		l = r = t = b = 0;
+	}
+
 }

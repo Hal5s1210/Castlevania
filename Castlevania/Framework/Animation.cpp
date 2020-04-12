@@ -71,3 +71,12 @@ void Animations::Remove(int id)
 	if (!animations[id]) delete animations[id];
 	animations.erase(id);
 }
+
+void Animations::Clear()
+{
+	for (std::unordered_map<int, LPANIMATION>::iterator itr = animations.begin(); itr != animations.end(); itr++)
+	{
+		if (itr->second) delete itr->second;
+	}
+	animations.clear();
+}

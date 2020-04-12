@@ -182,8 +182,10 @@ void Parser::Parse_Tilemap(Tilemap** tilemap, pugi::xml_node root)
 	int tileW = map.attribute(L"tileW").as_int();
 	int tileH = map.attribute(L"tileH").as_int();
 
-	*tilemap = new Tilemap(tileset, w, h, tileW, tileH);
-	Parser::Parse_TilemapMatrix((*tilemap)->GetMatrix(), map.child(L"Matrix"));
+	(*tilemap) = new Tilemap(tileset, w, h, tileW, tileH);
+	std::vector<std::vector<int>>* mx = new std::vector<std::vector<int>>;
+	Parser::Parse_TilemapMatrix(mx, map.child(L"Matrix"));
+	(*tilemap)->SetMatrix(mx);
 }
 
 void Parser::Parse_TilemapMatrix(std::vector<std::vector<int>>* matrix, pugi::xml_node root)

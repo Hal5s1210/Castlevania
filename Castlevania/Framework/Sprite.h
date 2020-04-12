@@ -33,6 +33,7 @@ public:
 
 	void Add(int id, LPSPRITE sprite);
 	void Remove(int id);
+	void Clear();
 	LPSPRITE Get(int id) { return sprites[id]; }
 
 };

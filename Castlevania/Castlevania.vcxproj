@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Collision.cpp" />
     <ClCompile Include="Framework\Animation.cpp" />
     <ClCompile Include="Game\Board.cpp" />
     <ClCompile Include="Game\Objects\Others\Candle.cpp" />
@@ -34,7 +35,7 @@
     <ClCompile Include="Framework\Sprite.cpp" />
     <ClCompile Include="Framework\Texture.cpp" />
     <ClCompile Include="Game\Castlevania.cpp" />
-    <ClCompile Include="Game\Scenes\GameScene.cpp" />
+    <ClCompile Include="Game\Scenes\PlayScene.cpp" />
     <ClCompile Include="Game\Main.cpp" />
     <ClCompile Include="Game\Objects\Simon.cpp" />
     <ClCompile Include="Game\Objects\Spawner.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="Game\Parser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Collision.h" />
     <ClInclude Include="Framework\Animation.h" />
     <ClInclude Include="Game\Board.h" />
     <ClInclude Include="Game\Objects\Others\Candle.h" />
@@ -64,7 +66,7 @@
     <ClInclude Include="Framework\Texture.h" />
     <ClInclude Include="Game\Castlevania.h" />
     <ClInclude Include="Game\ID.h" />
-    <ClInclude Include="Game\Scenes\GameScene.h" />
+    <ClInclude Include="Game\Scenes\PlayScene.h" />
     <ClInclude Include="Game\Objects\Simon.h" />
     <ClInclude Include="Game\Objects\Spawner.h" />
     <ClInclude Include="Game\Map\Grid.h" />

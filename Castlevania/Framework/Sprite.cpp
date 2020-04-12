@@ -40,3 +40,12 @@ void Sprites::Remove(int id)
 	if (!sprites[id]) delete sprites[id];
 	sprites.erase(id);
 }
+
+void Sprites::Clear()
+{
+	for (std::unordered_map<int, LPSPRITE>::iterator itr = sprites.begin(); itr != sprites.end(); itr++)
+	{
+		if (itr->second) delete itr->second;
+	}
+	sprites.clear();
+}

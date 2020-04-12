@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <locale>
 #include <codecvt>
-#include "..\..\Framework\Graphics.h"
+#include "..\..\Framework\Collision.h"
 #include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 GameObject::GameObject()
@@ -16,16 +16,19 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	for (ANIMATION ani : animations)
-		delete ani.first;
+	for (ANIMATION* ani : animations)
+	{
+		delete ani->first;
+		delete ani;
+	}
 	animations.clear();
 }
 
 void GameObject::AddAnimation(LPANIMATION animation)
 {
-	ANIMATION ani;
-	ani.first = animation;
-	ani.second = -1;
+	ANIMATION* ani = new ANIMATION;
+	ani->first = animation;
+	ani->second = -1;
 	animations.push_back(ani);
 }
 
@@ -57,7 +60,7 @@ LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
 
 	GetBoundingBox(ml, mt, mr, mb);
 
-	Graphics::SweptAABB(
+	Collision::SweptAABB(
 		ml, mt, mr, mb,
 		dx, dy,
 		sl, st, sr, sb,

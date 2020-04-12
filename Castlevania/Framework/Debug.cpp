@@ -25,8 +25,8 @@ void NSDebug::RenderBoundBox(float x, float y, int l, int t, int r, int b)
 	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
 
 	float xx, yy;
-	xx = x - cam_x;
-	yy = y - cam_y;
+	xx = l - cam_x + x;
+	yy = t - cam_y + y;
 	
 	LPTEXTURE tex = Textures::GetInstance()->Get(-69);
 	LPD3DXSPRITE sp = Graphics::GetInstance()->GetSpriteHandler();

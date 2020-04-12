@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 #include "..\..\Framework\Animation.h"
+#include "..\..\Framework\Debug.h"
 
 class GameObject;
 typedef GameObject* LPGAMEOBJECT;
@@ -37,9 +38,8 @@ protected:
 
 	bool flip;
 	
-	std::vector<ANIMATION> animations;
+	std::vector<ANIMATION*> animations;
 	ANIMATION* currentAnimation;
-
 
 	LPCOEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(std::vector<LPGAMEOBJECT>* coObjects, std::vector<LPCOEVENT>& coEvents);
@@ -62,7 +62,7 @@ public:
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
 	void AddAnimation(LPANIMATION animation);
-	void SetAnimation(int i) { currentAnimation = &animations[i]; }
+	void SetAnimation(int i) { currentAnimation = animations[i]; }
 	void PauseAnimation() { currentAnimation->first->Pause(); }
 	void PlayAnimtion() { currentAnimation->first->Play(); }
 

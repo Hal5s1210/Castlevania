@@ -2,8 +2,8 @@
 <Object>
 
   <Sprites>
-    <Sprite id="2010" texture="2000" x="0" y="0" w="16" h="32"/>
-    <Sprite id="2021" texture="2000" x="16" y="0" w="16" h="32"/>
+    <Sprite id="2010" texture="2000" x="144" y="16" w="8" h="16"/>
+    <Sprite id="2021" texture="2000" x="152" y="16" w="8" h="16"/>
   </Sprites>
 
   <Animations>

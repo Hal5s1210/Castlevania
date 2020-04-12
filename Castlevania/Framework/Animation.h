@@ -47,6 +47,7 @@ public:
 
 	void Add(int id, LPANIMATION animation);
 	void Remove(int id);
+	void Clear();
 	LPANIMATION Get(int id) { return animations[id]; }
 
 };

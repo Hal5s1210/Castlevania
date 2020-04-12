@@ -2,6 +2,26 @@
 #include "..\..\Framework\Sprite.h"
 #include "..\..\Framework\Animation.h"
 
+void Scene::Load()
+{
+	LoadFromFile();
+	loaded = true;
+	OutputDebugString(L"[INFO] PlayScene loaded OK\n");
+}
+
+void Scene::Unload()
+{
+	Textures::GetInstance()->Clear();
+	Sound::GetInstance()->Clear();
+	Sprites::GetInstance()->Clear();
+	Animations::GetInstance()->Clear();
+	Tilesets::GetInstance()->Clear();
+
+	if (tilemap) delete tilemap;
+	if (grid) delete grid;
+	if (player) delete player;
+	if (board) delete board;
+}
 
 void Scene::LoadFromFile()
 {

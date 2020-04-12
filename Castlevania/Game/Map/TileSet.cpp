@@ -30,7 +30,10 @@ void Tileset::LoadTiles()
 
 void Tileset::Draw(int id, float x, float y, int alpha, bool flip)
 {
-	Graphics::GetInstance()->Draw(x, y, texture, tiles[id], alpha, flip);
+	if (id >= 0)
+	{
+		Graphics::GetInstance()->Draw(x, y, texture, tiles[id], alpha, flip);
+	}
 }
 
 

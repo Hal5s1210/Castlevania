@@ -22,6 +22,6 @@
 
 #ifndef SOUND_ID
 #define SOUND_INTRO_ID					0
-#define SOUND_COUNTYARD_ID				1
+#define SOUND_COUNTYARD_ID				1000
 #endif // !SOUND_ID
 

@@ -1,6 +1,6 @@
 #include "Castlevania.h"
 #include "..\Framework\Debug.h"
-#include "Scenes\GameScene.h"
+#include "Scenes\PlayScene.h"
 
 
 Castlevania::Castlevania()
@@ -19,14 +19,17 @@ void Castlevania::LoadResources()
 	d3ddv = Graphics::GetInstance()->GetDirect3DDevice();
 	spriteHandler = Graphics::GetInstance()->GetSpriteHandler();
 
-	scenes->Add(0, new GameScene(L"Resources\\XML\\GameScene.xml"));
+	scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene1.xml"));
+	//scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene2.xml"));
+	//scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene3.xml"));
+	//scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene4.xml"));
 	scenes->NextScene(0);
 }
 
 void Castlevania::Update(DWORD dt)
 {
 	LPSCENE scene = Scenes::GetInstance()->GetScene();
-	Input::GetInstance()->GetKeyHandler(scene);
+	Input::GetInstance()->GetKeyHandler(scene->GetKeyHandler());
 	Input::GetInstance()->ProcessKeyboard();
 
 	scene->Update(dt);

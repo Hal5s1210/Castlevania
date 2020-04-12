@@ -36,11 +36,5 @@ public:
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return spriteHandler; }
 
-	static void SweptAABB(
-		float ml, float mt, float mr, float mb,
-		float dx, float dy,
-		float sl, float st, float sr, float sb,
-		float& t, float& nx, float& ny);
-
 };
 

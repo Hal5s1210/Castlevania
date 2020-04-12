@@ -10,7 +10,7 @@
 #define DEAD						6
 #endif // !SIMON_ANI
 
-#define SIMON_SPEED					0.05f
+#define SIMON_SPEED					0.067f
 #define JUMP_FORCE					-0.2f;
 #define GRAVITY						0.0005f;
 

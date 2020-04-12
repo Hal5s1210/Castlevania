@@ -11,7 +11,7 @@
     <!--Whip 2-->
     <Sprite id="9020" texture="9000" x="16" y="0" w="8" h="32"/>
     <Sprite id="9021" texture="9000" x="72" y="0" w="16" h="24"/>
-    <Sprite id="9022" texture="9000" x="0" y="48" w="44" h="16"/>
+    <Sprite id="9022" texture="9000" x="0" y="48" w="28" h="16"/>
     <!--Whip 3-->
     <Sprite id="9030" texture="9000" x="8" y="0" w="8" h="32"/>
     <Sprite id="9031" texture="9000" x="24" y="0" w="8" h="32"/>
@@ -52,22 +52,22 @@
     </Animation>
     <!--Whip 3-->
     <Animation id="9030">
-      <Frame sprite="9030" time="100"/>
-      <Frame sprite="9020" time="100"/>
-      <Frame sprite="9031" time="100"/>
-      <Frame sprite="9032" time="100"/>
+      <Frame sprite="9030" time="10"/>
+      <Frame sprite="9020" time="10"/>
+      <Frame sprite="9031" time="10"/>
+      <Frame sprite="9032" time="10"/>
     </Animation>
     <Animation id="9031">
-      <Frame sprite="9033" time="100"/>
-      <Frame sprite="9021" time="100"/>
-      <Frame sprite="9034" time="100"/>
-      <Frame sprite="9035" time="100"/>
+      <Frame sprite="9033" time="10"/>
+      <Frame sprite="9021" time="10"/>
+      <Frame sprite="9034" time="10"/>
+      <Frame sprite="9035" time="10"/>
     </Animation>
     <Animation id="9032">
-      <Frame sprite="9036" time="100"/>
-      <Frame sprite="9037" time="100"/>
-      <Frame sprite="9038" time="100"/>
-      <Frame sprite="9039" time="100"/>
+      <Frame sprite="9036" time="10"/>
+      <Frame sprite="9037" time="10"/>
+      <Frame sprite="9038" time="10"/>
+      <Frame sprite="9039" time="10"/>
     </Animation>
   </Animations>
 

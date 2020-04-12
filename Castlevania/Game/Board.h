@@ -16,6 +16,7 @@ private:
 	int life;
 	int playerhp;
 	int enemyhp;
+	int shot;
 	int subweapon;
 
 

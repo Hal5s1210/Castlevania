@@ -14,31 +14,39 @@
 #include "..\Objects\Spawner.h"
 #include "..\Map\TileMap.h"
 #include "..\Map\Grid.h"
+#include "..\Board.h"
 #include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 
-class Scene : public IKeyEventHandler
+class Scene
 {
 protected:
 	float x, y;
 	bool loaded;
 	LPCWSTR filePath;
-	
-	Simon* player;
+
+	LPKEYEVENTHANDLER keyhandler;
+
 	Grid* grid;
 	Tilemap* tilemap;
 
+	Board* board;
+	Simon* player;
+	
 	std::vector<LPGAMEOBJECT> objects;
 
 	void LoadFromFile();
 
 public:
-	Scene(LPCWSTR filepath) { filePath = filepath; }
+	Scene(int x, int y, LPCWSTR filepath) :x(x), y(y) { filePath = filepath; }
 	
 	bool IsLoaded() { return loaded; }
 
-	virtual void Load() = 0;
-	virtual void Unload() = 0;
+	LPKEYEVENTHANDLER GetKeyHandler() { return keyhandler; }
+	Simon* GetPlayer() { return player; }
+
+	virtual void Load();
+	virtual void Unload();
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
 

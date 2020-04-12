@@ -7,19 +7,21 @@
 
 class Tilemap
 {
+public:;
+
 private:
 	LPTILESET tileset;
-	int tileW;
-	int tileH;
 	int width;
 	int height;
-	std::vector<std::vector<int>> matrix;
+	int tileW;
+	int tileH;
+	std::vector<std::vector<int>>* matrix;
 
 public:
 	Tilemap(LPTILESET tileset, int w, int h, int tw, int th) :
 		tileset(tileset), width(w), height(h), tileW(tw), tileH(th) {}
 
-	std::vector<std::vector<int>>* GetMatrix() { return &matrix; }
-
+	void SetMatrix(std::vector<std::vector<int>>* matrix) { this->matrix = matrix; }
+	RECT GetAreaRect();
 	void Render(float x = 0, float y = 0);
 };
