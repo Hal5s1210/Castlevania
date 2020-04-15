@@ -4,7 +4,7 @@
 
 class Animation
 {
-private:
+public:
 	struct Frame
 	{
 		LPSPRITE Sprite;
@@ -12,6 +12,7 @@ private:
 		Frame(LPSPRITE s, int t) : Sprite(s), Time(t) {}
 	};
 
+private:
 	DWORD lastFrameTime;
 	bool paused;
 	bool frameReset;
@@ -20,11 +21,12 @@ private:
 
 public:
 	Animation();
-
-	void AddFrame(int spriteid, int time);
+	Animation* Clone();
+	void AddFrame(Frame* frame);
 	void Pause() { paused = true; }
 	void Play() { paused = false; }
 	bool IsFrameReset() { return frameReset; }
+	void CopyFrames(std::vector<Frame*> frames);
 	LPSPRITE GetFrame(int frame) { if (frame != -1) return frames[frame]->Sprite; return frames[0]->Sprite; }
 	void Draw(int& frame, float x, float y, int alpha = 255, bool flip = false);
 

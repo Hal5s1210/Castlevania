@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Object>
 
+  <Textures>
+    <Texture id="2000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
+  </Textures>
+
   <Sprites>
     <Sprite id="2000" texture="2000" x="160" y="0" w="16" h="32"/>
     <Sprite id="2001" texture="2000" x="176" y="0" w="16" h="32"/>

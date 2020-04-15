@@ -9,6 +9,7 @@ private:
 	LPDIRECT3DDEVICE9 d3ddv;
 	LPD3DXSPRITE spriteHandler;
 
+	Board* board;
 	Scenes* scenes;
 
 	void Update(DWORD dt);

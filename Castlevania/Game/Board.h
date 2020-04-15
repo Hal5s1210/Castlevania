@@ -2,10 +2,15 @@
 
 #include "..\Framework\Texture.h"
 #include "..\Framework\Graphics.h"
+#include "Objects\Item.h"
+#include "Objects\Weapons\Whip.h"
+#include "Objects\Weapons\SubWeapon.h"
 
 class Board
 {
 private:
+	static Board* _instance;
+
 	LPTEXTURE texture;
 	float x, y;
 
@@ -17,6 +22,7 @@ private:
 	int playerhp;
 	int enemyhp;
 	int shot;
+	int whip;
 	int subweapon;
 
 
@@ -26,6 +32,14 @@ private:
 
 public:
 	Board();
+
+	static Board* GetInstance();
+
+	void LoadTexture();
+
+	void GetSimonData(Whip* whip, SubWeapon* sub);
+
+	void ItemClaimed(LPITEM item);
 
 	void Update(DWORD dt);
 	void Render();

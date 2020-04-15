@@ -3,9 +3,10 @@
 #include <sstream>
 #include <iomanip>
 
+Board* Board::_instance = 0;
+
 Board::Board()
 {
-	texture = Textures::GetInstance()->Get(-10000);
 	x = 0;
 	y = 0;
 	score = 0;
@@ -15,8 +16,20 @@ Board::Board()
 	life = 2;
 	playerhp = 16;
 	enemyhp = 16;
-	shot = 0;
+	shot = 1;
+	whip = 1;
 	subweapon = 0;
+}
+
+Board* Board::GetInstance()
+{
+	if (!_instance) _instance = new Board;
+	return _instance;
+}
+
+void Board::LoadTexture()
+{
+	texture = Textures::GetInstance()->Get(-10000);
 }
 
 void Board::Update(DWORD dt)
@@ -106,9 +119,9 @@ void Board::Render()
 	}
 
 	//draw shot
-	if(shot == 1)
+	if (shot == 2)
 		Draw("(", x + 212, y + 24);
-	else if(shot ==2)
+	else if (shot == 3)
 		Draw(")", x + 212, y + 24);
 
 }
@@ -260,3 +273,32 @@ void Board::Draw(std::string text, float x, float y, int alpha)
 		DrawByChar(text[i], x + i * 8, y, alpha);
 	}
 }
+
+void Board::GetSimonData(Whip* whip, SubWeapon* sub)
+{
+	whip->SetLevel(this->whip);
+	sub->SetWeapon(subweapon, shot);
+}
+
+
+
+void Board::ItemClaimed(LPITEM item)
+{
+	item->Claim();
+
+	switch (item->GetType())
+	{
+	case Item::Whip:
+		whip++;
+		if (whip > 3) whip = 3;
+		break;
+
+	case Item::Dagger:
+		subweapon = 1;
+		break;
+
+	default:
+		break;
+	}
+}
+

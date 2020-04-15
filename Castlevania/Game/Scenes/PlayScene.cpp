@@ -4,7 +4,8 @@
 void PlayScene::Load()
 {
 	Scene::Load();
-	board = new Board;
+	board = Board::GetInstance();
+	board->LoadTexture();
 }
 
 void PlayScene::Unload()
@@ -16,7 +17,41 @@ void PlayScene::Update(DWORD dt)
 {
 	grid->GetObjectlist(&objects);
 
+	for (int i = 0; i < items.size(); i++)
+	{
+		if (!items[i]->IsClaimed())
+		{
+			items[i]->Update(dt, &objects);
+			if (items[i]->IsTimeOut())
+			{
+				delete items[i];
+				items.erase(items.begin() + i);
+				--i;
+				continue;
+			}
+		}
+		else
+		{
+			delete items[i];
+			items.erase(items.begin() + i);
+			--i;
+			continue;
+		}
+
+		objects.push_back(items[i]);
+	}
+
 	player->Update(dt, &objects);
+
+	for (int i = 0; i < effects.size(); i++)
+	{
+		if (effects[i]->IsDone())
+		{
+			delete effects[i];
+			effects.erase(effects.begin() + i);
+			--i;
+		}
+	}
 
 	AdjustView();
 
@@ -26,7 +61,6 @@ void PlayScene::Update(DWORD dt)
 void PlayScene::Render()
 {
 	tilemap->Render(x, y);
-
 	board->Render();
 
 	for (LPGAMEOBJECT obj : objects)
@@ -34,7 +68,17 @@ void PlayScene::Render()
 		obj->Render(x, y);
 	}
 
+	for (LPITEM i : items)
+	{
+		i->Render(x, y);
+	}
+
 	player->Render(x, y);
+
+	for (LPEFFECT e: effects)
+	{
+		e->Render(x, y);
+	}
 }
 
 void PlayScene::AdjustView()
@@ -55,7 +99,7 @@ void PlayScene::AdjustView()
 	//if (cam_x < area.left) cam_x = area.left;
 	//if (cam_x > area.right - cam_w) cam_x = area.right - 32;
 
-	Viewport::GetInstance()->SetPosition(cam_x, cam_y);
+	Viewport::GetInstance()->SetPosition(cam_x, 0);
 }
 
 
@@ -102,7 +146,7 @@ void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 		case BUTTON_A:
 			if (Input::GetInstance()->IsKeyDown(PAD_UP))
 			{
-				player->SetState(Simon::SubWeapon);
+				player->SetState(Simon::SubAttack);
 			}
 			else
 			{

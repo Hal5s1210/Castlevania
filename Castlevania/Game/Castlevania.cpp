@@ -7,6 +7,7 @@ Castlevania::Castlevania()
 {
 	d3ddv = 0;
 	spriteHandler = 0;
+	board = Board::GetInstance();
 	scenes = Scenes::GetInstance();
 }
 
@@ -19,7 +20,7 @@ void Castlevania::LoadResources()
 	d3ddv = Graphics::GetInstance()->GetDirect3DDevice();
 	spriteHandler = Graphics::GetInstance()->GetSpriteHandler();
 
-	scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene1.xml"));
+	scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scenes\\Scene1.xml"));
 	//scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene2.xml"));
 	//scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene3.xml"));
 	//scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene4.xml"));

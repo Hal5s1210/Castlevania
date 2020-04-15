@@ -7,12 +7,26 @@ Animation::Animation()
 	frameReset = false;
 	lastFrameTime = -1;
 }
-
-void Animation::AddFrame(int spriteid, int time)
+void Animation::CopyFrames(std::vector<Frame*> frames)
 {
-	LPSPRITE s = Sprites::GetInstance()->Get(spriteid);
-	Frame* f = new Frame(s, time);
-	frames.push_back(f);
+	for (Frame* f : this->frames)
+		frames.push_back(f);
+}
+
+
+Animation* Animation::Clone()
+{
+	Animation* ani = new Animation;
+	for (Frame* f : frames)
+	{
+		ani->AddFrame(f);
+	}
+	return ani;
+}
+
+void Animation::AddFrame(Frame* frame)
+{
+	frames.push_back(frame);
 }
 
 void Animation::Draw(int& frame, float x, float y, int alpha, bool flip)

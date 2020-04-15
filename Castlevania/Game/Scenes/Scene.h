@@ -34,6 +34,8 @@ protected:
 	Simon* player;
 	
 	std::vector<LPGAMEOBJECT> objects;
+	std::vector<LPEFFECT> effects;
+	std::vector<LPITEM> items;
 
 	void LoadFromFile();
 
@@ -44,6 +46,9 @@ public:
 
 	LPKEYEVENTHANDLER GetKeyHandler() { return keyhandler; }
 	Simon* GetPlayer() { return player; }
+
+	void AddEffect(LPEFFECT effect) { effects.push_back(effect); }
+	void AddItem(LPITEM item) { items.push_back(item); }
 
 	virtual void Load();
 	virtual void Unload();

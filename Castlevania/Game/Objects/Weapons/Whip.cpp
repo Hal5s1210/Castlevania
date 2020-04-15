@@ -1,10 +1,118 @@
 #include "Whip.h"
 #include "..\Spawner.h"
+#include "..\..\Scenes\Scene.h"
 #include "..\..\..\Framework\Collision.h"
 
 Whip::Whip()
 {
-	level = 3;
+	level = 1;
+	damage = 1;
+}
+
+void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+{
+	if (index != 2) return;
+
+	std::vector<LPGAMEOBJECT> coObjects;
+
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
+
+	for (LPGAMEOBJECT obj : (*objects))
+	{
+		float lo, to, ro, bo;
+		obj->GetBoundingBox(lo, to, ro, bo);
+
+		if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
+			coObjects.push_back(obj);
+	}
+
+	if (!coObjects.empty())
+	{
+		for (LPGAMEOBJECT obj : coObjects)
+		{
+			if (dynamic_cast<Torch*>(obj))
+			{
+				Torch* torch = dynamic_cast<Torch*>(obj);
+
+				if (torch->IsAlive() && !torch->IsHitted())
+				{
+					torch->TakeDamage(damage);
+
+					float lo, to, ro, bo;
+					obj->GetBoundingBox(lo, to, ro, bo);
+
+					int eff_x, eff_y;
+					if (!flip) eff_x = ro - 8;
+					else eff_x = lo;
+					eff_y = t + 8;
+
+					LPEFFECT effect = Spawner::GetInstance()->SpawnEffect(EFFECT_HIT_ID, eff_x, eff_y);
+					Scenes::GetInstance()->GetScene()->AddEffect(effect);
+				}
+			}
+		}
+	}
+}
+
+void Whip::Render(float x, float y)
+{
+	float X = this->x;
+	float Y = this->y;
+
+	LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+	RECT rect = sprite->GetRect();
+	int w = rect.right - rect.left;
+
+	if (!isWhip)
+	{
+		if (index == 2)
+		{
+			if (!flip) X -= w;
+			currentAnimation->first->Draw(currentAnimation->second, X + x, Y + y, 255, flip);
+		}
+	}
+	else
+	{
+		if (index < 2)
+		{
+			if (!flip)X += 16;
+			else X -= 16 + w;
+		}
+		else if (index == 2)
+		{
+			if (!flip) X -= w;
+		}
+		currentAnimation->first->Draw(currentAnimation->second, X + x, Y + y, 255, flip);
+
+		//float l, t, r, b;
+		//GetBoundingBox(l, t, r, b);
+		//NSDebug::RenderBoundBox(x, y, l, t, r, b);
+	}
+}
+
+void Whip::GetBoundingBox(float& l, float& t, float& r, float& b)
+{
+	if (index == 2)
+	{
+		LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+		RECT rect = sprite->GetRect();
+		int w = rect.right - rect.left;
+		int h = rect.bottom - rect.top;
+
+		l = x;
+
+		if (!flip) l -= w;
+
+		t = y;
+		r = l + w;
+		b = t + h;
+	}
+	else
+	{
+		l = r = t = b = 0;
+	}
+
 }
 
 void Whip::SetFrameIndex(int i)
@@ -65,92 +173,4 @@ void Whip::SetFrameIndex(int i)
 			break;
 		}
 	}
-}
-
-void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
-{
-	std::vector<LPGAMEOBJECT> coObjects;
-
-	for (LPGAMEOBJECT obj : (*objects))
-	{
-		float l, t, r, b;
-		GetBoundingBox(l, t, r, b);
-		float lo, to, ro, bo;
-		obj->GetBoundingBox(lo, to, ro, bo);
-
-		if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
-			coObjects.push_back(obj);
-	}
-
-	if (!coObjects.empty())
-	{
-		bool hit = false;
-		for (LPGAMEOBJECT obj : coObjects)
-		{
-			if (dynamic_cast<Torch*>(obj))
-				hit = true;
-		}
-		if (hit)
-			OutputDebugString(L"Whip hit a torch\n");
-	}
-}
-
-void Whip::Render(float x, float y)
-{
-	float X = this->x;
-	float Y = this->y;
-
-	LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
-	RECT rect = sprite->GetRect();
-	int w = rect.right - rect.left;
-
-	if (!isWhip)
-	{
-		if (index == 2)
-		{
-			if (!flip) X -= w;
-			currentAnimation->first->Draw(currentAnimation->second, X + x, Y + y, 255, flip);
-		}
-	}
-	else
-	{
-		if (index < 2)
-		{
-			if (!flip)X += 16;
-			else X -= 16 + w;
-		}
-		else if (index == 2)
-		{
-			if (!flip) X -= w;
-		}
-		currentAnimation->first->Draw(currentAnimation->second, X + x, Y + y, 255, flip);
-
-		float l, t, r, b;
-		GetBoundingBox(l, t, r, b);
-		NSDebug::RenderBoundBox(x, y, l, t, r, b);
-	}
-}
-
-void Whip::GetBoundingBox(float& l, float& t, float& r, float& b)
-{
-	if (index == 2)
-	{
-		LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
-		RECT rect = sprite->GetRect();
-		int w = rect.right - rect.left;
-		int h = rect.bottom - rect.top;
-
-		l = x;
-
-		if (!flip) l -= w;
-
-		t = y;
-		r = l + w;
-		b = t + h;
-	}
-	else
-	{
-		l = r = t = b = 0;
-	}
-
 }

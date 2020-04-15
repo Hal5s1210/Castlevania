@@ -4,6 +4,7 @@
     <Texture id="1000" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
     <Texture id="9000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
     <Texture id="2000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
+    <Texture id="3000" path="Resources\Textures\Effects.png" red="116" green="116" blue="116"/>
     <Texture id="5000" path="Resources\Textures\Tileset1.png" red="255" green="0" blue="255"/>
     <Texture id="-10000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
     <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
@@ -12,14 +13,21 @@
   <Sounds>
     <Sound id="1000" path="Resources\Sounds\02. Vampire Killer (Courtyard).wav"/>
   </Sounds>
-  
+
   <Objects>
-    <Object type ="10" path="Resources\XML\Torch.xml"/>
+    <Object type ="3" path="Resources\XML\Object\Torch.xml"/>
+    <Effect type ="0" path="Resources\XML\Effect\Hit.xml"/>
+    <Effect type ="1" path="Resources\XML\Effect\Dead.xml"/>
+    <Item type ="100" path="Resources\XML\Item\Whip.xml"/>
+    <Item type ="101" path="Resources\XML\Item\Dagger.xml"/>
   </Objects>
 
   <Player>
-    <Resource path="Resources\XML\Simon.xml"/>
-    <Weapon path="Resources\XML\Whip.xml"/>
+    <Resource path="Resources\XML\Object\Simon.xml"/>
+    <Whip path="Resources\XML\Weapon\Whip.xml"/>
+    <SubWeapon>
+      <Dagger path="Resources\XML\Weapon\Dagger.xml"/>
+    </SubWeapon>
     <Position x="16" y="96"/>
   </Player>
 
@@ -60,7 +68,7 @@
       <Object type="-1" x="80" y="160"/>
       <Object type="-1" x="96" y="160"/>
       <Object type="-1" x="112" y="160"/>
-      <Object type="10" x="92" y="128"/>
+      <Object type="3" x="92" y="128" item="100"/>
     </Cell>
 
     <Cell row="1" column="1">
@@ -72,7 +80,7 @@
       <Object type="-1" x="208" y="160"/>
       <Object type="-1" x="224" y="160"/>
       <Object type="-1" x="240" y="160"/>
-      <Object type="10" x="220" y="128"/>
+      <Object type="3" x="220" y="128" item="101"/>
     </Cell>
 
     <Cell row="1" column="2">
@@ -84,7 +92,7 @@
       <Object type="-1" x="336" y="160"/>
       <Object type="-1" x="352" y="160"/>
       <Object type="-1" x="368" y="160"/>
-      <Object type="10" x="348" y="128"/>
+      <Object type="3" x="348" y="128" item="100"/>
     </Cell>
 
     <Cell row="1" column="3">
@@ -96,7 +104,7 @@
       <Object type="-1" x="464" y="160"/>
       <Object type="-1" x="480" y="160"/>
       <Object type="-1" x="496" y="160"/>
-      <Object type="10" x="476" y="128"/>
+      <Object type="3" x="476" y="128"/>
     </Cell>
 
     <Cell row="1" column="4">
@@ -108,7 +116,7 @@
       <Object type="-1" x="592" y="160"/>
       <Object type="-1" x="608" y="160"/>
       <Object type="-1" x="624" y="160"/>
-      <Object type="10" x="604" y="128"/>
+      <Object type="3" x="604" y="128"/>
     </Cell>
 
     <Cell row="1" column="5">

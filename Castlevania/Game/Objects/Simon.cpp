@@ -1,9 +1,11 @@
 #include "Simon.h"
 #include "Spawner.h"
+#include "..\Board.h"
 
 Simon::Simon()
 {
 	whip = new Whip;
+	subweapon = new SubWeapon;
 	flip = true;
 	attack = false;
 	crounch = false;
@@ -20,6 +22,8 @@ Simon::~Simon()
 
 void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+	Board::GetInstance()->GetSimonData(whip, subweapon);
+
 	ProcessState();
 
 	GameObject::Update(dt);
@@ -71,11 +75,24 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 					onair = false;
 				}
 			}
-			else
+			else if (dynamic_cast<Item*>(o))
+			{
+				LPITEM item = dynamic_cast<Item*>(o);
+				if (!item->IsClaimed())
+				{
+					if (item->GetType() == Item::Whip)
+					{
+						//set animation//
+					}
+					Board::GetInstance()->ItemClaimed(item);
+					OutputDebugString(L"Claimed Item\n");
+				}
+			}
+			/*else
 			{
 				ddx = dx;
 				ddy = dy;
-			}
+			}*/
 		}
 
 		x += ddx;
@@ -95,9 +112,10 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 		whip->SetPosition(whip_x, whip_y);
 		whip->SetFlip(flip);
-
 		whip->Update(dt, objects);
 	}
+	
+	subweapon->Update(dt, objects);
 
 
 	//float cam_x, cam_y;
@@ -132,9 +150,11 @@ void Simon::Render(float x, float y)
 
 	currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
 
-	float l, t, r, b;
-	GetBoundingBox(l, t, r, b);
-	NSDebug::RenderBoundBox(x, y, l, t, r, b);
+	subweapon->Render(x, y);
+
+	//float l, t, r, b;
+	//GetBoundingBox(l, t, r, b);
+	//NSDebug::RenderBoundBox(x, y, l, t, r, b);
 
 	if (attack)
 	{
@@ -143,6 +163,7 @@ void Simon::Render(float x, float y)
 
 		if (currentAnimation->first->IsFrameReset())
 		{
+			whip->SetFrameIndex(0);
 			attack = false;
 		}
 	}
@@ -253,6 +274,7 @@ void Simon::ProcessState()
 		if (!attack)
 		{
 			whip->UseWhip(true);
+
 			if (crounch)
 				SetAnimation(ATTACK_2);
 			else
@@ -264,10 +286,21 @@ void Simon::ProcessState()
 		}
 		break;
 
-	case Simon::SubWeapon:
+	case Simon::SubAttack:
 		if (!attack)
 		{
 			whip->UseWhip(false);
+
+			float sub_x = x;
+			float sub_y = y;
+
+			LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+			RECT rect = sprite->GetRect();
+			if (flip) sub_x += 16;
+			sub_y += 32 - (rect.bottom - rect.top);
+
+			subweapon->Active(flip, sub_x, sub_y);
+
 			if (crounch)
 				SetAnimation(ATTACK_2);
 			else

@@ -9,13 +9,17 @@ private:
 	int index;
 	int level;
 	bool isWhip;
+	int damage;
+
 public:
 	Whip();
+
+	void SetLevel(int lv) { level = lv; if (lv > 1) damage = 2; else damage = 1; }
+
 	LPGAMEOBJECT Clone() { return NULL; }
 
-
 	void UseWhip(bool use) { isWhip = use; }
-	void SetFlip(bool flip) { this->flip = flip; }
+
 	void SetFrameIndex(int i);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 

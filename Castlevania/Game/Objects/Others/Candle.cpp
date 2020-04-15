@@ -20,5 +20,11 @@ void Candle::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 LPGAMEOBJECT Candle::Clone()
 {
-	return new Candle(*this);
+	Candle* clone = new Candle;
+	for (ANIMATION* ani : animations)
+	{
+		clone->AddAnimation(ani->first->Clone());
+	}
+	clone->SetAnimation(0);
+	return clone;
 }

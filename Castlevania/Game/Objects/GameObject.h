@@ -28,7 +28,6 @@ struct CoEvent
 class GameObject
 {
 protected:
-	int id;
 
 	float x, y;
 	float vx, vy;
@@ -53,7 +52,7 @@ public:
 	GameObject();
 	~GameObject();
 
-	int GetID() { return id; }
+	void SetFlip(bool flip) { this->flip = flip; }
 
 	void SetPosition(float x, float y) { this->x = x; this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx; this->vy = vy; }

@@ -17,6 +17,7 @@
 #include "..\ID.h"
 #include "GameObject.h"
 #include "Weapons\Whip.h"
+#include "Weapons\SubWeapon.h"
 #include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 class Simon : public GameObject
@@ -29,7 +30,7 @@ public:
 		WalkR,
 		Crounch,
 		Attack,
-		SubWeapon,
+		SubAttack,
 		Jump,
 		OnAir,
 		Hitted,
@@ -48,6 +49,7 @@ private:
 	bool dead;
 
 	Whip* whip;
+	SubWeapon* subweapon;
 
 	eState state;
 
@@ -60,6 +62,7 @@ public:
 	LPGAMEOBJECT Clone() { return NULL; }
 
 	Whip* GetWhip() { return whip; }
+	SubWeapon* GetSubWeapon() { return subweapon; }
 
 	void SetState(eState state);
 

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Objects\Weapons\Dagger.cpp" />
+    <ClCompile Include="Game\Objects\Effect.cpp" />
     <ClCompile Include="Framework\Collision.cpp" />
     <ClCompile Include="Framework\Animation.cpp" />
     <ClCompile Include="Game\Board.cpp" />
@@ -46,8 +48,14 @@
     <ClCompile Include="Game\Objects\Others\Torch.cpp" />
     <ClCompile Include="Game\Map\Tileset.cpp" />
     <ClCompile Include="Game\Parser.cpp" />
+    <ClCompile Include="Game\Objects\Item.cpp" />
+    <ClCompile Include="Game\Objects\Items\ItemWhip.cpp" />
+    <ClCompile Include="Game\Objects\Weapons\SubWeapon.cpp" />
+    <ClCompile Include="Game\Objects\Weapons\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Objects\Weapons\Dagger.h" />
+    <ClInclude Include="Game\Objects\Effect.h" />
     <ClInclude Include="Framework\Collision.h" />
     <ClInclude Include="Framework\Animation.h" />
     <ClInclude Include="Game\Board.h" />
@@ -76,6 +84,10 @@
     <ClInclude Include="Game\Objects\Others\Torch.h" />
     <ClInclude Include="Game\Map\Tileset.h" />
     <ClInclude Include="Game\Parser.h" />
+    <ClInclude Include="Game\Objects\Item.h" />
+    <ClInclude Include="Game\Objects\Items\ItemWhip.h" />
+    <ClInclude Include="Game\Objects\Weapons\SubWeapon.h" />
+    <ClInclude Include="Game\Objects\Weapons\Weapon.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

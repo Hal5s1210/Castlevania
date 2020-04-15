@@ -58,7 +58,9 @@ void Parser::Parse_Animation(pugi::xml_node root)
 			int sprite_id = frame.attribute(L"sprite").as_int();
 			int time = frame.attribute(L"time").as_int();
 
-			ani->AddFrame(sprite_id, time);
+			LPSPRITE s = Sprites::GetInstance()->Get(sprite_id);
+			Animation::Frame* f = new Animation::Frame(s, time);
+			ani->AddFrame(f);
 		}
 
 		Animations::GetInstance()->Add(id, ani);
@@ -92,9 +94,25 @@ void Parser::Parse_Object(pugi::xml_node root)
 		Parser::Parse_Sprite(root.child(L"Sprites"));
 		Parser::Parse_Animation(root.child(L"Animations"));
 
-		Spawner::GetInstance()->CreateObjectSpawner(id);
-		LPGAMEOBJECT obj = Spawner::GetInstance()->GetSpawner(id);
-		Parser::Parse_AnimationSet(obj, root.child(L"AnimationSet"));
+		std::wstring nodeName = node.name();
+		if (nodeName == L"Object")
+		{
+			Spawner::GetInstance()->CreateObjectSpawner(id);
+			LPGAMEOBJECT obj = Spawner::GetInstance()->GetObjectSpawner(id);
+			Parser::Parse_AnimationSet(obj, root.child(L"AnimationSet"));
+		}
+		else if (nodeName == L"Effect")
+		{
+			Spawner::GetInstance()->CreateEffectSpawner(id);
+			LPEFFECT eff = Spawner::GetInstance()->GetEffectSpawner(id);
+			Parser::Parse_AnimationSet(eff, root.child(L"AnimationSet"));
+		}
+		else if (nodeName == L"Item")
+		{
+			Spawner::GetInstance()->CreateItemSpawner(id);
+			LPITEM item = Spawner::GetInstance()->GetItemSpawner(id);
+			Parser::Parse_AnimationSet(item, root.child(L"AnimationSet"));
+		}
 	}
 }
 
@@ -125,7 +143,9 @@ void Parser::Parse_Player(Simon** player, pugi::xml_node root)
 	
 	(*player) = new Simon;
 
-	Parser::Parse_Whip((*player)->GetWhip(), root.child(L"Weapon"));
+	Parser::Parse_Whip((*player)->GetWhip(), root.child(L"Whip"));
+
+	Parser::Parse_SubWeapon((*player)->GetSubWeapon(), root.child(L"SubWeapon"));
 
 	Parser::Parse_AnimationSet((*player), node.child(L"AnimationSet"));
 	
@@ -150,6 +170,30 @@ void Parser::Parse_Whip(Whip* whip, pugi::xml_node root)
 	Parser::Parse_Sprite(node.child(L"Sprites"));
 	Parser::Parse_Animation(node.child(L"Animations"));
 	Parser::Parse_AnimationSet(whip, node.child(L"AnimationSet"));
+}
+
+void Parser::Parse_SubWeapon(SubWeapon* sub, pugi::xml_node root)
+{
+	for (pugi::xml_node weapon : root)
+	{
+		LPCWSTR path = weapon.attribute(L"path").value();
+		pugi::xml_document doc;
+		pugi::xml_parse_result result;
+
+		result = doc.load_file(path);
+		if (!result) return;
+
+
+		pugi::xml_node node = doc.child(L"Object");
+
+		Parser::Parse_Sprite(node.child(L"Sprites"));
+		Parser::Parse_Animation(node.child(L"Animations"));
+		std::wstring name = weapon.name();
+		if (name == L"Dagger")
+		{
+			Parser::Parse_AnimationSet(sub->GetDagger(), node.child(L"AnimationSet"));
+		}
+	}
 }
 
 
@@ -243,10 +287,9 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 			int id = obj.attribute(L"type").as_int();
 			float x = obj.attribute(L"x").as_float();
 			float y = obj.attribute(L"y").as_float();
+			int item = obj.attribute(L"item").as_int();
 
-			LPGAMEOBJECT o = Spawner::GetInstance()->SpawnObject(id);
-			o->SetPosition(x, y);
-
+			LPGAMEOBJECT o = Spawner::GetInstance()->SpawnObject(id, x, y, item);
 			cells->at(i).at(j).push_back(o);
 		}
 	}
