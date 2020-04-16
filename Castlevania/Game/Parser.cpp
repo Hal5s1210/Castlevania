@@ -193,6 +193,18 @@ void Parser::Parse_SubWeapon(SubWeapon* sub, pugi::xml_node root)
 		{
 			Parser::Parse_AnimationSet(sub->GetDagger(), node.child(L"AnimationSet"));
 		}
+		else if (name == L"Axe")
+		{
+			Parser::Parse_AnimationSet(sub->GetAxe(), node.child(L"AnimationSet"));
+		}
+		else if (name == L"Boomerang")
+		{
+			Parser::Parse_AnimationSet(sub->GetBoomerang(), node.child(L"AnimationSet"));
+		}
+		else if (name == L"HolyWater")
+		{
+			Parser::Parse_AnimationSet(sub->GetHolyWater(), node.child(L"AnimationSet"));
+		}
 	}
 }
 

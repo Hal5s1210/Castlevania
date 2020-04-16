@@ -1,6 +1,7 @@
 #include "Simon.h"
 #include "Spawner.h"
 #include "..\Board.h"
+#include "..\..\Framework\Collision.h"
 
 Simon::Simon()
 {
@@ -30,6 +31,30 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += dt * GRAVITY;
 
+	//check aabb
+	for (LPGAMEOBJECT o : *objects)
+	{
+		if (dynamic_cast<Item*>(o))
+		{
+			float l, t, r, b;
+			GetBoundingBox(l, t, r, b);
+			float lo, to, ro, bo;
+			o->GetBoundingBox(lo, to, ro, bo);
+
+			if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
+			{
+				LPITEM item = dynamic_cast<Item*>(o);
+				if (!item->IsClaimed())
+				{
+					Board::GetInstance()->ItemClaimed(item);
+					OutputDebugString(L"Claimed Item\n");
+				}
+			}
+		}
+	}
+
+
+	//sweptaabb
 	std::vector<LPCOEVENT> coEvents;
 
 	CalcPotentialCollisions(objects, coEvents);
@@ -75,24 +100,6 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 					onair = false;
 				}
 			}
-			else if (dynamic_cast<Item*>(o))
-			{
-				LPITEM item = dynamic_cast<Item*>(o);
-				if (!item->IsClaimed())
-				{
-					if (item->GetType() == Item::Whip)
-					{
-						//set animation//
-					}
-					Board::GetInstance()->ItemClaimed(item);
-					OutputDebugString(L"Claimed Item\n");
-				}
-			}
-			/*else
-			{
-				ddx = dx;
-				ddy = dy;
-			}*/
 		}
 
 		x += ddx;
@@ -115,6 +122,19 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		whip->Update(dt, objects);
 	}
 	
+	if (subweapon->IsReady())
+	{
+		float sub_x = x;
+		float sub_y = y + 4;
+
+		LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+		RECT rect = sprite->GetRect();
+		if (flip) sub_x += 16;
+		sub_y += 32 - (rect.bottom - rect.top);
+
+		subweapon->AddWeapon(flip, sub_x, sub_y);
+	}
+
 	subweapon->Update(dt, objects);
 
 
@@ -189,7 +209,7 @@ void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void Simon::SetState(eState state)
 {
-	if (hitted || dead)
+	if (hit || dead)
 		return;
 
 	switch (state)
@@ -287,19 +307,12 @@ void Simon::ProcessState()
 		break;
 
 	case Simon::SubAttack:
+		if (!subweapon->IsUsable()) break;
 		if (!attack)
 		{
 			whip->UseWhip(false);
 
-			float sub_x = x;
-			float sub_y = y;
-
-			LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
-			RECT rect = sprite->GetRect();
-			if (flip) sub_x += 16;
-			sub_y += 32 - (rect.bottom - rect.top);
-
-			subweapon->Active(flip, sub_x, sub_y);
+			subweapon->Active();
 
 			if (crounch)
 				SetAnimation(ATTACK_2);

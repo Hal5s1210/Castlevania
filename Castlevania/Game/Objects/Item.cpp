@@ -103,8 +103,11 @@ void Item::SetType(int t)
 {
 	switch (t)
 	{
-	case ITEM_WHIP_ID:type = eItem::Whip; break;
-	case ITEM_DANGER_ID:type = eItem::Dagger; break;
+	case ITEM_WHIP_ID: type = eItem::Whip; break;
+	case ITEM_DANGER_ID: type = eItem::Dagger; break;
+	case ITEM_AXE_ID: type = eItem::Axe; break;
+	case ITEM_BOOMERANG_ID: type = eItem::Boomerang; break;
+	case ITEM_HOLYWATER_ID: type = eItem::HolyWater; break;
 
 	default:
 		break;

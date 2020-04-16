@@ -1,32 +1,36 @@
 #pragma once
 
 #ifndef TEXTURE_ID
-#define TEXTURE_SIMON_ID				0
-#define TEXTURE_WEAPON_ID				7
-#define TEXTURE_CANDLE_ID				8
-#define TEXTURE_TORCH_ID				9
+#define TEXTURE_SIMON_ID				1000
+#define TEXTURE_WEAPON_ID				2000
+#define TEXTURE_ITEMS_OBJECTS_ID		3000
+#define TEXTURE_EFFECT_ID				4000
+#define TEXTURE_UI_BOARD_ID				7000
 #endif // !TEXTURE_ID
 
 #ifndef TILESET_ID
-#define TILESET1_ID						100
+#define TILESET1_ID						8000
 #endif // !TILESET_ID
 
 #ifndef OBJECT_ID
 #define BLOCK_ID						-1
-#define SIMON_ID						0
-#define WHIP_ID							1
-#define CANDLE_ID						2
-#define TORCH_ID						3
+#define SIMON_ID						100
+#define WHIP_ID							200
+#define TORCH_ID						300
+#define CANDLE_ID						301
 #endif // !OBJECT_ID
 
 #ifndef EFFECT_ID
-#define EFFECT_HIT_ID					0
-#define EFFECT_DEAD_ID					1
+#define EFFECT_HIT_ID					400
+#define EFFECT_DEAD_ID					401
 #endif // !EFFECT_ID
 
 #ifndef ITEM_ID
-#define ITEM_WHIP_ID					100
-#define ITEM_DANGER_ID					101
+#define ITEM_WHIP_ID					302
+#define ITEM_DANGER_ID					303
+#define ITEM_AXE_ID						304
+#define ITEM_BOOMERANG_ID				305
+#define ITEM_HOLYWATER_ID				306
 #endif // !ITEM_ID
 
 #ifndef SOUND_ID

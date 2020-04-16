@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Objects\Weapons\Axe.cpp" />
+    <ClCompile Include="Game\Objects\Weapons\Boomerang.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Dagger.cpp" />
     <ClCompile Include="Game\Objects\Effect.cpp" />
     <ClCompile Include="Framework\Collision.cpp" />
@@ -52,8 +54,13 @@
     <ClCompile Include="Game\Objects\Items\ItemWhip.cpp" />
     <ClCompile Include="Game\Objects\Weapons\SubWeapon.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Weapon.cpp" />
+    <ClCompile Include="Game\Objects\Weapons\HolyWater.cpp" />
+    <ClCompile Include="Game\Objects\Weapons\Stopwatch.cpp" />
+    <ClCompile Include="Game\Objects\Weapons\HolyFlame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Objects\Weapons\Axe.h" />
+    <ClInclude Include="Game\Objects\Weapons\Boomerang.h" />
     <ClInclude Include="Game\Objects\Weapons\Dagger.h" />
     <ClInclude Include="Game\Objects\Effect.h" />
     <ClInclude Include="Framework\Collision.h" />
@@ -88,6 +95,9 @@
     <ClInclude Include="Game\Objects\Items\ItemWhip.h" />
     <ClInclude Include="Game\Objects\Weapons\SubWeapon.h" />
     <ClInclude Include="Game\Objects\Weapons\Weapon.h" />
+    <ClInclude Include="Game\Objects\Weapons\HolyWater.h" />
+    <ClInclude Include="Game\Objects\Weapons\Stopwatch.h" />
+    <ClInclude Include="Game\Objects\Weapons\HolyFlame.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

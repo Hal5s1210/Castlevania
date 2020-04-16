@@ -23,7 +23,7 @@ public:
 	Animation();
 	Animation* Clone();
 	void AddFrame(Frame* frame);
-	void Pause() { paused = true; }
+	void Pause(int time = 0) { paused = true; }
 	void Play() { paused = false; }
 	bool IsFrameReset() { return frameReset; }
 	void CopyFrames(std::vector<Frame*> frames);

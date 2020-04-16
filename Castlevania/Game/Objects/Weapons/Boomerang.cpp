@@ -1,11 +1,11 @@
-#include "Dagger.h"
+#include "Boomerang.h"
 #include "..\Spawner.h"
 #include "..\..\Scenes\Scene.h"
 #include "..\..\..\Framework\Viewport.h"
 
-LPGAMEOBJECT Dagger::Clone()
+LPGAMEOBJECT Boomerang::Clone()
 {
-	Dagger* clone = new Dagger;
+	Boomerang* clone = new Boomerang;
 	for (ANIMATION* ani : animations)
 	{
 		clone->AddAnimation(ani->first->Clone());
@@ -14,8 +14,10 @@ LPGAMEOBJECT Dagger::Clone()
 	return clone;
 }
 
-void Dagger::Ready(float x, float y, bool flip)
+
+void Boomerang::Ready(float x, float y, bool flip)
 {
+	comeback = false;
 	SetFlip(!flip);
 	if (flip)
 	{
@@ -29,15 +31,15 @@ void Dagger::Ready(float x, float y, bool flip)
 	}
 }
 
-void Dagger::GetBoundingBox(float& l, float& t, float& r, float& b)
+void Boomerang::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
-	t = y + 4;
+	t = y;
 	r = l + 16;
-	b = t + 8;
+	b = t + 16;
 }
 
-void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
@@ -67,20 +69,7 @@ void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 				if (torch->IsAlive() && !torch->IsHitted())
 				{
-					hit = true;
-
 					torch->TakeDamage(damage);
-
-					//float lo, to, ro, bo;
-					//o->GetBoundingBox(lo, to, ro, bo);
-
-					//int eff_x, eff_y;
-					//if (!flip) eff_x = ro - 8;
-					//else eff_x = lo;
-					//eff_y = y + 8;
-
-					//LPEFFECT effect = Spawner::GetInstance()->SpawnEffect(EFFECT_HIT_ID, eff_x, eff_y);
-					//Scenes::GetInstance()->GetScene()->AddEffect(effect);
 				}
 			}
 		}
@@ -95,7 +84,15 @@ void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
 	if (x < cam_x || x > cam_x + cam_w - 16 || y < cam_y || y> cam_y + cam_w - 16)
 	{
-		outView = true;
+		if (comeback)
+		{
+			outView= true;
+		}
+		else 
+		{
+			comeback = true;
+			vx = -vx;
+		}
 	}
 
 }

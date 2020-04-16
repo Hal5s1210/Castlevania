@@ -6,7 +6,7 @@ Torch::Torch()
 {
 	hp = 1;
 	invulnerableTime = 300;
-	hitted = false;
+	hit = false;
 	alive = true;
 	item = -1;
 }
@@ -50,9 +50,9 @@ bool Torch::IsHitted()
 {
 	if (GetTickCount() - invulnerableTimeStart >= invulnerableTime)
 	{
-		hitted = false;
+		hit = false;
 	}
-	return hitted;
+	return hit;
 }
 
 
@@ -61,9 +61,9 @@ void Torch::TakeDamage(int damage)
 	LPSCENE scene = Scenes::GetInstance()->GetScene();
 
 	invulnerableTimeStart = GetTickCount();
-	hitted = true;
+	hit = true;
 
-	OutputDebugString(L"Torch being hitted\n");
+	OutputDebugString(L"Torch being hit\n");
 
 	hp -= damage;
 

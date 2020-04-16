@@ -1,11 +1,10 @@
-#include "Dagger.h"
+#include "Axe.h"
 #include "..\Spawner.h"
-#include "..\..\Scenes\Scene.h"
 #include "..\..\..\Framework\Viewport.h"
 
-LPGAMEOBJECT Dagger::Clone()
+LPGAMEOBJECT Axe::Clone()
 {
-	Dagger* clone = new Dagger;
+	Axe* clone = new Axe;
 	for (ANIMATION* ani : animations)
 	{
 		clone->AddAnimation(ani->first->Clone());
@@ -14,34 +13,37 @@ LPGAMEOBJECT Dagger::Clone()
 	return clone;
 }
 
-void Dagger::Ready(float x, float y, bool flip)
+
+void Axe::Ready(float x, float y, bool flip)
 {
 	SetFlip(!flip);
 	if (flip)
 	{
 		SetPosition(x, y);
-		SetSpeed(0.2, 0);
+		SetSpeed(0.05, -0.25);
 	}
 	else
 	{
 		SetPosition(x - 16, y);
-		SetSpeed(-0.2, 0);
+		SetSpeed(-0.05, -0.25);
 	}
 }
 
-void Dagger::GetBoundingBox(float& l, float& t, float& r, float& b)
+void Axe::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
-	t = y + 4;
+	t = y;
 	r = l + 16;
-	b = t + 8;
+	b = t + 16;
 }
 
-void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void Axe::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
 	std::vector<LPCOEVENT> coEvents;
+
+	vy += 0.0005 * dt;
 
 	CalcPotentialCollisions(objects, coEvents);
 
@@ -67,20 +69,7 @@ void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 				if (torch->IsAlive() && !torch->IsHitted())
 				{
-					hit = true;
-
 					torch->TakeDamage(damage);
-
-					//float lo, to, ro, bo;
-					//o->GetBoundingBox(lo, to, ro, bo);
-
-					//int eff_x, eff_y;
-					//if (!flip) eff_x = ro - 8;
-					//else eff_x = lo;
-					//eff_y = y + 8;
-
-					//LPEFFECT effect = Spawner::GetInstance()->SpawnEffect(EFFECT_HIT_ID, eff_x, eff_y);
-					//Scenes::GetInstance()->GetScene()->AddEffect(effect);
 				}
 			}
 		}
@@ -97,5 +86,4 @@ void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	{
 		outView = true;
 	}
-
 }

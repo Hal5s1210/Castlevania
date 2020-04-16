@@ -2,7 +2,7 @@
 
 #include "Weapon.h"
 
-class Dagger : public Weapon
+class HolyWater : public Weapon
 {
 public:
 	LPGAMEOBJECT Clone();

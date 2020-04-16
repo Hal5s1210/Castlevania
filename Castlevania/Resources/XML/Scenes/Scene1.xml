@@ -2,11 +2,11 @@
 <Scene>
 	<Textures>
     <Texture id="1000" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
-    <Texture id="9000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
-    <Texture id="2000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
-    <Texture id="3000" path="Resources\Textures\Effects.png" red="116" green="116" blue="116"/>
-    <Texture id="5000" path="Resources\Textures\Tileset1.png" red="255" green="0" blue="255"/>
-    <Texture id="-10000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
+    <Texture id="2000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
+    <Texture id="3000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
+    <Texture id="4000" path="Resources\Textures\Effects.png" red="116" green="116" blue="116"/>
+    <Texture id="8000" path="Resources\Textures\Tileset1.png" red="255" green="0" blue="255"/>
+    <Texture id="7000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
     <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
 	</Textures>
   
@@ -15,11 +15,13 @@
   </Sounds>
 
   <Objects>
-    <Object type ="3" path="Resources\XML\Object\Torch.xml"/>
-    <Effect type ="0" path="Resources\XML\Effect\Hit.xml"/>
-    <Effect type ="1" path="Resources\XML\Effect\Dead.xml"/>
-    <Item type ="100" path="Resources\XML\Item\Whip.xml"/>
-    <Item type ="101" path="Resources\XML\Item\Dagger.xml"/>
+    <Object type ="300" path="Resources\XML\Object\Torch.xml"/>
+    <Effect type ="400" path="Resources\XML\Effect\Hit.xml"/>
+    <Effect type ="401" path="Resources\XML\Effect\Dead.xml"/>
+    <Item type ="302" path="Resources\XML\Item\Whip.xml"/>
+    <Item type ="303" path="Resources\XML\Item\Dagger.xml"/>
+    <Item type ="304" path="Resources\XML\Item\Axe.xml"/>
+    <Item type ="305" path="Resources\XML\Item\Boomerang.xml"/>
   </Objects>
 
   <Player>
@@ -27,16 +29,19 @@
     <Whip path="Resources\XML\Weapon\Whip.xml"/>
     <SubWeapon>
       <Dagger path="Resources\XML\Weapon\Dagger.xml"/>
+      <Axe path="Resources\XML\Weapon\Axe.xml"/>
+      <Boomerang path="Resources\XML\Weapon\Boomerang.xml"/>
+      <HolyWater path="Resources\XML\Weapon\Holy_Water.xml"/>
     </SubWeapon>
     <Position x="16" y="96"/>
   </Player>
 
   <Tilesets>
-    <Tileset id="5000" texture="5000" tileW="16" tileH="16"/>    
+    <Tileset id="800" texture="8000" tileW="16" tileH="16"/>    
   </Tilesets>
   
   <Tilemap>
-    <Map tileset="5000"  width="48" height="12" tileW="16" tileH="16">
+    <Map tileset="800"  width="48" height="12" tileW="16" tileH="16">
       <Matrix>
         <Row>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,23,24,25,24,25,26,27</Row>
         <Row>1,1,2,3,2,3,2,3,2,3,2,3,1,1,1,1,1,1,2,3,2,3,2,3,2,3,2,3,1,1,1,1,1,1,1,1,1,1,1,1,49,32,33,34,33,33,35,27</Row>
@@ -68,7 +73,7 @@
       <Object type="-1" x="80" y="160"/>
       <Object type="-1" x="96" y="160"/>
       <Object type="-1" x="112" y="160"/>
-      <Object type="3" x="92" y="128" item="100"/>
+      <Object type="300" x="92" y="128" item="302"/>
     </Cell>
 
     <Cell row="1" column="1">
@@ -80,7 +85,7 @@
       <Object type="-1" x="208" y="160"/>
       <Object type="-1" x="224" y="160"/>
       <Object type="-1" x="240" y="160"/>
-      <Object type="3" x="220" y="128" item="101"/>
+      <Object type="300" x="220" y="128" item="303"/>
     </Cell>
 
     <Cell row="1" column="2">
@@ -92,7 +97,7 @@
       <Object type="-1" x="336" y="160"/>
       <Object type="-1" x="352" y="160"/>
       <Object type="-1" x="368" y="160"/>
-      <Object type="3" x="348" y="128" item="100"/>
+      <Object type="300" x="348" y="128" item="302"/>
     </Cell>
 
     <Cell row="1" column="3">
@@ -104,7 +109,7 @@
       <Object type="-1" x="464" y="160"/>
       <Object type="-1" x="480" y="160"/>
       <Object type="-1" x="496" y="160"/>
-      <Object type="3" x="476" y="128"/>
+      <Object type="300" x="476" y="128"/>
     </Cell>
 
     <Cell row="1" column="4">
@@ -116,7 +121,7 @@
       <Object type="-1" x="592" y="160"/>
       <Object type="-1" x="608" y="160"/>
       <Object type="-1" x="624" y="160"/>
-      <Object type="3" x="604" y="128"/>
+      <Object type="300" x="604" y="128" item="304"/>
     </Cell>
 
     <Cell row="1" column="5">

@@ -1,7 +1,8 @@
 #include "Board.h"
-#include "..\Framework\Viewport.h"
 #include <sstream>
 #include <iomanip>
+#include "..\Framework\Viewport.h"
+#include "ID.h"
 
 Board* Board::_instance = 0;
 
@@ -18,7 +19,7 @@ Board::Board()
 	enemyhp = 16;
 	shot = 1;
 	whip = 1;
-	subweapon = 0;
+	subweapon = 3;
 }
 
 Board* Board::GetInstance()
@@ -29,7 +30,7 @@ Board* Board::GetInstance()
 
 void Board::LoadTexture()
 {
-	texture = Textures::GetInstance()->Get(-10000);
+	texture = Textures::GetInstance()->Get(TEXTURE_UI_BOARD_ID);
 }
 
 void Board::Update(DWORD dt)
@@ -295,6 +296,18 @@ void Board::ItemClaimed(LPITEM item)
 
 	case Item::Dagger:
 		subweapon = 1;
+		break;
+
+	case Item::Axe:
+		subweapon = 2;
+		break;
+
+	case Item::Boomerang:
+		subweapon = 3;
+		break;
+
+	case Item::HolyWater:
+		subweapon = 4;
 		break;
 
 	default:

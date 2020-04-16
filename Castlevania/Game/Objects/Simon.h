@@ -45,7 +45,7 @@ private:
 	bool attack;
 	bool onair;
 	bool onstair;
-	bool hitted;
+	bool hit;
 	bool dead;
 
 	Whip* whip;

@@ -6,16 +6,17 @@ class Weapon : public GameObject
 {
 protected:
 	int damage;
-	bool hitted;
+	bool hit;
 	bool outView;
 
 public:
 	Weapon();
 
 	bool IsOutOfView() { return outView; }
-	bool IsHitSomething() { return hitted; }
+	bool IsHitSomething() { return hit; }
 
 	void SetFlip(bool flip) { this->flip = flip; }
+	virtual void Ready(float x, float y, bool flip) = 0;
 
 	virtual LPGAMEOBJECT Clone() = 0;
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b) = 0;

@@ -3,36 +3,60 @@
 
 SubWeapon::SubWeapon()
 {
+	delayTimeStart = -1;
+	delayTime = 200;
+
 	dagger = new Dagger;
+	axe = new Axe;
+	boomerang = new Boomerang;
+	holywater = new HolyWater;
+	stopwatch = new Stopwatch;
+}
+
+bool SubWeapon::IsUsable()
+{
+	return (current != 0 && weapons.size() < shot);
 }
 
 
-void SubWeapon::Active(bool flip, float x, float y)
+void SubWeapon::Active()
 {
+	if (weaponready) return;
+
+	ready_weapon = NULL;
+
 	if (weapons.size() < shot)
 	{
+		weaponready = true;
+		
+		delayTimeStart = GetTickCount();
+
 		switch (current)
 		{
-		case 1:
-		{
-			LPGAMEOBJECT d = dagger->Clone();
-			d->SetFlip(!flip);
-			if (flip)
-			{
-				d->SetPosition(x, y);
-				d->SetSpeed(0.2, 0);
-			}
-			else
-			{
-				d->SetPosition(x - 16, y);
-				d->SetSpeed(-0.2, 0);
-			}
-			weapons.push_back(dynamic_cast<Weapon*>(d));
-		}
-		break;
+		case 1:	ready_weapon = dagger->Clone();	break;
+		case 2:	ready_weapon = axe->Clone(); break;
+		case 3:	ready_weapon = boomerang->Clone(); break;
+		case 4: ready_weapon = holywater->Clone(); break;
 
 		default:
 			break;
+		}
+	}
+}
+void SubWeapon::AddWeapon(bool flip, float x, float y)
+{
+	if (weaponready)
+	{
+		if (ready_weapon != NULL)
+		{
+			if (GetTickCount() - delayTimeStart >= delayTime)
+			{
+				dynamic_cast<Weapon*>(ready_weapon)->Ready(x, y, flip);
+
+				weapons.push_back(dynamic_cast<Weapon*>(ready_weapon));
+				ready_weapon = NULL;
+				weaponready = false;
+			}
 		}
 	}
 }

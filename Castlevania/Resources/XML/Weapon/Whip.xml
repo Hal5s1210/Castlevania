@@ -3,85 +3,85 @@
 
   <Sprites>
     <!--Whip 0-->
-    <Sprite id="9000" texture="9000" x="80" y="80" w="8" h="16"/>
+    <Sprite id="20000" texture="2000" x="80" y="80" w="8" h="16"/>
     <!--Whip 1-->
-    <Sprite id="9010" texture="9000" x="0" y="0" w="8" h="32"/>
-    <Sprite id="9011" texture="9000" x="40" y="0" w="16" h="24"/>
-    <Sprite id="9012" texture="9000" x="0" y="32" w="28" h="16"/>
+    <Sprite id="20001" texture="2000" x="0" y="0" w="8" h="32"/>
+    <Sprite id="20002" texture="2000" x="40" y="0" w="16" h="24"/>
+    <Sprite id="20003" texture="2000" x="0" y="32" w="28" h="16"/>
     <!--Whip 2-->
-    <Sprite id="9020" texture="9000" x="16" y="0" w="8" h="32"/>
-    <Sprite id="9021" texture="9000" x="72" y="0" w="16" h="24"/>
-    <Sprite id="9022" texture="9000" x="0" y="48" w="28" h="16"/>
+    <Sprite id="20004" texture="2000" x="16" y="0" w="8" h="32"/>
+    <Sprite id="20005" texture="2000" x="72" y="0" w="16" h="24"/>
+    <Sprite id="20006" texture="2000" x="0" y="48" w="28" h="16"/>
     <!--Whip 3-->
-    <Sprite id="9030" texture="9000" x="8" y="0" w="8" h="32"/>
-    <Sprite id="9031" texture="9000" x="24" y="0" w="8" h="32"/>
-    <Sprite id="9032" texture="9000" x="32" y="0" w="8" h="32"/>
-    <Sprite id="9033" texture="9000" x="56" y="0" w="16" h="24"/>
-    <Sprite id="9034" texture="9000" x="88" y="0" w="16" h="24"/>
-    <Sprite id="9035" texture="9000" x="104" y="0" w="16" h="24"/>
-    <Sprite id="9036" texture="9000" x="28" y="32" w="44" h="16"/>
-    <Sprite id="9037" texture="9000" x="72" y="32" w="44" h="16"/>
-    <Sprite id="9038" texture="9000" x="28" y="48" w="44" h="16"/>
-    <Sprite id="9039" texture="9000" x="72" y="48" w="44" h="16"/>
+    <Sprite id="20007" texture="2000" x="8" y="0" w="8" h="32"/>
+    <Sprite id="20008" texture="2000" x="24" y="0" w="8" h="32"/>
+    <Sprite id="20009" texture="2000" x="32" y="0" w="8" h="32"/>
+    <Sprite id="20010" texture="2000" x="56" y="0" w="16" h="24"/>
+    <Sprite id="20011" texture="2000" x="88" y="0" w="16" h="24"/>
+    <Sprite id="20012" texture="2000" x="104" y="0" w="16" h="24"/>
+    <Sprite id="20013" texture="2000" x="28" y="32" w="44" h="16"/>
+    <Sprite id="20014" texture="2000" x="72" y="32" w="44" h="16"/>
+    <Sprite id="20015" texture="2000" x="28" y="48" w="44" h="16"/>
+    <Sprite id="20016" texture="2000" x="72" y="48" w="44" h="16"/>
   </Sprites>
 
   <Animations>
     <!--Whip 0-->
-    <Animation id="9000">
-      <Frame sprite="9000" time="100"/>
+    <Animation id="20000">
+      <Frame sprite="20000" time="100"/>
     </Animation>
     <!--Whip 1-->
-    <Animation id="9010">
-      <Frame sprite="9010" time="100"/>
+    <Animation id="20001">
+      <Frame sprite="20001" time="100"/>
     </Animation>
-    <Animation id="9011">
-      <Frame sprite="9011" time="100"/>
+    <Animation id="20002">
+      <Frame sprite="20002" time="100"/>
     </Animation>
-    <Animation id="9012">
-      <Frame sprite="9012" time="100"/>
+    <Animation id="20003">
+      <Frame sprite="20003" time="100"/>
     </Animation>
     <!--Whip 2-->
-    <Animation id="9020">
-      <Frame sprite="9020" time="100"/>
+    <Animation id="20004">
+      <Frame sprite="20004" time="100"/>
     </Animation>
-    <Animation id="9021">
-      <Frame sprite="9021" time="100"/>
+    <Animation id="20005">
+      <Frame sprite="20005" time="100"/>
     </Animation>
-    <Animation id="9022">
-      <Frame sprite="9022" time="100"/>
+    <Animation id="20006">
+      <Frame sprite="20006" time="100"/>
     </Animation>
     <!--Whip 3-->
-    <Animation id="9030">
-      <Frame sprite="9030" time="10"/>
-      <Frame sprite="9020" time="10"/>
-      <Frame sprite="9031" time="10"/>
-      <Frame sprite="9032" time="10"/>
+    <Animation id="20007">
+      <Frame sprite="20004" time="10"/>
+      <Frame sprite="20007" time="10"/>
+      <Frame sprite="20008" time="10"/>
+      <Frame sprite="20009" time="10"/>
     </Animation>
-    <Animation id="9031">
-      <Frame sprite="9033" time="10"/>
-      <Frame sprite="9021" time="10"/>
-      <Frame sprite="9034" time="10"/>
-      <Frame sprite="9035" time="10"/>
+    <Animation id="20008">
+      <Frame sprite="20005" time="10"/>
+      <Frame sprite="20010" time="10"/>
+      <Frame sprite="20011" time="10"/>
+      <Frame sprite="20012" time="10"/>
     </Animation>
-    <Animation id="9032">
-      <Frame sprite="9036" time="10"/>
-      <Frame sprite="9037" time="10"/>
-      <Frame sprite="9038" time="10"/>
-      <Frame sprite="9039" time="10"/>
+    <Animation id="20009">
+      <Frame sprite="20013" time="10"/>
+      <Frame sprite="20014" time="10"/>
+      <Frame sprite="20015" time="10"/>
+      <Frame sprite="20016" time="10"/>
     </Animation>
   </Animations>
 
   <AnimationSet>
-      <Animation id="9000"/>
-      <Animation id="9010"/>
-      <Animation id="9011"/>
-      <Animation id="9012"/>
-      <Animation id="9020"/>
-      <Animation id="9021"/>
-      <Animation id="9022"/>
-      <Animation id="9030"/>
-      <Animation id="9031"/>
-      <Animation id="9032"/>
+      <Animation id="20000"/>
+      <Animation id="20001"/>
+      <Animation id="20002"/>
+      <Animation id="20003"/>
+      <Animation id="20004"/>
+      <Animation id="20005"/>
+      <Animation id="20006"/>
+      <Animation id="20007"/>
+      <Animation id="20008"/>
+      <Animation id="20009"/>
   </AnimationSet>
 
 </Object>

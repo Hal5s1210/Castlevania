@@ -3,7 +3,7 @@
 Weapon::Weapon()
 {
 	damage = 2;
-	hitted = false;
+	hit = false;
 	outView = false;
 }
 

@@ -2,8 +2,11 @@
 
 #include "Weapon.h"
 
-class Dagger : public Weapon
+class Boomerang : public Weapon
 {
+private:
+	bool comeback;
+
 public:
 	LPGAMEOBJECT Clone();
 	void Ready(float x, float y, bool flip);

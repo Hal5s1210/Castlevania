@@ -6,7 +6,7 @@ class Torch : public GameObject
 {
 private:
 	int hp;
-	bool hitted;
+	bool hit;
 	bool alive;
 	DWORD invulnerableTime;
 	DWORD invulnerableTimeStart;

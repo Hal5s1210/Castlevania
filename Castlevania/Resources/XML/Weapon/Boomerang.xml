@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Object>
+
+  <Sprites>
+    <Sprite id="20300" texture="2000" x="0" y="64" w="16" h="16"/>
+    <Sprite id="20301" texture="2000" x="16" y="64" w="16" h="16"/>
+    <Sprite id="20302" texture="2000" x="32" y="64" w="16" h="16"/>
+  </Sprites>
+
+  <Animations>
+    <Animation id="20300">
+      <Frame sprite="20300" time="100"/>
+      <Frame sprite="20301" time="100"/>
+      <Frame sprite="20302" time="100"/>
+    </Animation>
+  </Animations>
+
+  <AnimationSet>
+      <Animation id="20300"/>
+  </AnimationSet>
+
+</Object>
