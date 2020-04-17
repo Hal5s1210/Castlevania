@@ -6,6 +6,7 @@ void PlayScene::Load()
 	Scene::Load();
 	board = Board::GetInstance();
 	board->LoadTexture();
+	AdjustView();
 }
 
 void PlayScene::Unload()
@@ -96,10 +97,11 @@ void PlayScene::AdjustView()
 
 	RECT area = tilemap->GetAreaRect();
 
-	//if (cam_x < area.left) cam_x = area.left;
-	//if (cam_x > area.right - cam_w) cam_x = area.right - 32;
+	if (cam_x < area.left) cam_x = area.left;
+	if (cam_x > area.right - cam_w) cam_x = area.right - cam_w;
+	cam_y = area.top;
 
-	Viewport::GetInstance()->SetPosition(cam_x, 0);
+	Viewport::GetInstance()->SetPosition(cam_x, cam_y);
 }
 
 
@@ -115,7 +117,7 @@ void PlaySceneKeyHandler::KeyState(BYTE* state)
 	{
 		if (input->IsKeyDown(PAD_DOWN))
 		{
-			player->SetState(Simon::Crounch);
+			player->SetState(Simon::Crouch);
 		}
 		else if (input->IsKeyDown(PAD_LEFT))
 		{

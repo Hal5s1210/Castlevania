@@ -18,7 +18,9 @@ GameObject::~GameObject()
 {
 	for (ANIMATION* ani : animations)
 	{
-		delete ani->first;
+		//delete ani->first;
+		LPANIMATION a = ani->first;
+		delete a;
 		delete ani;
 	}
 	animations.clear();

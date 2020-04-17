@@ -20,7 +20,7 @@ private:
 	void AdjustView();
 
 public:
-	PlayScene(int x, int y, LPCWSTR filepath) : Scene(x, y, filepath)
+	PlayScene(float x, float y, LPCWSTR filepath) : Scene(x, y, filepath)
 	{
 		keyhandler = new PlaySceneKeyHandler(this);
 	}

@@ -1,7 +1,8 @@
 #include "Stopwatch.h"
 
-Stopwatch::Stopwatch()
+Stopwatch::Stopwatch(LPGAMEOBJECT wielder)
 {
+	this->wielder = wielder;
 	time = 3000;
 }
 

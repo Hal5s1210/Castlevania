@@ -28,7 +28,7 @@ public:
 		Idle,
 		WalkL,
 		WalkR,
-		Crounch,
+		Crouch,
 		Attack,
 		SubAttack,
 		Jump,
@@ -41,7 +41,7 @@ private:
 	DWORD jumpTime;
 	DWORD jumpStartTime;
 
-	bool crounch;
+	bool crouch;
 	bool attack;
 	bool onair;
 	bool onstair;

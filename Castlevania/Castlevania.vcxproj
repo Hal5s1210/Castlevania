@@ -51,12 +51,11 @@
     <ClCompile Include="Game\Map\Tileset.cpp" />
     <ClCompile Include="Game\Parser.cpp" />
     <ClCompile Include="Game\Objects\Item.cpp" />
-    <ClCompile Include="Game\Objects\Items\ItemWhip.cpp" />
     <ClCompile Include="Game\Objects\Weapons\SubWeapon.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Weapon.cpp" />
     <ClCompile Include="Game\Objects\Weapons\HolyWater.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Stopwatch.cpp" />
-    <ClCompile Include="Game\Objects\Weapons\HolyFlame.cpp" />
+    <ClCompile Include="Game\Objects\Others\Portal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Objects\Weapons\Axe.h" />
@@ -92,12 +91,11 @@
     <ClInclude Include="Game\Map\Tileset.h" />
     <ClInclude Include="Game\Parser.h" />
     <ClInclude Include="Game\Objects\Item.h" />
-    <ClInclude Include="Game\Objects\Items\ItemWhip.h" />
     <ClInclude Include="Game\Objects\Weapons\SubWeapon.h" />
     <ClInclude Include="Game\Objects\Weapons\Weapon.h" />
     <ClInclude Include="Game\Objects\Weapons\HolyWater.h" />
     <ClInclude Include="Game\Objects\Weapons\Stopwatch.h" />
-    <ClInclude Include="Game\Objects\Weapons\HolyFlame.h" />
+    <ClInclude Include="Game\Objects\Others\Portal.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -31,6 +31,9 @@
 #define ITEM_AXE_ID						304
 #define ITEM_BOOMERANG_ID				305
 #define ITEM_HOLYWATER_ID				306
+#define ITEM_STOPWATCH_ID				307
+#define ITEM_SMALLHEART_ID				308
+#define ITEM_BIGHEART_ID				309
 #endif // !ITEM_ID
 
 #ifndef SOUND_ID

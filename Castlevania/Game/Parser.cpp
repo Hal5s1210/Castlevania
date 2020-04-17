@@ -7,7 +7,7 @@
 #include "..\Framework\Sprite.h"
 #include "..\Framework\Animation.h"
 #include "..\Framework\Sound.h"
-#include "Objects/Spawner.h"
+#include "Objects\Spawner.h"
 
 void Parser::Parse_Texture(pugi::xml_node root)
 {
@@ -227,7 +227,7 @@ void Parser::Parse_Tilemap(Tilemap** tilemap, pugi::xml_node root)
 {
 	if (!root) return;
 
-	pugi::xml_node map = root.child(L"Map");
+	pugi::xml_node map = root.child(L"Tilemap");
 
 	int id = map.attribute(L"tileset").as_int();
 
@@ -242,6 +242,20 @@ void Parser::Parse_Tilemap(Tilemap** tilemap, pugi::xml_node root)
 	std::vector<std::vector<int>>* mx = new std::vector<std::vector<int>>;
 	Parser::Parse_TilemapMatrix(mx, map.child(L"Matrix"));
 	(*tilemap)->SetMatrix(mx);
+
+	pugi::xml_node areas = root.child(L"Area");
+	for (pugi::xml_node area : areas)
+	{
+		RECT r;
+		r.left = area.attribute(L"x").as_int();
+		r.top = area.attribute(L"y").as_int();
+		r.right = r.left + area.attribute(L"w").as_int();
+		r.bottom = r.top + area.attribute(L"h").as_int();
+
+		(*tilemap)->AddArea(r);
+	}
+	(*tilemap)->SetArea(areas.attribute(L"default").as_int());
+
 }
 
 void Parser::Parse_TilemapMatrix(std::vector<std::vector<int>>* matrix, pugi::xml_node root)
@@ -296,13 +310,33 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 
 		for (pugi::xml_node obj : cell)
 		{
-			int id = obj.attribute(L"type").as_int();
-			float x = obj.attribute(L"x").as_float();
-			float y = obj.attribute(L"y").as_float();
-			int item = obj.attribute(L"item").as_int();
+			std::wstring name = obj.name();
+			if (name == L"Portal")
+			{
+				float x = obj.attribute(L"x").as_float();
+				float y = obj.attribute(L"y").as_float();
+				float w = obj.attribute(L"w").as_float();
+				float h = obj.attribute(L"h").as_float();
+				int area = obj.attribute(L"area").as_int();
+				int scene = obj.attribute(L"scene").as_int();
 
-			LPGAMEOBJECT o = Spawner::GetInstance()->SpawnObject(id, x, y, item);
-			cells->at(i).at(j).push_back(o);
+				Portal* o = new Portal;
+				o->SetPosition(x, y);
+				o->SetSize(w, h);
+				o->SetTargetArea(area);
+				o->SetTargetScene(scene);
+				cells->at(i).at(j).push_back(o);
+			}
+			else
+			{
+				int id = obj.attribute(L"type").as_int();
+				float x = obj.attribute(L"x").as_float();
+				float y = obj.attribute(L"y").as_float();
+				int item = obj.attribute(L"item").as_int();
+
+				LPGAMEOBJECT o = Spawner::GetInstance()->SpawnObject(id, x, y, item);
+				cells->at(i).at(j).push_back(o);
+			}
 		}
 	}
 }

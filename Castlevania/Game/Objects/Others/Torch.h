@@ -19,7 +19,7 @@ public:
 
 	bool IsHitted();
 	bool IsAlive() { return alive; }
-	void TakeDamage(int damage);
+	void TakeDamage(int damage, LPGAMEOBJECT hitter);
 
 	LPGAMEOBJECT Clone();
 

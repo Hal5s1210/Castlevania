@@ -4,8 +4,8 @@ void Block::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;
-	r = l + w;
-	b = t + h;
+	r = l + 16;
+	b = t + 16;
 }
 
 void Block::Render(float x, float y)

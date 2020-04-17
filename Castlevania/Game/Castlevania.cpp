@@ -21,7 +21,7 @@ void Castlevania::LoadResources()
 	spriteHandler = Graphics::GetInstance()->GetSpriteHandler();
 
 	scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scenes\\Scene1.xml"));
-	//scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene2.xml"));
+	scenes->Add(1, new PlayScene(0, 48, L"Resources\\XML\\Scenes\\Scene2.xml"));
 	//scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene3.xml"));
 	//scenes->Add(0, new PlayScene(0, 48, L"Resources\\XML\\Scene4.xml"));
 	scenes->NextScene(0);
@@ -29,6 +29,8 @@ void Castlevania::LoadResources()
 
 void Castlevania::Update(DWORD dt)
 {
+	Scenes::GetInstance()->SwitchScene();
+
 	LPSCENE scene = Scenes::GetInstance()->GetScene();
 	Input::GetInstance()->GetKeyHandler(scene->GetKeyHandler());
 	Input::GetInstance()->ProcessKeyboard();

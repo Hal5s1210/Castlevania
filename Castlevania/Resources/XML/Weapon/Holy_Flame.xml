@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Object>
+
+  <Sprites>
+    <Sprite id="20500" texture="2000" x="8" y="80" w="8" h="16"/>
+    <Sprite id="20501" texture="2000" x="16" y="80" w="8" h="16"/>
+    <Sprite id="20502" texture="2000" x="24" y="80" w="8" h="16"/>
+    <Sprite id="20503" texture="2000" x="32" y="80" w="16" h="16"/>
+    <Sprite id="20504" texture="2000" x="48" y="80" w="16" h="16"/>
+  </Sprites>
+
+  <Animations>
+    <Animation id="20500">
+      <Frame sprite="20500" time="100"/>
+      <Frame sprite="20501" time="100"/>
+      <Frame sprite="20502" time="100"/>
+    </Animation>
+    <Animation id="20501">
+      <Frame sprite="20503" time="100"/>
+      <Frame sprite="20504" time="100"/>
+    </Animation>
+  </Animations>
+
+  <AnimationSet>
+      <Animation id="20500"/>
+      <Animation id="20501"/>
+  </AnimationSet>
+
+</Object>

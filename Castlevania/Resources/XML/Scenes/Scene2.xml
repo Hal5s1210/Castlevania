@@ -1,33 +1,50 @@
 <?xml version ="1.0" encoding ="UTF-8"?>
 <Scene>
-	<Textures>
+  <Textures>
     <Texture id="1000" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
-    <Texture id="9000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
-    <Texture id="2000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
-    <Texture id="5000" path="Resources\Textures\Tileset2.png" red="255" green="0" blue="255"/>
-    <Texture id="-10000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
+    <Texture id="2000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
+    <Texture id="3000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
+    <Texture id="4000" path="Resources\Textures\Effects.png" red="116" green="116" blue="116"/>
+    <Texture id="8001" path="Resources\Textures\Tileset2.png" red="255" green="0" blue="255"/>
+    <Texture id="7000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
     <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
-	</Textures>
+  </Textures>
   
   <Sounds>
   </Sounds>
-  
+
   <Objects>
-    <Object type ="10" path="Resources\XML\Candle.xml"/>
+    <Object type ="301" path="Resources\XML\Object\Candle.xml"/>
+    <Effect type ="400" path="Resources\XML\Effect\Hit.xml"/>
+    <Effect type ="401" path="Resources\XML\Effect\Dead.xml"/>
+    <Item type ="302" path="Resources\XML\Item\Whip.xml"/>
+    <Item type ="303" path="Resources\XML\Item\Dagger.xml"/>
+    <Item type ="304" path="Resources\XML\Item\Axe.xml"/>
+    <Item type ="305" path="Resources\XML\Item\Boomerang.xml"/>
+    <Item type ="306" path="Resources\XML\Item\Holy_Water.xml"/>
+    <Item type ="307" path="Resources\XML\Item\Stop_Watch.xml"/>
+    <Item type ="308" path="Resources\XML\Item\Small_Heart.xml"/>
+    <Item type ="309" path="Resources\XML\Item\Big_Heart.xml"/>
   </Objects>
 
   <Player>
-    <Resource path="Resources\XML\Simon.xml"/>
-    <Weapon path="Resources\XML\Whip.xml"/>
+    <Resource path="Resources\XML\Object\Simon.xml"/>
+    <Whip path="Resources\XML\Weapon\Whip.xml"/>
+    <SubWeapon>
+      <Dagger path="Resources\XML\Weapon\Dagger.xml"/>
+      <Axe path="Resources\XML\Weapon\Axe.xml"/>
+      <Boomerang path="Resources\XML\Weapon\Boomerang.xml"/>
+      <HolyWater path="Resources\XML\Weapon\Holy_Water.xml"/>
+    </SubWeapon>
     <Position x="320" y="320"/>
   </Player>
 
   <Tilesets>
-    <Tileset id="5000" texture="5000" tileW="16" tileH="16"/>    
+    <Tileset id="800" texture="8001" tileW="16" tileH="16"/>    
   </Tilesets>
   
-  <Tilemap>
-    <Map tileset="5000" width="32" height="24" tileW="16" tileH="16">
+  <Map>
+    <Tilemap tileset="800" width="32" height="24" tileW="16" tileH="16">
       <Matrix>
         <Row>1,2,13,14,11,12,3,4,2,2,11,12,13,14,2,2,3,4,2,2,13,14,3,4,2,2,2,2,13,14,1,1</Row>
         <Row>1,2,21,22,19,20,3,4,2,2,19,20,21,22,2,2,3,4,2,2,21,22,3,4,2,2,2,2,21,22,1,1</Row>
@@ -54,8 +71,12 @@
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,23,16,3,4,17,18,2,5,9,6,9,6,17,18,1,1</Row>
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</Row>
       </Matrix>
-    </Map>
-  </Tilemap>
+    </Tilemap>
+    <Area default="0">
+      <Rect x="256" y="192" w="256" h="192"/>
+      <Rect x="0" y="0" w="512" h="192"/>
+    </Area>
+  </Map>
 
   <Grid width="4" height="4" cellW="128" cellH="96">
     <Cell row="0" column="0">
@@ -137,7 +158,6 @@
       <Object type="-1" x="368" y="144"/>
     </Cell>
     <Cell row="1" column="3">
-      <Object type="-1" x="448" y="112"/>
       <Object type="-1" x="464" y="112"/> 
     </Cell>
     <Cell row="2" column="2">
@@ -194,7 +214,6 @@
       <Object type="-1" x="480"  y="320"/>
       <Object type="-1" x="480"  y="336"/>
       <Object type="-1" x="480"  y="352"/>
-      <Object type="-1" x="416"  y="304"/>
       <Object type="-1" x="432"  y="304"/>
       <Object type="-1" x="448"  y="304"/>
       <Object type="-1" x="464"  y="304"/>

@@ -14,12 +14,12 @@ Board::Board()
 	time = 300;
 	stage = 1;
 	heart = 0;
-	life = 2;
+	life = 3;
 	playerhp = 16;
 	enemyhp = 16;
 	shot = 1;
 	whip = 1;
-	subweapon = 3;
+	subweapon = 0;
 }
 
 Board* Board::GetInstance()
@@ -278,7 +278,7 @@ void Board::Draw(std::string text, float x, float y, int alpha)
 void Board::GetSimonData(Whip* whip, SubWeapon* sub)
 {
 	whip->SetLevel(this->whip);
-	sub->SetWeapon(subweapon, shot);
+	sub->SetWeapon(subweapon, shot, heart);
 }
 
 
@@ -308,6 +308,14 @@ void Board::ItemClaimed(LPITEM item)
 
 	case Item::HolyWater:
 		subweapon = 4;
+		break;
+
+	case Item::SmallHeart:
+		heart += 1;
+		break;
+
+	case Item::BigHeart:
+		heart += 5;
 		break;
 
 	default:

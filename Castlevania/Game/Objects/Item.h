@@ -10,6 +10,7 @@ class Item : public GameObject
 public:
 	enum eItem
 	{
+		Unknown,
 		Whip,
 		Dagger,
 		Axe,

@@ -4,7 +4,7 @@
 
 LPGAMEOBJECT Axe::Clone()
 {
-	Axe* clone = new Axe;
+	Axe* clone = new Axe(wielder);
 	for (ANIMATION* ani : animations)
 	{
 		clone->AddAnimation(ani->first->Clone());
@@ -16,7 +16,7 @@ LPGAMEOBJECT Axe::Clone()
 
 void Axe::Ready(float x, float y, bool flip)
 {
-	SetFlip(!flip);
+	SetFlip(flip);
 	if (flip)
 	{
 		SetPosition(x, y);
@@ -69,7 +69,7 @@ void Axe::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 				if (torch->IsAlive() && !torch->IsHitted())
 				{
-					torch->TakeDamage(damage);
+					torch->TakeDamage(damage, this);
 				}
 			}
 		}

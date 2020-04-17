@@ -8,14 +8,14 @@ protected:
 	int damage;
 	bool hit;
 	bool outView;
+	LPGAMEOBJECT wielder;
 
 public:
-	Weapon();
+	Weapon(LPGAMEOBJECT wielder);
 
 	bool IsOutOfView() { return outView; }
 	bool IsHitSomething() { return hit; }
 
-	void SetFlip(bool flip) { this->flip = flip; }
 	virtual void Ready(float x, float y, bool flip) = 0;
 
 	virtual LPGAMEOBJECT Clone() = 0;

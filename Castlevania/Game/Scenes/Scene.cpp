@@ -19,8 +19,7 @@ void Scene::Unload()
 
 	if (tilemap) delete tilemap;
 	if (grid) delete grid;
-	if (player) delete player;
-	if (board) delete board;
+	//if (player) delete player;
 }
 
 void Scene::LoadFromFile()
@@ -40,7 +39,7 @@ void Scene::LoadFromFile()
 	Parser::Parse_Object(root.child(L"Objects"));
 	Parser::Parse_Player(&player, root.child(L"Player"));
 	Parser::Parse_Tileset(root.child(L"Tilesets"));
-	Parser::Parse_Tilemap(&tilemap, root.child(L"Tilemap"));
+	Parser::Parse_Tilemap(&tilemap, root.child(L"Map"));
 	Parser::Parse_Grid(&grid, root.child(L"Grid"));
 
 	OutputDebugString(L"[ERROR] Load Scene file done\n");
@@ -62,15 +61,24 @@ void Scenes::Add(int id, LPSCENE scene)
 	currentID = id;
 }
 
+void Scenes::SwitchScene()
+{
+	if (switchScene != -1)
+	{
+		LPSCENE current = scenes[currentID];
+		if (current->IsLoaded())
+			current->Unload();
+
+		currentID = switchScene;
+		current = scenes[currentID];
+		current->Load();
+		switchScene = -1;
+	}
+}
 
 void Scenes::NextScene(int id)
 {
-	LPSCENE current = scenes[currentID];
-	if (current->IsLoaded())
-		current->Unload();
-
-	current = scenes[id];
-	current->Load();
+	switchScene = id;
 }
 
 

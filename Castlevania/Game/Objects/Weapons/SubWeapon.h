@@ -9,13 +9,15 @@
 class SubWeapon
 {
 private:
+	LPGAMEOBJECT wielder;
+
 	int current;
 	int shot;
+	int heart;
 	bool weaponready;
 	DWORD delayTimeStart;
 	DWORD delayTime;
 
-	LPGAMEOBJECT ready_weapon;
 
 	Dagger* dagger;
 	Axe* axe;
@@ -26,7 +28,7 @@ private:
 	std::vector<Weapon*> weapons;
 
 public:
-	SubWeapon();
+	SubWeapon(LPGAMEOBJECT wielder);
 
 	bool IsUsable();
 	bool IsReady() { return weaponready; }
@@ -36,7 +38,7 @@ public:
 	Boomerang* GetBoomerang() { return boomerang; }
 	HolyWater* GetHolyWater() { return holywater; }
 
-	void SetWeapon(int weapon, int shot) { current = weapon; this->shot = shot; }
+	void SetWeapon(int weapon, int shot, int heart) { current = weapon; this->shot = shot; this->heart = heart; }
 	void AddWeapon(bool flip, float x, float y);
 	void Active();
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);

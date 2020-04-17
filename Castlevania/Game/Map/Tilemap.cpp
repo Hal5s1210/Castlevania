@@ -1,19 +1,6 @@
 #include "Tilemap.h"
 #include "..\..\Framework\Viewport.h"
 
-RECT Tilemap::GetAreaRect()
-{
-	RECT r;
-
-	r.left = 0;
-	r.top = 0;
-	r.right = r.left + tileW * width;
-	r.bottom = r.top + tileH * height;
-
-	return r;
-}
-
-
 void Tilemap::Render(float sx, float sy)
 {
 	Viewport* view = Viewport::GetInstance();

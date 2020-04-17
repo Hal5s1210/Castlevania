@@ -3,16 +3,34 @@
 
   <Sprites>
     <Sprite id="20400" texture="2000" x="0" y="88" w="8" h="8"/>
+    <Sprite id="20401" texture="2000" x="8" y="80" w="8" h="16"/>
+    <Sprite id="20402" texture="2000" x="16" y="80" w="8" h="16"/>
+    <Sprite id="20403" texture="2000" x="24" y="80" w="8" h="16"/>
+    <Sprite id="20404" texture="2000" x="32" y="80" w="16" h="16"/>
+    <Sprite id="20405" texture="2000" x="48" y="80" w="16" h="16"/>
   </Sprites>
 
   <Animations>
     <Animation id="20400">
       <Frame sprite="20400" time="100"/>
     </Animation>
+
+    <Animation id="20401">
+      <Frame sprite="20401" time="100"/>
+      <Frame sprite="20402" time="100"/>
+      <Frame sprite="20403" time="100"/>
+    </Animation>
+    
+    <Animation id="20402">
+      <Frame sprite="20404" time="100"/>
+      <Frame sprite="20405" time="100"/>
+    </Animation>
   </Animations>
 
   <AnimationSet>
-      <Animation id="20400"/>
+    <Animation id="20400"/>
+    <Animation id="20401"/>
+    <Animation id="20402"/>
   </AnimationSet>
 
 </Object>

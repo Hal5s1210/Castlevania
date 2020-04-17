@@ -40,7 +40,7 @@ protected:
 	void LoadFromFile();
 
 public:
-	Scene(int x, int y, LPCWSTR filepath) :x(x), y(y) { filePath = filepath; }
+	Scene(float x, float y, LPCWSTR filepath) :x(x), y(y) { filePath = filepath; }
 	
 	bool IsLoaded() { return loaded; }
 
@@ -49,6 +49,8 @@ public:
 
 	void AddEffect(LPEFFECT effect) { effects.push_back(effect); }
 	void AddItem(LPITEM item) { items.push_back(item); }
+
+	void NextArea(int i) { tilemap->SetArea(i); }
 
 	virtual void Load();
 	virtual void Unload();
@@ -65,6 +67,7 @@ private:
 	static Scenes* _instance;
 	std::unordered_map<int, LPSCENE> scenes;
 	int currentID;
+	int switchScene = -1;
 
 public:
 	static Scenes* GetInstance();
@@ -72,6 +75,7 @@ public:
 	void Add(int id, LPSCENE scene);
 	LPSCENE GetScene() { return scenes[currentID]; }
 	void NextScene(int id);
+	void SwitchScene();
 
 };
 

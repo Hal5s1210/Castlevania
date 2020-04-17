@@ -40,7 +40,7 @@ public:
 	void GetSimonData(Whip* whip, SubWeapon* sub);
 
 	void ItemClaimed(LPITEM item);
-
+	void SubWeaponUsed(int n) { heart -= n; }
 	void Update(DWORD dt);
 	void Render();
 };

@@ -37,18 +37,7 @@ void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 				if (torch->IsAlive() && !torch->IsHitted())
 				{
-					torch->TakeDamage(damage);
-
-					float lo, to, ro, bo;
-					obj->GetBoundingBox(lo, to, ro, bo);
-
-					int eff_x, eff_y;
-					if (!flip) eff_x = ro - 8;
-					else eff_x = lo;
-					eff_y = t + 8;
-
-					LPEFFECT effect = Spawner::GetInstance()->SpawnEffect(EFFECT_HIT_ID, eff_x, eff_y);
-					Scenes::GetInstance()->GetScene()->AddEffect(effect);
+					torch->TakeDamage(damage, this);
 				}
 			}
 		}

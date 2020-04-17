@@ -2,14 +2,15 @@
 #include "Spawner.h"
 #include "..\Board.h"
 #include "..\..\Framework\Collision.h"
+#include "..\..\Framework\Viewport.h"
 
 Simon::Simon()
 {
 	whip = new Whip;
-	subweapon = new SubWeapon;
+	subweapon = new SubWeapon(this);
 	flip = true;
 	attack = false;
-	crounch = false;
+	crouch = false;
 	onair = true;
 	jumpStartTime = -1;
 	state = Simon::Idle;
@@ -18,6 +19,7 @@ Simon::Simon()
 Simon::~Simon()
 {
 	delete whip;
+	delete subweapon;
 }
 
 
@@ -90,15 +92,22 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 					vx = 0;
 				}
 
-				if (ny == -1)
+				if (ny != 0)
 				{
 					vy = 0;
-					if (onair && attack)
+					if (ny == -1)
 					{
-						vx = 0;
+						if (onair && attack)
+						{
+							vx = 0;
+						}
+						onair = false;
 					}
-					onair = false;
 				}
+			}
+			else if (dynamic_cast<Portal*>(o))
+			{
+				dynamic_cast<Portal*>(o)->Active();
 			}
 		}
 
@@ -138,21 +147,21 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	subweapon->Update(dt, objects);
 
 
-	//float cam_x, cam_y;
-	//int cam_w, cam_h;
-	//Viewport::GetInstance()->GetPosition(cam_x, cam_y);
-	//Viewport::GetInstance()->GetSize(cam_w, cam_h);
-	//if (x < cam_x)
-	//{
-	//	x = cam_x;
-	//	vx = 0;
-	//}
-	//else if (x > cam_x + cam_w - 16)
-	//{
-	//	x = cam_x + cam_h;
-	//	vx = 0;
-	//
-	//}
+	float cam_x, cam_y;
+	int cam_w, cam_h;
+	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+	Viewport::GetInstance()->GetSize(cam_w, cam_h);
+	if (x < cam_x)
+	{
+		x = cam_x;
+		vx = 0;
+	}
+	else if (x > cam_x + cam_w - 16)
+	{
+		x = cam_x + cam_w - 16;
+		vx = 0;
+	
+	}
 }
 
 void Simon::Render(float x, float y)
@@ -235,7 +244,7 @@ void Simon::SetState(eState state)
 		this->state = state;
 		break;
 
-	case Simon::Crounch:
+	case Simon::Crouch:
 		if (attack) break;
 		if (onair)
 		{
@@ -266,27 +275,27 @@ void Simon::ProcessState()
 	{
 	case Simon::Idle:
 		SetAnimation(IDLE);
-		crounch = false;
+		crouch = false;
 		vx = 0;
 		break;
 
 	case Simon::WalkL:
 		SetAnimation(WALK);
 		vx = -SIMON_SPEED;
-		crounch = false;
+		crouch = false;
 		flip = false;
 		break;
 
 	case Simon::WalkR:
 		SetAnimation(WALK);
 		vx = SIMON_SPEED;
-		crounch = false;
+		crouch = false;
 		flip = true;
 		break;
 
-	case Simon::Crounch:
+	case Simon::Crouch:
 		SetAnimation(CROUNCH);
-		crounch = true;
+		crouch = true;
 		vx = 0;
 		break;
 
@@ -295,12 +304,12 @@ void Simon::ProcessState()
 		{
 			whip->UseWhip(true);
 
-			if (crounch)
+			if (crouch)
 				SetAnimation(ATTACK_2);
 			else
 				SetAnimation(ATTACK_1);
 			currentAnimation->second = -1;
-			crounch = false;
+			crouch = false;
 			attack = true;
 			if (!onair) vx = 0;
 		}
@@ -314,12 +323,12 @@ void Simon::ProcessState()
 
 			subweapon->Active();
 
-			if (crounch)
+			if (crouch)
 				SetAnimation(ATTACK_2);
 			else
 				SetAnimation(ATTACK_1);
 			currentAnimation->second = -1;
-			crounch = false;
+			crouch = false;
 			attack = true;
 			if (!onair) vx = 0;
 		}
@@ -330,7 +339,7 @@ void Simon::ProcessState()
 		{
 			vy = JUMP_FORCE;
 			jumpStartTime = GetTickCount();
-			crounch = false;
+			crouch = false;
 			onair = true;
 			SetAnimation(CROUNCH);
 		}

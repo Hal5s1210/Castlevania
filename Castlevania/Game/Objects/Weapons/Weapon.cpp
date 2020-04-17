@@ -1,7 +1,8 @@
 #include "Weapon.h"
 
-Weapon::Weapon()
+Weapon::Weapon(LPGAMEOBJECT wielder)
 {
+	this->wielder = wielder;
 	damage = 2;
 	hit = false;
 	outView = false;

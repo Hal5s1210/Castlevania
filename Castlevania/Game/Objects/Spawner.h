@@ -5,6 +5,7 @@
 #include "GameObject.h"
 #include "Simon.h"
 #include "Others\Block.h"
+#include "Others\Portal.h"
 #include "Others\Torch.h"
 #include "Others\Candle.h"
 #include "Effect.h"

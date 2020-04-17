@@ -5,7 +5,7 @@
 
 LPGAMEOBJECT Boomerang::Clone()
 {
-	Boomerang* clone = new Boomerang;
+	Boomerang* clone = new Boomerang(wielder);
 	for (ANIMATION* ani : animations)
 	{
 		clone->AddAnimation(ani->first->Clone());
@@ -18,16 +18,18 @@ LPGAMEOBJECT Boomerang::Clone()
 void Boomerang::Ready(float x, float y, bool flip)
 {
 	comeback = false;
-	SetFlip(!flip);
+	SetFlip(flip);
 	if (flip)
 	{
 		SetPosition(x, y);
 		SetSpeed(0.2, 0);
+		returnPoint = x + 8 + 64;
 	}
 	else
 	{
 		SetPosition(x - 16, y);
 		SetSpeed(-0.2, 0);
+		returnPoint = x - 8 - 64;
 	}
 }
 
@@ -42,6 +44,18 @@ void Boomerang::GetBoundingBox(float& l, float& t, float& r, float& b)
 void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
+
+	//colision with wielder
+	if (back)
+	{
+		LPCOEVENT e = SweptAABBEx(wielder);
+		if (e->t > 0 && e->t <= 1)
+		{
+			hit = true;
+		}
+		delete e;
+	}
+
 
 	std::vector<LPCOEVENT> coEvents;
 
@@ -69,7 +83,7 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 				if (torch->IsAlive() && !torch->IsHitted())
 				{
-					torch->TakeDamage(damage);
+					torch->TakeDamage(damage, this);
 				}
 			}
 		}
@@ -78,19 +92,46 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		y += dy;
 	}
 
+	if ((flip && x >= returnPoint) || (!flip && x <= returnPoint))
+	{
+		comeback = true;
+	}
+
+	if (comeback && !back)
+	{
+		if (flip)
+		{
+			vx += -0.02;
+			if (vx < -0.2)
+			{
+				vx = -0.2;
+				back = true;
+			}
+		}
+		else
+		{
+			vx += 0.02;
+			if (vx > 0.2)
+			{
+				vx = 0.2;
+				back = true;
+			}
+		}
+	}
+
 	float cam_x, cam_y;
 	int cam_w, cam_h;
 	Viewport::GetInstance()->GetSize(cam_w, cam_h);
 	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
 	if (x < cam_x || x > cam_x + cam_w - 16 || y < cam_y || y> cam_y + cam_w - 16)
 	{
-		if (comeback)
+		if (back)
 		{
 			outView= true;
 		}
-		else 
+		else if(!comeback)
 		{
-			comeback = true;
+			back = true;
 			vx = -vx;
 		}
 	}

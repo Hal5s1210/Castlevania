@@ -5,7 +5,7 @@
 
 LPGAMEOBJECT Dagger::Clone()
 {
-	Dagger* clone = new Dagger;
+	Dagger* clone = new Dagger(wielder);
 	for (ANIMATION* ani : animations)
 	{
 		clone->AddAnimation(ani->first->Clone());
@@ -16,7 +16,7 @@ LPGAMEOBJECT Dagger::Clone()
 
 void Dagger::Ready(float x, float y, bool flip)
 {
-	SetFlip(!flip);
+	SetFlip(flip);
 	if (flip)
 	{
 		SetPosition(x, y);
@@ -68,19 +68,7 @@ void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 				if (torch->IsAlive() && !torch->IsHitted())
 				{
 					hit = true;
-
-					torch->TakeDamage(damage);
-
-					//float lo, to, ro, bo;
-					//o->GetBoundingBox(lo, to, ro, bo);
-
-					//int eff_x, eff_y;
-					//if (!flip) eff_x = ro - 8;
-					//else eff_x = lo;
-					//eff_y = y + 8;
-
-					//LPEFFECT effect = Spawner::GetInstance()->SpawnEffect(EFFECT_HIT_ID, eff_x, eff_y);
-					//Scenes::GetInstance()->GetScene()->AddEffect(effect);
+					torch->TakeDamage(damage, this);
 				}
 			}
 		}

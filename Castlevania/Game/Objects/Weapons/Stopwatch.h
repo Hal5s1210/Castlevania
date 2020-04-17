@@ -4,9 +4,12 @@
 
 class Stopwatch
 {
+private:
+	LPGAMEOBJECT wielder;
 	int time;
+
 public:
-	Stopwatch();
+	Stopwatch(LPGAMEOBJECT wielder);
 	void Active(int shot);
 
 };

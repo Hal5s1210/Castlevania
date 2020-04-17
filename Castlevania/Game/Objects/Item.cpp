@@ -108,8 +108,11 @@ void Item::SetType(int t)
 	case ITEM_AXE_ID: type = eItem::Axe; break;
 	case ITEM_BOOMERANG_ID: type = eItem::Boomerang; break;
 	case ITEM_HOLYWATER_ID: type = eItem::HolyWater; break;
+	case ITEM_SMALLHEART_ID: type = eItem::SmallHeart; break;
+	case ITEM_BIGHEART_ID: type = eItem::BigHeart; break;
 
 	default:
+		type = eItem::Unknown;
 		break;
 	}
 }
