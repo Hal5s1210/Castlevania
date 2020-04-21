@@ -42,20 +42,24 @@ void Animation::Draw(int& frame, float x, float y, int alpha, bool flip)
 	}
 	else
 	{
-		DWORD t = frames[frame]->Time;
-		if (now - lastFrameTime > t)
+		if (!paused)
 		{
-			lastFrameTime = now;
-			frameReset = false;
-
-			if (!paused) frame++;
-
-			if (frame >= frames.size())
+			DWORD t = frames[frame]->Time;
+			if (now - lastFrameTime > t)
 			{
-				frame = 0;
-				frameReset = true;
+				lastFrameTime = now;
+				frameReset = false;
+
+				frame++;
+
+				if (frame >= frames.size())
+				{
+					frame = 0;
+					frameReset = true;
+				}
 			}
 		}
+		
 	}
 
 	frames[i]->Sprite->Draw(x, y, alpha, flip);

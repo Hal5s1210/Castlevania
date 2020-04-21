@@ -45,6 +45,7 @@ public:
 	bool IsTimeOut() { return timeOut; }
 
 	void Claim() { claimed = true; }
+	void RunEffect(int id);
 
 	LPITEM Clone();
 	void GetBoundingBox(float& l, float& t, float& r, float& b);

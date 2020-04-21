@@ -18,6 +18,24 @@ Grid::Grid(int w, int h, int cw, int ch) :
 	}
 }
 
+Grid::~Grid()
+{
+	for (int i = 0; i < cells.size(); i++)
+	{
+		for (int j = 0; j < cells[i].size(); j++)
+		{
+			for (LPGAMEOBJECT o : cells[i][j])
+			{
+				delete o;
+			}
+			cells[i][j].clear();
+		}
+		cells[i].clear();
+	}
+	cells.clear();
+}
+
+
 void Grid::GetObjectlist(std::vector<LPGAMEOBJECT>* list)
 {
 	list->clear();

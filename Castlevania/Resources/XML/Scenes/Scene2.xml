@@ -15,8 +15,6 @@
 
   <Objects>
     <Object type ="301" path="Resources\XML\Object\Candle.xml"/>
-    <Effect type ="400" path="Resources\XML\Effect\Hit.xml"/>
-    <Effect type ="401" path="Resources\XML\Effect\Dead.xml"/>
     <Item type ="302" path="Resources\XML\Item\Whip.xml"/>
     <Item type ="303" path="Resources\XML\Item\Dagger.xml"/>
     <Item type ="304" path="Resources\XML\Item\Axe.xml"/>
@@ -25,6 +23,16 @@
     <Item type ="307" path="Resources\XML\Item\Stop_Watch.xml"/>
     <Item type ="308" path="Resources\XML\Item\Small_Heart.xml"/>
     <Item type ="309" path="Resources\XML\Item\Big_Heart.xml"/>
+    <Item type ="310" path="Resources\XML\Item\Money_100.xml"/>
+    <Item type ="311" path="Resources\XML\Item\Money_400.xml"/>
+    <Item type ="312" path="Resources\XML\Item\Money_700.xml"/>
+    <Item type ="313" path="Resources\XML\Item\Money_1000.xml"/>
+    <Effect type ="400" path="Resources\XML\Effect\Hit.xml"/>
+    <Effect type ="401" path="Resources\XML\Effect\Dead.xml"/>
+    <Effect type ="402" path="Resources\XML\Effect\100_Point.xml"/>
+    <Effect type ="403" path="Resources\XML\Effect\400_Point.xml"/>
+    <Effect type ="404" path="Resources\XML\Effect\700_Point.xml"/>
+    <Effect type ="405" path="Resources\XML\Effect\1000_Point.xml"/>
   </Objects>
 
   <Player>
@@ -36,7 +44,7 @@
       <Boomerang path="Resources\XML\Weapon\Boomerang.xml"/>
       <HolyWater path="Resources\XML\Weapon\Holy_Water.xml"/>
     </SubWeapon>
-    <Position x="320" y="320"/>
+    <Position x="272" y="334"/>
   </Player>
 
   <Tilesets>
@@ -51,7 +59,7 @@
         <Row>7,10,11,12,2,2,3,4,9,10,13,14,2,2,2,2,3,4,13,14,2,2,3,4,9,10,13,14,2,2,1,1</Row>
         <Row>15,8,19,20,2,2,3,4,17,18,21,22,2,2,2,2,3,4,21,22,2,2,3,4,17,18,21,22,2,2,1,1</Row>
         <Row>23,16,2,2,13,14,3,4,17,18,2,2,9,6,9,6,3,4,11,12,2,2,3,4,17,18,9,6,2,2,1,1</Row>
-        <Row>1,1,2,2,21,22,1,1,1,1,2,2,1,1,1,1,1,1,19,20,2,2,1,1,1,1,1,1,2,2,1,1</Row>
+        <Row>1,1,2,2,21,22,1,1,1,1,2,2,1,1,1,1,1,1,19,20,2,2,24,1,1,1,1,1,2,2,1,1</Row>
         <Row>1,2,2,2,17,18,3,4,1,1,2,2,2,2,1,1,1,2,9,6,9,10,1,1,11,12,9,10,2,2,1,1</Row>
         <Row>1,2,2,2,1,1,3,4,1,1,2,2,2,2,1,1,1,2,1,1,17,18,1,1,19,20,17,18,5,1,1,1</Row>
         <Row>1,2,13,14,11,12,3,4,1,1,2,2,13,14,1,1,1,2,2,2,17,18,1,1,2,2,2,5,2,2,1,1</Row>
@@ -63,8 +71,8 @@
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,2,2,2,5,2,2,11,12,3,4,1,1</Row>
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,4,2,2,5,2,2,2,19,20,3,4,1,1</Row>
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,4,2,5,17,18,9,6,2,2,3,4,1,1</Row>
-        <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,2,2,3,4,1,1</Row>
-        <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,4,11,12,2,2,2,2,2,2,3,4,1,1</Row>
+        <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,2,2,3,4,24,1</Row>
+        <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,4,11,12,2,2,2,2,2,2,3,4,24,1</Row>
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,3,4,19,20,2,2,2,2,5,1,1,1,1,1</Row>
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,10,3,4,2,2,2,2,2,5,2,2,9,10,1,1</Row>
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,8,3,4,2,2,2,2,5,2,2,2,17,18,1,1</Row>
@@ -80,143 +88,154 @@
 
   <Grid width="4" height="4" cellW="128" cellH="96">
     <Cell row="0" column="0">
-      <Object type="-1" x="0" y="0"/>
-      <Object type="-1" x="0" y="16"/>
-      <Object type="-1" x="0" y="80"/>
-      <Object type="-1" x="16" y="80"/>
-      <Object type="-1" x="96" y="80"/>
-      <Object type="-1" x="112" y="80"/>
+      <Block x="0" y="0"/>
+      <Block x="0" y="16"/>
+      <Block x="0" y="80"/>
+      <Block x="16" y="80"/>
+      <Block x="96" y="80"/>
+      <Block x="112" y="80"/>
+      <Portal x="0" y="32" w="16" h="48" area="-1" scene="2" p_x="-1" p_y="-1"/>
     </Cell>
     <Cell row="0" column="1">
-      <Object type="-1" x="128" y="80"/>
-      <Object type="-1" x="144" y="80"/>
-      <Object type="-1" x="192" y="80"/>
-      <Object type="-1" x="208" y="80"/>
-      <Object type="-1" x="224" y="80"/>
-      <Object type="-1" x="240" y="80"/>
+      <Block x="128" y="80"/>
+      <Block x="144" y="80"/>
+      <Block x="192" y="80"/>
+      <Block x="208" y="80"/>
+      <Block x="224" y="80"/>
+      <Block x="240" y="80"/>
     </Cell>
     <Cell row="0" column="2">
-      <Object type="-1" x="256" y="80"/>
-      <Object type="-1" x="272" y="80"/>
-      <Object type="-1" x="352" y="80"/>
-      <Object type="-1" x="368" y="80"/>
+      <Block x="256" y="80"/>
+      <Block x="272" y="80"/>
+      <Block x="368" y="80"/>
     </Cell>
     <Cell row="0" column="3">
-      <Object type="-1" x="384" y="80"/>
-      <Object type="-1" x="400" y="80"/>
-      <Object type="-1" x="416" y="80"/>
-      <Object type="-1" x="432" y="80"/>
-      <Object type="-1" x="480" y="0"/>
-      <Object type="-1" x="480" y="16"/>
-      <Object type="-1" x="480" y="32"/>
-      <Object type="-1" x="480" y="48"/>
-      <Object type="-1" x="480" y="64"/>
-      <Object type="-1" x="480" y="80"/>
+      <Block x="384" y="80"/>
+      <Block x="400" y="80"/>
+      <Block x="416" y="80"/>
+      <Block x="432" y="80"/>
+      <Block x="480" y="0"/>
+      <Block x="480" y="16"/>
+      <Block x="480" y="32"/>
+      <Block x="480" y="48"/>
+      <Block x="480" y="64"/>
+      <Block x="480" y="80"/>
     </Cell>
     <Cell row="1" column="0">
-      <Object type="-1" x="0" y="96"/>
-      <Object type="-1" x="0" y="112"/>
-      <Object type="-1" x="0" y="128"/>
-      <Object type="-1" x="0" y="144"/>
-      <Object type="-1" x="0" y="160"/>
-      <Object type="-1" x="0" y="176"/>
-      <Object type="-1" x="64" y="112"/>
-      <Object type="-1" x="80" y="112"/>  
+      <Block x="0" y="96"/>
+      <Block x="0" y="112"/>
+      <Block x="0" y="128"/>
+      <Block x="0" y="144"/>
+      <Block x="0" y="160"/>
+      <Block x="0" y="176"/>
+      <Block x="64" y="112"/>
+      <Block x="80" y="112"/>  
     </Cell>
     <Cell row="1" column="1">
-      <Object type="-1" x="144" y="96"/>
-      <Object type="-1" x="144" y="112"/>
-      <Object type="-1" x="144" y="128"/>
-      <Object type="-1" x="144" y="144"/>
-      <Object type="-1" x="144" y="160"/>
-      <Object type="-1" x="144" y="176"/>
-      <Object type="-1" x="224" y="96"/>
-      <Object type="-1" x="224" y="112"/>
-      <Object type="-1" x="224" y="128"/>
-      <Object type="-1" x="224" y="144"/>
-      <Object type="-1" x="224" y="160"/>
-      <Object type="-1" x="224" y="176"/>
+      <Block x="144" y="96"/>
+      <Block x="144" y="112"/>
+      <Block x="144" y="128"/>
+      <Block x="144" y="144"/>
+      <Block x="144" y="160"/>
+      <Block x="144" y="176"/>
+      <Block x="224" y="96"/>
+      <Block x="224" y="112"/>
+      <Block x="224" y="128"/>
+      <Block x="224" y="144"/>
+      <Block x="224" y="160"/>
+      <Block x="224" y="176"/>
     </Cell>
     <Cell row="1" column="2">
-      <Object type="-1" x="256" y="96"/>
-      <Object type="-1" x="256" y="112"/>
-      <Object type="-1" x="256" y="128"/>
-      <Object type="-1" x="256" y="144"/>
-      <Object type="-1" x="256" y="160"/>
-      <Object type="-1" x="256" y="176"/>
-      <Object type="-1" x="288" y="112"/>
-      <Object type="-1" x="304" y="112"/>
-      <Object type="-1" x="320" y="144"/>
-      <Object type="-1" x="336" y="144"/>
-      <Object type="-1" x="352" y="96"/>
-      <Object type="-1" x="352" y="112"/>
-      <Object type="-1" x="352" y="128"/>
-      <Object type="-1" x="352" y="144"/>
-      <Object type="-1" x="368" y="96"/>
-      <Object type="-1" x="368" y="112"/>
-      <Object type="-1" x="368" y="128"/>
-      <Object type="-1" x="368" y="144"/>
+      <Block x="256" y="96"/>
+      <Block x="256" y="112"/>
+      <Block x="256" y="128"/>
+      <Block x="256" y="144"/>
+      <Block x="256" y="160"/>
+      <Block x="256" y="176"/>
+      <Block x="288" y="112"/>
+      <Block x="304" y="112"/>
+      <Block x="320" y="144"/>
+      <Block x="336" y="144"/>
+      <Block x="352" y="96"/>
+      <Block x="352" y="112"/>
+      <Block x="352" y="128"/>
+      <Block x="352" y="144"/>
+      <Block x="368" y="96"/>
+      <Block x="368" y="112"/>
+      <Block x="368" y="128"/>
+      <Block x="368" y="144"/>
+      <Portal x="356" y="176" w="16" h="16" area="0" scene="-1" p_x="384" p_y="184"/>
     </Cell>
     <Cell row="1" column="3">
-      <Object type="-1" x="464" y="112"/> 
+      <Block x="464" y="112"/>
+      <Block x="480" y="96"/>
+      <Block x="480" y="112"/>
+      <Stair x="464" y="96" dir_x="-1" dir_y="1"/>
     </Cell>
     <Cell row="2" column="2">
-      <Object type="-1" x="256" y="192"/>
-      <Object type="-1" x="256" y="208"/>
-      <Object type="-1" x="256" y="224"/>
-      <Object type="-1" x="256" y="240"/>
-      <Object type="-1" x="256" y="256"/>
-      <Object type="-1" x="272" y="256"/>
-      <Object type="-1" x="272" y="272"/>
-      <Object type="-1" x="288" y="272"/>
-      <Object type="-1" x="304" y="272"/>
-      <Object type="-1" x="320" y="272"/>
-      <Object type="-1" x="336" y="272"/>
-      <Object type="-1" x="352" y="272"/>
-      <Object type="-1" x="368" y="272"/>
+      <Block x="256" y="192"/>
+      <Block x="256" y="208"/>
+      <Block x="256" y="224"/>
+      <Block x="256" y="240"/>
+      <Block x="256" y="256"/>
+      <Block x="272" y="256"/>
+      <Block x="272" y="272"/>
+      <Block x="288" y="272"/>
+      <Block x="304" y="272"/>
+      <Block x="320" y="272"/>
+      <Block x="336" y="272"/>
+      <Block x="352" y="272"/>
+      <Block x="368" y="272"/>
+      <Stair x="320" y="256" dir_x="1" dir_y="-1"/>
     </Cell>
     <Cell row="2" column="3">
-      <Object type="-1" x="384" y="272"/>
-      <Object type="-1" x="400" y="272"/>
-      <Object type="-1" x="480" y="192"/>
-      <Object type="-1" x="480" y="208"/>
-      <Object type="-1" x="480" y="224"/>
-      <Object type="-1" x="480" y="240"/>
-      <Object type="-1" x="480" y="256"/>
-      <Object type="-1" x="480" y="272"/>
+      <Block x="384" y="272"/>
+      <Block x="400" y="272"/>
+      <Block x="480" y="192"/>
+      <Block x="480" y="208"/>
+      <Block x="480" y="224"/>
+      <Block x="480" y="240"/>
+      <Block x="480" y="256"/>
+      <Block x="496" y="272"/>
+      <Object type="301" x="400" y="212" item="308"/>
+      <Portal x="400" y="192" w="16" h="16" area="1" scene="-1" p_x="372" p_y="160"/>
     </Cell>
     <Cell row="3" column="2">
-      <Object type="-1" x="272"  y="288"/>
-      <Object type="-1" x="272"  y="304"/>
-      <Object type="-1" x="256"  y="304"/>
-      <Object type="-1" x="256"  y="320"/>
-      <Object type="-1" x="256"  y="336"/>
-      <Object type="-1" x="256"  y="352"/>
-      <Object type="-1" x="256"  y="368"/>
-      <Object type="-1" x="272"  y="368"/>
-      <Object type="-1" x="288"  y="368"/>
-      <Object type="-1" x="304"  y="368"/>
-      <Object type="-1" x="320"  y="368"/>
-      <Object type="-1" x="336"  y="368"/>
-      <Object type="-1" x="352"  y="368"/>
-      <Object type="-1" x="368"  y="368"/>
+      <Block x="272"  y="288"/>
+      <Block x="272"  y="304"/>
+      <Block x="256"  y="304"/>
+      <Block x="256"  y="320"/>
+      <Block x="256"  y="336"/>
+      <Block x="256"  y="352"/>
+      <Block x="256"  y="368"/>
+      <Block x="272"  y="368"/>
+      <Block x="288"  y="368"/>
+      <Block x="304"  y="368"/>
+      <Block x="320"  y="368"/>
+      <Block x="336"  y="368"/>
+      <Block x="352"  y="368"/>
+      <Block x="368"  y="368"/>
+      <Stair x="352" y="352" dir_x="1" dir_y="-1"/>
+      <Object type="301" x="333" y="312" item="308"/>
     </Cell>
     <Cell row="3" column="3">
-      <Object type="-1" x="386"  y="368"/>
-      <Object type="-1" x="400"  y="368"/>
-      <Object type="-1" x="416"  y="368"/>
-      <Object type="-1" x="432"  y="368"/>
-      <Object type="-1" x="448"  y="368"/>
-      <Object type="-1" x="464"  y="368"/>
-      <Object type="-1" x="480"  y="368"/>
-      <Object type="-1" x="480"  y="288"/>
-      <Object type="-1" x="480"  y="304"/>
-      <Object type="-1" x="480"  y="320"/>
-      <Object type="-1" x="480"  y="336"/>
-      <Object type="-1" x="480"  y="352"/>
-      <Object type="-1" x="432"  y="304"/>
-      <Object type="-1" x="448"  y="304"/>
-      <Object type="-1" x="464"  y="304"/>
+      <Block x="384"  y="368"/>
+      <Block x="400"  y="368"/>
+      <Block x="416"  y="368"/>
+      <Block x="432"  y="368"/>
+      <Block x="448"  y="368"/>
+      <Block x="464"  y="368"/>
+      <Block x="480"  y="368"/>
+      <Block x="496"  y="288"/>
+      <Block x="480"  y="304"/>
+      <Block x="480"  y="320"/>
+      <Block x="480"  y="336"/>
+      <Block x="480"  y="352"/>
+      <Block x="432"  y="304"/>
+      <Block x="448"  y="304"/>
+      <Block x="464"  y="304"/>
+      <Stair x="432" y="288" dir_x="-1" dir_y="1"/>
+      <Object type="301" x="457" y="312" item="308"/>
     </Cell>
   </Grid>
   

@@ -286,7 +286,7 @@ void Board::GetSimonData(Whip* whip, SubWeapon* sub)
 void Board::ItemClaimed(LPITEM item)
 {
 	item->Claim();
-
+	int  effect_id = 0;
 	switch (item->GetType())
 	{
 	case Item::Whip:
@@ -294,32 +294,22 @@ void Board::ItemClaimed(LPITEM item)
 		if (whip > 3) whip = 3;
 		break;
 
-	case Item::Dagger:
-		subweapon = 1;
-		break;
+	case Item::Dagger:subweapon = 1; break;
+	case Item::Axe:	subweapon = 2; break;
+	case Item::Boomerang: subweapon = 3; break;
+	case Item::HolyWater: subweapon = 4; break;
 
-	case Item::Axe:
-		subweapon = 2;
-		break;
+	case Item::SmallHeart: heart += 1; break;
+	case Item::BigHeart: heart += 5; break;
 
-	case Item::Boomerang:
-		subweapon = 3;
-		break;
-
-	case Item::HolyWater:
-		subweapon = 4;
-		break;
-
-	case Item::SmallHeart:
-		heart += 1;
-		break;
-
-	case Item::BigHeart:
-		heart += 5;
-		break;
+	case Item::Money100: score += 100; effect_id = EFFECT_100POINT_ID; break;
+	case Item::Money400: score += 400; effect_id = EFFECT_400POINT_ID; break;
+	case Item::Money700: score += 700; effect_id = EFFECT_700POINT_ID; break;
+	case Item::Money1000: score += 1000; effect_id = EFFECT_1000POINT_ID; break;
 
 	default:
 		break;
 	}
+	item->RunEffect(effect_id);
 }
 

@@ -26,7 +26,6 @@
     <ClCompile Include="Framework\Collision.cpp" />
     <ClCompile Include="Framework\Animation.cpp" />
     <ClCompile Include="Game\Board.cpp" />
-    <ClCompile Include="Game\Objects\Others\Candle.cpp" />
     <ClCompile Include="Game\Objects\Others\Block.cpp" />
     <ClCompile Include="Dependencies\pugixml\src\pugixml.cpp" />
     <ClCompile Include="Framework\Debug.cpp" />
@@ -47,7 +46,7 @@
     <ClCompile Include="Game\Map\Tilemap.cpp" />
     <ClCompile Include="Framework\Viewport.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Whip.cpp" />
-    <ClCompile Include="Game\Objects\Others\Torch.cpp" />
+    <ClCompile Include="Game\Objects\Others\Candle.cpp" />
     <ClCompile Include="Game\Map\Tileset.cpp" />
     <ClCompile Include="Game\Parser.cpp" />
     <ClCompile Include="Game\Objects\Item.cpp" />
@@ -56,6 +55,7 @@
     <ClCompile Include="Game\Objects\Weapons\HolyWater.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Stopwatch.cpp" />
     <ClCompile Include="Game\Objects\Others\Portal.cpp" />
+    <ClCompile Include="Game\Objects\Others\Stair.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Objects\Weapons\Axe.h" />
@@ -65,7 +65,6 @@
     <ClInclude Include="Framework\Collision.h" />
     <ClInclude Include="Framework\Animation.h" />
     <ClInclude Include="Game\Board.h" />
-    <ClInclude Include="Game\Objects\Others\Candle.h" />
     <ClInclude Include="Game\Objects\Others\Block.h" />
     <ClInclude Include="Dependencies\pugixml\src\pugiconfig.hpp" />
     <ClInclude Include="Dependencies\pugixml\src\pugixml.hpp" />
@@ -87,7 +86,7 @@
     <ClInclude Include="Game\Map\Tilemap.h" />
     <ClInclude Include="Framework\Viewport.h" />
     <ClInclude Include="Game\Objects\Weapons\Whip.h" />
-    <ClInclude Include="Game\Objects\Others\Torch.h" />
+    <ClInclude Include="Game\Objects\Others\Candle.h" />
     <ClInclude Include="Game\Map\Tileset.h" />
     <ClInclude Include="Game\Parser.h" />
     <ClInclude Include="Game\Objects\Item.h" />
@@ -96,6 +95,7 @@
     <ClInclude Include="Game\Objects\Weapons\HolyWater.h" />
     <ClInclude Include="Game\Objects\Weapons\Stopwatch.h" />
     <ClInclude Include="Game\Objects\Others\Portal.h" />
+    <ClInclude Include="Game\Objects\Others\Stair.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

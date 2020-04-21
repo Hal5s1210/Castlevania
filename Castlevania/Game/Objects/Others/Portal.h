@@ -9,12 +9,16 @@ private:
 	int w, h;
 	int area = -1;
 	int scene = -1;
+	float player_x = -1, player_y = -1;
+
 public:
 	LPGAMEOBJECT Clone() { return NULL; }
 	
 	void Active();
 
 	void SetSize(int w, int h) { this->w = w; this->h = h; }
+
+	void SetPlayerPosition(float x, float y) { player_x = x; player_y = y; }
 
 	void SetTargetArea(int i) { area = i; }
 	void SetTargetScene(int i) { scene = i; }

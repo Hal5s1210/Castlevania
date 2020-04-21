@@ -31,13 +31,13 @@ void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	{
 		for (LPGAMEOBJECT obj : coObjects)
 		{
-			if (dynamic_cast<Torch*>(obj))
+			if (dynamic_cast<Candle*>(obj))
 			{
-				Torch* torch = dynamic_cast<Torch*>(obj);
+				Candle* candle = dynamic_cast<Candle*>(obj);
 
-				if (torch->IsAlive() && !torch->IsHitted())
+				if (candle->IsAlive() && !candle->IsHitted())
 				{
-					torch->TakeDamage(damage, this);
+					candle->TakeDamage(damage, this);
 				}
 			}
 		}

@@ -5,23 +5,28 @@
     <!--Simon idle-->
     <Sprite id="10000" texture="1000" x="0" y="0" w="16" h="32"/>
     <!--Simon walk-->
-    <Sprite id="10100" texture="1000" x="0" y="32" w="16" h="32"/>
-    <Sprite id="10101" texture="1000" x="16" y="32" w="16" h="32"/>
+    <Sprite id="10100" texture="1000" x="16" y="0" w="16" h="32"/>
+    <Sprite id="10101" texture="1000" x="32" y="0" w="16" h="32"/>
     <!--Simon crouch-->
-    <Sprite id="10200" texture="1000" x="0" y="64" w="16" h="24"/>
+    <Sprite id="10200" texture="1000" x="48" y="0" w="16" h="24"/>
     <!--Simon attack-->
-    <Sprite id="10300" texture="1000" x="0" y="96" w="24" h="32"/>
-    <Sprite id="10301" texture="1000" x="24" y="96" w="16" h="32"/>
-    <Sprite id="10302" texture="1000" x="48" y="96" w="16" h="32"/>
+    <Sprite id="10300" texture="1000" x="0" y="32" w="24" h="32"/>
+    <Sprite id="10301" texture="1000" x="24" y="32" w="16" h="32"/>
+    <Sprite id="10302" texture="1000" x="48" y="32" w="16" h="32"/>
     <!--Simon crouch attack-->
-    <Sprite id="10400" texture="1000" x="0" y="128" w="24" h="24"/>
-    <Sprite id="10401" texture="1000" x="24" y="128" w="16" h="24"/>
-    <Sprite id="10402" texture="1000" x="48" y="128" w="16" h="24"/>
+    <Sprite id="10400" texture="1000" x="64" y="32" w="24" h="24"/>
+    <Sprite id="10401" texture="1000" x="88" y="32" w="16" h="24"/>
+    <Sprite id="10402" texture="1000" x="112" y="32" w="16" h="24"/>
     <!--Simon hitted-->
-    <Sprite id="10500" texture="1000" x="16" y="64" w="16" h="32"/>
+    <Sprite id="10500" texture="1000" x="16" y="96" w="16" h="32"/>
     <!--Simon dead-->
-    <Sprite id="10600" texture="1000" x="32" y="64" w="16" h="32"/>
-    <Sprite id="10601" texture="1000" x="48" y="64" w="32" h="16"/>
+    <Sprite id="10600" texture="1000" x="32" y="96" w="16" h="24"/>
+    <Sprite id="10601" texture="1000" x="48" y="96" w="32" h="16"/>
+    <!--Simon stair up-->
+    <Sprite id="10700" texture="1000" x="64" y="0" w="16" h="32"/>
+    <!--Simon stair down-->
+    <Sprite id="10800" texture="1000" x="80" y="0" w="16" h="32"/>
+
   </Sprites>
   
   <Animations>
@@ -61,16 +66,28 @@
       <Frame sprite="10600" time="100"/>
       <Frame sprite="10601" time="100"/>
     </Animation>
+    <!--Simon stair up-->
+    <Animation id="10700">
+      <Frame sprite="10100" time="100"/>
+      <Frame sprite="10700" time="100"/>
+    </Animation>
+    <!--Simon stair down-->
+    <Animation id="10800">
+      <Frame sprite="10100" time="100"/>
+      <Frame sprite="10800" time="100"/>
+    </Animation>
   </Animations>
   
   <AnimationSet>
-      <Animation id="10000"/>
-      <Animation id="10100"/>
-      <Animation id="10200"/>
-      <Animation id="10300"/>
-      <Animation id="10400"/>
-      <Animation id="10500"/>
-      <Animation id="10600"/>
+    <Animation id="10000"/>
+    <Animation id="10100"/>
+    <Animation id="10200"/>
+    <Animation id="10300"/>
+    <Animation id="10400"/>
+    <Animation id="10500"/>
+    <Animation id="10600"/>
+    <Animation id="10700"/>
+    <Animation id="10800"/>
   </AnimationSet>
   
 </Object>

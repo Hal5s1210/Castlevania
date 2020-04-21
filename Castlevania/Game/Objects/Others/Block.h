@@ -6,7 +6,7 @@
 class Block : public GameObject
 {
 public:
-	LPGAMEOBJECT Clone();
+	LPGAMEOBJECT Clone() { return NULL; }
 	void Render(float x, float y);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

@@ -1,6 +1,6 @@
-#include "Block.h"
+#include "Stair.h"
 
-void Block::GetBoundingBox(float& l, float& t, float& r, float& b)
+void Stair::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
 	t = y;
@@ -8,7 +8,7 @@ void Block::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + 16;
 }
 
-void Block::Render(float x, float y)
+void Stair::Render(float x, float y)
 {
 	float l, t, r, b;
 	GetBoundingBox(l, t, r, b);

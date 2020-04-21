@@ -72,12 +72,6 @@
     <ClCompile Include="Game\Objects\Others\Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Others\Candle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\Torch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Framework\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -130,6 +124,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Objects\Others\Portal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Others\Candle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Others\Stair.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -188,12 +188,6 @@
     <ClInclude Include="Game\Objects\Others\Block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Others\Candle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\Torch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Framework\Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -246,6 +240,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\Others\Portal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Others\Candle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Others\Stair.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

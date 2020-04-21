@@ -11,7 +11,7 @@ Simon::Simon()
 	flip = true;
 	attack = false;
 	crouch = false;
-	onair = true;
+	on_air = true;
 	jumpStartTime = -1;
 	state = Simon::Idle;
 }
@@ -31,15 +31,93 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	GameObject::Update(dt);
 
-	vy += dt * GRAVITY;
+
+	if (auto_pilot)
+	{
+		AutoMove();
+
+		if (reach_dest)
+		{
+			auto_pilot = false;
+			reach_dest = false;
+			if (use_stair)
+			{
+				flip = stair_dir_x == 1 ? true : false;
+				state = stair_dir_y == 1 ? Simon::StairDown : Simon::StairUp;
+				currentAnimation->second = 0;
+				on_stair = true;
+				step_x = step_y = false;
+				if (stair_dir_y == -1)
+				{
+					y += 8;
+				}
+				else if (stair_dir_y == 1)
+				{
+					x += stair_dir_x == 1 ? 8 : -8;
+				}
+
+			}
+		}
+
+		if (!on_stair)
+			return;
+
+	}
+
+	if (on_stair)
+	{
+		if (!step_x || !step_y)
+		{
+			if (currentAnimation->second <= 0)
+			{
+				if (!step_y)
+				{
+					step_y = true;
+					if (state == Simon::StairUp)
+					{
+						y += -8;
+						x += stair_dir_x == 1 ? 4 : -4;
+					}
+					else if (state == Simon::StairDown)
+					{
+					}
+				}
+			}
+			if (currentAnimation->second == 1)
+			{
+				if (!step_x)
+				{
+					step_x = true;
+					if (state == Simon::StairUp)
+					{
+						x += stair_dir_x == 1 ? 4 : -4;
+					}
+					else if (state == Simon::StairDown)
+					{
+						x += stair_dir_x == 1 ? 8 : -8;
+						y += 8;
+					}
+				}
+			}
+			
+		}
+	}
+
+
+	if (!on_stair)
+	{
+		vy += dt * GRAVITY;
+		use_stair = false;
+	}
 
 	//check aabb
 	for (LPGAMEOBJECT o : *objects)
 	{
+		float l, t, r, b;
+		GetBoundingBox(l, t, r, b);
+
 		if (dynamic_cast<Item*>(o))
 		{
-			float l, t, r, b;
-			GetBoundingBox(l, t, r, b);
 			float lo, to, ro, bo;
 			o->GetBoundingBox(lo, to, ro, bo);
 
@@ -53,8 +131,58 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 				}
 			}
 		}
+		else if (dynamic_cast<Portal*>(o))
+		{
+			float lo, to, ro, bo;
+			o->GetBoundingBox(lo, to, ro, bo);
+
+			if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
+			{
+				dynamic_cast<Portal*>(o)->Active();
+			}
+		}
+		else if (dynamic_cast<Stair*>(o))
+		{
+			Stair* s = dynamic_cast<Stair*>(o);
+
+			float lo, to, ro, bo;
+			o->GetBoundingBox(lo, to, ro, bo);
+
+			if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
+			{
+				if (!on_stair)
+				{
+					use_stair = true;
+
+					s->GetDirection(stair_dir_x, stair_dir_y);
+					s->GetPosition(auto_dest_x, auto_dest_y);
+					auto_dest_y = y;
+					auto_dir_x = x < auto_dest_x ? 1 : x == auto_dest_x ? 0 : -1;
+				}
+				else
+				{
+					int stair_dest_dir_x, stair_dest_dir_y;
+					s->GetDirection(stair_dest_dir_x, stair_dest_dir_y);
+
+					if (stair_dir_x != stair_dest_dir_x && stair_dir_y != stair_dest_dir_y)
+					{
+						on_stair = false;
+						use_stair = false;
+						state = Simon::Idle;
+						y -= 0.4f;
+					}
+				}
+				
+			}
+		}
 	}
 
+	if (on_stair) return;
+
+	if (on_air)
+	{
+		vx = speed_before_jump;
+	}
 
 	//sweptaabb
 	std::vector<LPCOEVENT> coEvents;
@@ -84,6 +212,8 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 			if (dynamic_cast<Block*>(o))
 			{
+				if (on_stair) continue;
+
 				ddx = dx * min_tx + nx * 0.4f;
 				if(ny == -1)ddy = dy * min_ty + ny * 0.4f;
 
@@ -97,17 +227,13 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 					vy = 0;
 					if (ny == -1)
 					{
-						if (onair && attack)
+						if (on_air && attack)
 						{
 							vx = 0;
 						}
-						onair = false;
+						on_air = false;
 					}
 				}
-			}
-			else if (dynamic_cast<Portal*>(o))
-			{
-				dynamic_cast<Portal*>(o)->Active();
 			}
 		}
 
@@ -181,9 +307,18 @@ void Simon::Render(float x, float y)
 
 	subweapon->Render(x, y);
 
-	//float l, t, r, b;
-	//GetBoundingBox(l, t, r, b);
-	//NSDebug::RenderBoundBox(x, y, l, t, r, b);
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
+	NSDebug::RenderBoundBox(x, y, l, t, r, b);
+
+	if (on_stair)
+	{
+		if (currentAnimation->first->IsFrameReset())
+		{
+			currentAnimation->second = 1;
+			currentAnimation->first->Pause();
+		}
+	}
 
 	if (attack)
 	{
@@ -211,21 +346,40 @@ void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 	Y += fixY;
 
 	l = X;
-	t = Y;
+	t = Y + 2;
 	r = l + 16;
-	b = t + 32 - fixY;
+	b = t + 32 -2 - fixY;
 }
+
+void Simon::AutoMove()
+{
+	if (auto_dir_x == 0)
+	{
+		reach_dest = true;
+	}
+	else
+	{
+		x += dx;
+
+		if ((auto_dir_x == 1 && x >= auto_dest_x)|| (auto_dir_x == -1 && x <= auto_dest_x))
+		{
+			x = auto_dest_x;
+			reach_dest = true;
+		}
+	}
+}
+
 
 void Simon::SetState(eState state)
 {
-	if (hit || dead)
+	if (hit || dead || auto_pilot)
 		return;
 
 	switch (state)
 	{
 	case Simon::Idle:
-		if (attack) break;
-		if (onair)
+		if (attack || on_stair) break;
+		if (on_air)
 		{
 			this->state = Simon::OnAir;
 			break;
@@ -235,8 +389,8 @@ void Simon::SetState(eState state)
 
 	case Simon::WalkL:
 	case Simon::WalkR:
-		if (attack) break;
-		if (onair)
+		if (attack || on_stair) break;
+		if (on_air)
 		{
 			this->state = Simon::OnAir;
 			break;
@@ -245,8 +399,8 @@ void Simon::SetState(eState state)
 		break;
 
 	case Simon::Crouch:
-		if (attack) break;
-		if (onair)
+		if (attack || on_stair) break;
+		if (on_air)
 		{
 			this->state = Simon::OnAir;
 			break;
@@ -259,8 +413,64 @@ void Simon::SetState(eState state)
 		break;
 
 	case Simon::Jump:
-		if (attack) break;
+		if (attack || on_stair) break;
 		this->state = state;
+		break;
+
+	case Simon::StairUp:
+		if (use_stair && !on_air)
+		{
+			if (!on_stair)
+			{
+				if (stair_dir_y <= 0)
+				{
+					if (stair_dir_y == 0) stair_dir_y = -1;
+
+					auto_pilot = true;
+					this->state = auto_dir_x == 1 ? Simon::WalkR : Simon::WalkL;
+				}
+			}
+			else
+			{
+				if (step_x && step_y && currentAnimation->first->IsFrameReset())
+				{
+					step_x = step_y = false;
+
+					if (stair_dir_y == 1) change_dir = true;
+
+					this->state = Simon::StairUp;
+				}
+			}
+		}
+		else this->state = Simon::Idle;
+		break;
+
+	case Simon::StairDown:
+		if (use_stair && !on_air)
+		{
+			if (!on_stair)
+			{
+				if (stair_dir_y >= 0)
+				{
+					if (stair_dir_y == 0) stair_dir_y = 1;
+
+					auto_pilot = true;
+					this->state = auto_dir_x == 1 ? Simon::WalkR : Simon::WalkL;
+				}
+			}
+			else
+			{
+				if (step_x && step_y && currentAnimation->first->IsFrameReset())
+				{
+					step_x = step_y = false;
+
+					if (stair_dir_y == -1) change_dir = true;
+
+					this->state = Simon::StairDown;
+				}
+			}
+		}
+		else this->state = Simon::Idle;
 		break;
 
 	default:
@@ -275,12 +485,14 @@ void Simon::ProcessState()
 	{
 	case Simon::Idle:
 		SetAnimation(IDLE);
+		currentAnimation->first->Play();
 		crouch = false;
 		vx = 0;
 		break;
 
 	case Simon::WalkL:
 		SetAnimation(WALK);
+		currentAnimation->first->Play();
 		vx = -SIMON_SPEED;
 		crouch = false;
 		flip = false;
@@ -288,6 +500,7 @@ void Simon::ProcessState()
 
 	case Simon::WalkR:
 		SetAnimation(WALK);
+		currentAnimation->first->Play();
 		vx = SIMON_SPEED;
 		crouch = false;
 		flip = true;
@@ -295,6 +508,7 @@ void Simon::ProcessState()
 
 	case Simon::Crouch:
 		SetAnimation(CROUNCH);
+		currentAnimation->first->Play();
 		crouch = true;
 		vx = 0;
 		break;
@@ -304,14 +518,22 @@ void Simon::ProcessState()
 		{
 			whip->UseWhip(true);
 
-			if (crouch)
-				SetAnimation(ATTACK_2);
+			if (on_stair)
+			{
+
+			}
 			else
-				SetAnimation(ATTACK_1);
-			currentAnimation->second = -1;
-			crouch = false;
-			attack = true;
-			if (!onair) vx = 0;
+			{
+				if (crouch)
+					SetAnimation(ATTACK_2);
+				else
+					SetAnimation(ATTACK_1);
+				currentAnimation->second = -1;
+				currentAnimation->first->Play();
+				crouch = false;
+				attack = true;
+				if (!on_air) vx = 0;
+			}
 		}
 		break;
 
@@ -323,32 +545,83 @@ void Simon::ProcessState()
 
 			subweapon->Active();
 
-			if (crouch)
-				SetAnimation(ATTACK_2);
+			if (on_stair)
+			{
+
+			}
 			else
-				SetAnimation(ATTACK_1);
-			currentAnimation->second = -1;
-			crouch = false;
-			attack = true;
-			if (!onair) vx = 0;
+			{
+				if (crouch)
+					SetAnimation(ATTACK_2);
+				else
+					SetAnimation(ATTACK_1);
+				currentAnimation->second = -1;
+				currentAnimation->first->Play();
+				crouch = false;
+				attack = true;
+				if (!on_air) vx = 0;
+			}
 		}
 		break;
 
 	case Simon::Jump:
-		if (!onair)
+		if (!on_air)
 		{
 			vy = JUMP_FORCE;
+			speed_before_jump = vx;
 			jumpStartTime = GetTickCount();
 			crouch = false;
-			onair = true;
+			on_air = true;
 			SetAnimation(CROUNCH);
+			currentAnimation->first->Play();
 		}
 		break;
 
 	case Simon::OnAir:
-		if (onair)
+		if (on_air)
 		{
 			SetAnimation(CROUNCH);
+			currentAnimation->first->Play();
+		}
+		break;
+
+	case Simon::StairUp:
+		if (on_stair)
+		{
+			SetAnimation(STAIR_UP);
+			if (!step_x && !step_y)
+			{
+				if (change_dir)
+				{
+					stair_dir_x = -stair_dir_x;
+					stair_dir_y = -stair_dir_y;
+					flip = !flip;
+					change_dir = false;
+				}
+
+				currentAnimation->first->Play();
+				currentAnimation->second = -1;
+			}
+		}
+		break;
+
+	case Simon::StairDown:
+		if (on_stair)
+		{
+			SetAnimation(STAIR_DOWN);
+			if (!step_x && !step_y)
+			{
+				if (change_dir)
+				{
+					stair_dir_x = -stair_dir_x;
+					stair_dir_y = -stair_dir_y;
+					flip = !flip;
+					change_dir = false;
+				}
+
+				currentAnimation->first->Play();
+				currentAnimation->second = -1;
+			}
 		}
 		break;
 

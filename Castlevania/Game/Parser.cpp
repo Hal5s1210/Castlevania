@@ -101,17 +101,17 @@ void Parser::Parse_Object(pugi::xml_node root)
 			LPGAMEOBJECT obj = Spawner::GetInstance()->GetObjectSpawner(id);
 			Parser::Parse_AnimationSet(obj, root.child(L"AnimationSet"));
 		}
-		else if (nodeName == L"Effect")
-		{
-			Spawner::GetInstance()->CreateEffectSpawner(id);
-			LPEFFECT eff = Spawner::GetInstance()->GetEffectSpawner(id);
-			Parser::Parse_AnimationSet(eff, root.child(L"AnimationSet"));
-		}
 		else if (nodeName == L"Item")
 		{
 			Spawner::GetInstance()->CreateItemSpawner(id);
 			LPITEM item = Spawner::GetInstance()->GetItemSpawner(id);
 			Parser::Parse_AnimationSet(item, root.child(L"AnimationSet"));
+		}
+		else if (nodeName == L"Effect")
+		{
+			Spawner::GetInstance()->CreateEffectSpawner(id);
+			LPEFFECT eff = Spawner::GetInstance()->GetEffectSpawner(id);
+			Parser::Parse_AnimationSet(eff, root.child(L"AnimationSet"));
 		}
 	}
 }
@@ -319,13 +319,37 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 				float h = obj.attribute(L"h").as_float();
 				int area = obj.attribute(L"area").as_int();
 				int scene = obj.attribute(L"scene").as_int();
+				float p_x = obj.attribute(L"p_x").as_float();
+				float p_y = obj.attribute(L"p_y").as_float();
 
-				Portal* o = new Portal;
-				o->SetPosition(x, y);
-				o->SetSize(w, h);
-				o->SetTargetArea(area);
-				o->SetTargetScene(scene);
-				cells->at(i).at(j).push_back(o);
+				Portal* p = new Portal;
+				p->SetPosition(x, y);
+				p->SetSize(w, h);
+				p->SetTargetArea(area);
+				p->SetTargetScene(scene);
+				p->SetPlayerPosition(p_x, p_y);
+				cells->at(i).at(j).push_back(p);
+			}
+			else if (name == L"Block")
+			{
+				float x = obj.attribute(L"x").as_float();
+				float y = obj.attribute(L"y").as_float();
+
+				Block* b = new Block;
+				b->SetPosition(x, y);
+				cells->at(i).at(j).push_back(b);
+			}
+			else if (name == L"Stair")
+			{
+
+				float x = obj.attribute(L"x").as_float();
+				float y = obj.attribute(L"y").as_float();
+				int dir_x = obj.attribute(L"dir_x").as_int();
+				int dir_y = obj.attribute(L"dir_y").as_int();
+				Stair* s = new Stair;
+				s->SetPosition(x, y);
+				s->SetDirection(dir_x, dir_y);
+				cells->at(i).at(j).push_back(s);
 			}
 			else
 			{

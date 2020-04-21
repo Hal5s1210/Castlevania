@@ -63,13 +63,13 @@ void Axe::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		{
 			LPGAMEOBJECT o = coEvent->obj;
 
-			if (dynamic_cast<Torch*>(o))
+			if (dynamic_cast<Candle*>(o))
 			{
-				Torch* torch = dynamic_cast<Torch*>(o);
+				Candle* candle = dynamic_cast<Candle*>(o);
 
-				if (torch->IsAlive() && !torch->IsHitted())
+				if (candle->IsAlive() && !candle->IsHitted())
 				{
-					torch->TakeDamage(damage, this);
+					candle->TakeDamage(damage, this);
 				}
 			}
 		}

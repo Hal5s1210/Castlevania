@@ -23,6 +23,10 @@
 #ifndef EFFECT_ID
 #define EFFECT_HIT_ID					400
 #define EFFECT_DEAD_ID					401
+#define EFFECT_100POINT_ID				402
+#define EFFECT_400POINT_ID				403
+#define EFFECT_700POINT_ID				404
+#define EFFECT_1000POINT_ID				405
 #endif // !EFFECT_ID
 
 #ifndef ITEM_ID
@@ -34,6 +38,10 @@
 #define ITEM_STOPWATCH_ID				307
 #define ITEM_SMALLHEART_ID				308
 #define ITEM_BIGHEART_ID				309
+#define ITEM_MONEY100_ID				310
+#define ITEM_MONEY400_ID				311
+#define ITEM_MONEY700_ID				312
+#define ITEM_MONEY1000_ID				313
 #endif // !ITEM_ID
 
 #ifndef SOUND_ID

@@ -2,17 +2,17 @@
 <Object>
 
   <Sprites>
-    <Sprite id="30800" texture="3000" x="16" y="0" w="8" h="8"/>
+    <Sprite id="40200" texture="4000" x="24" y="0" w="16" h="8"/>
   </Sprites>
 
   <Animations>
-    <Animation id="30800">
-      <Frame sprite="30800" time="100"/>
+    <Animation id="40200">
+      <Frame sprite="40200" time="100"/>
     </Animation>
   </Animations>
 
   <AnimationSet>
-    <Animation id="30800"/>
+      <Animation id="40200"/>
   </AnimationSet>
 
 </Object>

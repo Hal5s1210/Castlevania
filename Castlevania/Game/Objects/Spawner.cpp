@@ -5,8 +5,6 @@ Spawner* Spawner::_instance = 0;
 
 Spawner::Spawner()
 {
-	LPGAMEOBJECT obj = new Block;
-	objectSpawners[BLOCK_ID] = obj;
 }
 
 
@@ -23,7 +21,7 @@ void Spawner::CreateObjectSpawner(int id)
 	switch (id)
 	{
 	case TORCH_ID:
-		obj = new Torch;
+		obj = new Candle;
 		objectSpawners[id] = obj;
 		break;
 
@@ -47,7 +45,8 @@ LPGAMEOBJECT Spawner::SpawnObject(int id, float x, float y, int item_id)
 		switch (id)
 		{
 		case TORCH_ID:
-			dynamic_cast<Torch*>(o)->HoldItem(item_id);
+		case CANDLE_ID:
+			dynamic_cast<Candle*>(o)->HoldItem(item_id);
 			break;
 
 		default:

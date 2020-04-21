@@ -60,4 +60,9 @@ void Tilesets::Remove(int id)
 
 void Tilesets::Clear()
 {
+	for (std::unordered_map<int, LPTILESET>::iterator itr = tilesets.begin(); itr != tilesets.end(); itr++)
+	{
+		if (itr->second) delete itr->second;
+	}
+	tilesets.clear();
 }

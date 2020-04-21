@@ -16,9 +16,19 @@ void Effect::Render(float x, float y)
 	SetAnimation(0);
 	currentAnimation->first->Draw(currentAnimation->second, this->x + x, this->y + y);
 
-	if (currentAnimation->first->IsFrameReset())
+	if (time == 0)
 	{
-		done = true;
+		if (currentAnimation->first->IsFrameReset())
+		{
+			done = true;
+		}
+	}
+	else
+	{
+		if (GetTickCount() - startTime >= time)
+		{
+			done = true;
+		}
 	}
 }
 

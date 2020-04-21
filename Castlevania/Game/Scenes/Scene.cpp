@@ -11,15 +11,15 @@ void Scene::Load()
 
 void Scene::Unload()
 {
-	Textures::GetInstance()->Clear();
-	Sound::GetInstance()->Clear();
-	Sprites::GetInstance()->Clear();
-	Animations::GetInstance()->Clear();
-	Tilesets::GetInstance()->Clear();
-
 	if (tilemap) delete tilemap;
 	if (grid) delete grid;
-	//if (player) delete player;
+	if (player) delete player;
+
+	Animations::GetInstance()->Clear();
+	Sprites::GetInstance()->Clear();
+	Sound::GetInstance()->Clear();
+	Tilesets::GetInstance()->Clear();
+	Textures::GetInstance()->Clear();
 }
 
 void Scene::LoadFromFile()

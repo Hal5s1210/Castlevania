@@ -8,6 +8,8 @@
 #define ATTACK_2					4
 #define HITED						5
 #define DEAD						6
+#define STAIR_UP					7
+#define STAIR_DOWN					8
 #endif // !SIMON_ANI
 
 #define SIMON_SPEED					0.067f
@@ -34,17 +36,32 @@ public:
 		Jump,
 		OnAir,
 		Hitted,
-		Dead
+		Dead,
+		StairUp,
+		StairDown
 	};
 
 private:
-	DWORD jumpTime;
-	DWORD jumpStartTime;
-
 	bool crouch;
 	bool attack;
-	bool onair;
-	bool onstair;
+	bool on_air;
+
+	DWORD jumpTime;
+	DWORD jumpStartTime;
+	float speed_before_jump;
+
+	bool auto_pilot;
+	bool reach_dest;
+	float auto_dest_x, auto_dest_y;
+	int auto_dir_x, auto_dir_y;
+
+	int stair_dir_x, stair_dir_y;
+
+	bool on_stair;
+	bool use_stair;
+	bool step_x, step_y;
+	bool change_dir;
+
 	bool hit;
 	bool dead;
 
@@ -54,6 +71,7 @@ private:
 	eState state;
 
 	void ProcessState();
+	void AutoMove();
 
 public:
 	Simon();

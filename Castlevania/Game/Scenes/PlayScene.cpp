@@ -117,7 +117,12 @@ void PlaySceneKeyHandler::KeyState(BYTE* state)
 	{
 		if (input->IsKeyDown(PAD_DOWN))
 		{
+			player->SetState(Simon::StairDown);
 			player->SetState(Simon::Crouch);
+		}
+		else if (input->IsKeyDown(PAD_UP))
+		{
+			player->SetState(Simon::StairUp);
 		}
 		else if (input->IsKeyDown(PAD_LEFT))
 		{

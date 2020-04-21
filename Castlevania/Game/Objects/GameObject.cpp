@@ -16,14 +16,6 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	for (ANIMATION* ani : animations)
-	{
-		//delete ani->first;
-		LPANIMATION a = ani->first;
-		delete a;
-		delete ani;
-	}
-	animations.clear();
 }
 
 void GameObject::AddAnimation(LPANIMATION animation)

@@ -6,10 +6,10 @@ void Portal::Active()
 	if (area != -1)
 	{
 		Scenes::GetInstance()->GetScene()->NextArea(area);
+		Scenes::GetInstance()->GetScene()->GetPlayer()->SetPosition(player_x, player_y);
 	}
 	else if (scene != -1)
 	{
-
 		Scenes::GetInstance()->NextScene(scene);
 	}
 }

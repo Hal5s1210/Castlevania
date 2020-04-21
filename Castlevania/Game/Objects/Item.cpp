@@ -1,5 +1,6 @@
 #include "Item.h"
 #include "Spawner.h"
+#include "..\Scenes\Scene.h"
 
 
 Item::Item()
@@ -110,10 +111,28 @@ void Item::SetType(int t)
 	case ITEM_HOLYWATER_ID: type = eItem::HolyWater; break;
 	case ITEM_SMALLHEART_ID: type = eItem::SmallHeart; break;
 	case ITEM_BIGHEART_ID: type = eItem::BigHeart; break;
+	case ITEM_MONEY100_ID: type = eItem::Money100; break;
+	case ITEM_MONEY400_ID: type = eItem::Money400; break;
+	case ITEM_MONEY700_ID: type = eItem::Money700; break;
+	case ITEM_MONEY1000_ID:	type = eItem::Money1000; break;
 
 	default:
 		type = eItem::Unknown;
 		break;
+	}
+}
+
+void Item::RunEffect(int id)
+{
+	if (id != 0)
+	{
+		int eff_x, eff_y;
+		eff_x = x;
+		eff_y = y;
+
+		LPEFFECT effect = Spawner::GetInstance()->SpawnEffect(id, eff_x, eff_y);
+		effect->SetTime(1000);
+		Scenes::GetInstance()->GetScene()->AddEffect(effect);
 	}
 }
 

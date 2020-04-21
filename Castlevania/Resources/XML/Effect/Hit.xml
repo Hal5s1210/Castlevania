@@ -2,7 +2,7 @@
 <Object>
 
   <Sprites>
-    <Sprite id="40000" texture="4000" x="56" y="0" w="8" h="16"/>
+    <Sprite id="40000" texture="4000" x="0" y="16" w="8" h="16"/>
   </Sprites>
 
   <Animations>
