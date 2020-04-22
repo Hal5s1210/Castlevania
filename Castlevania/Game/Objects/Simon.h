@@ -10,6 +10,8 @@
 #define DEAD						6
 #define STAIR_UP					7
 #define STAIR_DOWN					8
+#define STAIR_UP_ATTACK				9
+#define STAIR_DOWN_ATTACK			10
 #endif // !SIMON_ANI
 
 #define SIMON_SPEED					0.067f
@@ -20,7 +22,6 @@
 #include "GameObject.h"
 #include "Weapons\Whip.h"
 #include "Weapons\SubWeapon.h"
-#include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 class Simon : public GameObject
 {
@@ -59,7 +60,8 @@ private:
 
 	bool on_stair;
 	bool use_stair;
-	bool step_x, step_y;
+	bool step;
+	bool step_done;
 	bool change_dir;
 
 	bool hit;

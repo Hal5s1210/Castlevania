@@ -4,7 +4,8 @@
 
 void Scene::Load()
 {
-	LoadFromFile();
+	LPSCENE scene = this;
+	Parser::Parse_Scene(&scene);
 	loaded = true;
 	OutputDebugString(L"[INFO] PlayScene loaded OK\n");
 }
@@ -21,30 +22,6 @@ void Scene::Unload()
 	Tilesets::GetInstance()->Clear();
 	Textures::GetInstance()->Clear();
 }
-
-void Scene::LoadFromFile()
-{
-	pugi::xml_document doc;
-	pugi::xml_parse_result result = doc.load_file(filePath);
-	if (!result)
-	{
-		OutputDebugString(L"[ERROR] Load Scene file failed\n");
-		return;
-	}
-
-	pugi::xml_node root = doc.child(L"Scene");
-
-	Parser::Parse_Texture(root.child(L"Textures"));
-	Parser::Parse_Sound(root.child(L"Sounds"));
-	Parser::Parse_Object(root.child(L"Objects"));
-	Parser::Parse_Player(&player, root.child(L"Player"));
-	Parser::Parse_Tileset(root.child(L"Tilesets"));
-	Parser::Parse_Tilemap(&tilemap, root.child(L"Map"));
-	Parser::Parse_Grid(&grid, root.child(L"Grid"));
-
-	OutputDebugString(L"[ERROR] Load Scene file done\n");
-}
-
 
 
 Scenes* Scenes::_instance = 0;

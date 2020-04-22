@@ -15,7 +15,6 @@
 #include "..\Map\TileMap.h"
 #include "..\Map\Grid.h"
 #include "..\Board.h"
-#include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 
 class Scene
@@ -23,7 +22,7 @@ class Scene
 protected:
 	float x, y;
 	bool loaded;
-	LPCWSTR filePath;
+	std::wstring filePath;
 
 	LPKEYEVENTHANDLER keyhandler;
 
@@ -37,15 +36,19 @@ protected:
 	std::vector<LPEFFECT> effects;
 	std::vector<LPITEM> items;
 
-	void LoadFromFile();
-
 public:
-	Scene(float x, float y, LPCWSTR filepath) :x(x), y(y) { filePath = filepath; }
+	Scene(float x, float y, std::wstring filepath) :x(x), y(y) { filePath = filepath; }
 	
 	bool IsLoaded() { return loaded; }
 
 	LPKEYEVENTHANDLER GetKeyHandler() { return keyhandler; }
+
+	std::wstring GetPath() { return filePath; }
 	Simon* GetPlayer() { return player; }
+
+	void SetPlayer(Simon* p) { player = p; }
+	void SetGrid(Grid* g) { grid = g; }
+	void SetTilemap(Tilemap* t) { tilemap = t; }
 
 	void AddEffect(LPEFFECT effect) { effects.push_back(effect); }
 	void AddItem(LPITEM item) { items.push_back(item); }

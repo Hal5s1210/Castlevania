@@ -8,6 +8,74 @@
 #include "..\Framework\Animation.h"
 #include "..\Framework\Sound.h"
 #include "Objects\Spawner.h"
+#include "Scenes\Scene.h"
+#include "Scenes\PlayScene.h"
+
+
+void Parser::Parse_Game(LPCWSTR path)
+{
+	Scenes* scenes = Scenes::GetInstance();
+
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file(path);
+	if (!result)
+	{
+		OutputDebugString(L"[ERROR] Parse Game file failed\n");
+		return;
+	}
+
+	pugi::xml_node root = doc.child(L"Game");
+
+	int startscene = root.child(L"Setting").child(L"Start").text().as_int();
+
+	for (pugi::xml_node scene : root.child(L"Scenes"))
+	{
+		int id = scene.attribute(L"id").as_int();
+		float x = scene.attribute(L"x").as_float();
+		float y = scene.attribute(L"y").as_float();
+		std::wstring path = scene.attribute(L"path").value();
+
+		LPSCENE s = new PlayScene(x, y, path.c_str());
+
+		scenes->Add(id, s);
+	}
+
+	scenes->NextScene(startscene);
+
+	OutputDebugString(L"[ERROR] Parse Game file done\n");
+}
+
+
+void Parser::Parse_Scene(LPSCENE* scene)
+{
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file((*scene)->GetPath().c_str());
+	if (!result)
+	{
+		OutputDebugString(L"[ERROR] Parse Scene file failed\n");
+		return;
+	}
+
+	pugi::xml_node root = doc.child(L"Scene");
+
+	Simon* player;
+	Grid* grid;
+	Tilemap* tilemap;
+
+	Parser::Parse_Texture(root.child(L"Textures"));
+	Parser::Parse_Sound(root.child(L"Sounds"));
+	Parser::Parse_Object(root.child(L"Objects"));
+	Parser::Parse_Player(&player, root.child(L"Player"));
+	(*scene)->SetPlayer(player);
+	Parser::Parse_Tileset(root.child(L"Tilesets"));
+	Parser::Parse_Tilemap(&tilemap, root.child(L"Map"));
+	(*scene)->SetTilemap(tilemap);
+	Parser::Parse_Grid(&grid, root.child(L"Grid"));
+	(*scene)->SetGrid(grid);
+
+
+	OutputDebugString(L"[ERROR] Parse Scene file done\n");
+}
 
 void Parser::Parse_Texture(pugi::xml_node root)
 {

@@ -59,6 +59,13 @@ void Whip::Render(float x, float y)
 		{
 			if (!flip) X -= w;
 			currentAnimation->first->Draw(currentAnimation->second, X + x, Y + y, 255, flip);
+
+			if (Debug::IsEnable())
+			{
+				float l, t, r, b;
+				GetBoundingBox(l, t, r, b);
+				Debug::RenderBoundBox(x, y, l, t, r, b);
+			}
 		}
 	}
 	else
@@ -74,9 +81,12 @@ void Whip::Render(float x, float y)
 		}
 		currentAnimation->first->Draw(currentAnimation->second, X + x, Y + y, 255, flip);
 
-		//float l, t, r, b;
-		//GetBoundingBox(l, t, r, b);
-		//NSDebug::RenderBoundBox(x, y, l, t, r, b);
+		if (Debug::IsEnable())
+		{
+			float l, t, r, b;
+			GetBoundingBox(l, t, r, b);
+			Debug::RenderBoundBox(x, y, l, t, r, b);
+		}
 	}
 }
 

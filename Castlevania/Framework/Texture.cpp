@@ -25,7 +25,7 @@ void Textures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 	{
 		textures[id] = NULL;
 
-		NSDebug::DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
+		Debug::DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
 		return;
 	}
 
@@ -60,7 +60,7 @@ void Textures::Add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 
 	textures[id] = new Texture(texture, info);
 
-	NSDebug::DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s \n", id, filePath);
+	Debug::DebugOut(L"[INFO] Texture loaded Ok: id=%d, %s \n", id, filePath);
 }
 
 void Textures::Remove(int id)

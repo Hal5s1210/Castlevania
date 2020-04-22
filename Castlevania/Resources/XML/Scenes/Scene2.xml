@@ -170,7 +170,7 @@
       <Block x="464" y="112"/>
       <Block x="480" y="96"/>
       <Block x="480" y="112"/>
-      <Stair x="464" y="96" dir_x="-1" dir_y="1"/>
+      <Stair x="456" y="96" dir_x="-1" dir_y="1"/>
     </Cell>
     <Cell row="2" column="2">
       <Block x="256" y="192"/>
@@ -186,7 +186,7 @@
       <Block x="336" y="272"/>
       <Block x="352" y="272"/>
       <Block x="368" y="272"/>
-      <Stair x="320" y="256" dir_x="1" dir_y="-1"/>
+      <Stair x="328" y="256" dir_x="1" dir_y="-1"/>
     </Cell>
     <Cell row="2" column="3">
       <Block x="384" y="272"/>
@@ -215,7 +215,7 @@
       <Block x="336"  y="368"/>
       <Block x="352"  y="368"/>
       <Block x="368"  y="368"/>
-      <Stair x="352" y="352" dir_x="1" dir_y="-1"/>
+      <Stair x="360" y="352" dir_x="1" dir_y="-1"/>
       <Object type="301" x="333" y="312" item="308"/>
     </Cell>
     <Cell row="3" column="3">
@@ -234,7 +234,7 @@
       <Block x="432"  y="304"/>
       <Block x="448"  y="304"/>
       <Block x="464"  y="304"/>
-      <Stair x="432" y="288" dir_x="-1" dir_y="1"/>
+      <Stair x="424" y="288" dir_x="-1" dir_y="1"/>
       <Object type="301" x="457" y="312" item="308"/>
     </Cell>
   </Grid>

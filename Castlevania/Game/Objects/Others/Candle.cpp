@@ -22,9 +22,12 @@ void Candle::Render(float x, float y)
 	if (!alive) return;
 	currentAnimation->first->Draw(currentAnimation->second, this->x + x, this->y + y);
 
-	float l, t, r, b;
-	GetBoundingBox(l, t, r, b);
-	NSDebug::RenderBoundBox(x, y, l, t, r, b);
+	if (Debug::IsEnable())
+	{
+		float l, t, r, b;
+		GetBoundingBox(l, t, r, b);
+		Debug::RenderBoundBox(x, y, l, t, r, b);
+	}
 }
 
 void Candle::InitSize()

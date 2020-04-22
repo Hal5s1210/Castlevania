@@ -8,17 +8,14 @@
 #include "Map\Grid.h"
 #include "Map\Tilemap.h"
 
+class Scene;
+typedef Scene* LPSCENE;
+
+class Scenes;
+
 class Parser
 {
 private:
-	static std::vector<int> split(const std::string& s, char delimiter);
-	static void Parse_Whip(Whip* whip, pugi::xml_node root);
-	static void Parse_SubWeapon(SubWeapon* sub, pugi::xml_node root);
-	static void Parse_AnimationSet(LPGAMEOBJECT obj, pugi::xml_node node);
-	static void Parse_TilemapMatrix(std::vector<std::vector<int>>* matrix, pugi::xml_node root);
-	static void Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cells, pugi::xml_node root);
-
-public:
 	static void Parse_Texture(pugi::xml_node node);
 	static void Parse_Sprite(pugi::xml_node node);
 	static void Parse_Animation(pugi::xml_node node);
@@ -30,5 +27,17 @@ public:
 	static void Parse_Tileset(pugi::xml_node root);
 	static void Parse_Tilemap(Tilemap** tilemap, pugi::xml_node root);
 	static void Parse_Grid(Grid** grid, pugi::xml_node root);
+
+	static std::vector<int> split(const std::string& s, char delimiter);
+
+	static void Parse_Whip(Whip* whip, pugi::xml_node root);
+	static void Parse_SubWeapon(SubWeapon* sub, pugi::xml_node root);
+	static void Parse_AnimationSet(LPGAMEOBJECT obj, pugi::xml_node node);
+	static void Parse_TilemapMatrix(std::vector<std::vector<int>>* matrix, pugi::xml_node root);
+	static void Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cells, pugi::xml_node root);
+
+public:
+	static void Parse_Game(LPCWSTR path);
+	static void Parse_Scene(LPSCENE* scene);
 };
 

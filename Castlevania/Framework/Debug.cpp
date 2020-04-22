@@ -3,7 +3,9 @@
 #include "Graphics.h"
 #include "Viewport.h"
 
-void NSDebug::DebugOut(const wchar_t* fmt, ...)
+bool Debug::_enable = false;
+
+void Debug::DebugOut(const wchar_t* fmt, ...)
 {
 	va_list argp;
 	va_start(argp, fmt);
@@ -13,7 +15,7 @@ void NSDebug::DebugOut(const wchar_t* fmt, ...)
 	OutputDebugString(dbg_out);
 }	
 
-void NSDebug::RenderBoundBox(float x, float y, int l, int t, int r, int b)
+void Debug::RenderBoundBox(float x, float y, int l, int t, int r, int b)
 {
 	RECT rect;
 	rect.left = 0;

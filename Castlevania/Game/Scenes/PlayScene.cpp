@@ -142,7 +142,7 @@ void PlaySceneKeyHandler::KeyState(BYTE* state)
 
 void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 {
-	NSDebug::DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	Debug::DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 
 	Simon* player = scene->GetPlayer();
 
@@ -168,9 +168,18 @@ void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 		}
 	}
 
+	switch (KeyCode)
+	{
+	case DIK_F5:
+		Debug::EnableDebugging();
+		break;
+	default:
+		break;
+	}
+
 }
 
 void  PlaySceneKeyHandler::OnKeyUp(int KeyCode)
 {
-	NSDebug::DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
+	Debug::DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }

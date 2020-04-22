@@ -46,16 +46,8 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 				state = stair_dir_y == 1 ? Simon::StairDown : Simon::StairUp;
 				currentAnimation->second = 0;
 				on_stair = true;
-				step_x = step_y = false;
-				if (stair_dir_y == -1)
-				{
-					y += 8;
-				}
-				else if (stair_dir_y == 1)
-				{
-					x += stair_dir_x == 1 ? 8 : -8;
-				}
-
+				step = false;
+				step_done = false;
 			}
 		}
 
@@ -66,41 +58,20 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	if (on_stair)
 	{
-		if (!step_x || !step_y)
+		if (step)
 		{
-			if (currentAnimation->second <= 0)
-			{
-				if (!step_y)
-				{
-					step_y = true;
-					if (state == Simon::StairUp)
-					{
-						y += -8;
-						x += stair_dir_x == 1 ? 4 : -4;
-					}
-					else if (state == Simon::StairDown)
-					{
-					}
-				}
-			}
-			if (currentAnimation->second == 1)
-			{
-				if (!step_x)
-				{
-					step_x = true;
-					if (state == Simon::StairUp)
-					{
-						x += stair_dir_x == 1 ? 4 : -4;
-					}
-					else if (state == Simon::StairDown)
-					{
-						x += stair_dir_x == 1 ? 8 : -8;
-						y += 8;
-					}
-				}
-			}
-			
+			float step_speed = 8.f / (200.f / dt) / dt;
+
+			vx = stair_dir_x == 1 ? step_speed : -step_speed;
+			vy = stair_dir_y == 1 ? step_speed : -step_speed;
 		}
+		else
+		{
+			vx = vy = 0;
+		}
+
+		x += dx;
+		y += dy;
 	}
 
 
@@ -162,14 +133,20 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 				else
 				{
 					int stair_dest_dir_x, stair_dest_dir_y;
+					float stair_dest_pos_x, stair_dest_pos_y;
 					s->GetDirection(stair_dest_dir_x, stair_dest_dir_y);
+					s->GetPosition(stair_dest_pos_x, stair_dest_pos_y);
 
 					if (stair_dir_x != stair_dest_dir_x && stair_dir_y != stair_dest_dir_y)
 					{
-						on_stair = false;
-						use_stair = false;
-						state = Simon::Idle;
-						y -= 0.4f;
+						if ((stair_dir_x == 1 && r > ro) || (stair_dir_x == -1 && l < lo))
+						{
+							on_stair = false;
+							use_stair = false;
+							state = Simon::Idle;
+							x = stair_dest_pos_x;
+							y = stair_dest_pos_y - 16 - 0.4f;
+						}
 					}
 				}
 				
@@ -177,69 +154,69 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		}
 	}
 
-	if (on_stair) return;
-
-	if (on_air)
+	if (on_air && !on_stair)
 	{
 		vx = speed_before_jump;
 	}
 
-	//sweptaabb
-	std::vector<LPCOEVENT> coEvents;
-
-	CalcPotentialCollisions(objects, coEvents);
-
-	if (coEvents.empty())
+	if (!on_stair)
 	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		std::vector<LPCOEVENT> coEventResults;
-		float min_tx, min_ty, nx, ny;
+		//sweptaabb
+		std::vector<LPCOEVENT> coEvents;
 
-		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
+		CalcPotentialCollisions(objects, coEvents);
 
-		float ddx, ddy;
-
-		ddx = dx;
-		ddy = dy;
-
-		for (LPCOEVENT coEvent : coEventResults)
+		if (coEvents.empty())
 		{
-			LPGAMEOBJECT o = coEvent->obj;
+			x += dx;
+			y += dy;
+		}
+		else
+		{
+			std::vector<LPCOEVENT> coEventResults;
+			float min_tx, min_ty, nx, ny;
 
-			if (dynamic_cast<Block*>(o))
+			FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
+
+			float ddx, ddy;
+
+			ddx = dx;
+			ddy = dy;
+
+			for (LPCOEVENT coEvent : coEventResults)
 			{
-				if (on_stair) continue;
+				LPGAMEOBJECT o = coEvent->obj;
 
-				ddx = dx * min_tx + nx * 0.4f;
-				if(ny == -1)ddy = dy * min_ty + ny * 0.4f;
-
-				if (nx != 0)
+				if (dynamic_cast<Block*>(o))
 				{
-					vx = 0;
-				}
+					if (on_stair) continue;
 
-				if (ny != 0)
-				{
-					vy = 0;
-					if (ny == -1)
+					ddx = dx * min_tx + nx * 0.4f;
+					if (ny == -1)ddy = dy * min_ty + ny * 0.4f;
+
+					if (nx != 0)
 					{
-						if (on_air && attack)
+						vx = 0;
+					}
+
+					if (ny != 0)
+					{
+						vy = 0;
+						if (ny == -1)
 						{
-							vx = 0;
+							if (on_air && attack)
+							{
+								vx = 0;
+							}
+							on_air = false;
 						}
-						on_air = false;
 					}
 				}
 			}
+
+			x += ddx;
+			y += ddy;
 		}
-
-		x += ddx;
-		y += ddy;
-
 	}
 
 	if (attack)
@@ -307,16 +284,25 @@ void Simon::Render(float x, float y)
 
 	subweapon->Render(x, y);
 
-	float l, t, r, b;
-	GetBoundingBox(l, t, r, b);
-	NSDebug::RenderBoundBox(x, y, l, t, r, b);
+	if (Debug::IsEnable())
+	{
+		float l, t, r, b;
+		GetBoundingBox(l, t, r, b);
+		Debug::RenderBoundBox(x, y, l, t, r, b);
+	}
 
 	if (on_stair)
 	{
-		if (currentAnimation->first->IsFrameReset())
+		if (!attack && currentAnimation->first->IsFrameReset())
 		{
 			currentAnimation->second = 1;
 			currentAnimation->first->Pause();
+			step = false;
+			step_done = true;
+		}
+		else
+		{
+			currentAnimation->first->Play();
 		}
 	}
 
@@ -329,6 +315,11 @@ void Simon::Render(float x, float y)
 		{
 			whip->SetFrameIndex(0);
 			attack = false;
+			if (on_stair)
+			{
+				state = stair_dir_y == 1 ? Simon::StairDown : Simon::StairUp;
+			}
+			else state = Simon::Idle;
 		}
 	}
 	
@@ -345,9 +336,9 @@ void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 	float fixY = 32 - (rect.bottom - rect.top);
 	Y += fixY;
 
-	l = X;
+	l = X + 1;
 	t = Y + 2;
-	r = l + 16;
+	r = l + 16 - 2;
 	b = t + 32 -2 - fixY;
 }
 
@@ -432,9 +423,9 @@ void Simon::SetState(eState state)
 			}
 			else
 			{
-				if (step_x && step_y && currentAnimation->first->IsFrameReset())
+				if (!step && currentAnimation->first->IsFrameReset())
 				{
-					step_x = step_y = false;
+					step_done = false;
 
 					if (stair_dir_y == 1) change_dir = true;
 
@@ -442,7 +433,6 @@ void Simon::SetState(eState state)
 				}
 			}
 		}
-		else this->state = Simon::Idle;
 		break;
 
 	case Simon::StairDown:
@@ -460,9 +450,9 @@ void Simon::SetState(eState state)
 			}
 			else
 			{
-				if (step_x && step_y && currentAnimation->first->IsFrameReset())
+				if (!step && currentAnimation->first->IsFrameReset())
 				{
-					step_x = step_y = false;
+					step_done = false;
 
 					if (stair_dir_y == -1) change_dir = true;
 
@@ -470,7 +460,6 @@ void Simon::SetState(eState state)
 				}
 			}
 		}
-		else this->state = Simon::Idle;
 		break;
 
 	default:
@@ -520,7 +509,17 @@ void Simon::ProcessState()
 
 			if (on_stair)
 			{
+				if (step_done)
+				{
+					if (stair_dir_y == 1)
+						SetAnimation(STAIR_DOWN_ATTACK);
+					else
+						SetAnimation(STAIR_UP_ATTACK);
 
+					currentAnimation->second = -1;
+					currentAnimation->first->Play();
+					attack = true;
+				}
 			}
 			else
 			{
@@ -541,16 +540,12 @@ void Simon::ProcessState()
 		if (!subweapon->IsUsable()) break;
 		if (!attack)
 		{
-			whip->UseWhip(false);
-
-			subweapon->Active();
-
-			if (on_stair)
+			if (!on_stair)
 			{
+				whip->UseWhip(false);
 
-			}
-			else
-			{
+				subweapon->Active();
+
 				if (crouch)
 					SetAnimation(ATTACK_2);
 				else
@@ -589,8 +584,9 @@ void Simon::ProcessState()
 		if (on_stair)
 		{
 			SetAnimation(STAIR_UP);
-			if (!step_x && !step_y)
+			if (!step && !step_done)
 			{
+				step = true;
 				if (change_dir)
 				{
 					stair_dir_x = -stair_dir_x;
@@ -609,8 +605,9 @@ void Simon::ProcessState()
 		if (on_stair)
 		{
 			SetAnimation(STAIR_DOWN);
-			if (!step_x && !step_y)
+			if (!step && !step_done)
 			{
+				step = true;
 				if (change_dir)
 				{
 					stair_dir_x = -stair_dir_x;

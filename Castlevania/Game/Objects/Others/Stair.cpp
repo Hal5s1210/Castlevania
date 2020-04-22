@@ -10,7 +10,10 @@ void Stair::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void Stair::Render(float x, float y)
 {
-	float l, t, r, b;
-	GetBoundingBox(l, t, r, b);
-	NSDebug::RenderBoundBox(x, y, l, t, r, b);
+	if (Debug::IsEnable())
+	{
+		float l, t, r, b;
+		GetBoundingBox(l, t, r, b);
+		Debug::RenderBoundBox(x, y, l, t, r, b);
+	}
 }

@@ -96,10 +96,10 @@
       <Block x="16" y="80"/>
     </Cell>
     <Cell row="0" column="1">
-      <Stair x="128" y="80" dir_x="-1" dir_y="1"/>
+      <Stair x="120" y="80" dir_x="-1" dir_y="1"/>
     </Cell>
     <Cell row="0" column="4">
-      <Stair x="560" y="80" dir_x="1" dir_y="1"/>
+      <Stair x="568" y="80" dir_x="1" dir_y="1"/>
     </Cell>
     <Cell row="0" column="5">
       <Block x="736" y="0"/>
@@ -120,7 +120,7 @@
       <Block x="64" y="160"/>
       <Block x="80" y="160"/>
       <Block x="48" y="176"/>
-      <Stair x="48" y="144" dir_x="1" dir_y="0"/>
+      <Stair x="56" y="144" dir_x="1" dir_y="0"/>
       <Portal x="108" y="176" w="16" h="16" area="0" scene="-1" p_x="80" p_y="184"/>
     </Cell>
     <Cell row="1" column="1">
@@ -144,7 +144,7 @@
       <Block x="304" y="160"/>
       <Block x="352" y="160"/>
       <Block x="368" y="160"/>
-      <Stair x="368" y="144" dir_x="1" dir_y="-1"/>
+      <Stair x="376" y="144" dir_x="1" dir_y="-1"/>
     </Cell>
     <Cell row="1" column="3">
       <Block x="416" y="128"/>
@@ -155,7 +155,7 @@
       <Block x="496" y="112"/>
       <Block x="480" y="176"/>
       <Block x="496" y="176"/>
-      <Stair x="416" y="112" dir_x="-1" dir_y="1"/>
+      <Stair x="408" y="112" dir_x="-1" dir_y="1"/>
     </Cell>
     <Cell row="1" column="4">
       <Block x="512" y="176"/>
@@ -176,7 +176,7 @@
       <Block x="736" y="144"/>
       <Block x="736" y="160"/>
       <Block x="736" y="176"/>
-      <Stair x="640" y="144" dir_x="-1" dir_y="-1"/>
+      <Stair x="632" y="144" dir_x="-1" dir_y="-1"/>
     </Cell>
     <Cell row="2" column="0">
       <Block x="16" y="192"/>
@@ -190,7 +190,7 @@
       <Portal x="64" y="192" w="16" h="16" area="1" scene="-1" p_x="92" p_y="160"/>
     </Cell>
     <Cell row="2" column="1">
-      <Stair x="160" y="272" dir_x="-1" dir_y="-1"/>
+      <Stair x="152" y="272" dir_x="-1" dir_y="-1"/>
     </Cell>
     <Cell row="2" column="5">
       <Block x="736" y="192"/>

@@ -1,6 +1,7 @@
 #include "Castlevania.h"
 #include "..\Framework\Debug.h"
 #include "Scenes\PlayScene.h"
+#include "Parser.h"
 
 
 Castlevania::Castlevania()
@@ -20,11 +21,7 @@ void Castlevania::LoadResources()
 	d3ddv = Graphics::GetInstance()->GetDirect3DDevice();
 	spriteHandler = Graphics::GetInstance()->GetSpriteHandler();
 
-	scenes->Add(0, new PlayScene(0, 32, L"Resources\\XML\\Scenes\\Scene1.xml"));
-	scenes->Add(1, new PlayScene(0, 32, L"Resources\\XML\\Scenes\\Scene2.xml"));
-	scenes->Add(2, new PlayScene(0, 32, L"Resources\\XML\\Scenes\\Scene3.xml"));
-	scenes->Add(3, new PlayScene(0, 32, L"Resources\\XML\\Scenes\\Scene4.xml"));
-	scenes->NextScene(0);
+	Parser::Parse_Game(L"Resources\\XML\\Castlevania.xml");
 }
 
 void Castlevania::Update(DWORD dt)

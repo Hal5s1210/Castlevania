@@ -2,7 +2,6 @@
 
 #include <vector>
 #include "..\Objects\GameObject.h"
-#include "..\..\Dependencies\pugixml\src\pugixml.hpp"
 
 class Grid
 {

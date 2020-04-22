@@ -7,8 +7,14 @@
 #include <time.h>
 #include <stdlib.h>
 
-namespace NSDebug
+class Debug
 {
-	void DebugOut(const wchar_t* fmt, ...);
-	void RenderBoundBox(float x, float y, int l, int t, int r, int b);
-}
+private:
+	static bool _enable;
+
+public:
+	static bool IsEnable() { return _enable; }
+	static void EnableDebugging() { _enable = !_enable; }
+	static void DebugOut(const wchar_t* fmt, ...);
+	static void RenderBoundBox(float x, float y, int l, int t, int r, int b);
+};
