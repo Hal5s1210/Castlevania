@@ -10,6 +10,7 @@
 #include "Objects\Spawner.h"
 #include "Scenes\Scene.h"
 #include "Scenes\PlayScene.h"
+#include "Scenes\TitleScene.h"
 
 
 void Parser::Parse_Game(LPCWSTR path)
@@ -35,7 +36,16 @@ void Parser::Parse_Game(LPCWSTR path)
 		float y = scene.attribute(L"y").as_float();
 		std::wstring path = scene.attribute(L"path").value();
 
-		LPSCENE s = new PlayScene(x, y, path.c_str());
+		std::wstring name = scene.name();
+		LPSCENE s = NULL;
+		if (name == L"Title")
+		{
+			s = new TitleScene(x, y, path.c_str());
+		}
+		else
+		{
+			s = new PlayScene(x, y, path.c_str());
+		}
 
 		scenes->Add(id, s);
 	}
@@ -58,9 +68,9 @@ void Parser::Parse_Scene(LPSCENE* scene)
 
 	pugi::xml_node root = doc.child(L"Scene");
 
-	Simon* player;
-	Grid* grid;
-	Tilemap* tilemap;
+	Simon* player = NULL;
+	Grid* grid = NULL;
+	Tilemap* tilemap = NULL;
 
 	Parser::Parse_Texture(root.child(L"Textures"));
 	Parser::Parse_Sound(root.child(L"Sounds"));
@@ -197,6 +207,8 @@ void Parser::Parse_AnimationSet(LPGAMEOBJECT obj, pugi::xml_node root)
 
 void Parser::Parse_Player(Simon** player, pugi::xml_node root)
 {
+	if (root == NULL) return;
+
 	LPCWSTR path = root.child(L"Resource").attribute(L"path").value();
 	pugi::xml_document doc;
 	pugi::xml_parse_result result;
@@ -219,8 +231,10 @@ void Parser::Parse_Player(Simon** player, pugi::xml_node root)
 	
 	float x = root.child(L"Position").attribute(L"x").as_int();
 	float y = root.child(L"Position").attribute(L"y").as_int();
+	bool flip = root.child(L"Position").attribute(L"flip").as_bool();
 
 	(*player)->SetPosition(x, y);
+	(*player)->SetFlip(flip);
 
 }
 
@@ -293,7 +307,7 @@ void Parser::Parse_Tileset(pugi::xml_node root)
 
 void Parser::Parse_Tilemap(Tilemap** tilemap, pugi::xml_node root)
 {
-	if (!root) return;
+	if (root == NULL) return;
 
 	pugi::xml_node map = root.child(L"Tilemap");
 
@@ -358,7 +372,7 @@ std::vector<int> Parser::split(const std::string& s, char delimiter)
 
 void Parser::Parse_Grid(Grid** grid, pugi::xml_node root)
 {
-	if (!root) return;
+	if (root == NULL) return;
 
 	int w = root.attribute(L"width").as_int();
 	int h = root.attribute(L"height").as_int();

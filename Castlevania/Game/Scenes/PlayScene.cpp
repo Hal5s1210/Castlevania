@@ -170,6 +170,22 @@ void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
+	case DIK_F1:
+		Scenes::GetInstance()->NextScene(SCENE1_ID);
+		break;
+
+	case DIK_F2:
+		Scenes::GetInstance()->NextScene(SCENE2_ID);
+		break;
+
+	case DIK_F3:
+		Scenes::GetInstance()->NextScene(SCENE3_ID);
+		break;
+
+	case DIK_F4:
+		Scenes::GetInstance()->NextScene(SCENE4_ID);
+		break;
+
 	case DIK_F5:
 		Debug::EnableDebugging();
 		break;

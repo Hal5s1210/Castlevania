@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Objects\Others\Background.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Axe.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Boomerang.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Dagger.cpp" />
@@ -56,8 +57,12 @@
     <ClCompile Include="Game\Objects\Weapons\Stopwatch.cpp" />
     <ClCompile Include="Game\Objects\Others\Portal.cpp" />
     <ClCompile Include="Game\Objects\Others\Stair.cpp" />
+    <ClCompile Include="Game\Scenes\TitleScene.cpp" />
+    <ClCompile Include="Game\Objects\Others\TitleBat.cpp" />
+    <ClCompile Include="Game\Objects\Others\TitleEnter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Objects\Others\Background.h" />
     <ClInclude Include="Game\Objects\Weapons\Axe.h" />
     <ClInclude Include="Game\Objects\Weapons\Boomerang.h" />
     <ClInclude Include="Game\Objects\Weapons\Dagger.h" />
@@ -96,6 +101,9 @@
     <ClInclude Include="Game\Objects\Weapons\Stopwatch.h" />
     <ClInclude Include="Game\Objects\Others\Portal.h" />
     <ClInclude Include="Game\Objects\Others\Stair.h" />
+    <ClInclude Include="Game\Scenes\TitleScene.h" />
+    <ClInclude Include="Game\Objects\Others\TitleBat.h" />
+    <ClInclude Include="Game\Objects\Others\TitleEnter.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

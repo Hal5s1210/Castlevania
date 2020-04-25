@@ -6,10 +6,14 @@
 #define TEXTURE_ITEMS_OBJECTS_ID		3000
 #define TEXTURE_EFFECT_ID				4000
 #define TEXTURE_UI_BOARD_ID				7000
+#define TEXTURE_TITLE_ID				9000
 #endif // !TEXTURE_ID
 
 #ifndef TILESET_ID
 #define TILESET1_ID						8000
+#define TILESET2_ID						8001
+#define TILESET3_ID						8002
+#define TILESET4_ID						8003
 #endif // !TILESET_ID
 
 #ifndef OBJECT_ID
@@ -18,6 +22,9 @@
 #define WHIP_ID							200
 #define TORCH_ID						300
 #define CANDLE_ID						301
+#define TITLEBG_ID						900
+#define TITLEENTER_ID					901
+#define TITLEBAT_ID						902
 #endif // !OBJECT_ID
 
 #ifndef EFFECT_ID
@@ -47,5 +54,14 @@
 #ifndef SOUND_ID
 #define SOUND_INTRO_ID					0
 #define SOUND_COUNTYARD_ID				1000
+#endif // !SOUND_ID
+
+
+#ifndef SCENE_ID
+#define TITLE_ID						-1
+#define SCENE1_ID						0
+#define SCENE2_ID						1
+#define SCENE3_ID						2
+#define SCENE4_ID						3
 #endif // !SOUND_ID
 

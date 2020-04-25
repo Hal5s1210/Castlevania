@@ -44,7 +44,7 @@
       <Boomerang path="Resources\XML\Weapon\Boomerang.xml"/>
       <HolyWater path="Resources\XML\Weapon\Holy_Water.xml"/>
     </SubWeapon>
-    <Position x="16" y="126"/>
+    <Position x="16" y="126" flip="true"/>
   </Player>
 
   <Tilesets>
@@ -95,7 +95,7 @@
       <Block x="208" y="160"/>
       <Block x="224" y="160"/>
       <Block x="240" y="160"/>
-      <Object type="300" x="220" y="128" item="310"/>
+      <Object type="300" x="220" y="128" item="302"/>
     </Cell>
 
     <Cell row="1" column="2">
@@ -107,7 +107,7 @@
       <Block x="336" y="160"/>
       <Block x="352" y="160"/>
       <Block x="368" y="160"/>
-      <Object type="300" x="348" y="128" item="311"/>
+      <Object type="300" x="348" y="128" item="302"/>
     </Cell>
 
     <Cell row="1" column="3">
@@ -119,7 +119,7 @@
       <Block x="464" y="160"/>
       <Block x="480" y="160"/>
       <Block x="496" y="160"/>
-      <Object type="300" x="476" y="128" item="312"/>
+      <Object type="300" x="476" y="128" item="309"/>
     </Cell>
 
     <Cell row="1" column="4">
@@ -131,7 +131,7 @@
       <Block x="592" y="160"/>
       <Block x="608" y="160"/>
       <Block x="624" y="160"/>
-      <Object type="300" x="604" y="128" item="313"/>
+      <Object type="300" x="604" y="128" item="303"/>
     </Cell>
 
     <Cell row="1" column="5">

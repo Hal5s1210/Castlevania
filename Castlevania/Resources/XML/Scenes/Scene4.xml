@@ -36,15 +36,15 @@
   </Objects>
 
   <Player>
-  <Resource path="Resources\XML\Object\Simon.xml"/>
-  <Whip path="Resources\XML\Weapon\Whip.xml"/>
-  <SubWeapon>
-    <Dagger path="Resources\XML\Weapon\Dagger.xml"/>
-    <Axe path="Resources\XML\Weapon\Axe.xml"/>
-    <Boomerang path="Resources\XML\Weapon\Boomerang.xml"/>
-    <HolyWater path="Resources\XML\Weapon\Holy_Water.xml"/>
-  </SubWeapon>
-  <Position x="16" y="46"/>
+    <Resource path="Resources\XML\Object\Simon.xml"/>
+    <Whip path="Resources\XML\Weapon\Whip.xml"/>
+    <SubWeapon>
+      <Dagger path="Resources\XML\Weapon\Dagger.xml"/>
+      <Axe path="Resources\XML\Weapon\Axe.xml"/>
+      <Boomerang path="Resources\XML\Weapon\Boomerang.xml"/>
+      <HolyWater path="Resources\XML\Weapon\Holy_Water.xml"/>
+    </SubWeapon>
+    <Position x="16" y="46" flip="true"/>
   </Player>
 
   <Tilesets>
@@ -63,7 +63,7 @@
         <Row>7,8,5,6,3,4,26,43,44,52,2,2,22,16,2,2,2,2,51,52,15,16,5,6,13,14,15,16,13,14,15,16,13,14,15,16,13,14,11,12,13,14,26,26,61,62,63,58</Row>
         <Row>17,18,15,16,13,14,26,54,1,1,1,1,1,1,1,1,1,1,1,33,34,26,15,16,13,14,5,6,13,14,5,6,13,14,5,6,13,14,21,22,13,14,26,35,36,1,1,1</Row>
         <Row>47,26,5,6,13,14,5,6,31,32,3,4,11,12,3,4,11,12,26,43,33,34,15,16,13,14,15,16,13,14,15,16,13,14,15,16,13,14,15,16,13,14,61,45,46,26,64,67</Row>
-        <Row>57,26,15,16,13,14,15,16,41,42,13,14,21,22,13,14,21,22,5,54,43,33,34,26,13,14,5,6,13,14,5,6,13,14,5,6,13,14,5,6,13,14,1,1,56,6,65,67</Row>
+        <Row>57,26,15,16,13,14,15,16,41,42,13,14,21,22,13,14,21,22,5,54,43,33,34,26,13,14,5,6,13,14,5,6,13,14,5,6,13,14,5,6,13,14,1,0,56,6,65,67</Row>
         <Row>22,26,22,16,23,24,22,16,22,16,23,24,22,16,23,24,22,16,22,16,22,43,44,52,23,24,15,16,13,14,15,16,13,14,15,16,13,14,15,16,13,14,15,16,22,16,54,67</Row>
         <Row>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</Row>
       </Matrix>
@@ -82,15 +82,20 @@
       <Block x="64" y="80"/>
       <Block x="80" y="80"/>
       <Block x="96" y="80"/>
+      <Object type="301" x="92" y="56" item="308"/>
       <Stair x="104" y="64" dir_x="1" dir_y="1"/>
     </Cell>
+    <Cell row="0" column="1">
+      <Object type="301" x="154" y="88" item="308"/>
+      <Object type="301" x="218" y="56" item="308"/>
+    </Cell>
     <Cell row="0" column="5">
-      <Block x="752" y="0"/>
-      <Block x="752" y="16"/>
-      <Block x="752" y="32"/>
-      <Block x="752" y="48"/>
-      <Block x="752" y="64"/>
-      <Block x="752" y="80"/>
+      <Block x="760" y="0"/>
+      <Block x="760" y="16"/>
+      <Block x="760" y="32"/>
+      <Block x="760" y="48"/>
+      <Block x="760" y="64"/>
+      <Block x="760" y="80"/>
     </Cell>
     <Cell row="1" column="0">
       <Block x="0" y="176"/>
@@ -101,6 +106,7 @@
       <Block x="80" y="176"/>
       <Block x="96" y="176"/>
       <Block x="112" y="176"/>
+      <Object type="301" x="28" y="120" item="308"/>
     </Cell>
     <Cell row="1" column="1">
       <Block x="128" y="112"/>
@@ -133,6 +139,8 @@
       <Block x="336" y="176"/>
       <Block x="352" y="176"/>
       <Block x="368" y="176"/>
+      <Object type="301" x="284" y="152" item="308"/>
+      <Object type="301" x="348" y="120" item="308"/>
       <Stair x="296" y="96" dir_x="1" dir_y="1"/>
       <Stair x="360" y="160" dir_x="-1" dir_y="-1"/>
     </Cell>
@@ -145,6 +153,8 @@
       <Block x="464" y="176"/>
       <Block x="480" y="176"/>
       <Block x="496" y="176"/>
+      <Object type="301" x="412" y="152" item="308"/>
+      <Object type="301" x="476" y="152" item="308"/>
     </Cell>
     <Cell row="1" column="4">
       <Block x="512" y="176"/>
@@ -155,6 +165,8 @@
       <Block x="592" y="176"/>
       <Block x="608" y="176"/>
       <Block x="624" y="176"/>
+      <Object type="301" x="540" y="120" item="308"/>
+      <Object type="301" x="604" y="152" item="308"/>
     </Cell>
     <Cell row="1" column="5">
       <Block x="640" y="176"/>
@@ -166,14 +178,15 @@
       <Block x="736" y="176"/>
       <Block x="752" y="176"/>
       <Block x="672" y="144"/>
-      <Block x="688" y="144"/>
       <Block x="720" y="112"/>
       <Block x="736" y="112"/>
-      <Block x="752" y="96"/>
+      <Block x="760" y="96"/>
       <Block x="752" y="112"/>
-      <Block x="752" y="128"/>
-      <Block x="752" y="144"/>
-      <Block x="752" y="160"/>
+      <Block x="760" y="128"/>
+      <Block x="760" y="144"/>
+      <Block x="760" y="160"/>
+      <Object type="301" x="668" y="120" item="308"/>
+      <Object type="301" x="732" y="120" item="308"/>
       <Stair x="680" y="128" dir_x="1" dir_y="-1"/>
       <Stair x="712" y="96" dir_x="-1" dir_y="1"/>
     </Cell>

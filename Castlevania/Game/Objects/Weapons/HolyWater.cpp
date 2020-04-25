@@ -16,10 +16,13 @@ LPGAMEOBJECT HolyWater::Clone()
 
 void HolyWater::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
+	LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+	RECT rect = sprite->GetRect();
+
 	l = x;
 	t = y;
-	r = l + 8;
-	b = t + 8;
+	r = l + (rect.right - rect.left);
+	b = t + (rect.bottom- rect.top);
 }
 
 void HolyWater::Ready(float x, float y, bool flip)

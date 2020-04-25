@@ -20,6 +20,21 @@ void Spawner::CreateObjectSpawner(int id)
 
 	switch (id)
 	{
+	case TITLEBG_ID:
+		obj = new Background;
+		objectSpawners[id] = obj;
+		break;
+
+	case TITLEENTER_ID:
+		obj = new TitleEnter;
+		objectSpawners[id] = obj;
+		break;
+
+	case TITLEBAT_ID:
+		obj = new TitleBat;
+		objectSpawners[id] = obj;
+		break;
+
 	case TORCH_ID:
 		obj = new Candle;
 		objectSpawners[id] = obj;

@@ -8,6 +8,9 @@
 #include "Others\Portal.h"
 #include "Others\Candle.h"
 #include "Others\Stair.h"
+#include "Others\Background.h"
+#include "Others\TitleEnter.h"
+#include "Others\TitleBat.h"
 #include "Effect.h"
 #include "Item.h"
 

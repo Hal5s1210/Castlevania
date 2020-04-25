@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Object>
+
+  <Sprites>
+    <Sprite id="90200" texture="9000" x="256" y="0" w="72" h="56"/>
+    <Sprite id="90201" texture="9000" x="328" y="0" w="72" h="56"/>
+    <Sprite id="90202" texture="9000" x="400" y="0" w="72" h="56"/>
+    <Sprite id="90203" texture="9000" x="472" y="0" w="72" h="56"/>
+    <Sprite id="90204" texture="9000" x="544" y="0" w="72" h="56"/>
+    <Sprite id="90205" texture="9000" x="616" y="0" w="72" h="56"/>
+    <Sprite id="90206" texture="9000" x="688" y="0" w="72" h="56"/>
+    <Sprite id="90207" texture="9000" x="760" y="0" w="72" h="56"/>
+    <Sprite id="90208" texture="9000" x="832" y="0" w="72" h="56"/>
+    <Sprite id="90209" texture="9000" x="904" y="0" w="72" h="56"/>
+    <Sprite id="90210" texture="9000" x="256" y="56" w="72" h="56"/>
+    <Sprite id="90211" texture="9000" x="328" y="56" w="72" h="56"/>
+    <Sprite id="90212" texture="9000" x="400" y="56" w="72" h="56"/>
+    <Sprite id="90213" texture="9000" x="472" y="56" w="72" h="56"/>
+    <Sprite id="90214" texture="9000" x="544" y="56" w="72" h="56"/>
+    <Sprite id="90215" texture="9000" x="616" y="56" w="72" h="56"/>
+    <Sprite id="90216" texture="9000" x="688" y="56" w="72" h="56"/>
+    <Sprite id="90217" texture="9000" x="760" y="56" w="72" h="56"/>
+    <Sprite id="90218" texture="9000" x="832" y="56" w="72" h="56"/>
+    <Sprite id="90219" texture="9000" x="904" y="56" w="72" h="56"/>
+    <Sprite id="90220" texture="9000" x="256" y="112" w="72" h="56"/>
+    <Sprite id="90221" texture="9000" x="328" y="112" w="72" h="56"/>
+    <Sprite id="90222" texture="9000" x="400" y="112" w="72" h="56"/>
+    <Sprite id="90223" texture="9000" x="472" y="112" w="72" h="56"/>
+    <Sprite id="90224" texture="9000" x="544" y="112" w="72" h="56"/>
+    <Sprite id="90225" texture="9000" x="616" y="112" w="72" h="56"/>
+    <Sprite id="90226" texture="9000" x="688" y="112" w="72" h="56"/>
+    <Sprite id="90227" texture="9000" x="760" y="112" w="72" h="56"/>
+    <Sprite id="90228" texture="9000" x="832" y="112" w="72" h="56"/>
+    <Sprite id="90229" texture="9000" x="904" y="112" w="72" h="56"/>
+    <Sprite id="90230" texture="9000" x="256" y="168" w="72" h="56"/>
+    <Sprite id="90231" texture="9000" x="328" y="168" w="72" h="56"/>
+    <Sprite id="90232" texture="9000" x="400" y="168" w="72" h="56"/>
+    <Sprite id="90233" texture="9000" x="472" y="168" w="72" h="56"/>
+    <Sprite id="90234" texture="9000" x="544" y="168" w="72" h="56"/>
+    <Sprite id="90235" texture="9000" x="616" y="168" w="72" h="56"/>
+    <Sprite id="90236" texture="9000" x="688" y="168" w="72" h="56"/>
+    <Sprite id="90237" texture="9000" x="760" y="168" w="72" h="56"/>
+    <Sprite id="90238" texture="9000" x="832" y="168" w="72" h="56"/>
+    <Sprite id="90239" texture="9000" x="904" y="168" w="72" h="56"/>
+  </Sprites>
+
+  <Animations>
+    <Animation id="90200">
+      <Frame sprite="90200" time="50"/>
+      <Frame sprite="90201" time="50"/>
+      <Frame sprite="90202" time="50"/>
+      <Frame sprite="90203" time="50"/>
+      <Frame sprite="90204" time="50"/>
+      <Frame sprite="90205" time="50"/>
+      <Frame sprite="90206" time="50"/>
+      <Frame sprite="90207" time="50"/>
+      <Frame sprite="90208" time="50"/>
+      <Frame sprite="90209" time="50"/>
+      <Frame sprite="90210" time="50"/>
+      <Frame sprite="90211" time="50"/>
+      <Frame sprite="90212" time="50"/>
+      <Frame sprite="90213" time="50"/>
+      <Frame sprite="90214" time="50"/>
+      <Frame sprite="90215" time="50"/>
+      <Frame sprite="90216" time="50"/>
+      <Frame sprite="90217" time="50"/>
+      <Frame sprite="90218" time="50"/>
+      <Frame sprite="90219" time="50"/>
+      <Frame sprite="90220" time="50"/>
+      <Frame sprite="90221" time="50"/>
+      <Frame sprite="90222" time="50"/>
+      <Frame sprite="90223" time="50"/>
+      <Frame sprite="90224" time="50"/>
+      <Frame sprite="90225" time="50"/>
+      <Frame sprite="90226" time="50"/>
+      <Frame sprite="90227" time="50"/>
+      <Frame sprite="90228" time="50"/>
+      <Frame sprite="90229" time="50"/>
+      <Frame sprite="90230" time="50"/>
+      <Frame sprite="90231" time="50"/>
+      <Frame sprite="90232" time="50"/>
+      <Frame sprite="90233" time="50"/>
+      <Frame sprite="90234" time="50"/>
+      <Frame sprite="90235" time="50"/>
+      <Frame sprite="90236" time="50"/>
+    </Animation>
+    <Animation id="90201">
+      <Frame sprite="90237" time="50"/>
+      <Frame sprite="90238" time="50"/>
+      <Frame sprite="90239" time="50"/>
+      <Frame sprite="90238" time="50"/>
+    </Animation>
+  </Animations>
+
+  <AnimationSet>
+    <Animation id="90200"/>
+    <Animation id="90201"/>
+  </AnimationSet>
+
+</Object>

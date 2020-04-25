@@ -5,6 +5,7 @@
   </Setting>
 
   <Scenes>
+    <Title id="100" x="0" y="0" path="Resources\XML\Scenes\TitleScene.xml"/>
     <Scene id="0" x="0" y="32" path="Resources\XML\Scenes\Scene1.xml"/>
     <Scene id="1" x="0" y="32" path="Resources\XML\Scenes\Scene2.xml"/>
     <Scene id="2" x="0" y="32" path="Resources\XML\Scenes\Scene3.xml"/>

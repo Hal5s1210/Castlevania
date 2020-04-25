@@ -2,7 +2,7 @@
 
 #include "Scene.h"
 
-class PlaySceneKeyHandler : public IKeyEventHandler
+class PlaySceneKeyHandler : public KeyEventHandler
 {
 	LPSCENE scene;
 public:

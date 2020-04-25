@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Object>
+
+  <Sprites>
+    <Sprite id="90000" texture="9000" x="0" y="0" w="256" h="240"/>
+  </Sprites>
+
+  <Animations>
+    <Animation id="90000">
+      <Frame sprite="90000" time="100"/>
+    </Animation>
+  </Animations>
+
+  <AnimationSet>
+    <Animation id="90000"/>
+  </AnimationSet>
+
+</Object>

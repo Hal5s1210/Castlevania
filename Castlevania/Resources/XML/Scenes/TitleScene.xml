@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Scene>
+  <Textures>
+    <Texture id="9000" path="Resources\Textures\Title.png" red="128" green="128" blue="0"/>
+  </Textures>
+
+  <Objects>
+    <Object type ="900" path="Resources\XML\Other\TitleBG.xml"/>
+    <Object type ="901" path="Resources\XML\Other\TitleEnter.xml"/>
+    <Object type ="902" path="Resources\XML\Other\TitleBat.xml"/>
+  </Objects>
+
+  <Grid width="1" height="1" cellW="256" cellH="240">
+    <Cell row="0" column="0">
+      <Object type="900" x="0" y="0"/>
+      <Object type="901" x="72" y="136"/>
+      <Object type="902" x="184" y="104"/>
+    </Cell>
+  </Grid>
+
+</Scene>

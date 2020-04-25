@@ -69,9 +69,6 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		{
 			vx = vy = 0;
 		}
-
-		x += dx;
-		y += dy;
 	}
 
 
@@ -100,16 +97,6 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 					Board::GetInstance()->ItemClaimed(item);
 					OutputDebugString(L"Claimed Item\n");
 				}
-			}
-		}
-		else if (dynamic_cast<Portal*>(o))
-		{
-			float lo, to, ro, bo;
-			o->GetBoundingBox(lo, to, ro, bo);
-
-			if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
-			{
-				dynamic_cast<Portal*>(o)->Active();
 			}
 		}
 		else if (dynamic_cast<Stair*>(o))
@@ -159,64 +146,65 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		vx = speed_before_jump;
 	}
 
-	if (!on_stair)
+	//sweptaabb
+	std::vector<LPCOEVENT> coEvents;
+
+	CalcPotentialCollisions(objects, coEvents);
+
+	if (coEvents.empty())
 	{
-		//sweptaabb
-		std::vector<LPCOEVENT> coEvents;
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		std::vector<LPCOEVENT> coEventResults;
+		float min_tx, min_ty, nx, ny;
 
-		CalcPotentialCollisions(objects, coEvents);
+		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
 
-		if (coEvents.empty())
+		float ddx, ddy;
+
+		ddx = dx;
+		ddy = dy;
+
+		for (LPCOEVENT coEvent : coEventResults)
 		{
-			x += dx;
-			y += dy;
-		}
-		else
-		{
-			std::vector<LPCOEVENT> coEventResults;
-			float min_tx, min_ty, nx, ny;
+			LPGAMEOBJECT o = coEvent->obj;
 
-			FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
-
-			float ddx, ddy;
-
-			ddx = dx;
-			ddy = dy;
-
-			for (LPCOEVENT coEvent : coEventResults)
+			if (dynamic_cast<Block*>(o))
 			{
-				LPGAMEOBJECT o = coEvent->obj;
+				if (on_stair) continue;
 
-				if (dynamic_cast<Block*>(o))
+				ddx = dx * min_tx + nx * 0.4f;
+				if (ny == -1)ddy = dy * min_ty + ny * 0.4f;
+
+				if (nx != 0)
 				{
-					if (on_stair) continue;
+					vx = 0;
+				}
 
-					ddx = dx * min_tx + nx * 0.4f;
-					if (ny == -1)ddy = dy * min_ty + ny * 0.4f;
-
-					if (nx != 0)
+				if (ny != 0)
+				{
+					vy = 0;
+					if (ny == -1)
 					{
-						vx = 0;
-					}
-
-					if (ny != 0)
-					{
-						vy = 0;
-						if (ny == -1)
+						if (on_air && attack)
 						{
-							if (on_air && attack)
-							{
-								vx = 0;
-							}
-							on_air = false;
+							vx = 0;
 						}
+						on_air = false;
 					}
 				}
 			}
-
-			x += ddx;
-			y += ddy;
+			else if (dynamic_cast<Portal*>(o))
+			{
+				dynamic_cast<Portal*>(o)->Active();
+			}
 		}
+
+		x += ddx;
+		y += ddy;
 	}
 
 	if (attack)
