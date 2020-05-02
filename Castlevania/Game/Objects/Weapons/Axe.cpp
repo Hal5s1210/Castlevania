@@ -41,42 +41,9 @@ void Axe::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
-	std::vector<LPCOEVENT> coEvents;
-
 	vy += 0.0005 * dt;
 
-	CalcPotentialCollisions(objects, coEvents);
-
-	if (coEvents.empty())
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		std::vector<LPCOEVENT> coEventResults;
-		float min_tx, min_ty, nx, ny;
-
-		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
-
-		for (LPCOEVENT coEvent : coEventResults)
-		{
-			LPGAMEOBJECT o = coEvent->obj;
-
-			if (dynamic_cast<Candle*>(o))
-			{
-				Candle* candle = dynamic_cast<Candle*>(o);
-
-				if (candle->IsAlive() && !candle->IsHitted())
-				{
-					candle->TakeDamage(damage, this);
-				}
-			}
-		}
-
-		x += dx;
-		y += dy;
-	}
+	GameObject::CheckSweptCollision(objects);
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -85,5 +52,25 @@ void Axe::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	if (x < cam_x || x > cam_x + cam_w - 16 || y < cam_y || y> cam_y + cam_w - 16)
 	{
 		outView = true;
+	}
+}
+
+void Axe::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	float min_tx, float min_ty, float nx, float ny,
+	float& dx, float& dy)
+{
+	for (LPCOEVENT coEvent : *coEventResults)
+	{
+		LPGAMEOBJECT o = coEvent->obj;
+
+		if (dynamic_cast<Candle*>(o))
+		{
+			Candle* candle = dynamic_cast<Candle*>(o);
+
+			if (candle->IsAlive() && !candle->IsHitted())
+			{
+				candle->TakeDamage(damage, this);
+			}
+		}
 	}
 }

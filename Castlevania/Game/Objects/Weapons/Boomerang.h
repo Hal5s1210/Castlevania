@@ -9,6 +9,10 @@ private:
 	bool comeback;
 	bool back;
 
+	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+		float min_tx, float min_ty, float nx, float ny,
+		float& dx, float& dy);
+
 public:
 	Boomerang(LPGAMEOBJECT wielder) :Weapon(wielder) {}
 

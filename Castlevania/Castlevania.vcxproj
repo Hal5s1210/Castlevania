@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Objects\Others\BreakableBlock.cpp" />
+    <ClCompile Include="Game\Objects\Enemies\Enemy.cpp" />
     <ClCompile Include="Game\Objects\Others\Background.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Axe.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Boomerang.cpp" />
@@ -60,8 +62,12 @@
     <ClCompile Include="Game\Scenes\TitleScene.cpp" />
     <ClCompile Include="Game\Objects\Others\TitleBat.cpp" />
     <ClCompile Include="Game\Objects\Others\TitleEnter.cpp" />
+    <ClCompile Include="Game\Objects\Enemies\VampireBat.cpp" />
+    <ClCompile Include="Game\Objects\Others\MovingBlock.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Objects\Others\BreakableBlock.h" />
+    <ClInclude Include="Game\Objects\Enemies\Enemy.h" />
     <ClInclude Include="Game\Objects\Others\Background.h" />
     <ClInclude Include="Game\Objects\Weapons\Axe.h" />
     <ClInclude Include="Game\Objects\Weapons\Boomerang.h" />
@@ -104,6 +110,8 @@
     <ClInclude Include="Game\Scenes\TitleScene.h" />
     <ClInclude Include="Game\Objects\Others\TitleBat.h" />
     <ClInclude Include="Game\Objects\Others\TitleEnter.h" />
+    <ClInclude Include="Game\Objects\Enemies\VampireBat.h" />
+    <ClInclude Include="Game\Objects\Others\MovingBlock.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -29,6 +29,11 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	ProcessState();
 
+	if (on_moving_block)
+	{
+		vx += block_vx;
+	}
+
 	GameObject::Update(dt);
 
 
@@ -147,65 +152,8 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	}
 
 	//sweptaabb
-	std::vector<LPCOEVENT> coEvents;
-
-	CalcPotentialCollisions(objects, coEvents);
-
-	if (coEvents.empty())
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		std::vector<LPCOEVENT> coEventResults;
-		float min_tx, min_ty, nx, ny;
-
-		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
-
-		float ddx, ddy;
-
-		ddx = dx;
-		ddy = dy;
-
-		for (LPCOEVENT coEvent : coEventResults)
-		{
-			LPGAMEOBJECT o = coEvent->obj;
-
-			if (dynamic_cast<Block*>(o))
-			{
-				if (on_stair) continue;
-
-				ddx = dx * min_tx + nx * 0.4f;
-				if (ny == -1)ddy = dy * min_ty + ny * 0.4f;
-
-				if (nx != 0)
-				{
-					vx = 0;
-				}
-
-				if (ny != 0)
-				{
-					vy = 0;
-					if (ny == -1)
-					{
-						if (on_air && attack)
-						{
-							vx = 0;
-						}
-						on_air = false;
-					}
-				}
-			}
-			else if (dynamic_cast<Portal*>(o))
-			{
-				dynamic_cast<Portal*>(o)->Active();
-			}
-		}
-
-		x += ddx;
-		y += ddy;
-	}
+	GameObject::CheckSweptCollision(objects);
+	
 
 	if (attack)
 	{
@@ -328,6 +276,74 @@ void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = Y + 2;
 	r = l + 16 - 2;
 	b = t + 32 -2 - fixY;
+}
+
+void Simon::ProcessCollision(std::vector<LPCOEVENT>* coEventResults, 
+	float min_tx, float min_ty, float nx, float ny, 
+	float& dx, float& dy)
+{
+	for (LPCOEVENT coEvent : *coEventResults)
+	{
+		LPGAMEOBJECT o = coEvent->obj;
+
+		if (dynamic_cast<Block*>(o) ||
+			dynamic_cast<BreakableBlock*>(o))
+		{
+			if (on_stair) continue;
+			if (dynamic_cast<BreakableBlock*>(o) && !dynamic_cast<BreakableBlock*>(o)->IsAlive()) continue;
+
+			on_moving_block = false;
+
+			dx = dx * min_tx + nx * 0.4f;
+			if (ny == -1)dy = dy * min_ty + ny * 0.4f;
+
+			if (nx != 0)
+			{
+				vx = 0;
+			}
+
+			if (ny != 0)
+			{
+				vy = 0;
+				if (ny == -1)
+				{
+					if (on_air && attack)
+					{
+						vx = 0;
+					}
+					on_air = false;
+				}
+			}
+		}
+		else if (dynamic_cast<MovingBlock*>(o))
+		{
+			if (ny == -1)
+			{
+				dy = dy * min_ty + ny * 0.4f;
+
+				vy = 0;
+				if (on_air && attack)
+				{
+					vx = 0;
+				}
+				on_air = false;
+
+				on_moving_block = true;
+
+				float bvx, bvy;
+				o->GetSpeed(bvx, bvy);
+				block_vx = bvx;
+			}
+			else
+			{
+				on_moving_block = false;
+			}
+		}
+		else if (dynamic_cast<Portal*>(o))
+		{
+			dynamic_cast<Portal*>(o)->Active();
+		}
+	}
 }
 
 void Simon::AutoMove()

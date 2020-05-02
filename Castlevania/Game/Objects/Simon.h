@@ -47,6 +47,9 @@ private:
 	bool attack;
 	bool on_air;
 
+	bool on_moving_block;
+	float block_vx;
+
 	DWORD jumpTime;
 	DWORD jumpStartTime;
 	float speed_before_jump;
@@ -72,8 +75,12 @@ private:
 
 	eState state;
 
+	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults, 
+		float min_tx, float min_ty, float nx, float ny,
+		float& dx, float& dy);
 	void ProcessState();
 	void AutoMove();
+
 
 public:
 	Simon();

@@ -56,41 +56,7 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		delete e;
 	}
 
-
-	std::vector<LPCOEVENT> coEvents;
-
-	CalcPotentialCollisions(objects, coEvents);
-
-	if (coEvents.empty())
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		std::vector<LPCOEVENT> coEventResults;
-		float min_tx, min_ty, nx, ny;
-
-		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
-
-		for (LPCOEVENT coEvent : coEventResults)
-		{
-			LPGAMEOBJECT o = coEvent->obj;
-
-			if (dynamic_cast<Candle*>(o))
-			{
-				Candle* candle = dynamic_cast<Candle*>(o);
-
-				if (candle->IsAlive() && !candle->IsHitted())
-				{
-					candle->TakeDamage(damage, this);
-				}
-			}
-		}
-
-		x += dx;
-		y += dy;
-	}
+	GameObject::CheckSweptCollision(objects);
 
 	if ((flip && x >= returnPoint) || (!flip && x <= returnPoint))
 	{
@@ -136,4 +102,24 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		}
 	}
 
+}
+
+void Boomerang::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	float min_tx, float min_ty, float nx, float ny,
+	float& dx, float& dy)
+{
+	for (LPCOEVENT coEvent : *coEventResults)
+	{
+		LPGAMEOBJECT o = coEvent->obj;
+
+		if (dynamic_cast<Candle*>(o))
+		{
+			Candle* candle = dynamic_cast<Candle*>(o);
+
+			if (candle->IsAlive() && !candle->IsHitted())
+			{
+				candle->TakeDamage(damage, this);
+			}
+		}
+	}
 }

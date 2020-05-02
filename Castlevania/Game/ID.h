@@ -22,19 +22,14 @@
 #define WHIP_ID							200
 #define TORCH_ID						300
 #define CANDLE_ID						301
+#define BREAKABLEBLOCK_S2_ID			314
+#define BREAKABLEBLOCK_S3_ID			315
+#define BREAKABLEBLOCK_S4_ID			316
+#define MOVINGBLOCK_ID					317
 #define TITLEBG_ID						900
 #define TITLEENTER_ID					901
 #define TITLEBAT_ID						902
 #endif // !OBJECT_ID
-
-#ifndef EFFECT_ID
-#define EFFECT_HIT_ID					400
-#define EFFECT_DEAD_ID					401
-#define EFFECT_100POINT_ID				402
-#define EFFECT_400POINT_ID				403
-#define EFFECT_700POINT_ID				404
-#define EFFECT_1000POINT_ID				405
-#endif // !EFFECT_ID
 
 #ifndef ITEM_ID
 #define ITEM_WHIP_ID					302
@@ -50,6 +45,21 @@
 #define ITEM_MONEY700_ID				312
 #define ITEM_MONEY1000_ID				313
 #endif // !ITEM_ID
+
+#ifndef EFFECT_ID
+#define EFFECT_HIT_ID					400
+#define EFFECT_DEAD_ID					401
+#define EFFECT_100POINT_ID				402
+#define EFFECT_400POINT_ID				403
+#define EFFECT_700POINT_ID				404
+#define EFFECT_1000POINT_ID				405
+#define EFFECT_BROKENBLOCK_ID			406
+#endif // !EFFECT_ID
+
+#ifndef ENEMY_ID
+#define VAMPIREBAT_ID					500
+#endif // !ENEMY_ID
+
 
 #ifndef SOUND_ID
 #define SOUND_INTRO_ID					0

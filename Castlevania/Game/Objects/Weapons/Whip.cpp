@@ -34,11 +34,19 @@ void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 			if (dynamic_cast<Candle*>(obj))
 			{
 				Candle* candle = dynamic_cast<Candle*>(obj);
-
 				if (candle->IsAlive() && !candle->IsHitted())
 				{
 					candle->TakeDamage(damage, this);
 				}
+			}
+			else if (dynamic_cast<BreakableBlock*>(obj))
+			{
+				BreakableBlock* block = dynamic_cast<BreakableBlock*>(obj);
+				if (block->IsAlive() && !block->IsHitted())
+				{
+					block->TakeDamage();
+				}
+
 			}
 		}
 	}

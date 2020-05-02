@@ -114,3 +114,36 @@ void GameObject::FilterCollision(
 	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 }
+
+
+void GameObject::CheckSweptCollision(std::vector<LPGAMEOBJECT>* coObjects)
+{
+	if (coObjects == NULL) return;
+
+	std::vector<LPCOEVENT> coEvents;
+
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	if (coEvents.empty())
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		std::vector<LPCOEVENT> coEventResults;
+		float min_tx, min_ty, nx, ny;
+
+		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
+
+		float ddx, ddy;
+
+		ddx = dx;
+		ddy = dy;
+
+		ProcessCollision(&coEventResults, min_tx, min_ty, nx, ny, ddx, ddy);
+
+		x += ddx;
+		y += ddy;
+	}
+}

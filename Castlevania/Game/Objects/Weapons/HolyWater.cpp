@@ -48,56 +48,10 @@ void HolyWater::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
-	std::vector<LPCOEVENT> coEvents;
-
 	if (!burning && !startBurn)
 		vy += 0.0005 * dt;
 
-	CalcPotentialCollisions(objects, coEvents);
-
-	if (coEvents.empty())
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		std::vector<LPCOEVENT> coEventResults;
-		float min_tx, min_ty, nx, ny;
-
-		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
-
-		for (LPCOEVENT coEvent : coEventResults)
-		{
-			LPGAMEOBJECT o = coEvent->obj;
-
-			if (dynamic_cast<Candle*>(o))
-			{
-				Candle* candle = dynamic_cast<Candle*>(o);
-
-				if (candle->IsAlive() && !candle->IsHitted())
-				{
-					candle->TakeDamage(damage, this);
-				}
-			}
-			else if (dynamic_cast<Block*>(o))
-			{
-				if (!startBurn)
-				{
-					dx = dx * min_tx + nx * 0.4f;
-					dy = dy * min_ty + ny * 0.4f;
-
-					startBurn = true;
-					SetSpeed(0, 0);
-					SetAnimation(1);
-					y -= 8;
-				}
-			}
-		}
-
-		x += dx;
-		y += dy;
-	}
+	GameObject::CheckSweptCollision(objects);
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -128,6 +82,40 @@ void HolyWater::Render(float x, float y)
 			if (GetTickCount() - burnTimeStart >= burnTime)
 			{
 				hit = true;
+			}
+		}
+	}
+}
+
+
+void HolyWater::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	float min_tx, float min_ty, float nx, float ny,
+	float& dx, float& dy)
+{
+	for (LPCOEVENT coEvent : *coEventResults)
+	{
+		LPGAMEOBJECT o = coEvent->obj;
+
+		if (dynamic_cast<Candle*>(o))
+		{
+			Candle* candle = dynamic_cast<Candle*>(o);
+
+			if (candle->IsAlive() && !candle->IsHitted())
+			{
+				candle->TakeDamage(damage, this);
+			}
+		}
+		else if (dynamic_cast<Block*>(o))
+		{
+			if (!startBurn)
+			{
+				dx = dx * min_tx + nx * 0.4f;
+				dy = dy * min_ty + ny * 0.4f;
+
+				startBurn = true;
+				SetSpeed(0, 0);
+				SetAnimation(1);
+				y -= 8;
 			}
 		}
 	}

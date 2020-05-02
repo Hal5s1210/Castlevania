@@ -18,6 +18,11 @@ void PlayScene::Update(DWORD dt)
 {
 	grid->GetObjectlist(&objects);
 
+	for (LPGAMEOBJECT o : objects)
+	{
+		o->Update(dt);
+	}
+
 	for (int i = 0; i < items.size(); i++)
 	{
 		if (!items[i]->IsClaimed())
@@ -38,7 +43,6 @@ void PlayScene::Update(DWORD dt)
 			--i;
 			continue;
 		}
-
 		objects.push_back(items[i]);
 	}
 
@@ -46,12 +50,15 @@ void PlayScene::Update(DWORD dt)
 
 	for (int i = 0; i < effects.size(); i++)
 	{
-		if (effects[i]->IsDone())
+		effects[i]->Update(dt);
+		if (effects[i]->IsOutOfView() || (effects[i]->IsOneTimeEffect() && effects[i]->IsDone()))
 		{
 			delete effects[i];
 			effects.erase(effects.begin() + i);
 			--i;
+			continue;
 		}
+		objects.push_back(effects[i]);
 	}
 
 	AdjustView();
@@ -69,17 +76,7 @@ void PlayScene::Render()
 		obj->Render(x, y);
 	}
 
-	for (LPITEM i : items)
-	{
-		i->Render(x, y);
-	}
-
 	player->Render(x, y);
-
-	for (LPEFFECT e: effects)
-	{
-		e->Render(x, y);
-	}
 }
 
 void PlayScene::AdjustView()

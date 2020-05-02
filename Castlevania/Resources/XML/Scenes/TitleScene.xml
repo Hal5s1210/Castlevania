@@ -5,9 +5,9 @@
   </Textures>
 
   <Objects>
-    <Object type ="900" path="Resources\XML\Other\TitleBG.xml"/>
-    <Object type ="901" path="Resources\XML\Other\TitleEnter.xml"/>
-    <Object type ="902" path="Resources\XML\Other\TitleBat.xml"/>
+    <Object type ="900" path="Resources\XML\Others\TitleBG.xml"/>
+    <Object type ="901" path="Resources\XML\Others\TitleEnter.xml"/>
+    <Object type ="902" path="Resources\XML\Others\TitleBat.xml"/>
   </Objects>
 
   <Grid width="1" height="1" cellW="256" cellH="240">

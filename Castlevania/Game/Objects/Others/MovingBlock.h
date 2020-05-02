@@ -1,17 +1,23 @@
 #pragma once
+
 #include "..\..\ID.h"
 #include "..\GameObject.h"
 
-class TitleBat : public GameObject
+class MovingBlock : public GameObject
 {
 private:
+	int limit_left, limit_right;
 	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy) {}
 
 public:
+	MovingBlock() {}
+	void SetActiveArea(int l, int r) { limit_left = l; limit_right = r; }
+
 	LPGAMEOBJECT Clone();
+	void Update(DWORD dt);
 	void Render(float x, float y);
-	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
+	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };
 

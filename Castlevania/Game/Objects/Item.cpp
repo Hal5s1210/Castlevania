@@ -24,52 +24,7 @@ void Item::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += 0.00025 * dt;
 
-	std::vector<LPCOEVENT> coEvents;
-
-	CalcPotentialCollisions(objects, coEvents);
-
-	if (coEvents.empty())
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		std::vector<LPCOEVENT> coEventResults;
-		float min_tx, min_ty, nx, ny;
-
-		FilterCollision(coEvents, coEventResults, min_tx, min_ty, nx, ny);
-
-		float ddx, ddy;
-
-		ddx = dx;
-		ddy = dy;
-
-		for (LPCOEVENT coEvent : coEventResults)
-		{
-			LPGAMEOBJECT o = coEvent->obj;
-
-			if (dynamic_cast<Block*>(o))
-			{
-
-				ddx = dx * min_tx + nx * 0.4f;
-				ddy = dy * min_ty + ny * 0.4f;
-
-				if (nx != 0)
-				{
-					vx = 0;
-				}
-
-				if (ny != 0)
-				{
-					vy = 0;
-				}
-			}
-		}
-
-		x += ddx;
-		y += ddy;
-	}
+	GameObject::CheckSweptCollision(objects);
 }
 
 LPITEM Item::Clone()
@@ -97,7 +52,33 @@ void Item::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y;
 	r = l + (rect.right - rect.left);
 	b = t + (rect.bottom - rect.top);
+}
 
+void Item::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	float min_tx, float min_ty, float nx, float ny,
+	float& dx, float& dy)
+{
+	for (LPCOEVENT coEvent : *coEventResults)
+	{
+		LPGAMEOBJECT o = coEvent->obj;
+
+		if (dynamic_cast<Block*>(o))
+		{
+
+			dx = dx * min_tx + nx * 0.4f;
+			dy = dy * min_ty + ny * 0.4f;
+
+			if (nx != 0)
+			{
+				vx = 0;
+			}
+
+			if (ny != 0)
+			{
+				vy = 0;
+			}
+		}
+	}
 }
 
 void Item::SetType(int t)

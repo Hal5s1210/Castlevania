@@ -16,40 +16,46 @@ Spawner* Spawner::GetInstance()
 
 void Spawner::CreateObjectSpawner(int id)
 {
-	LPGAMEOBJECT obj;
-
+	LPGAMEOBJECT o;
 	switch (id)
 	{
 	case TITLEBG_ID:
-		obj = new Background;
-		objectSpawners[id] = obj;
+		o = new Background;
+		objectSpawners[id] = o;
 		break;
 
 	case TITLEENTER_ID:
-		obj = new TitleEnter;
-		objectSpawners[id] = obj;
+		o = new TitleEnter;
+		objectSpawners[id] = o;
 		break;
 
 	case TITLEBAT_ID:
-		obj = new TitleBat;
-		objectSpawners[id] = obj;
+		o = new TitleBat;
+		objectSpawners[id] = o;
 		break;
 
 	case TORCH_ID:
-		obj = new Candle;
-		objectSpawners[id] = obj;
+	case CANDLE_ID:
+		o = new Candle;
+		objectSpawners[id] = o;
 		break;
 
-	case CANDLE_ID:
-		obj = new Candle;
-		objectSpawners[id] = obj;
+	case BREAKABLEBLOCK_S2_ID:
+	case BREAKABLEBLOCK_S3_ID:
+	case BREAKABLEBLOCK_S4_ID:
+		o = new BreakableBlock;
+		objectSpawners[id] = o;
+		break;
+
+	case MOVINGBLOCK_ID:
+		o = new MovingBlock;
+		objectSpawners[id] = o;
 		break;
 
 	default:
 		break;
 	}
 }
-
 LPGAMEOBJECT Spawner::SpawnObject(int id, float x, float y, int item_id)
 {
 	LPGAMEOBJECT o = objectSpawners[id]->Clone();
@@ -78,7 +84,6 @@ void Spawner::CreateEffectSpawner(int id)
 	effect = new Effect;
 	effectSpawners[id] = effect;
 }
-
 LPEFFECT Spawner::SpawnEffect(int id, float x, float y)
 {
 	LPEFFECT e = effectSpawners[id]->Clone();
@@ -94,7 +99,6 @@ void Spawner::CreateItemSpawner(int id)
 	item = new Item;
 	itemSpawners[id] = item;
 }
-
 LPITEM Spawner::SpawnItem(int id, float x, float y)
 {
 	LPITEM i = itemSpawners[id]->Clone();
@@ -102,4 +106,27 @@ LPITEM Spawner::SpawnItem(int id, float x, float y)
 	i->SetType(id);
 
 	return i;
+}
+
+void Spawner::CreateEnemySpawner(int id)
+{
+	LPENEMY o;
+	switch (id)
+	{
+	case VAMPIREBAT_ID:
+		o = new VampireBat;
+		enemySpawners[id] = o;
+		break;
+
+	default:
+		break;
+	}
+}
+LPENEMY Spawner::SpawnEnemy(int id, float x, float y, bool flip)
+{
+	LPENEMY e = enemySpawners[id]->Clone();
+	e->SetDefaultPosition(x, y);
+	e->SetDefaultFlip(flip);
+	
+	return e;
 }

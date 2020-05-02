@@ -191,6 +191,12 @@ void Parser::Parse_Object(pugi::xml_node root)
 			LPEFFECT eff = Spawner::GetInstance()->GetEffectSpawner(id);
 			Parser::Parse_AnimationSet(eff, root.child(L"AnimationSet"));
 		}
+		else if (nodeName == L"Enemy")
+		{
+			Spawner::GetInstance()->CreateEnemySpawner(id);
+			LPENEMY enemy = Spawner::GetInstance()->GetEnemySpawner(id);
+			Parser::Parse_AnimationSet(enemy, root.child(L"AnimationSet"));
+		}
 	}
 }
 
@@ -433,6 +439,16 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 				s->SetDirection(dir_x, dir_y);
 				cells->at(i).at(j).push_back(s);
 			}
+			else if (name == L"Enemy")
+			{
+				int id = obj.attribute(L"type").as_int();
+				float x = obj.attribute(L"x").as_float();
+				float y = obj.attribute(L"y").as_float();
+				bool flip = obj.attribute(L"flip").as_bool();
+
+				LPENEMY e = Spawner::GetInstance()->SpawnEnemy(id, x, y, flip);
+				cells->at(i).at(j).push_back(e);
+			}
 			else
 			{
 				int id = obj.attribute(L"type").as_int();
@@ -441,6 +457,16 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 				int item = obj.attribute(L"item").as_int();
 
 				LPGAMEOBJECT o = Spawner::GetInstance()->SpawnObject(id, x, y, item);
+
+				if (id == MOVINGBLOCK_ID)
+				{
+					float l = obj.attribute(L"l").as_float(); 
+					float r = obj.attribute(L"r").as_float();
+					bool flip = obj.attribute(L"flip").as_bool();
+					dynamic_cast<MovingBlock*>(o)->SetActiveArea(l, r);
+					o->SetFlip(flip);
+				}
+
 				cells->at(i).at(j).push_back(o);
 			}
 		}
