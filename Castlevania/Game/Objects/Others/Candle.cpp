@@ -74,20 +74,7 @@ void Candle::TakeDamage(int damage, LPGAMEOBJECT hitter)
 	invulnerableTimeStart = GetTickCount();
 	hit = true;
 
-	//hitter bbox
-	float lh, th, rh, bh;
-	hitter->GetBoundingBox(lh, th, rh, bh);
-	//object bbox
-	float lo, to, ro, bo;
-	GetBoundingBox(lo, to, ro, bo);
-
-	int eff_x, eff_y;
-	if (hitter->IsFlip()) eff_x = ro - (rh - lh) / 2;
-	else eff_x = lo + (rh - lh) / 2;
-	eff_y = to + (bh - th) / 2;
-
-	LPEFFECT effect = Spawner::GetInstance()->SpawnEffect(EFFECT_HIT_ID, eff_x, eff_y);
-	Scenes::GetInstance()->GetScene()->AddEffect(effect);
+	Effect::AddHitEffect(hitter, this);
 
 	OutputDebugString(L"Candle being hit\n");
 
@@ -101,8 +88,7 @@ void Candle::TakeDamage(int damage, LPGAMEOBJECT hitter)
 		LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
 		RECT r = sprite->GetRect();
 
-		LPEFFECT e = Spawner::GetInstance()->SpawnEffect(EFFECT_DEAD_ID, x + ((r.right - r.left) / 2) - 4, y + ((r.bottom - r.top) / 2) - 8);
-		scene->AddEffect(e);
+		Effect::AddDeathEffect(r, x, y);
 
 		OutputDebugString(L"Candle is dead\n");
 

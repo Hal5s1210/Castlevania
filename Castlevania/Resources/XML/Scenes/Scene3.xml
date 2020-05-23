@@ -5,6 +5,7 @@
     <Texture id="2000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
     <Texture id="3000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
     <Texture id="4000" path="Resources\Textures\Effects.png" red="116" green="116" blue="116"/>
+    <Texture id="5000" path="Resources\Textures\Enemies.png" red="116" green="116" blue="116"/>
     <Texture id="8002" path="Resources\Textures\Tileset3.png" red="255" green="0" blue="255"/>
     <Texture id="7000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
     <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
@@ -15,6 +16,7 @@
 
   <Objects>
     <Object type ="301" path="Resources\XML\Others\Candle.xml"/>
+    <Object type="315" path="Resources\XML\Others\BreakableBlock_S3.xml"/>
     <Item type ="302" path="Resources\XML\Items\Whip.xml"/>
     <Item type ="303" path="Resources\XML\Items\Dagger.xml"/>
     <Item type ="304" path="Resources\XML\Items\Axe.xml"/>
@@ -33,6 +35,11 @@
     <Effect type ="403" path="Resources\XML\Effects\400_Point.xml"/>
     <Effect type ="404" path="Resources\XML\Effects\700_Point.xml"/>
     <Effect type ="405" path="Resources\XML\Effects\1000_Point.xml"/>
+    <Effect type="406" path="Resources\XML\Effects\BrokenBlock.xml"/>
+    <Enemy type="502" path="Resources\XML\Enemies\Ghost.xml"/>
+    <Enemy type="503" path="Resources\XML\Enemies\Hunchback.xml"/>
+    <Enemy type="504" path="Resources\XML\Enemies\WhiteSkeleton.xml"/>
+    <Enemy type="505" path="Resources\XML\Enemies\Raven.xml"/>
   </Objects>
   
   <Player>
@@ -99,6 +106,12 @@
       <Stair x="120" y="80" dir_x="-1" dir_y="1"/>
       <Object type="301" x="156" y="72" item="308"/>
     </Cell>
+    <Cell row="0" column="2">
+      <Enemy type="505" x="272" y="32" activeL="192" activeR="208" flip="false"/>
+    </Cell>
+    <Cell row="0" column="3">
+      <Enemy type="505" x="496" y="64" activeL="416" activeR="432" flip="false"/>
+    </Cell>
     <Cell row="0" column="4">
       <Stair x="568" y="80" dir_x="1" dir_y="1"/>
     </Cell>
@@ -162,6 +175,7 @@
       <Block x="496" y="176"/>
       <Object type="301" x="412" y="104" item="308"/>
       <Object type="301" x="476" y="152" item="308"/>
+      <Enemy type="505" x="432" y="96" activeL="352" activeR="368" flip="false"/>
       <Stair x="408" y="112" dir_x="-1" dir_y="1"/>
     </Cell>
     <Cell row="1" column="4">
@@ -202,6 +216,7 @@
     <Cell row="2" column="1">
       <Object type="301" x="156" y="264" item="309"/>
       <Stair x="152" y="272" dir_x="-1" dir_y="-1"/>
+      <Enemy type="503" x="176" y="272" activeL="176" activeR="272" flip="true"/>
     </Cell>
     <Cell row="2" column="5">
       <Block x="736" y="192"/>
@@ -253,8 +268,10 @@
       <Block x="352" y="368"/>
       <Block x="368" y="368"/>
       <Block x="304" y="320"/>
+      <Object type="315" x="288" y="320"/>
       <Object type="301" x="284" y="344" item="308"/>
       <Object type="301" x="348" y="344" item="308"/>
+      <Enemy type="503" x="304" y="304" activeL="304" activeR="400" flip="true"/>
     </Cell>
     <Cell row="3" column="3">
       <Block x="384" y="368"/>
@@ -269,6 +286,7 @@
       <Block x="432" y="320"/>
       <Object type="301" x="412" y="344" item="308"/>
       <Object type="301" x="476" y="344" item="310"/>
+      <Enemy type="503" x="432" y="304" activeL="432" activeR="528" flip="true"/>
     </Cell>
     <Cell row="3" column="4">
       <Block x="512" y="368"/>
@@ -299,6 +317,7 @@
       <Block x="736" y="288"/>
       <Object type="301" x="668" y="344" item="308"/>
       <Object type="301" x="732" y="328" item="312"/>
+      <Enemy type="502" x="656" y="336" activeL="544" activeR="560" flip="false"/>
     </Cell>
   </Grid>
   

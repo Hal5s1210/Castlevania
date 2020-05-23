@@ -118,15 +118,46 @@ void Spawner::CreateEnemySpawner(int id)
 		enemySpawners[id] = o;
 		break;
 
+	case BLACKKNIGHT_ID:
+		o = new BlackKnight;
+		enemySpawners[id] = o;
+		break;
+
+	case GHOST_ID:
+		o = new Ghost;
+		enemySpawners[id] = o;
+		break;
+
+	case HUNCHBACK_ID:
+		o = new Hunchback;
+		enemySpawners[id] = o;
+		break;
+
+	case WHITESKELETON_ID:
+		o = new WhiteSkeleton;
+		enemySpawners[id] = o;
+		break;
+
+	case RAVEN_ID:
+		o = new Raven;
+		enemySpawners[id] = o;
+		break;
+
+	case ZOMBIE_ID:
+		o = new Zombie;
+		enemySpawners[id] = o;
+		break;
+
 	default:
 		break;
 	}
 }
-LPENEMY Spawner::SpawnEnemy(int id, float x, float y, bool flip)
+LPENEMY Spawner::SpawnEnemy(int id, float x, float y ,float l, float r, bool flip)
 {
 	LPENEMY e = enemySpawners[id]->Clone();
 	e->SetDefaultPosition(x, y);
 	e->SetDefaultFlip(flip);
+	e->SetActiveLR(l, r);
 	
 	return e;
 }

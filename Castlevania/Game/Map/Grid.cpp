@@ -2,6 +2,7 @@
 #include "..\Objects\Spawner.h"
 #include "..\Parser.h"
 #include "..\..\Framework\Viewport.h"
+#include "..\Scenes\Scene.h"
 
 Grid::Grid(int w, int h, int cw, int ch) :
 	width(w), height(h), cellWidth(cw), cellHeight(ch)
@@ -54,7 +55,23 @@ void Grid::GetObjectlist(std::vector<LPGAMEOBJECT>* list)
 		{
 			for (LPGAMEOBJECT o : cells[i][j])
 			{
-				list->push_back(o);
+				if (dynamic_cast<LPENEMY>(o))
+				{
+					LPENEMY e = dynamic_cast<LPENEMY>(o);
+					if (!e->IsActive())
+					{
+						e->Active();
+						Scenes::GetInstance()->GetScene()->AddEnemy(e);
+					}
+					else
+					{
+						e->InGrid();
+					}
+				}
+				else
+				{
+					list->push_back(o);
+				}
 			}
 		}
 	}

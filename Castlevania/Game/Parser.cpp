@@ -444,9 +444,11 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 				int id = obj.attribute(L"type").as_int();
 				float x = obj.attribute(L"x").as_float();
 				float y = obj.attribute(L"y").as_float();
+				float l = obj.attribute(L"activeL").as_float();
+				float r = obj.attribute(L"activeR").as_float();
 				bool flip = obj.attribute(L"flip").as_bool();
 
-				LPENEMY e = Spawner::GetInstance()->SpawnEnemy(id, x, y, flip);
+				LPENEMY e = Spawner::GetInstance()->SpawnEnemy(id, x, y, l, r, flip);
 				cells->at(i).at(j).push_back(e);
 			}
 			else

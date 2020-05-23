@@ -2,12 +2,12 @@
 
 #include "Enemy.h"
 
-class VampireBat : public Enemy
+class BlackKnight : public Enemy
 {
 private:
-	bool fly;
-	float player_pos_y;
-	float start_pos_y;
+	bool stop;
+	DWORD startStopTime;
+	DWORD stopTime = 1000;
 	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy) {}
@@ -18,4 +18,3 @@ public:
 	void Unactive();
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* simon);
 };
-

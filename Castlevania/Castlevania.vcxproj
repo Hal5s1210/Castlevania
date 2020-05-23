@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Objects\Enemies\BlackKnight.cpp" />
     <ClCompile Include="Game\Objects\Others\BreakableBlock.cpp" />
     <ClCompile Include="Game\Objects\Enemies\Enemy.cpp" />
     <ClCompile Include="Game\Objects\Others\Background.cpp" />
@@ -64,8 +65,14 @@
     <ClCompile Include="Game\Objects\Others\TitleEnter.cpp" />
     <ClCompile Include="Game\Objects\Enemies\VampireBat.cpp" />
     <ClCompile Include="Game\Objects\Others\MovingBlock.cpp" />
+    <ClCompile Include="Game\Objects\Enemies\Ghost.cpp" />
+    <ClCompile Include="Game\Objects\Enemies\Hunchback.cpp" />
+    <ClCompile Include="Game\Objects\Enemies\WhiteSkeleton.cpp" />
+    <ClCompile Include="Game\Objects\Enemies\Zombie.cpp" />
+    <ClCompile Include="Game\Objects\Enemies\Raven.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Objects\Enemies\BlackKnight.h" />
     <ClInclude Include="Game\Objects\Others\BreakableBlock.h" />
     <ClInclude Include="Game\Objects\Enemies\Enemy.h" />
     <ClInclude Include="Game\Objects\Others\Background.h" />
@@ -112,6 +119,11 @@
     <ClInclude Include="Game\Objects\Others\TitleEnter.h" />
     <ClInclude Include="Game\Objects\Enemies\VampireBat.h" />
     <ClInclude Include="Game\Objects\Others\MovingBlock.h" />
+    <ClInclude Include="Game\Objects\Enemies\Ghost.h" />
+    <ClInclude Include="Game\Objects\Enemies\Hunchback.h" />
+    <ClInclude Include="Game\Objects\Enemies\WhiteSkeleton.h" />
+    <ClInclude Include="Game\Objects\Enemies\Zombie.h" />
+    <ClInclude Include="Game\Objects\Enemies\Raven.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

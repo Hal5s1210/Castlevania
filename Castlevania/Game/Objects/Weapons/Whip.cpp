@@ -48,6 +48,14 @@ void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 				}
 
 			}
+			else if (dynamic_cast<LPENEMY>(obj))
+			{
+				LPENEMY e = dynamic_cast<LPENEMY>(obj);
+				if (e->IsAlive())
+				{
+					e->TakeDamage(damage, this);
+				}
+			}
 		}
 	}
 }

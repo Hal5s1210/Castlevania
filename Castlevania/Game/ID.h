@@ -58,6 +58,12 @@
 
 #ifndef ENEMY_ID
 #define VAMPIREBAT_ID					500
+#define BLACKKNIGHT_ID					501
+#define GHOST_ID						502
+#define HUNCHBACK_ID					503
+#define WHITESKELETON_ID				504
+#define RAVEN_ID						505
+#define ZOMBIE_ID						506
 #endif // !ENEMY_ID
 
 

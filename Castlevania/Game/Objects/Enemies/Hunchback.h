@@ -2,15 +2,14 @@
 
 #include "Enemy.h"
 
-class VampireBat : public Enemy
+class Hunchback : public Enemy
 {
 private:
-	bool fly;
-	float player_pos_y;
-	float start_pos_y;
+	bool jump;
+	bool leap;
 	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 		float min_tx, float min_ty, float nx, float ny,
-		float& dx, float& dy) {}
+		float& dx, float& dy);
 
 public:
 	LPENEMY Clone();

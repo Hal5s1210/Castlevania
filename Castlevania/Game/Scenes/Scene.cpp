@@ -12,6 +12,10 @@ void Scene::Load()
 
 void Scene::Unload()
 {
+	enemies.clear();
+	items.clear();
+	effects.clear();
+
 	if (tilemap) delete tilemap;
 	if (grid) delete grid;
 	if (player) delete player;

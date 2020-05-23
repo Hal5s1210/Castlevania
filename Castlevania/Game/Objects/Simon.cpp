@@ -295,14 +295,20 @@ void Simon::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 			on_moving_block = false;
 
 			dx = dx * min_tx + nx * 0.4f;
-			if (ny == -1)dy = dy * min_ty + ny * 0.4f;
+			if (ny == -1)
+			{
+				dy = on_air ? dy * min_ty + ny * 0.4f : 0;
+			}
 
 			if (nx != 0)
 			{
-				vx = 0;
+				float ox, oy;
+				o->GetPosition(ox, oy);
+				if (oy < y + 32)
+					vx = 0;
 			}
 
-			if (ny != 0)
+			if (ny == -1)
 			{
 				vy = 0;
 				if (ny == -1)

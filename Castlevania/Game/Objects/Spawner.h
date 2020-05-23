@@ -17,6 +17,12 @@
 #include "Item.h"
 #include "Enemies\Enemy.h"
 #include "Enemies\VampireBat.h"
+#include "Enemies\BlackKnight.h"
+#include "Enemies\Ghost.h"
+#include "Enemies\Hunchback.h"
+#include "Enemies\WhiteSkeleton.h"
+#include "Enemies\Zombie.h"
+#include "Enemies\Raven.h"
 
 class Spawner
 {
@@ -45,6 +51,6 @@ public:
 	LPGAMEOBJECT SpawnObject(int id, float x, float y, int item_id);
 	LPEFFECT SpawnEffect(int id, float x, float y);
 	LPITEM SpawnItem(int id, float x, float y);
-	LPENEMY SpawnEnemy(int id, float x, float y, bool flip);
+	LPENEMY SpawnEnemy(int id, float x, float y, float l, float r, bool flip);
 };
 

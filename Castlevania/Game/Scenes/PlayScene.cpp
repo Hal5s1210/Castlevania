@@ -23,6 +23,23 @@ void PlayScene::Update(DWORD dt)
 		o->Update(dt);
 	}
 
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		enemies[i]->Update(dt, &objects, player);
+
+		if (!enemies[i]->IsInGrid())
+		{
+			enemies[i]->Unactive();
+			enemies.erase(enemies.begin() + i);
+			--i;
+		}
+		else
+		{
+			if (enemies[i]->IsAlive())
+				objects.push_back(enemies[i]);
+		}
+	}
+
 	for (int i = 0; i < items.size(); i++)
 	{
 		if (!items[i]->IsClaimed())

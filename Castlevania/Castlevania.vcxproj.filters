@@ -162,6 +162,24 @@
     <ClCompile Include="Game\Objects\Others\MovingBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Objects\Enemies\BlackKnight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Enemies\Ghost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Enemies\Hunchback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Enemies\WhiteSkeleton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Enemies\Zombie.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Enemies\Raven.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Castlevania.h">
@@ -300,6 +318,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\Others\MovingBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Enemies\BlackKnight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Enemies\Ghost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Enemies\Hunchback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Enemies\WhiteSkeleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Enemies\Zombie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Enemies\Raven.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

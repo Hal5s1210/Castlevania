@@ -2,27 +2,19 @@
 <Object>
 
   <Sprites>
-    <Sprite id="50000" texture="5000" x="0" y="32" w="16" h="16"/>
-    <Sprite id="50001" texture="5000" x="16" y="32" w="16" h="16"/>
-    <Sprite id="50002" texture="5000" x="0" y="48" w="16" h="16"/>
-    <Sprite id="50003" texture="5000" x="16" y="48" w="16" h="16"/>
+    <Sprite id="50200" texture="5000" x="48" y="16" w="16" h="16"/>
+    <Sprite id="50201" texture="5000" x="64" y="16" w="16" h="16"/>
   </Sprites>
 
   <Animations>
-    <Animation id="50000">
-      <Frame sprite="50000" time="100"/>
-    </Animation>
-    <Animation id="50001">
-      <Frame sprite="50001" time="100"/>
-      <Frame sprite="50002" time="100"/>
-      <Frame sprite="50003" time="100"/>
-      <Frame sprite="50002" time="100"/>
+    <Animation id="50200">
+      <Frame sprite="50200" time="100"/>
+      <Frame sprite="50201" time="100"/>
     </Animation>
   </Animations>
 
   <AnimationSet>
-    <Animation id="50000"/>
-    <Animation id="50001"/>
+    <Animation id="50200"/>
   </AnimationSet>
 
 </Object>

@@ -33,6 +33,7 @@ protected:
 	Simon* player;
 	
 	std::vector<LPGAMEOBJECT> objects;
+	std::vector<LPENEMY> enemies;
 	std::vector<LPEFFECT> effects;
 	std::vector<LPITEM> items;
 
@@ -52,6 +53,7 @@ public:
 
 	void AddEffect(LPEFFECT effect) { effects.push_back(effect); }
 	void AddItem(LPITEM item) { items.push_back(item); }
+	void AddEnemy(LPENEMY enemy) { enemies.push_back(enemy); }
 
 	void NextArea(int i) { tilemap->SetArea(i); }
 

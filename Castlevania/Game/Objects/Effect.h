@@ -31,6 +31,9 @@ public:
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
 	void Update(DWORD dt);
 	void Render(float x, float y);
+
+	static void AddHitEffect(LPGAMEOBJECT hitter, LPGAMEOBJECT obj);
+	static void AddDeathEffect(RECT r, float x, float y);
 };
 
 
