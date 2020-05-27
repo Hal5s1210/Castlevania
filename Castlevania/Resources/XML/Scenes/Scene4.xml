@@ -5,6 +5,7 @@
     <Texture id="2000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
     <Texture id="3000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
     <Texture id="4000" path="Resources\Textures\Effects.png" red="116" green="116" blue="116"/>
+    <Texture id="5000" path="Resources\Textures\Enemies.png" red="116" green="116" blue="116"/>
     <Texture id="8003" path="Resources\Textures\Tileset4.png" red="255" green="0" blue="255"/>
     <Texture id="7000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
     <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
@@ -14,25 +15,28 @@
   </Sounds>
 
   <Objects>
-    <Object type ="301" path="Resources\XML\Others\Candle.xml"/>
-    <Item type ="302" path="Resources\XML\Items\Whip.xml"/>
-    <Item type ="303" path="Resources\XML\Items\Dagger.xml"/>
-    <Item type ="304" path="Resources\XML\Items\Axe.xml"/>
-    <Item type ="305" path="Resources\XML\Items\Boomerang.xml"/>
-    <Item type ="306" path="Resources\XML\Items\Holy_Water.xml"/>
-    <Item type ="307" path="Resources\XML\Items\Stop_Watch.xml"/>
-    <Item type ="308" path="Resources\XML\Items\Small_Heart.xml"/>
-    <Item type ="309" path="Resources\XML\Items\Big_Heart.xml"/>
-    <Item type ="310" path="Resources\XML\Items\Money_100.xml"/>
-    <Item type ="311" path="Resources\XML\Items\Money_400.xml"/>
-    <Item type ="312" path="Resources\XML\Items\Money_700.xml"/>
-    <Item type ="313" path="Resources\XML\Items\Money_1000.xml"/>
-    <Effect type ="400" path="Resources\XML\Effects\Hit.xml"/>
-    <Effect type ="401" path="Resources\XML\Effects\Dead.xml"/>
-    <Effect type ="402" path="Resources\XML\Effects\100_Point.xml"/>
-    <Effect type ="403" path="Resources\XML\Effects\400_Point.xml"/>
-    <Effect type ="404" path="Resources\XML\Effects\700_Point.xml"/>
-    <Effect type ="405" path="Resources\XML\Effects\1000_Point.xml"/>
+    <Object type="301" path="Resources\XML\Others\Candle.xml"/>
+    <Object type="316" path="Resources\XML\Others\BreakableBlock_S4.xml"/>
+    <Item type="302" path="Resources\XML\Items\Whip.xml"/>
+    <Item type="303" path="Resources\XML\Items\Dagger.xml"/>
+    <Item type="304" path="Resources\XML\Items\Axe.xml"/>
+    <Item type="305" path="Resources\XML\Items\Boomerang.xml"/>
+    <Item type="306" path="Resources\XML\Items\Holy_Water.xml"/>
+    <Item type="307" path="Resources\XML\Items\Stop_Watch.xml"/>
+    <Item type="308" path="Resources\XML\Items\Small_Heart.xml"/>
+    <Item type="309" path="Resources\XML\Items\Big_Heart.xml"/>
+    <Item type="310" path="Resources\XML\Items\Money_100.xml"/>
+    <Item type="311" path="Resources\XML\Items\Money_400.xml"/>
+    <Item type="312" path="Resources\XML\Items\Money_700.xml"/>
+    <Item type="313" path="Resources\XML\Items\Money_1000.xml"/>
+    <Effect type="400" path="Resources\XML\Effects\Hit.xml"/>
+    <Effect type="401" path="Resources\XML\Effects\Dead.xml"/>
+    <Effect type="402" path="Resources\XML\Effects\100_Point.xml"/>
+    <Effect type="403" path="Resources\XML\Effects\400_Point.xml"/>
+    <Effect type="404" path="Resources\XML\Effects\700_Point.xml"/>
+    <Effect type="405" path="Resources\XML\Effects\1000_Point.xml"/>
+    <Effect type="406" path="Resources\XML\Effects\BrokenBlock.xml"/>
+    <Enemy type="506" path="Resources\XML\Enemies\Zombie.xml"/>
   </Objects>
 
   <Player>
@@ -141,6 +145,9 @@
       <Block x="368" y="176"/>
       <Object type="301" x="284" y="152" item="308"/>
       <Object type="301" x="348" y="120" item="308"/>
+      <Enemy type="506" x="256" y="78" activeL="112" activeR="256" flip="false"/>
+      <Enemy type="506" x="272" y="78" activeL="112" activeR="272" flip="false"/>
+      <Enemy type="506" x="288" y="78" activeL="112" activeR="288" flip="false"/>
       <Stair x="296" y="96" dir_x="1" dir_y="1"/>
       <Stair x="360" y="160" dir_x="-1" dir_y="-1"/>
     </Cell>
@@ -185,6 +192,7 @@
       <Block x="760" y="128"/>
       <Block x="760" y="144"/>
       <Block x="760" y="160"/>
+      <Object type="316" x="688" y="144"/>
       <Object type="301" x="668" y="120" item="308"/>
       <Object type="301" x="732" y="120" item="308"/>
       <Stair x="680" y="128" dir_x="1" dir_y="-1"/>

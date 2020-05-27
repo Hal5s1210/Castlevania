@@ -57,7 +57,7 @@ LPGAMEOBJECT Candle::Clone()
 	return clone;
 }
 
-bool Candle::IsHitted()
+bool Candle::IsHit()
 {
 	if (GetTickCount() - invulnerableTimeStart >= invulnerableTime)
 	{
@@ -69,6 +69,8 @@ bool Candle::IsHitted()
 
 void Candle::TakeDamage(int damage, LPGAMEOBJECT hitter)
 {
+	if (IsHit()) return;
+
 	LPSCENE scene = Scenes::GetInstance()->GetScene();
 
 	invulnerableTimeStart = GetTickCount();

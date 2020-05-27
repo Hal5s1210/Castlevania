@@ -44,7 +44,7 @@ LPGAMEOBJECT BreakableBlock::Clone()
 	return clone;
 }
 
-bool BreakableBlock::IsHitted()
+bool BreakableBlock::IsHit()
 {
 	if (GetTickCount() - invulnerableTimeStart >= invulnerableTime)
 	{

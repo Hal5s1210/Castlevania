@@ -22,6 +22,7 @@
 #include "GameObject.h"
 #include "Weapons\Whip.h"
 #include "Weapons\SubWeapon.h"
+#include "Others\Stair.h"
 
 class Simon : public GameObject
 {
@@ -92,6 +93,9 @@ public:
 	SubWeapon* GetSubWeapon() { return subweapon; }
 
 	void SetState(eState state);
+
+	void HitStair(Stair* stair);
+	void TakeHit(int damage);
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render(float x = 0, float y = 0);

@@ -23,7 +23,7 @@ public:
 	void HoldItem(int id) { item = id; }
 	void SetHP(int n) { hp = n; }
 
-	bool IsHitted();
+	bool IsHit();
 	bool IsAlive() { return alive; }
 	void TakeDamage();
 

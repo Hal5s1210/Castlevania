@@ -241,6 +241,7 @@ void Parser::Parse_Player(Simon** player, pugi::xml_node root)
 
 	(*player)->SetPosition(x, y);
 	(*player)->SetFlip(flip);
+	(*player)->SetAnimation(0);
 
 }
 

@@ -1,4 +1,11 @@
 #include "VampireBat.h"
+#include "..\..\Scenes\Scene.h"
+
+VampireBat::VampireBat()
+{
+	hp = 0;
+	score = 200;
+}
 
 LPENEMY VampireBat::Clone()
 {
@@ -11,12 +18,13 @@ LPENEMY VampireBat::Clone()
 	return clone;
 }
 
-void VampireBat::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* simon)
+void VampireBat::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
-	Enemy::Update(dt);
-
+	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
-	simon->GetPosition(p_x, p_y);
+	player->GetPosition(p_x, p_y);
+
+	Enemy::Update(dt);
 	if (activeL <= p_x && p_x <= activeR &&
 		default_y <= p_y && p_y <= default_y + 64)
 	{
@@ -41,12 +49,16 @@ void VampireBat::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* sim
 
 	x += dx;
 	y += dy;
+
+	if (!incell && !outview)
+		Enemy::CheckView();
 }
 
 void VampireBat::Active()
 {
 	Enemy::Active();
 	fly = false;
+	hp = 1;
 }
 
 

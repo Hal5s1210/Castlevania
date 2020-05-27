@@ -1,4 +1,11 @@
 #include "BlackKnight.h"
+#include "..\..\Scenes\Scene.h"
+
+BlackKnight::BlackKnight()
+{
+	hp = 4;
+	score = 400;
+}
 
 LPENEMY BlackKnight::Clone()
 {
@@ -11,7 +18,7 @@ LPENEMY BlackKnight::Clone()
 	return clone;
 }
 
-void BlackKnight::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* simon)
+void BlackKnight::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	Enemy::Update(dt);
 
@@ -39,11 +46,15 @@ void BlackKnight::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* si
 
 	x += dx;
 	y += dy;
+
+	if (!incell && !outview)
+		Enemy::CheckView();
 }
 
 void BlackKnight::Active()
 {
 	Enemy::Active();
+	hp = 4;
 }
 
 

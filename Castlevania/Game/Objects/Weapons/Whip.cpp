@@ -34,7 +34,7 @@ void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 			if (dynamic_cast<Candle*>(obj))
 			{
 				Candle* candle = dynamic_cast<Candle*>(obj);
-				if (candle->IsAlive() && !candle->IsHitted())
+				if (candle->IsAlive() && !candle->IsHit())
 				{
 					candle->TakeDamage(damage, this);
 				}
@@ -42,7 +42,7 @@ void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 			else if (dynamic_cast<BreakableBlock*>(obj))
 			{
 				BreakableBlock* block = dynamic_cast<BreakableBlock*>(obj);
-				if (block->IsAlive() && !block->IsHitted())
+				if (block->IsAlive() && !block->IsHit())
 				{
 					block->TakeDamage();
 				}
@@ -119,9 +119,9 @@ void Whip::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 		if (!flip) l -= w;
 
-		t = y;
+		t = y + 2;
 		r = l + w;
-		b = t + h;
+		b = t + h - 2;
 	}
 	else
 	{

@@ -5,13 +5,16 @@
 class Zombie : public Enemy
 {
 private:
+	bool move;
 	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 		float min_tx, float min_ty, float nx, float ny,
-		float& dx, float& dy) {}
+		float& dx, float& dy);
 
 public:
+	Zombie();
 	LPENEMY Clone();
 	void Active();
 	void Unactive();
-	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* simon);
+	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
+	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

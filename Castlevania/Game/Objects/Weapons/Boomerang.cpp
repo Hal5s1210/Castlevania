@@ -116,7 +116,7 @@ void Boomerang::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 		{
 			Candle* candle = dynamic_cast<Candle*>(o);
 
-			if (candle->IsAlive() && !candle->IsHitted())
+			if (candle->IsAlive())
 			{
 				candle->TakeDamage(damage, this);
 			}

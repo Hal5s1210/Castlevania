@@ -18,16 +18,11 @@ void PlayScene::Update(DWORD dt)
 {
 	grid->GetObjectlist(&objects);
 
-	for (LPGAMEOBJECT o : objects)
-	{
-		o->Update(dt);
-	}
-
 	for (int i = 0; i < enemies.size(); i++)
 	{
-		enemies[i]->Update(dt, &objects, player);
+		enemies[i]->Update(dt, &objects);
 
-		if (!enemies[i]->IsInGrid())
+		if (!enemies[i]->IsInCell() && (enemies[i]->IsOutView() || !enemies[i]->IsAlive()))
 		{
 			enemies[i]->Unactive();
 			enemies.erase(enemies.begin() + i);
@@ -35,9 +30,18 @@ void PlayScene::Update(DWORD dt)
 		}
 		else
 		{
-			if (enemies[i]->IsAlive())
+			enemies[i]->InCell(false);
+			if (enemies[i]->IsAlive() && !enemies[i]->IsOutView())
 				objects.push_back(enemies[i]);
 		}
+	}
+
+	player->Update(dt, &objects);
+
+	for (LPGAMEOBJECT o : objects)
+	{
+		if (dynamic_cast<Enemy*>(o)) continue;
+		o->Update(dt);
 	}
 
 	for (int i = 0; i < items.size(); i++)
@@ -62,8 +66,6 @@ void PlayScene::Update(DWORD dt)
 		}
 		objects.push_back(items[i]);
 	}
-
-	player->Update(dt, &objects);
 
 	for (int i = 0; i < effects.size(); i++)
 	{

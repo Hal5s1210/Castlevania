@@ -1,6 +1,7 @@
 #include "Item.h"
 #include "Spawner.h"
 #include "..\Scenes\Scene.h"
+#include "..\..\Framework\Collision.h"
 
 
 Item::Item()
@@ -21,6 +22,22 @@ void Item::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	}
 
 	GameObject::Update(dt);
+
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
+
+	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
+	float pl, pt, pr, pb;
+	player->GetBoundingBox(pl, pt, pr, pb);
+
+	if (Collision::AABB(l, t, r, b, pl, pt, pr, pb))
+	{
+		if (!IsClaimed())
+		{
+			Board::GetInstance()->ItemClaimed(this);
+			OutputDebugString(L"Claimed Item\n");
+		}
+	}
 
 	vy += 0.00025 * dt;
 

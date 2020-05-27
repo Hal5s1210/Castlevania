@@ -14,6 +14,8 @@ private:
 public:
 	LPGAMEOBJECT Clone() { return NULL; }
 
+	void Update(DWORD dt);
+
 	void SetDirection(int x, int y) { direction_x = x; direction_y = y; }
 	void GetDirection(int& x, int& y) { x = direction_x; y = direction_y; }
 

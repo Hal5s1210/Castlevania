@@ -29,12 +29,14 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	ProcessState();
 
-	if (on_moving_block)
+	float spd = vx;
+	if (on_moving_block && !on_air)
 	{
 		vx += block_vx;
 	}
 
 	GameObject::Update(dt);
+	vx = spd;
 
 
 	if (auto_pilot)
@@ -83,77 +85,12 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		use_stair = false;
 	}
 
-	//check aabb
-	for (LPGAMEOBJECT o : *objects)
-	{
-		float l, t, r, b;
-		GetBoundingBox(l, t, r, b);
-
-		if (dynamic_cast<Item*>(o))
-		{
-			float lo, to, ro, bo;
-			o->GetBoundingBox(lo, to, ro, bo);
-
-			if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
-			{
-				LPITEM item = dynamic_cast<Item*>(o);
-				if (!item->IsClaimed())
-				{
-					Board::GetInstance()->ItemClaimed(item);
-					OutputDebugString(L"Claimed Item\n");
-				}
-			}
-		}
-		else if (dynamic_cast<Stair*>(o))
-		{
-			Stair* s = dynamic_cast<Stair*>(o);
-
-			float lo, to, ro, bo;
-			o->GetBoundingBox(lo, to, ro, bo);
-
-			if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
-			{
-				if (!on_stair)
-				{
-					use_stair = true;
-
-					s->GetDirection(stair_dir_x, stair_dir_y);
-					s->GetPosition(auto_dest_x, auto_dest_y);
-					auto_dest_y = y;
-					auto_dir_x = x < auto_dest_x ? 1 : x == auto_dest_x ? 0 : -1;
-				}
-				else
-				{
-					int stair_dest_dir_x, stair_dest_dir_y;
-					float stair_dest_pos_x, stair_dest_pos_y;
-					s->GetDirection(stair_dest_dir_x, stair_dest_dir_y);
-					s->GetPosition(stair_dest_pos_x, stair_dest_pos_y);
-
-					if (stair_dir_x != stair_dest_dir_x && stair_dir_y != stair_dest_dir_y)
-					{
-						if ((stair_dir_x == 1 && r > ro) || (stair_dir_x == -1 && l < lo))
-						{
-							on_stair = false;
-							use_stair = false;
-							state = Simon::Idle;
-							x = stair_dest_pos_x;
-							y = stair_dest_pos_y - 16 - 0.4f;
-						}
-					}
-				}
-				
-			}
-		}
-	}
-
 	if (on_air && !on_stair)
 	{
 		vx = speed_before_jump;
 	}
 
-	//sweptaabb
 	GameObject::CheckSweptCollision(objects);
-	
 
 	if (attack)
 	{
@@ -287,7 +224,8 @@ void Simon::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 		LPGAMEOBJECT o = coEvent->obj;
 
 		if (dynamic_cast<Block*>(o) ||
-			dynamic_cast<BreakableBlock*>(o))
+			dynamic_cast<BreakableBlock*>(o) ||
+			dynamic_cast<MovingBlock*>(o))
 		{
 			if (on_stair) continue;
 			if (dynamic_cast<BreakableBlock*>(o) && !dynamic_cast<BreakableBlock*>(o)->IsAlive()) continue;
@@ -295,10 +233,7 @@ void Simon::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 			on_moving_block = false;
 
 			dx = dx * min_tx + nx * 0.4f;
-			if (ny == -1)
-			{
-				dy = on_air ? dy * min_ty + ny * 0.4f : 0;
-			}
+			if (ny == -1)dy = on_air ? dy * min_ty + ny * 0.4f : 0;
 
 			if (nx != 0)
 			{
@@ -311,38 +246,25 @@ void Simon::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 			if (ny == -1)
 			{
 				vy = 0;
-				if (ny == -1)
-				{
-					if (on_air && attack)
-					{
-						vx = 0;
-					}
-					on_air = false;
-				}
-			}
-		}
-		else if (dynamic_cast<MovingBlock*>(o))
-		{
-			if (ny == -1)
-			{
-				dy = dy * min_ty + ny * 0.4f;
-
-				vy = 0;
 				if (on_air && attack)
 				{
 					vx = 0;
 				}
 				on_air = false;
 
-				on_moving_block = true;
+				if (dynamic_cast<MovingBlock*>(o))
+				{
+					on_moving_block = true;
 
-				float bvx, bvy;
-				o->GetSpeed(bvx, bvy);
-				block_vx = bvx;
+					float bvx, bvy;
+					o->GetSpeed(bvx, bvy);
+					block_vx = bvx;
+				}
 			}
 			else
 			{
 				on_moving_block = false;
+				block_vx = 0;
 			}
 		}
 		else if (dynamic_cast<Portal*>(o))
@@ -366,6 +288,45 @@ void Simon::AutoMove()
 		{
 			x = auto_dest_x;
 			reach_dest = true;
+		}
+	}
+}
+
+
+void Simon::HitStair(Stair* s)
+{
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
+
+	float sl, st, sr, sb;
+	s->GetBoundingBox(sl, st, sr, sb);
+
+	if (!on_stair)
+	{
+		use_stair = true;
+
+		s->GetDirection(stair_dir_x, stair_dir_y);
+		s->GetPosition(auto_dest_x, auto_dest_y);
+		auto_dest_y = y;
+		auto_dir_x = x < auto_dest_x ? 1 : x == auto_dest_x ? 0 : -1;
+	}
+	else
+	{
+		int stair_dest_dir_x, stair_dest_dir_y;
+		float stair_dest_pos_x, stair_dest_pos_y;
+		s->GetDirection(stair_dest_dir_x, stair_dest_dir_y);
+		s->GetPosition(stair_dest_pos_x, stair_dest_pos_y);
+
+		if (stair_dir_x != stair_dest_dir_x && stair_dir_y != stair_dest_dir_y)
+		{
+			if ((stair_dir_x == 1 && r > sr) || (stair_dir_x == -1 && l < sl))
+			{
+				on_stair = false;
+				use_stair = false;
+				state = Simon::Idle;
+				x = stair_dest_pos_x;
+				y = stair_dest_pos_y - 16 - 0.4f;
+			}
 		}
 	}
 }
@@ -419,7 +380,7 @@ void Simon::SetState(eState state)
 		break;
 
 	case Simon::StairUp:
-		if (use_stair && !on_air)
+		if (!attack && use_stair && !on_air)
 		{
 			if (!on_stair)
 			{
@@ -446,7 +407,7 @@ void Simon::SetState(eState state)
 		break;
 
 	case Simon::StairDown:
-		if (use_stair && !on_air)
+		if (!attack && use_stair && !on_air)
 		{
 			if (!on_stair)
 			{
@@ -639,4 +600,9 @@ void Simon::ProcessState()
 	default:
 		break;
 	}
+}
+
+void Simon::TakeHit(int damage)
+{
+
 }

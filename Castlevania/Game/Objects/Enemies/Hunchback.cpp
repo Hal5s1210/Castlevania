@@ -1,5 +1,15 @@
 #include "Hunchback.h"
 #include "..\Spawner.h"
+#include "..\..\Scenes\Scene.h"
+
+Hunchback::Hunchback()
+{
+	hp = 1;
+	score = 500;
+	timebetweenjumps = 200;
+	lastjump = -1;
+	land = false;
+}
 
 LPENEMY Hunchback::Clone()
 {
@@ -12,38 +22,66 @@ LPENEMY Hunchback::Clone()
 	return clone;
 }
 
-void Hunchback::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* simon)
+void Hunchback::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
-	simon->GetPosition(p_x, p_y);
+	player->GetPosition(p_x, p_y);
 
 	Enemy::Update(dt);
 
-	if (!jump && activeL <= p_x && p_x <= activeR)
+	if (!attack && activeL <= p_x && p_x <= activeR)
 	{
-		jump = true;
-		leap = true;
-		vy = -0.05;
-		SetAnimation(1);
+		attack = true;
+		jump = 1;
 	}
 
-	if (leap)
+	if (p_x < x && flip) flip = false;
+	if (p_x > x && !flip) flip = true;
+
+	if (attack && land)
 	{
-		vx = flip ? 0.15 : -0.15;
+		if (GetTickCount() - lastjump >= timebetweenjumps)
+		{
+			switch (jump)
+			{
+			case 1:
+				vx = flip ? 0.15 : -0.15;
+				vy = -0.1;
+				land = false;
+				SetAnimation(1);
+				break;
+			case 2:
+				vx = flip ? 0.08 : -0.08;
+				vy = -0.2;
+				land = false;
+				SetAnimation(1);
+				break;
+			default:
+				SetAnimation(0);
+				land = true;
+				lastjump = GetTickCount();
+				vx = vy = 0;
+				break;
+			}
+
+			jump = rand() % 3;
+		}
 	}
-	else vx = 0;
 
-
-	if (leap) vy += dt * 0.0005;
-	else vy = 0;
+	vy += dt * 0.0005;
 
 	GameObject::CheckSweptCollision(objects);
 
+	if (!incell && !outview)
+		Enemy::CheckView();
 }
 
 void Hunchback::Active()
 {
 	Enemy::Active();
+	hp = 1;
+	attack = false;
 }
 
 
@@ -64,14 +102,15 @@ void Hunchback::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 			dynamic_cast<BreakableBlock*>(o))
 		{
 			dx = dx * min_tx + nx * 0.4f;
-			if (ny == -1) dy = leap ? dy * min_ty + ny * 0.4f : 0;
+			dy = jump > 0 ? dy * min_ty + ny * 0.4f : 0;
 
-			if (ny != 0)
+			if (ny == -1)
 			{
-				vy = 0;
-				if (leap)
+				vx = vy = 0;
+				if (!land)
 				{
-					leap = false;
+					lastjump = GetTickCount();
+					land = true;
 					SetAnimation(0);
 				}
 			}

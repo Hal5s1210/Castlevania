@@ -2,14 +2,14 @@
 <Object>
 
   <Sprites>
-    <Sprite id="50400" texture="5000" x="64" y="0" w="16" h="32"/>
-    <Sprite id="50401" texture="5000" x="80" y="0" w="16" h="32"/>
+    <Sprite id="50400" texture="5000" x="80" y="0" w="16" h="32"/>
+    <Sprite id="50401" texture="5000" x="96" y="0" w="16" h="32"/>
   </Sprites>
 
   <Animations>
     <Animation id="50400">
       <Frame sprite="50400" time="100"/>
-      <Frame sprite="50400" time="100"/>
+      <Frame sprite="50401" time="100"/>
     </Animation>
   </Animations>
 

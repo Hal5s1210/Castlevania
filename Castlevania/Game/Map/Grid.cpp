@@ -65,7 +65,7 @@ void Grid::GetObjectlist(std::vector<LPGAMEOBJECT>* list)
 					}
 					else
 					{
-						e->InGrid();
+						e->InCell(true);
 					}
 				}
 				else

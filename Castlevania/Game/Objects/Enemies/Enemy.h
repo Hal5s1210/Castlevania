@@ -7,21 +7,29 @@ class Enemy : public GameObject
 {
 protected:
 	bool active;
-	bool ingrid;
+	bool incell;
 	bool alive;
 	bool outview;
 	int hp;
+	bool hit;
+	DWORD invulnerableTime;
+	DWORD invulnerableTimeStart;
 	int score;
 	float default_x, default_y;
 	bool default_flip;
 	float activeL, activeR;
 
+	void CheckView();
+
 public:
+	Enemy();
+
 	bool IsAlive() { return alive; }
 	bool IsActive() { return active; }
-	bool IsInGrid() { return ingrid; }
+	bool IsInCell() { return incell; }
 	bool IsOutView() { return outview; }
-	void InGrid() { ingrid = true; }
+	void InCell(bool cell) { incell = cell; }
+	bool IsHit();
 
 	virtual void Active();
 	virtual void Unactive();
@@ -34,10 +42,10 @@ public:
 	void GetDefaultPosition(float& x, float& y) { x = default_x; y = default_y; }
 
 	virtual Enemy* Clone() = 0;
-	virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* simon) = 0;
+	virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects) = 0;
 	virtual void Update(DWORD dt);
 	virtual void Render(float x, float y);
-	void GetBoundingBox(float& l, float& t, float& r, float& b);
+	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 };
 typedef Enemy* LPENEMY;
 

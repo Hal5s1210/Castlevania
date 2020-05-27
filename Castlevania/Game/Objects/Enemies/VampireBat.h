@@ -13,9 +13,10 @@ private:
 		float& dx, float& dy) {}
 
 public:
+	VampireBat();
 	LPENEMY Clone();
 	void Active();
 	void Unactive();
-	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* simon);
+	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 };
 

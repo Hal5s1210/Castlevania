@@ -1,4 +1,11 @@
 #include "Ghost.h"
+#include "..\..\Scenes\Scene.h"
+
+Ghost::Ghost()
+{
+	hp = 3;
+	score = 300;
+}
 
 LPENEMY Ghost::Clone()
 {
@@ -11,33 +18,38 @@ LPENEMY Ghost::Clone()
 	return clone;
 }
 
-void Ghost::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects, Simon* simon)
+void Ghost::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
-	if (alive) ingrid = true;
-
+	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
-	simon->GetPosition(p_x, p_y);
+	player->GetPosition(p_x, p_y);
 
-	if (!appear && p_x >= activeL && p_x <= activeR)
+	if (!alive && hp > 0 && p_x >= activeL && p_x <= activeR)
 	{
-		appear = true;
+		alive = true;
 	}
 
 	Enemy::Update(dt);
 
-	if (appear)
+	if (alive)
 	{
+		if (p_x < x && flip) flip = false;
+		if (p_x > x && !flip) flip = true;
+
 		vx = flip ? 0.04 : -0.04;
+		vy = p_y > y ? 0.02 : -0.02;
+
+		x += dx;
+		y += dy;
+
+		if (!incell && !outview)
+			Enemy::CheckView();
 	}
 
-
-	x += dx;
-	y += dy;
 }
 
 void Ghost::Render(float x, float y)
 {
-	if (!appear) return;
 	Enemy::Render(x, y);
 }
 
@@ -45,6 +57,8 @@ void Ghost::Render(float x, float y)
 void Ghost::Active()
 {
 	Enemy::Active();
+	alive = false;
+	hp = 3;
 }
 
 

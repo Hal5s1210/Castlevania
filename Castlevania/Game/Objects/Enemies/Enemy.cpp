@@ -1,17 +1,23 @@
 #include "Enemy.h"
 #include "..\Effect.h"
+#include "..\..\..\Framework\Viewport.h"
+#include "..\..\Board.h"
+
+Enemy::Enemy()
+{
+	invulnerableTime = 300;
+}
 
 void Enemy::Update(DWORD dt)
 {
-	if (!alive || !active || !ingrid) return;
+	if (!alive || !active || outview) return;
 	GameObject::Update(dt);
 }
 
 void Enemy::Render(float x, float y)
 {
-	if (!active || !ingrid) return;
-	ingrid = false;
-	if (!alive) return;
+	if (!active) return;
+	if (!alive || outview) return;
 
 	currentAnimation->first->Draw(currentAnimation->second, this->x + x, this->y + y, 255, flip);
 
@@ -39,7 +45,8 @@ void Enemy::Active()
 {
 	alive = true;
 	active = true;
-	ingrid = true;
+	incell = true;
+	outview = false;
 	SetPosition(default_x, default_y);
 	SetAnimation(0);
 	SetFlip(default_flip);
@@ -50,13 +57,28 @@ void Enemy::Unactive()
 {
 	active = false;
 	alive = false;
-	ingrid = false;
+	incell = false;
+	outview = true;
+}
+
+bool Enemy::IsHit()
+{
+	if (GetTickCount() - invulnerableTimeStart >= invulnerableTime)
+	{
+		hit = false;
+	}
+	return hit;
 }
 
 void Enemy::TakeDamage(int damage, LPGAMEOBJECT hitter)
 {
+	if (IsHit()) return;
+
+	invulnerableTimeStart = GetTickCount();
+	hit = true;
+
 	Effect::AddHitEffect(hitter, this);
-	hp = 0;
+	hp -= damage;
 
 	if (hp <= 0)
 	{
@@ -67,5 +89,19 @@ void Enemy::TakeDamage(int damage, LPGAMEOBJECT hitter)
 		RECT r = sprite->GetRect();
 
 		Effect::AddDeathEffect(r, x, y);
+
+		Board::GetInstance()->AddScore(score);
+	}
+}
+
+void Enemy::CheckView()
+{
+	float cam_x, cam_y;
+	int cam_w, cam_h;
+	Viewport::GetInstance()->GetSize(cam_w, cam_h);
+	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+	if (x < cam_x || x > cam_x + cam_w || y < cam_y || y> cam_y + cam_w)
+	{
+		outview = true;
 	}
 }

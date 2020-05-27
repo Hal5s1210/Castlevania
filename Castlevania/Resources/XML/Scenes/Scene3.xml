@@ -15,26 +15,26 @@
   </Sounds>
 
   <Objects>
-    <Object type ="301" path="Resources\XML\Others\Candle.xml"/>
+    <Object type="301" path="Resources\XML\Others\Candle.xml"/>
     <Object type="315" path="Resources\XML\Others\BreakableBlock_S3.xml"/>
-    <Item type ="302" path="Resources\XML\Items\Whip.xml"/>
-    <Item type ="303" path="Resources\XML\Items\Dagger.xml"/>
-    <Item type ="304" path="Resources\XML\Items\Axe.xml"/>
-    <Item type ="305" path="Resources\XML\Items\Boomerang.xml"/>
-    <Item type ="306" path="Resources\XML\Items\Holy_Water.xml"/>
-    <Item type ="307" path="Resources\XML\Items\Stop_Watch.xml"/>
-    <Item type ="308" path="Resources\XML\Items\Small_Heart.xml"/>
-    <Item type ="309" path="Resources\XML\Items\Big_Heart.xml"/>
-    <Item type ="310" path="Resources\XML\Items\Money_100.xml"/>
-    <Item type ="311" path="Resources\XML\Items\Money_400.xml"/>
-    <Item type ="312" path="Resources\XML\Items\Money_700.xml"/>
-    <Item type ="313" path="Resources\XML\Items\Money_1000.xml"/>
-    <Effect type ="400" path="Resources\XML\Effects\Hit.xml"/>
-    <Effect type ="401" path="Resources\XML\Effects\Dead.xml"/>
-    <Effect type ="402" path="Resources\XML\Effects\100_Point.xml"/>
-    <Effect type ="403" path="Resources\XML\Effects\400_Point.xml"/>
-    <Effect type ="404" path="Resources\XML\Effects\700_Point.xml"/>
-    <Effect type ="405" path="Resources\XML\Effects\1000_Point.xml"/>
+    <Item type="302" path="Resources\XML\Items\Whip.xml"/>
+    <Item type="303" path="Resources\XML\Items\Dagger.xml"/>
+    <Item type="304" path="Resources\XML\Items\Axe.xml"/>
+    <Item type="305" path="Resources\XML\Items\Boomerang.xml"/>
+    <Item type="306" path="Resources\XML\Items\Holy_Water.xml"/>
+    <Item type="307" path="Resources\XML\Items\Stop_Watch.xml"/>
+    <Item type="308" path="Resources\XML\Items\Small_Heart.xml"/>
+    <Item type="309" path="Resources\XML\Items\Big_Heart.xml"/>
+    <Item type="310" path="Resources\XML\Items\Money_100.xml"/>
+    <Item type="311" path="Resources\XML\Items\Money_400.xml"/>
+    <Item type="312" path="Resources\XML\Items\Money_700.xml"/>
+    <Item type="313" path="Resources\XML\Items\Money_1000.xml"/>
+    <Effect type="400" path="Resources\XML\Effects\Hit.xml"/>
+    <Effect type="401" path="Resources\XML\Effects\Dead.xml"/>
+    <Effect type="402" path="Resources\XML\Effects\100_Point.xml"/>
+    <Effect type="403" path="Resources\XML\Effects\400_Point.xml"/>
+    <Effect type="404" path="Resources\XML\Effects\700_Point.xml"/>
+    <Effect type="405" path="Resources\XML\Effects\1000_Point.xml"/>
     <Effect type="406" path="Resources\XML\Effects\BrokenBlock.xml"/>
     <Enemy type="502" path="Resources\XML\Enemies\Ghost.xml"/>
     <Enemy type="503" path="Resources\XML\Enemies\Hunchback.xml"/>
@@ -52,6 +52,7 @@
       <HolyWater path="Resources\XML\Weapons\Holy_Water.xml"/>
     </SubWeapon>
     <Position x="720" y="318" flip="false"/>
+    <!--Position x="60" y="96" flip="false"/-->
   </Player>
 
   <Tilesets>
@@ -107,10 +108,10 @@
       <Object type="301" x="156" y="72" item="308"/>
     </Cell>
     <Cell row="0" column="2">
-      <Enemy type="505" x="272" y="32" activeL="192" activeR="208" flip="false"/>
+      <Enemy type="505" x="272" y="32" activeL="208" activeR="352" flip="false"/>
     </Cell>
     <Cell row="0" column="3">
-      <Enemy type="505" x="496" y="64" activeL="416" activeR="432" flip="false"/>
+      <Enemy type="505" x="496" y="64" activeL="416" activeR="560" flip="false"/>
     </Cell>
     <Cell row="0" column="4">
       <Stair x="568" y="80" dir_x="1" dir_y="1"/>
@@ -162,6 +163,7 @@
       <Block x="368" y="160"/>
       <Object type="301" x="284" y="136" item="308"/>
       <Object type="301" x="348" y="136" item="308"/>
+      <Enemy type="504" x="360" y="126" activeL="240" activeR="360" flip="false"/>
       <Stair x="376" y="144" dir_x="1" dir_y="-1"/>
     </Cell>
     <Cell row="1" column="3">
@@ -175,7 +177,7 @@
       <Block x="496" y="176"/>
       <Object type="301" x="412" y="104" item="308"/>
       <Object type="301" x="476" y="152" item="308"/>
-      <Enemy type="505" x="432" y="96" activeL="352" activeR="368" flip="false"/>
+      <Enemy type="505" x="432" y="96" activeL="368" activeR="512" flip="false"/>
       <Stair x="408" y="112" dir_x="-1" dir_y="1"/>
     </Cell>
     <Cell row="1" column="4">
@@ -200,6 +202,7 @@
       <Block x="736" y="160"/>
       <Block x="736" y="176"/>
       <Object type="301" x="668" y="136" item="308"/>
+      <Enemy type="504" x="680" y="110" activeL="576" activeR="680" flip="false"/>
       <Stair x="632" y="144" dir_x="-1" dir_y="-1"/>
     </Cell>
     <Cell row="2" column="0">
@@ -216,7 +219,7 @@
     <Cell row="2" column="1">
       <Object type="301" x="156" y="264" item="309"/>
       <Stair x="152" y="272" dir_x="-1" dir_y="-1"/>
-      <Enemy type="503" x="176" y="272" activeL="176" activeR="272" flip="true"/>
+      <Enemy type="503" x="168" y="270" activeL="96" activeR="256" flip="true"/>
     </Cell>
     <Cell row="2" column="5">
       <Block x="736" y="192"/>
@@ -242,6 +245,7 @@
       <Block x="96" y="288"/>
       <Block x="112" y="288"/>
       <Object type="301" x="92" y="328" item="310"/>
+      <Enemy type="504" x="40" y="286" activeL="40" activeR="160" flip="true"/>
     </Cell>
     <Cell row="3" column="1">
       <Block x="128" y="288"/>
@@ -271,7 +275,7 @@
       <Object type="315" x="288" y="320"/>
       <Object type="301" x="284" y="344" item="308"/>
       <Object type="301" x="348" y="344" item="308"/>
-      <Enemy type="503" x="304" y="304" activeL="304" activeR="400" flip="true"/>
+      <Enemy type="503" x="296" y="302" activeL="224" activeR="386" flip="true"/>
     </Cell>
     <Cell row="3" column="3">
       <Block x="384" y="368"/>
@@ -286,7 +290,7 @@
       <Block x="432" y="320"/>
       <Object type="301" x="412" y="344" item="308"/>
       <Object type="301" x="476" y="344" item="310"/>
-      <Enemy type="503" x="432" y="304" activeL="432" activeR="528" flip="true"/>
+      <Enemy type="503" x="424" y="302" activeL="352" activeR="512" flip="true"/>
     </Cell>
     <Cell row="3" column="4">
       <Block x="512" y="368"/>

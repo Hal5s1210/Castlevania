@@ -23,7 +23,7 @@ public:
 
 	void HoldItem(int id) { item = id; }
 
-	bool IsHitted();
+	bool IsHit();
 	bool IsAlive() { return alive; }
 	void TakeDamage(int damage, LPGAMEOBJECT hitter);
 
