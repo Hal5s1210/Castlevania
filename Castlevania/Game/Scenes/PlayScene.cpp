@@ -1,4 +1,5 @@
 #include "PlayScene.h"
+#include "..\Objects\Weapons\Stopwatch.h"
 
 
 void PlayScene::Load()
@@ -18,9 +19,12 @@ void PlayScene::Update(DWORD dt)
 {
 	grid->GetObjectlist(&objects);
 
+	objects.push_back(player);
+
 	for (int i = 0; i < enemies.size(); i++)
 	{
-		enemies[i]->Update(dt, &objects);
+		if (!Stopwatch::IsTimePause())
+			enemies[i]->Update(dt, &objects);
 
 		if (!enemies[i]->IsInCell() && (enemies[i]->IsOutView() || !enemies[i]->IsAlive()))
 		{
@@ -36,11 +40,30 @@ void PlayScene::Update(DWORD dt)
 		}
 	}
 
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		bullets[i]->Update(dt, &objects);
+
+		if (bullets[i]->IsHitSomething() || bullets[i]->IsOutOfView())
+		{
+			if (dynamic_cast<Simon*>(bullets[i]->GetShooter()))
+				player->GetSubWeapon()->Count(-1);
+
+			delete bullets[i];
+			bullets.erase(bullets.begin() + i);
+			i--;
+		}
+		else objects.push_back(bullets[i]);
+	}
+
 	player->Update(dt, &objects);
 
 	for (LPGAMEOBJECT o : objects)
 	{
-		if (dynamic_cast<Enemy*>(o)) continue;
+		if (dynamic_cast<Simon*>(o) ||
+			dynamic_cast<Enemy*>(o) ||
+			dynamic_cast<Bullet*>(o))
+			continue;
 		o->Update(dt);
 	}
 
@@ -94,8 +117,6 @@ void PlayScene::Render()
 	{
 		obj->Render(x, y);
 	}
-
-	player->Render(x, y);
 }
 
 void PlayScene::AdjustView()

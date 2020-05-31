@@ -3,9 +3,9 @@
 #include "..\..\..\Framework\Viewport.h"
 
 
-LPGAMEOBJECT HolyWater::Clone()
+Bullet* HolyWater::Clone()
 {
-	HolyWater* clone = new HolyWater(wielder);
+	HolyWater* clone = new HolyWater(shooter, target);
 	for (ANIMATION* ani : animations)
 	{
 		clone->AddAnimation(ani->first->Clone());
@@ -59,13 +59,13 @@ void HolyWater::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
 	if (x < cam_x || x > cam_x + cam_w - 16 || y < cam_y || y> cam_y + cam_w - 16)
 	{
-		outView = true;
+		outview = true;
 	}
 }
 
 void HolyWater::Render(float x, float y)
 {
-	Weapon::Render(x, y);
+	Bullet::Render(x, y);
 
 	if (currentAnimation->first->IsFrameReset())
 	{
@@ -116,6 +116,15 @@ void HolyWater::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 				SetSpeed(0, 0);
 				SetAnimation(1);
 				y -= 8;
+			}
+		}
+		else if (dynamic_cast<Enemy*>(o))
+		{
+			Enemy* e = dynamic_cast<Enemy*>(o);
+
+			if (e->IsAlive())
+			{
+				e->TakeDamage(damage, this);
 			}
 		}
 	}

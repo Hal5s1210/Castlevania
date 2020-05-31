@@ -14,6 +14,10 @@
   </Sounds>
 
   <Objects>
+    <Bullet type ="201" path="Resources\XML\Weapons\Dagger.xml"/>
+    <Bullet type ="202" path="Resources\XML\Weapons\Axe.xml"/>
+    <Bullet type ="203" path="Resources\XML\Weapons\Boomerang.xml"/>
+    <Bullet type ="204" path="Resources\XML\Weapons\Holy_Water.xml"/>
     <Object type ="300" path="Resources\XML\Others\Torch.xml"/>
     <Item type ="302" path="Resources\XML\Items\Whip.xml"/>
     <Item type ="303" path="Resources\XML\Items\Dagger.xml"/>
@@ -38,12 +42,6 @@
   <Player>
     <Resource path="Resources\XML\Simon.xml"/>
     <Whip path="Resources\XML\Weapons\Whip.xml"/>
-    <SubWeapon>
-      <Dagger path="Resources\XML\Weapons\Dagger.xml"/>
-      <Axe path="Resources\XML\Weapons\Axe.xml"/>
-      <Boomerang path="Resources\XML\Weapons\Boomerang.xml"/>
-      <HolyWater path="Resources\XML\Weapons\Holy_Water.xml"/>
-    </SubWeapon>
     <Position x="16" y="126" flip="true"/>
   </Player>
 

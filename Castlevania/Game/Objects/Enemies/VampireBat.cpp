@@ -20,6 +20,8 @@ LPENEMY VampireBat::Clone()
 
 void VampireBat::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+	if (!alive || !active || outview) return;
+	
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
@@ -47,8 +49,7 @@ void VampireBat::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		vx = vy = 0;
 	}
 
-	x += dx;
-	y += dy;
+	GameObject::CheckSweptCollision(objects);
 
 	if (!incell && !outview)
 		Enemy::CheckView();
@@ -66,4 +67,21 @@ void VampireBat::Unactive()
 {
 	Enemy::Unactive();
 	fly = false;
+}
+
+
+void VampireBat::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	float min_tx, float min_ty, float nx, float ny,
+	float& dx, float& dy)
+{
+	for (LPCOEVENT coEvent : *coEventResults)
+	{
+		LPGAMEOBJECT o = coEvent->obj;
+
+		if (dynamic_cast<Simon*>(o))
+		{
+			Simon* player = dynamic_cast<Simon*>(o);
+			player->TakeHit(2);
+		}
+	}
 }

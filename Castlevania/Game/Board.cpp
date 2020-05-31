@@ -3,6 +3,7 @@
 #include <iomanip>
 #include "..\Framework\Viewport.h"
 #include "ID.h"
+#include "Objects\Weapons\Stopwatch.h"
 
 Board* Board::_instance = 0;
 
@@ -19,7 +20,7 @@ Board::Board()
 	enemyhp = 16;
 	shot = 1;
 	whip = 1;
-	subweapon = 0;
+	subweapon = 5;
 }
 
 Board* Board::GetInstance()
@@ -35,6 +36,27 @@ void Board::LoadTexture()
 
 void Board::Update(DWORD dt)
 {
+	Stopwatch::Update(dt);
+	if (Stopwatch::TimeOut())
+	{
+		Stopwatch::TimeResume();
+	}
+
+	if (!Stopwatch::IsTimePause()) tickcount += dt;
+	if (tickcount >= 1000)
+	{
+		if (time > 0)
+			time -= tickcount / 1000;
+
+		tickcount = tickcount % 1000;
+	}
+
+	if (time <= 0)
+	{
+		time = 0;
+		playerhp = 0;
+	}
+
 	Viewport::GetInstance()->GetPosition(x, y);
 }
 
@@ -279,6 +301,12 @@ void Board::GetSimonData(Whip* whip, SubWeapon* sub)
 {
 	whip->SetLevel(this->whip);
 	sub->SetWeapon(subweapon, shot, heart);
+}
+
+void Board::PlayerHit(int damage)
+{
+	playerhp -= damage;
+	if (playerhp < 0) playerhp = 0;
 }
 
 

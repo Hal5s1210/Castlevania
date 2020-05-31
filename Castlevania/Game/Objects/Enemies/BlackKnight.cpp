@@ -20,6 +20,8 @@ LPENEMY BlackKnight::Clone()
 
 void BlackKnight::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+	if (!alive || !active || outview) return;
+
 	Enemy::Update(dt);
 
 	if (!stop && ((!flip && x < activeL) || (flip && x > activeR)))
@@ -44,8 +46,7 @@ void BlackKnight::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		SetAnimation(1);
 	}
 
-	x += dx;
-	y += dy;
+	GameObject::CheckSweptCollision(objects);
 
 	if (!incell && !outview)
 		Enemy::CheckView();
@@ -61,4 +62,20 @@ void BlackKnight::Active()
 void BlackKnight::Unactive()
 {
 	Enemy::Unactive();
+}
+
+void BlackKnight::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	float min_tx, float min_ty, float nx, float ny,
+	float& dx, float& dy)
+{
+	for (LPCOEVENT coEvent : *coEventResults)
+	{
+		LPGAMEOBJECT o = coEvent->obj;
+
+		if (dynamic_cast<Simon*>(o))
+		{
+			Simon* player = dynamic_cast<Simon*>(o);
+			player->TakeHit(2);
+		}
+	}
 }

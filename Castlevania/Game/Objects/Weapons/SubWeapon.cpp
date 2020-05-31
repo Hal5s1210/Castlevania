@@ -1,91 +1,85 @@
 #include "SubWeapon.h"
 #include "..\..\Scenes\Scene.h"
 #include "..\..\Board.h"
+#include "..\Spawner.h"
+#include "Stopwatch.h"
 
 SubWeapon::SubWeapon(LPGAMEOBJECT wielder)
 {
 	this->wielder = wielder;
 	delayTimeStart = -1;
 	delayTime = 200;
-
-	dagger = new Dagger(wielder);
-	axe = new Axe(wielder);
-	boomerang = new Boomerang(wielder);
-	holywater = new HolyWater(wielder);
-	stopwatch = new Stopwatch(wielder);
+	bulletcount = 0;
 }
+
+void SubWeapon::SetWeapon(int weapon, int shot, int heart) 
+{
+	current = weapon; 
+	this->shot = shot; 
+	this->heart = heart; 
+}
+
 
 bool SubWeapon::IsUsable()
 {
-	return (current != 0 && weapons.size() < shot && heart > 0);
+	if (current == 5)
+		return !Stopwatch::IsTimePause();
+
+	return (current != 0 && bulletcount < shot && heart > 0);
 }
 
 
 void SubWeapon::Active()
 {
+	if (current == 5)
+	{
+		Stopwatch::TimeStop();
+	}
+
 	if (weaponready) return;
 
-	if (weapons.size() < shot)
+	if (bulletcount < shot)
 	{
 		weaponready = true;
 		delayTimeStart = GetTickCount();
 	}
 }
+
 void SubWeapon::AddWeapon(bool flip, float x, float y)
 {
 	if (weaponready)
 	{
 		if (current != 0)
 		{
-			LPGAMEOBJECT ready_weapon = NULL;
+			int weapon_id = -1;
 
 			switch (current)
 			{
-			case 1:	ready_weapon = dagger->Clone();	break;
-			case 2:	ready_weapon = axe->Clone(); break;
-			case 3:	ready_weapon = boomerang->Clone(); break;
-			case 4: ready_weapon = holywater->Clone(); break;
+			case 1:	weapon_id = DAGGER_ID; break;
+			case 2:	weapon_id = AXE_ID; break;
+			case 3:	weapon_id = BOOMERANG_ID; break;
+			case 4:	weapon_id = HOLYWATER_ID; break;
 
 			default:
 				break;
 			}
 
-			if (ready_weapon)
+
+			if (weapon_id != -1)
 			{
 				if (GetTickCount() - delayTimeStart >= delayTime)
 				{
-					dynamic_cast<Weapon*>(ready_weapon)->Ready(x, y, flip);
+					Bullet* b = Spawner::GetInstance()->SpawnBullet(weapon_id, x, y, flip);
+					b->SetShooter(wielder);
 
-					weapons.push_back(dynamic_cast<Weapon*>(ready_weapon));
-					ready_weapon = NULL;
+					Scenes::GetInstance()->GetScene()->AddBullet(b);
+					bulletcount++;
+
 					weaponready = false;
 					Board::GetInstance()->SubWeaponUsed(1);
 				}
 			}
+
 		}
-	}
-}
-
-
-void SubWeapon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
-{
-	for (int i = 0; i < weapons.size(); i++)
-	{
-		weapons[i]->Update(dt, objects);
-
-		if (weapons[i]->IsHitSomething() || weapons[i]->IsOutOfView())
-		{
-			delete weapons[i];
-			weapons.erase(weapons.begin() + i);
-			--i;
-		}
-	}
-}
-
-void SubWeapon::Render(float x, float y)
-{
-	for (LPGAMEOBJECT o : weapons)
-	{
-		o->Render(x, y);
 	}
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Weapon.h"
+#include "..\Bullet.h"
 
-class Boomerang : public Weapon
+class Boomerang : public Bullet
 {
 private:
 	float returnPoint;
@@ -14,9 +14,9 @@ private:
 		float& dx, float& dy);
 
 public:
-	Boomerang(LPGAMEOBJECT wielder) :Weapon(wielder) {}
+	Boomerang(LPGAMEOBJECT shooter, LPGAMEOBJECT target = NULL) :Bullet(shooter, target) {}
 
-	LPGAMEOBJECT Clone();
+	Bullet* Clone();
 	void Ready(float x, float y, bool flip);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);

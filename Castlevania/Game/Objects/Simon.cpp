@@ -13,7 +13,11 @@ Simon::Simon()
 	crouch = false;
 	on_air = true;
 	jumpStartTime = -1;
-	state = Simon::Idle;
+	hit = false;
+	dead = false;
+	hittime = 500;
+	invulnerabletime = 1000;
+	SetState(Simon::Idle);
 }
 
 Simon::~Simon()
@@ -25,9 +29,33 @@ Simon::~Simon()
 
 void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+	if (hit)
+	{
+		if (GetTickCount() - hittimestart >= hittime)
+		{
+			hit = false;
+			invulnerable = true;
+			invulnerabletimestart = GetTickCount();
+			SetState(Simon::Idle);
+		}
+	}
+
+	if (GetTickCount() - invulnerabletimestart >= hittime)
+	{
+		invulnerable = false;
+	}
+
 	Board::GetInstance()->GetSimonData(whip, subweapon);
 
+	if (Board::GetInstance()->GetPlayerHp() <= 0)
+	{
+		SetState(Simon::Dead);
+	}
+
 	ProcessState();
+
+	if (dead) return;
+
 
 	float spd = vx;
 	if (on_moving_block && !on_air)
@@ -85,7 +113,7 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		use_stair = false;
 	}
 
-	if (on_air && !on_stair)
+	if (!hit && on_air && !on_stair)
 	{
 		vx = speed_before_jump;
 	}
@@ -120,9 +148,6 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		subweapon->AddWeapon(flip, sub_x, sub_y);
 	}
 
-	subweapon->Update(dt, objects);
-
-
 	float cam_x, cam_y;
 	int cam_w, cam_h;
 	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
@@ -153,15 +178,34 @@ void Simon::Render(float x, float y)
 	if (flip) X += fixX;
 	Y += fixY;
 
-	currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
+	if (invulnerable)
+	{
+		chopchop = !chopchop;
+		if (chopchop)
+			currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
 
-	subweapon->Render(x, y);
+	}
+	else
+		currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
 
 	if (Debug::IsEnable())
 	{
 		float l, t, r, b;
 		GetBoundingBox(l, t, r, b);
 		Debug::RenderBoundBox(x, y, l, t, r, b);
+	}
+
+	if (dead)
+	{
+		if (currentAnimation->first->IsFrameReset())
+		{
+			currentAnimation->second = 1;
+			currentAnimation->first->Pause();
+		}
+		else
+		{
+			currentAnimation->first->Play();
+		}
 	}
 
 	if (on_stair)
@@ -433,6 +477,14 @@ void Simon::SetState(eState state)
 		}
 		break;
 
+	case Simon::Hitted:
+		this->state = Simon::Hitted;
+		break;
+
+	case Simon::Dead:
+		this->state = Simon::Dead;
+		break;
+
 	default:
 		this->state = state;
 		break;
@@ -594,15 +646,45 @@ void Simon::ProcessState()
 		break;
 
 	case Simon::Hitted:
+		if (!hit)
+		{
+			hit = true;
+			attack = false;
+			crouch = false;
+			vy = 0.5 * JUMP_FORCE;
+			vx = 0.5 * (flip ? -SIMON_SPEED : SIMON_SPEED);
+			on_air = true;
+			SetAnimation(HITED);
+			hittimestart = GetTickCount();
+			Debug::DebugOut(L"Simon Hitted\n");
+		}
 		break;
 	case Simon::Dead:
+		dead = true;
+		attack = false;
+		crouch = false;
+		vx = vy = 0;
+		SetAnimation(DEAD);
 		break;
 	default:
+		vx = vy = 0;
 		break;
 	}
 }
 
 void Simon::TakeHit(int damage)
 {
+	if (hit || invulnerable) return;
 
+	if (!on_stair)
+	{
+		SetState(Simon::Hitted);
+	}
+	else
+	{
+		invulnerable = true;
+		invulnerabletimestart = GetTickCount();
+	}
+
+	Board::GetInstance()->PlayerHit(damage);
 }

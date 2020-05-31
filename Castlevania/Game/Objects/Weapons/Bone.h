@@ -1,8 +1,7 @@
 #pragma once
-
 #include "..\Bullet.h"
 
-class Axe : public Bullet
+class Bone : public Bullet
 {
 private:
 	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
@@ -10,11 +9,10 @@ private:
 		float& dx, float& dy);
 
 public:
-	Axe(LPGAMEOBJECT shooter, LPGAMEOBJECT target = NULL) :Bullet(shooter, target) {}
+	Bone(LPGAMEOBJECT shooter, LPGAMEOBJECT target = NULL) :Bullet(shooter, target) {}
 
 	Bullet* Clone();
 	void Ready(float x, float y, bool flip);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 };
-

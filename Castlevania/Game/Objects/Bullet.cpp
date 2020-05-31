@@ -1,14 +1,16 @@
-#include "Weapon.h"
+#include "Bullet.h"
+#include "Simon.h"
 
-Weapon::Weapon(LPGAMEOBJECT wielder)
+Bullet::Bullet(LPGAMEOBJECT shooter, LPGAMEOBJECT target)
 {
-	this->wielder = wielder;
+	this->shooter = shooter;
+	this->target = target;
 	damage = 2;
 	hit = false;
-	outView = false;
+	outview = false;
 }
 
-void Weapon::Render(float x, float y)
+void Bullet::Render(float x, float y)
 {
 	currentAnimation->first->Draw(currentAnimation->second, this->x + x, this->y + y, 255, flip);
 

@@ -5,11 +5,13 @@
 class WhiteSkeleton : public Enemy
 {
 private:
-	int state;
-	bool jump;
+	bool start;
+	bool moveforward;
+	int counttoattack;
 	float limitL, limitR;
 	DWORD startstatetime;
 	DWORD timeeachstate;
+
 	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy);

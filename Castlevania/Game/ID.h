@@ -20,6 +20,12 @@
 #define BLOCK_ID						-1
 #define SIMON_ID						100
 #define WHIP_ID							200
+#define DAGGER_ID						201
+#define AXE_ID							202
+#define BOOMERANG_ID					203
+#define HOLYWATER_ID					204
+#define FIREBALL_ID						210
+#define BONE_ID							211
 #define TORCH_ID						300
 #define CANDLE_ID						301
 #define BREAKABLEBLOCK_S2_ID			314

@@ -15,6 +15,7 @@
 #include "..\Map\TileMap.h"
 #include "..\Map\Grid.h"
 #include "..\Board.h"
+#include "..\Objects\Bullet.h"
 
 
 class Scene
@@ -31,11 +32,13 @@ protected:
 
 	Board* board;
 	Simon* player;
-	
+
 	std::vector<LPGAMEOBJECT> objects;
 	std::vector<LPENEMY> enemies;
 	std::vector<LPEFFECT> effects;
 	std::vector<LPITEM> items;
+	std::vector<Bullet*> bullets;
+	
 
 public:
 	Scene(float x, float y, std::wstring filepath) :x(x), y(y) { filePath = filepath; }
@@ -46,6 +49,7 @@ public:
 
 	std::wstring GetPath() { return filePath; }
 	Simon* GetPlayer() { return player; }
+	std::vector<LPENEMY>* GetEnemyList() { return &enemies; }
 
 	void SetPlayer(Simon* p) { player = p; }
 	void SetGrid(Grid* g) { grid = g; }
@@ -54,6 +58,7 @@ public:
 	void AddEffect(LPEFFECT effect) { effects.push_back(effect); }
 	void AddItem(LPITEM item) { items.push_back(item); }
 	void AddEnemy(LPENEMY enemy) { enemies.push_back(enemy); }
+	void AddBullet(Bullet* bullet) { bullets.push_back(bullet); }
 
 	void NextArea(int i) { tilemap->SetArea(i); }
 

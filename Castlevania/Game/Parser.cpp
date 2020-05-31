@@ -179,6 +179,12 @@ void Parser::Parse_Object(pugi::xml_node root)
 			LPGAMEOBJECT obj = Spawner::GetInstance()->GetObjectSpawner(id);
 			Parser::Parse_AnimationSet(obj, root.child(L"AnimationSet"));
 		}
+		else if (nodeName == L"Bullet")
+		{
+			Spawner::GetInstance()->CreateBulletSpawner(id);
+			Bullet* obj = Spawner::GetInstance()->GetBulletSpawner(id);
+			Parser::Parse_AnimationSet(obj, root.child(L"AnimationSet"));
+		}
 		else if (nodeName == L"Item")
 		{
 			Spawner::GetInstance()->CreateItemSpawner(id);
@@ -231,8 +237,6 @@ void Parser::Parse_Player(Simon** player, pugi::xml_node root)
 
 	Parser::Parse_Whip((*player)->GetWhip(), root.child(L"Whip"));
 
-	Parser::Parse_SubWeapon((*player)->GetSubWeapon(), root.child(L"SubWeapon"));
-
 	Parser::Parse_AnimationSet((*player), node.child(L"AnimationSet"));
 	
 	float x = root.child(L"Position").attribute(L"x").as_int();
@@ -260,44 +264,6 @@ void Parser::Parse_Whip(Whip* whip, pugi::xml_node root)
 	Parser::Parse_Animation(node.child(L"Animations"));
 	Parser::Parse_AnimationSet(whip, node.child(L"AnimationSet"));
 }
-
-void Parser::Parse_SubWeapon(SubWeapon* sub, pugi::xml_node root)
-{
-	for (pugi::xml_node weapon : root)
-	{
-		LPCWSTR path = weapon.attribute(L"path").value();
-		pugi::xml_document doc;
-		pugi::xml_parse_result result;
-
-		result = doc.load_file(path);
-		if (!result) return;
-
-
-		pugi::xml_node node = doc.child(L"Object");
-
-		Parser::Parse_Sprite(node.child(L"Sprites"));
-		Parser::Parse_Animation(node.child(L"Animations"));
-		std::wstring name = weapon.name();
-		if (name == L"Dagger")
-		{
-			Parser::Parse_AnimationSet(sub->GetDagger(), node.child(L"AnimationSet"));
-		}
-		else if (name == L"Axe")
-		{
-			Parser::Parse_AnimationSet(sub->GetAxe(), node.child(L"AnimationSet"));
-		}
-		else if (name == L"Boomerang")
-		{
-			Parser::Parse_AnimationSet(sub->GetBoomerang(), node.child(L"AnimationSet"));
-		}
-		else if (name == L"HolyWater")
-		{
-			Parser::Parse_AnimationSet(sub->GetHolyWater(), node.child(L"AnimationSet"));
-		}
-	}
-}
-
-
 
 void Parser::Parse_Tileset(pugi::xml_node root)
 {

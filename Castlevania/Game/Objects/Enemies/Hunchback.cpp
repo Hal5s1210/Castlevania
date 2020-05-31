@@ -24,6 +24,8 @@ LPENEMY Hunchback::Clone()
 
 void Hunchback::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+	if (!alive || !active || outview) return;
+
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
@@ -114,6 +116,11 @@ void Hunchback::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 					SetAnimation(0);
 				}
 			}
+		}
+		else if(dynamic_cast<Simon*>(o))
+		{
+			Simon* player = dynamic_cast<Simon*>(o);
+			player->TakeHit(2);
 		}
 	}
 }

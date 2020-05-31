@@ -14,6 +14,10 @@ Spawner* Spawner::GetInstance()
 	return _instance;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// OBJECT
+//
 void Spawner::CreateObjectSpawner(int id)
 {
 	LPGAMEOBJECT o;
@@ -78,12 +82,16 @@ LPGAMEOBJECT Spawner::SpawnObject(int id, float x, float y, int item_id)
 	return o;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// EFFECT
+//
 void Spawner::CreateEffectSpawner(int id)
 {
 	LPEFFECT effect;
 	effect = new Effect;
 	effectSpawners[id] = effect;
 }
+
 LPEFFECT Spawner::SpawnEffect(int id, float x, float y)
 {
 	LPEFFECT e = effectSpawners[id]->Clone();
@@ -92,13 +100,16 @@ LPEFFECT Spawner::SpawnEffect(int id, float x, float y)
 	return e;
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ITEM
+//
 void Spawner::CreateItemSpawner(int id)
 {
 	LPITEM item;
 	item = new Item;
 	itemSpawners[id] = item;
 }
+
 LPITEM Spawner::SpawnItem(int id, float x, float y)
 {
 	LPITEM i = itemSpawners[id]->Clone();
@@ -108,6 +119,9 @@ LPITEM Spawner::SpawnItem(int id, float x, float y)
 	return i;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ENEMY
+//
 void Spawner::CreateEnemySpawner(int id)
 {
 	LPENEMY o;
@@ -152,6 +166,7 @@ void Spawner::CreateEnemySpawner(int id)
 		break;
 	}
 }
+
 LPENEMY Spawner::SpawnEnemy(int id, float x, float y ,float l, float r, bool flip)
 {
 	LPENEMY e = enemySpawners[id]->Clone();
@@ -160,4 +175,50 @@ LPENEMY Spawner::SpawnEnemy(int id, float x, float y ,float l, float r, bool fli
 	e->SetActiveLR(l, r);
 	
 	return e;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// BULLET
+//
+void Spawner::CreateBulletSpawner(int id)
+{
+	Bullet* b;
+	
+	switch (id)
+	{
+	case DAGGER_ID:
+		b = new Dagger(NULL, NULL);
+		bulletSpawners[id] = b;
+		break;
+
+	case AXE_ID:
+		b = new Axe(NULL, NULL);
+		bulletSpawners[id] = b;
+		break;
+
+	case BOOMERANG_ID:
+		b = new Boomerang(NULL, NULL);
+		bulletSpawners[id] = b;
+		break;
+
+	case HOLYWATER_ID:
+		b = new HolyWater(NULL, NULL);
+		bulletSpawners[id] = b;
+		break;
+
+	case BONE_ID:
+		b = new Bone(NULL, NULL);
+		bulletSpawners[id] = b;
+		break;
+
+	default:
+		break;
+	}
+}
+
+Bullet* Spawner::SpawnBullet(int id, float x, float y, bool flip)
+{
+	Bullet* b = bulletSpawners[id]->Clone();
+	b->Ready(x, y, flip);
+	return b;
 }

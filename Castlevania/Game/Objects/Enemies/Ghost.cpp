@@ -20,6 +20,7 @@ LPENEMY Ghost::Clone()
 
 void Ghost::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
@@ -28,6 +29,8 @@ void Ghost::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	{
 		alive = true;
 	}
+
+	if (!alive || !active || outview) return;
 
 	Enemy::Update(dt);
 
@@ -39,8 +42,7 @@ void Ghost::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		vx = flip ? 0.04 : -0.04;
 		vy = p_y > y ? 0.02 : -0.02;
 
-		x += dx;
-		y += dy;
+		GameObject::CheckSweptCollision(objects);
 
 		if (!incell && !outview)
 			Enemy::CheckView();
@@ -65,4 +67,20 @@ void Ghost::Active()
 void Ghost::Unactive()
 {
 	Enemy::Unactive();
+}
+
+void Ghost::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	float min_tx, float min_ty, float nx, float ny,
+	float& dx, float& dy)
+{
+	for (LPCOEVENT coEvent : *coEventResults)
+	{
+		LPGAMEOBJECT o = coEvent->obj;
+
+		if (dynamic_cast<Simon*>(o))
+		{
+			Simon* player = dynamic_cast<Simon*>(o);
+			player->TakeHit(2);
+		}
+	}
 }

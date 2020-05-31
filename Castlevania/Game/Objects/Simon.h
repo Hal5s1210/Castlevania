@@ -70,6 +70,13 @@ private:
 
 	bool hit;
 	bool dead;
+	bool invulnerable;
+	bool chopchop;
+
+	DWORD hittimestart;
+	DWORD hittime;
+	DWORD invulnerabletimestart;
+	DWORD invulnerabletime;
 
 	Whip* whip;
 	SubWeapon* subweapon;

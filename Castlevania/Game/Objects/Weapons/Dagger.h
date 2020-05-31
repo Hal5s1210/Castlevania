@@ -1,17 +1,18 @@
 #pragma once
 
-#include "Weapon.h"
+#include "..\Bullet.h"
 
-class Dagger : public Weapon
+class Dagger : public Bullet
 {
 private:
 	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy);
-public:
-	Dagger(LPGAMEOBJECT wielder) :Weapon(wielder) {}
 
-	LPGAMEOBJECT Clone();
+public:
+	Dagger(LPGAMEOBJECT shooter, LPGAMEOBJECT target = NULL) :Bullet(shooter, target) {}
+
+	Bullet* Clone();
 	void Ready(float x, float y, bool flip);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);

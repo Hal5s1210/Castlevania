@@ -2,9 +2,9 @@
 #include "..\Spawner.h"
 #include "..\..\..\Framework\Viewport.h"
 
-LPGAMEOBJECT Axe::Clone()
+Bullet* Axe::Clone()
 {
-	Axe* clone = new Axe(wielder);
+	Axe* clone = new Axe(shooter, target);
 	for (ANIMATION* ani : animations)
 	{
 		clone->AddAnimation(ani->first->Clone());
@@ -51,7 +51,7 @@ void Axe::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
 	if (x < cam_x || x > cam_x + cam_w - 16 || y < cam_y || y> cam_y + cam_w - 16)
 	{
-		outView = true;
+		outview = true;
 	}
 }
 
@@ -70,6 +70,15 @@ void Axe::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 			if (candle->IsAlive())
 			{
 				candle->TakeDamage(damage, this);
+			}
+		}
+		else if (dynamic_cast<Enemy*>(o))
+		{
+			Enemy* e = dynamic_cast<Enemy*>(o);
+			
+			if (e->IsAlive())
+			{
+				e->TakeDamage(damage, this);
 			}
 		}
 	}

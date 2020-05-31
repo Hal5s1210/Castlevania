@@ -1,16 +1,19 @@
 #pragma once
 
-#include "Weapon.h"
+#include <d3d9.h>
 
 class Stopwatch
 {
 private:
-	LPGAMEOBJECT wielder;
-	int time;
+	static bool pause;
+	static bool timeout;
+	static DWORD stoptimestart;
+	static DWORD timestop;
 
 public:
-	Stopwatch(LPGAMEOBJECT wielder);
-	void Active(int shot);
-
+	static void TimeStop();
+	static void TimeResume();
+	static bool IsTimePause() { return pause; }
+	static bool TimeOut() { return timeout; }
+	static void Update(DWORD dt);
 };
-

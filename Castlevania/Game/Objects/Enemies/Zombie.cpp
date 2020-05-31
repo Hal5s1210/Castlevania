@@ -21,6 +21,8 @@ LPENEMY Zombie::Clone()
 
 void Zombie::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+	if (!alive || !active || outview) return;
+
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
@@ -61,6 +63,11 @@ void Zombie::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 				vy = 0;
 				if (move) vx = flip ? 0.05 : -0.05;
 			}
+		}
+		else if(dynamic_cast<Simon*>(o))
+		{
+			Simon* player = dynamic_cast<Simon*>(o);
+			player->TakeHit(2);
 		}
 	}
 }

@@ -108,7 +108,7 @@ void Whip::Render(float x, float y)
 
 void Whip::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	if (index == 2)
+	if (isWhip && index == 2)
 	{
 		LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
 		RECT rect = sprite->GetRect();

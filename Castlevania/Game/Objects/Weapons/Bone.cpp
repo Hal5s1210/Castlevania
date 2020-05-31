@@ -1,11 +1,10 @@
-#include "Dagger.h"
+#include "Bone.h"
 #include "..\Spawner.h"
-#include "..\..\Scenes\Scene.h"
 #include "..\..\..\Framework\Viewport.h"
 
-Bullet* Dagger::Clone()
+Bullet* Bone::Clone()
 {
-	Dagger* clone = new Dagger(shooter, target);
+	Bone* clone = new Bone(shooter, target);
 	for (ANIMATION* ani : animations)
 	{
 		clone->AddAnimation(ani->first->Clone());
@@ -14,32 +13,35 @@ Bullet* Dagger::Clone()
 	return clone;
 }
 
-void Dagger::Ready(float x, float y, bool flip)
+
+void Bone::Ready(float x, float y, bool flip)
 {
 	SetFlip(flip);
 	if (flip)
 	{
 		SetPosition(x, y);
-		SetSpeed(0.2, 0);
+		SetSpeed(0.05, -0.25);
 	}
 	else
 	{
 		SetPosition(x - 16, y);
-		SetSpeed(-0.2, 0);
+		SetSpeed(-0.05, -0.25);
 	}
 }
 
-void Dagger::GetBoundingBox(float& l, float& t, float& r, float& b)
+void Bone::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;
-	t = y + 4;
+	t = y;
 	r = l + 16;
-	b = t + 8;
+	b = t + 16;
 }
 
-void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void Bone::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
+
+	vy += 0.0005 * dt;
 
 	GameObject::CheckSweptCollision(objects);
 
@@ -53,7 +55,7 @@ void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	}
 }
 
-void Dagger::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+void Bone::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 	float min_tx, float min_ty, float nx, float ny,
 	float& dx, float& dy)
 {
@@ -61,24 +63,10 @@ void Dagger::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 	{
 		LPGAMEOBJECT o = coEvent->obj;
 
-		if (dynamic_cast<Candle*>(o))
+		if (dynamic_cast<Simon*>(o))
 		{
-			Candle* candle = dynamic_cast<Candle*>(o);
-
-			if (candle->IsAlive())
-			{
-				hit = true;
-				candle->TakeDamage(damage, this);
-			}
-		}
-		else if (dynamic_cast<Enemy*>(o))
-		{
-			Enemy* e = dynamic_cast<Enemy*>(o);
-
-			if (e->IsAlive())
-			{
-				e->TakeDamage(damage, this);
-			}
+			Simon* player = dynamic_cast<Simon*>(o);
+			player->TakeHit(1);
 		}
 	}
 }

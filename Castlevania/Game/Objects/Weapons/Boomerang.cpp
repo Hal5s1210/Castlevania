@@ -3,9 +3,9 @@
 #include "..\..\Scenes\Scene.h"
 #include "..\..\..\Framework\Viewport.h"
 
-LPGAMEOBJECT Boomerang::Clone()
+Bullet* Boomerang::Clone()
 {
-	Boomerang* clone = new Boomerang(wielder);
+	Boomerang* clone = new Boomerang(shooter, target);
 	for (ANIMATION* ani : animations)
 	{
 		clone->AddAnimation(ani->first->Clone());
@@ -48,7 +48,7 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	//colision with wielder
 	if (back)
 	{
-		LPCOEVENT e = SweptAABBEx(wielder);
+		LPCOEVENT e = SweptAABBEx(shooter);
 		if (e->t > 0 && e->t <= 1)
 		{
 			hit = true;
@@ -93,7 +93,7 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	{
 		if (back)
 		{
-			outView= true;
+			outview= true;
 		}
 		else if(!comeback)
 		{
@@ -119,6 +119,15 @@ void Boomerang::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
 			if (candle->IsAlive())
 			{
 				candle->TakeDamage(damage, this);
+			}
+		}
+		else if (dynamic_cast<Enemy*>(o))
+		{
+			Enemy* e = dynamic_cast<Enemy*>(o);
+
+			if (e->IsAlive())
+			{
+				e->TakeDamage(damage, this);
 			}
 		}
 	}

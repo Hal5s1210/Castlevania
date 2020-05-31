@@ -25,6 +25,7 @@ private:
 	int whip;
 	int subweapon;
 
+	DWORD tickcount;
 
 	RECT GetCharRect(char c, float x, float y);
 	void DrawByChar(char c, float x, float y, int alpha = 255);
@@ -38,6 +39,8 @@ public:
 	void LoadTexture();
 
 	void GetSimonData(Whip* whip, SubWeapon* sub);
+	void PlayerHit(int damage);
+	int GetPlayerHp() { return playerhp; }
 
 	void ItemClaimed(LPITEM item);
 	void AddScore(int score) { this->score += score; }

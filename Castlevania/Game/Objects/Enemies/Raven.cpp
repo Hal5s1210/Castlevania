@@ -24,6 +24,8 @@ LPENEMY Raven::Clone()
 
 void Raven::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
+	if (!alive || !active || outview) return;
+
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
@@ -84,8 +86,7 @@ void Raven::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		SetAnimation(0);
 	}
 
-	x += dx;
-	y += dy;
+	GameObject::CheckSweptCollision(objects);
 
 	if (!incell && !outview)
 		Enemy::CheckView();
@@ -101,4 +102,20 @@ void Raven::Active()
 void Raven::Unactive()
 {
 	Enemy::Unactive();
+}
+
+void Raven::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	float min_tx, float min_ty, float nx, float ny,
+	float& dx, float& dy)
+{
+	for (LPCOEVENT coEvent : *coEventResults)
+	{
+		LPGAMEOBJECT o = coEvent->obj;
+
+		if (dynamic_cast<Simon*>(o))
+		{
+			Simon* player = dynamic_cast<Simon*>(o);
+			player->TakeHit(2);
+		}
+	}
 }

@@ -71,6 +71,8 @@ void GameObject::CalcPotentialCollisions(std::vector<LPGAMEOBJECT>* coObjects, s
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		if (coObjects->at(i) == this) continue;
+
 		LPCOEVENT e = SweptAABBEx(coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)

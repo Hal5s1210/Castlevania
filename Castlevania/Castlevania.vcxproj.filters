@@ -99,9 +99,6 @@
     <ClCompile Include="Game\Objects\Weapons\Dagger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Weapons\Weapon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Objects\Weapons\Axe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -180,6 +177,15 @@
     <ClCompile Include="Game\Objects\Enemies\Raven.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Objects\Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Weapons\Fireball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Weapons\Bone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Castlevania.h">
@@ -252,9 +258,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\Weapons\Dagger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Weapons\Weapon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\Weapons\Axe.h">
@@ -336,6 +339,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\Enemies\Raven.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Weapons\Fireball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Weapons\Bone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
