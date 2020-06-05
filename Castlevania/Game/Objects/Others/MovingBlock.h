@@ -7,7 +7,8 @@ class MovingBlock : public GameObject
 {
 private:
 	int limit_left, limit_right;
-	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	void ProcessAABBCollision(LPGAMEOBJECT coObject) {}
+	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy) {}
 

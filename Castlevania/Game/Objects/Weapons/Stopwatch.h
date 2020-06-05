@@ -11,7 +11,7 @@ private:
 	static DWORD timestop;
 
 public:
-	static void TimeStop();
+	static void TimeStop(int level = 0);
 	static void TimeResume();
 	static bool IsTimePause() { return pause; }
 	static bool TimeOut() { return timeout; }

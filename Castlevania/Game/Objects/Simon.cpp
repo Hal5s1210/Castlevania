@@ -12,11 +12,10 @@ Simon::Simon()
 	attack = false;
 	crouch = false;
 	on_air = true;
-	jumpStartTime = -1;
 	hit = false;
 	dead = false;
 	hittime = 500;
-	invulnerabletime = 1000;
+	invulnerabletime = 2000;
 	SetState(Simon::Idle);
 }
 
@@ -34,9 +33,17 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		if (GetTickCount() - hittimestart >= hittime)
 		{
 			hit = false;
-			invulnerable = true;
-			invulnerabletimestart = GetTickCount();
-			SetState(Simon::Idle);
+			if (Board::GetInstance()->GetPlayerHp() <= 0)
+			{
+				SetState(Simon::Dead);
+				Board::GetInstance()->PlayerDie();
+			}
+			else
+			{
+				invulnerable = true;
+				invulnerabletimestart = GetTickCount();
+				SetState(Simon::Idle);
+			}
 		}
 	}
 
@@ -46,11 +53,6 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	}
 
 	Board::GetInstance()->GetSimonData(whip, subweapon);
-
-	if (Board::GetInstance()->GetPlayerHp() <= 0)
-	{
-		SetState(Simon::Dead);
-	}
 
 	ProcessState();
 
@@ -118,7 +120,7 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		vx = speed_before_jump;
 	}
 
-	GameObject::CheckSweptCollision(objects);
+	GameObject::CheckCollision(objects);
 
 	if (attack)
 	{
@@ -148,21 +150,7 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		subweapon->AddWeapon(flip, sub_x, sub_y);
 	}
 
-	float cam_x, cam_y;
-	int cam_w, cam_h;
-	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
-	Viewport::GetInstance()->GetSize(cam_w, cam_h);
-	if (x < cam_x)
-	{
-		x = cam_x;
-		vx = 0;
-	}
-	else if (x > cam_x + cam_w - 16)
-	{
-		x = cam_x + cam_w - 16;
-		vx = 0;
-	
-	}
+	CheckInCamera();
 }
 
 void Simon::Render(float x, float y)
@@ -259,62 +247,57 @@ void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + 32 -2 - fixY;
 }
 
-void Simon::ProcessCollision(std::vector<LPCOEVENT>* coEventResults, 
+void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o, 
 	float min_tx, float min_ty, float nx, float ny, 
 	float& dx, float& dy)
 {
-	for (LPCOEVENT coEvent : *coEventResults)
+	if (dynamic_cast<Block*>(o) ||
+		dynamic_cast<BreakableBlock*>(o) ||
+		dynamic_cast<MovingBlock*>(o))
 	{
-		LPGAMEOBJECT o = coEvent->obj;
+		if (on_stair) return;
+		if (dynamic_cast<BreakableBlock*>(o) && !dynamic_cast<BreakableBlock*>(o)->IsAlive()) return;
 
-		if (dynamic_cast<Block*>(o) ||
-			dynamic_cast<BreakableBlock*>(o) ||
-			dynamic_cast<MovingBlock*>(o))
+		on_moving_block = false;
+
+		dx = dx * min_tx + nx * 0.4f;
+		if (ny == -1)dy = on_air ? dy * min_ty + ny * 0.4f : 0;
+
+		if (nx != 0)
 		{
-			if (on_stair) continue;
-			if (dynamic_cast<BreakableBlock*>(o) && !dynamic_cast<BreakableBlock*>(o)->IsAlive()) continue;
+			float ox, oy;
+			o->GetPosition(ox, oy);
+			if (oy < y + 32)
+				vx = 0;
+		}
 
+		if (ny == -1)
+		{
+			vy = 0;
+			if (on_air && attack)
+			{
+				vx = 0;
+			}
+			on_air = false;
+
+			if (dynamic_cast<MovingBlock*>(o))
+			{
+				on_moving_block = true;
+
+				float bvx, bvy;
+				o->GetSpeed(bvx, bvy);
+				block_vx = bvx;
+			}
+		}
+		else
+		{
 			on_moving_block = false;
-
-			dx = dx * min_tx + nx * 0.4f;
-			if (ny == -1)dy = on_air ? dy * min_ty + ny * 0.4f : 0;
-
-			if (nx != 0)
-			{
-				float ox, oy;
-				o->GetPosition(ox, oy);
-				if (oy < y + 32)
-					vx = 0;
-			}
-
-			if (ny == -1)
-			{
-				vy = 0;
-				if (on_air && attack)
-				{
-					vx = 0;
-				}
-				on_air = false;
-
-				if (dynamic_cast<MovingBlock*>(o))
-				{
-					on_moving_block = true;
-
-					float bvx, bvy;
-					o->GetSpeed(bvx, bvy);
-					block_vx = bvx;
-				}
-			}
-			else
-			{
-				on_moving_block = false;
-				block_vx = 0;
-			}
+			block_vx = 0;
 		}
-		else if (dynamic_cast<Portal*>(o))
-		{
-			dynamic_cast<Portal*>(o)->Active();
-		}
+	}
+	else if (dynamic_cast<Portal*>(o))
+	{
+		dynamic_cast<Portal*>(o)->Active();
 	}
 }
 
@@ -333,6 +316,32 @@ void Simon::AutoMove()
 			x = auto_dest_x;
 			reach_dest = true;
 		}
+	}
+}
+
+void Simon::CheckInCamera()
+{
+
+	float cam_x, cam_y;
+	int cam_w, cam_h;
+	Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+	Viewport::GetInstance()->GetSize(cam_w, cam_h);
+	if (x < cam_x)
+	{
+		x = cam_x;
+		vx = 0;
+	}
+	else if (x > cam_x + cam_w - 16)
+	{
+		x = cam_x + cam_w - 16;
+		vx = 0;
+
+	}
+
+	if (y > cam_y + cam_h)
+	{
+		hit = true;
+		Board::GetInstance()->PlayerHit(16);
 	}
 }
 
@@ -587,7 +596,6 @@ void Simon::ProcessState()
 		{
 			vy = JUMP_FORCE;
 			speed_before_jump = vx;
-			jumpStartTime = GetTickCount();
 			crouch = false;
 			on_air = true;
 			SetAnimation(CROUNCH);
@@ -652,7 +660,7 @@ void Simon::ProcessState()
 			attack = false;
 			crouch = false;
 			vy = 0.5 * JUMP_FORCE;
-			vx = 0.5 * (flip ? -SIMON_SPEED : SIMON_SPEED);
+			vx = 0.8 * (flip ? -SIMON_SPEED : SIMON_SPEED);
 			on_air = true;
 			SetAnimation(HITED);
 			hittimestart = GetTickCount();
@@ -687,4 +695,17 @@ void Simon::TakeHit(int damage)
 	}
 
 	Board::GetInstance()->PlayerHit(damage);
+}
+
+void Simon::Reset()
+{
+	x = default_x;
+	y = default_y;
+	flip = default_flip;
+	attack = false;
+	crouch = false;
+	on_air = true;
+	hit = false;
+	dead = false;
+	SetState(Simon::Idle);
 }

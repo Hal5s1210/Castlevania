@@ -41,7 +41,7 @@ void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
-	GameObject::CheckSweptCollision(objects);
+	GameObject::CheckCollision(objects);
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -53,32 +53,27 @@ void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	}
 }
 
-void Dagger::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+void Dagger::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 	float min_tx, float min_ty, float nx, float ny,
 	float& dx, float& dy)
 {
-	for (LPCOEVENT coEvent : *coEventResults)
+	if (dynamic_cast<Candle*>(o))
 	{
-		LPGAMEOBJECT o = coEvent->obj;
+		Candle* candle = dynamic_cast<Candle*>(o);
 
-		if (dynamic_cast<Candle*>(o))
+		if (candle->IsAlive())
 		{
-			Candle* candle = dynamic_cast<Candle*>(o);
-
-			if (candle->IsAlive())
-			{
-				hit = true;
-				candle->TakeDamage(damage, this);
-			}
+			hit = true;
+			candle->TakeDamage(damage, this);
 		}
-		else if (dynamic_cast<Enemy*>(o))
-		{
-			Enemy* e = dynamic_cast<Enemy*>(o);
+	}
+	else if (dynamic_cast<Enemy*>(o))
+	{
+		Enemy* e = dynamic_cast<Enemy*>(o);
 
-			if (e->IsAlive())
-			{
-				e->TakeDamage(damage, this);
-			}
+		if (e->IsAlive())
+		{
+			e->TakeDamage(damage, this);
 		}
 	}
 }

@@ -138,15 +138,6 @@
     <ClCompile Include="Game\Scenes\TitleScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Others\Background.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\TitleBat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Objects\Others\TitleEnter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Objects\Enemies\Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -184,6 +175,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game\Objects\Weapons\Bone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scenes\IntroScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Others\SimpleObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -302,15 +299,6 @@
     <ClInclude Include="Game\Scenes\TitleScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Others\Background.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\TitleBat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Others\TitleEnter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Objects\Enemies\Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -348,6 +336,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\Weapons\Bone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scenes\IntroScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Others\SimpleObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

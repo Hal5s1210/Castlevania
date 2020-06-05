@@ -8,7 +8,8 @@ private:
 	bool fly;
 	float player_pos_y;
 	float start_pos_y;
-	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	void ProcessAABBCollision(LPGAMEOBJECT coObject);
+	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy);
 

@@ -12,8 +12,8 @@ private:
 	DWORD invulnerableTime;
 	DWORD invulnerableTimeStart;
 	int item;
-
-	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	void ProcessAABBCollision(LPGAMEOBJECT coObject) {}
+	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy) {}
 

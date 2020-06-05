@@ -41,7 +41,7 @@ void Item::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += 0.00025 * dt;
 
-	GameObject::CheckSweptCollision(objects);
+	GameObject::CheckCollision(objects);
 }
 
 LPITEM Item::Clone()
@@ -71,29 +71,24 @@ void Item::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + (rect.bottom - rect.top);
 }
 
-void Item::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+void Item::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 	float min_tx, float min_ty, float nx, float ny,
 	float& dx, float& dy)
 {
-	for (LPCOEVENT coEvent : *coEventResults)
+	if (dynamic_cast<Block*>(o))
 	{
-		LPGAMEOBJECT o = coEvent->obj;
 
-		if (dynamic_cast<Block*>(o))
+		dx = dx * min_tx + nx * 0.4f;
+		dy = dy * min_ty + ny * 0.4f;
+
+		if (nx != 0)
 		{
+			vx = 0;
+		}
 
-			dx = dx * min_tx + nx * 0.4f;
-			dy = dy * min_ty + ny * 0.4f;
-
-			if (nx != 0)
-			{
-				vx = 0;
-			}
-
-			if (ny != 0)
-			{
-				vy = 0;
-			}
+		if (ny != 0)
+		{
+			vy = 0;
 		}
 	}
 }

@@ -65,7 +65,20 @@ LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	return e;
 }
 
-void GameObject::CalcPotentialCollisions(std::vector<LPGAMEOBJECT>* coObjects, std::vector<LPCOEVENT>& coEvents)
+bool GameObject::AABBEx(LPGAMEOBJECT coO)
+{
+	float l, t, r, b;
+	float lo, to, ro, bo;
+
+	GetBoundingBox(l, t, r, b);
+	coO->GetBoundingBox(lo, to, ro, bo);
+
+	return Collision::AABB(l, t, r, b, lo, to, ro, bo);
+}
+
+void GameObject::CalcPotentialCollisions(std::vector<LPGAMEOBJECT>* coObjects,
+	std::vector<LPCOEVENT>& coEvents,
+	std::vector<LPGAMEOBJECT>& coAABBOs)
 {
 	if (coObjects == NULL) return;
 
@@ -77,6 +90,8 @@ void GameObject::CalcPotentialCollisions(std::vector<LPGAMEOBJECT>* coObjects, s
 
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
+		else if (AABBEx(e->obj))
+			coAABBOs.push_back(e->obj);
 		else
 			delete e;
 	}
@@ -118,13 +133,14 @@ void GameObject::FilterCollision(
 }
 
 
-void GameObject::CheckSweptCollision(std::vector<LPGAMEOBJECT>* coObjects)
+void GameObject::CheckCollision(std::vector<LPGAMEOBJECT>* coObjects)
 {
 	if (coObjects == NULL) return;
 
 	std::vector<LPCOEVENT> coEvents;
+	std::vector<LPGAMEOBJECT> coAABBOs;
 
-	CalcPotentialCollisions(coObjects, coEvents);
+	CalcPotentialCollisions(coObjects, coEvents, coAABBOs);
 
 	if (coEvents.empty())
 	{
@@ -143,9 +159,20 @@ void GameObject::CheckSweptCollision(std::vector<LPGAMEOBJECT>* coObjects)
 		ddx = dx;
 		ddy = dy;
 
-		ProcessCollision(&coEventResults, min_tx, min_ty, nx, ny, ddx, ddy);
+		for (LPCOEVENT coEvent : coEventResults)
+		{
+			ProcessSweptAABBCollision(coEvent->obj, min_tx, min_ty, nx, ny, ddx, ddy);
+		}
 
 		x += ddx;
 		y += ddy;
+	}
+
+	if (!coAABBOs.empty())
+	{
+		for (LPGAMEOBJECT o : coAABBOs)
+		{
+			ProcessAABBCollision(o);
+		}
 	}
 }

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Scene>
+  <Textures>
+    <Texture id="1000" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
+    <Texture id="7000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
+    <Texture id="9001" path="Resources\Textures\Intro.png" red="128" green="128" blue="0"/>
+  </Textures>
+
+  <Objects>
+    <Object type ="903" path="Resources\XML\Others\IntroBG.xml"/>
+    <Object type ="904" path="Resources\XML\Others\IntroBat.xml"/>
+    <Object type ="905" path="Resources\XML\Others\IntroCloud.xml"/>
+    <Object type ="906" path="Resources\XML\Others\IntroSimon.xml"/>
+  </Objects>
+
+  <Grid width="1" height="1" cellW="256" cellH="240">
+    <Cell row="0" column="0">
+      <Object type="903" x="0" y="0"/>
+      <Object type="904" x="32" y="64" vx="0.0125" vy="-0.008"/>
+      <Object type="904" x="160" y="48" vx="-0.008" vy="-0.008"/>
+      <Object type="905" x="240" y="32" vx="-0.007" vy="0"/>
+      <Object type="906" x="256" y="128" vx="-0.03" vy="0"/>
+    </Cell>
+  </Grid>
+
+</Scene>

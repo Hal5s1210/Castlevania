@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Game>
   <Setting>
-    <Start>100</Start>
+    <Start>-1</Start>
   </Setting>
 
   <Scenes>
-    <Title id="100" x="0" y="0" path="Resources\XML\Scenes\TitleScene.xml"/>
-    <Scene id="0" x="0" y="32" path="Resources\XML\Scenes\Scene1.xml"/>
-    <Scene id="1" x="0" y="32" path="Resources\XML\Scenes\Scene2.xml"/>
-    <Scene id="2" x="0" y="32" path="Resources\XML\Scenes\Scene3.xml"/>
-    <Scene id="3" x="0" y="32" path="Resources\XML\Scenes\Scene4.xml"/>
+    <Title id="-1" x="0" y="0" path="Resources\XML\Scenes\TitleScene.xml"/>
+    <Intro id="-2" x="0" y="48" path="Resources\XML\Scenes\IntroScene.xml"/>
+    <Scene id="1" x="0" y="32" path="Resources\XML\Scenes\Scene1.xml"/>
+    <Scene id="2" x="0" y="32" path="Resources\XML\Scenes\Scene2.xml"/>
+    <Scene id="3" x="0" y="32" path="Resources\XML\Scenes\Scene3.xml"/>
+    <Scene id="4" x="0" y="32" path="Resources\XML\Scenes\Scene4.xml"/>
   </Scenes>
   
 </Game>

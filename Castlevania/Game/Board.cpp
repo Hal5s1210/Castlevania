@@ -4,6 +4,7 @@
 #include "..\Framework\Viewport.h"
 #include "ID.h"
 #include "Objects\Weapons\Stopwatch.h"
+#include "Scenes\Scene.h"
 
 Board* Board::_instance = 0;
 
@@ -20,7 +21,13 @@ Board::Board()
 	enemyhp = 16;
 	shot = 1;
 	whip = 1;
-	subweapon = 5;
+	subweapon = 0;
+
+	playerdeadtime = 2000;
+	playerdeadtimestart = 0;
+
+	gameover = false;
+	selectchoice = 1;
 }
 
 Board* Board::GetInstance()
@@ -55,6 +62,17 @@ void Board::Update(DWORD dt)
 	{
 		time = 0;
 		playerhp = 0;
+	}
+
+	if (playerdeadtimestart != 0 && GetTickCount() - playerdeadtimestart > playerdeadtime)
+	{
+		if (life > 1)
+		{
+			life--;
+			Scenes::GetInstance()->GetScene()->Reset();
+			playerhp = enemyhp = 16;
+			playerdeadtimestart = 0;
+		}
 	}
 
 	Viewport::GetInstance()->GetPosition(x, y);
@@ -146,7 +164,28 @@ void Board::Render()
 		Draw("(", x + 212, y + 24);
 	else if (shot == 3)
 		Draw(")", x + 212, y + 24);
+}
 
+void Board::RenderGameover()
+{
+	if (playerdeadtimestart == 0) return;
+	if (GetTickCount() - playerdeadtimestart > playerdeadtime - 500)
+	{
+		Draw("?", x, y + 48);
+		Draw("?", x, y + 96);
+		Draw("?", x, y + 144);
+		Draw("?", x, y + 192);
+
+		if (gameover)
+		{
+			Draw("CONTINUE", x + 96, y + 132);
+			Draw("GAMEOVER", x + 96, y + 156);
+			if (selectchoice == 1)
+				Draw("~", x + 80, y + 132);
+			else
+				Draw("~", x + 80, y + 156);
+		}
+	}
 }
 
 RECT Board::GetCharRect(char c, float x, float y)
@@ -271,7 +310,7 @@ RECT Board::GetCharRect(char c, float x, float y)
 	{
 		rect.left = 64;
 		rect.top = 54;
-		rect.right = rect.left + 257;
+		rect.right = rect.left + 256;
 		rect.bottom = rect.top + 48;
 	}
 
@@ -309,6 +348,12 @@ void Board::PlayerHit(int damage)
 	if (playerhp < 0) playerhp = 0;
 }
 
+void Board::PlayerDie()
+{
+	playerdeadtimestart = GetTickCount();
+	if (life == 1)
+		gameover = true;
+}
 
 
 void Board::ItemClaimed(LPITEM item)
@@ -341,3 +386,39 @@ void Board::ItemClaimed(LPITEM item)
 	item->RunEffect(effect_id);
 }
 
+
+void Board::ConfirmSelection()
+{
+	playerdeadtimestart = 0;
+	gameover = false;
+	if (selectchoice == 1)
+	{
+		Scenes::GetInstance()->GetScene()->Reset();
+		Reset();
+	}
+	else
+	{
+		Scenes::GetInstance()->NextScene(-1);
+		Reset();
+	}
+}
+
+void Board::ChangeSelection()
+{
+	if (selectchoice == 1) selectchoice = 2;
+	else if (selectchoice == 2)selectchoice = 1;
+}
+
+
+void Board::Reset()
+{
+	score = 0;
+	time = 300;
+	heart = 0;
+	life = 3;
+	playerhp = 16;
+	enemyhp = 16;
+	shot = 1;
+	whip = 1;
+	subweapon = 0;
+}

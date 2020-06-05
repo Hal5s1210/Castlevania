@@ -11,6 +11,7 @@
 #include "Scenes\Scene.h"
 #include "Scenes\PlayScene.h"
 #include "Scenes\TitleScene.h"
+#include "Scenes\IntroScene.h"
 
 
 void Parser::Parse_Game(LPCWSTR path)
@@ -41,6 +42,10 @@ void Parser::Parse_Game(LPCWSTR path)
 		if (name == L"Title")
 		{
 			s = new TitleScene(x, y, path.c_str());
+		}
+		else if (name == L"Intro")
+		{
+			s = new IntroScene(x, y, path.c_str());
 		}
 		else
 		{
@@ -245,8 +250,8 @@ void Parser::Parse_Player(Simon** player, pugi::xml_node root)
 
 	(*player)->SetPosition(x, y);
 	(*player)->SetFlip(flip);
+	(*player)->SetDefault(x, y, flip);
 	(*player)->SetAnimation(0);
-
 }
 
 void Parser::Parse_Whip(Whip* whip, pugi::xml_node root)
@@ -309,7 +314,9 @@ void Parser::Parse_Tilemap(Tilemap** tilemap, pugi::xml_node root)
 
 		(*tilemap)->AddArea(r);
 	}
-	(*tilemap)->SetArea(areas.attribute(L"default").as_int());
+	int area = areas.attribute(L"default").as_int();
+	(*tilemap)->SetArea(area);
+	(*tilemap)->SetDefaultArea(area);
 
 }
 
@@ -424,8 +431,11 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 				float x = obj.attribute(L"x").as_float();
 				float y = obj.attribute(L"y").as_float();
 				int item = obj.attribute(L"item").as_int();
+				float vx = obj.attribute(L"vx").as_float();
+				float vy = obj.attribute(L"vy").as_float();
 
 				LPGAMEOBJECT o = Spawner::GetInstance()->SpawnObject(id, x, y, item);
+				o->SetSpeed(vx, vy);
 
 				if (id == MOVINGBLOCK_ID)
 				{

@@ -117,6 +117,8 @@ void PlayScene::Render()
 	{
 		obj->Render(x, y);
 	}
+
+	board->RenderGameover();
 }
 
 void PlayScene::AdjustView()
@@ -205,6 +207,23 @@ void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 		}
 	}
 
+	if (Board::GetInstance()->IsGameOver())
+	{
+		switch (KeyCode)
+		{
+		case BUTTON_START:
+			Board::GetInstance()->ConfirmSelection();
+			break;
+
+		case BUTTON_SELECT:
+			Board::GetInstance()->ChangeSelection();
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	switch (KeyCode)
 	{
 	case DIK_F1:
@@ -226,6 +245,7 @@ void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_F5:
 		Debug::EnableDebugging();
 		break;
+
 	default:
 		break;
 	}

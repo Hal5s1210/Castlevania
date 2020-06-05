@@ -51,7 +51,7 @@ void HolyWater::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	if (!burning && !startBurn)
 		vy += 0.0005 * dt;
 
-	GameObject::CheckSweptCollision(objects);
+	GameObject::CheckCollision(objects);
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -88,44 +88,39 @@ void HolyWater::Render(float x, float y)
 }
 
 
-void HolyWater::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+void HolyWater::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 	float min_tx, float min_ty, float nx, float ny,
 	float& dx, float& dy)
 {
-	for (LPCOEVENT coEvent : *coEventResults)
+	if (dynamic_cast<Candle*>(o))
 	{
-		LPGAMEOBJECT o = coEvent->obj;
+		Candle* candle = dynamic_cast<Candle*>(o);
 
-		if (dynamic_cast<Candle*>(o))
+		if (candle->IsAlive())
 		{
-			Candle* candle = dynamic_cast<Candle*>(o);
-
-			if (candle->IsAlive())
-			{
-				candle->TakeDamage(damage, this);
-			}
+			candle->TakeDamage(damage, this);
 		}
-		else if (dynamic_cast<Block*>(o))
+	}
+	else if (dynamic_cast<Block*>(o))
+	{
+		if (!startBurn)
 		{
-			if (!startBurn)
-			{
-				dx = dx * min_tx + nx * 0.4f;
-				dy = dy * min_ty + ny * 0.4f;
+			dx = dx * min_tx + nx * 0.4f;
+			dy = dy * min_ty + ny * 0.4f;
 
-				startBurn = true;
-				SetSpeed(0, 0);
-				SetAnimation(1);
-				y -= 8;
-			}
+			startBurn = true;
+			SetSpeed(0, 0);
+			SetAnimation(1);
+			y -= 8;
 		}
-		else if (dynamic_cast<Enemy*>(o))
-		{
-			Enemy* e = dynamic_cast<Enemy*>(o);
+	}
+	else if (dynamic_cast<Enemy*>(o))
+	{
+		Enemy* e = dynamic_cast<Enemy*>(o);
 
-			if (e->IsAlive())
-			{
-				e->TakeDamage(damage, this);
-			}
+		if (e->IsAlive())
+		{
+			e->TakeDamage(damage, this);
 		}
 	}
 }

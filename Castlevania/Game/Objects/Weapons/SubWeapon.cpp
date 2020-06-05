@@ -23,7 +23,7 @@ void SubWeapon::SetWeapon(int weapon, int shot, int heart)
 bool SubWeapon::IsUsable()
 {
 	if (current == 5)
-		return !Stopwatch::IsTimePause();
+		return heart >= 5 ? !Stopwatch::IsTimePause() : false;
 
 	return (current != 0 && bulletcount < shot && heart > 0);
 }
@@ -33,7 +33,9 @@ void SubWeapon::Active()
 {
 	if (current == 5)
 	{
-		Stopwatch::TimeStop();
+		Stopwatch::TimeStop(shot);
+		Board::GetInstance()->SubWeaponUsed(5);
+		return;
 	}
 
 	if (weaponready) return;

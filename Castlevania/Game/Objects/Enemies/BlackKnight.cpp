@@ -46,7 +46,7 @@ void BlackKnight::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		SetAnimation(1);
 	}
 
-	GameObject::CheckSweptCollision(objects);
+	GameObject::CheckCollision(objects);
 
 	if (!incell && !outview)
 		Enemy::CheckView();
@@ -64,18 +64,22 @@ void BlackKnight::Unactive()
 	Enemy::Unactive();
 }
 
-void BlackKnight::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+void BlackKnight::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 	float min_tx, float min_ty, float nx, float ny,
 	float& dx, float& dy)
-{
-	for (LPCOEVENT coEvent : *coEventResults)
+{	
+	if (dynamic_cast<Simon*>(o))
 	{
-		LPGAMEOBJECT o = coEvent->obj;
+		Simon* player = dynamic_cast<Simon*>(o);
+		player->TakeHit(2);
+	}
+}
 
-		if (dynamic_cast<Simon*>(o))
-		{
-			Simon* player = dynamic_cast<Simon*>(o);
-			player->TakeHit(2);
-		}
+void BlackKnight::ProcessAABBCollision(LPGAMEOBJECT o)
+{
+	if (dynamic_cast<Simon*>(o))
+	{
+		Simon* player = dynamic_cast<Simon*>(o);
+		player->TakeHit(2);
 	}
 }

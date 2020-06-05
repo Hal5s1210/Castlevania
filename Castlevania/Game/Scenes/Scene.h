@@ -62,6 +62,8 @@ public:
 
 	void NextArea(int i) { tilemap->SetArea(i); }
 
+	void Reset();
+
 	virtual void Load();
 	virtual void Unload();
 	virtual void Update(DWORD dt) = 0;
@@ -77,7 +79,7 @@ private:
 	static Scenes* _instance;
 	std::unordered_map<int, LPSCENE> scenes;
 	int currentID;
-	int switchScene = -1;
+	int switchScene = -999;
 
 public:
 	static Scenes* GetInstance();

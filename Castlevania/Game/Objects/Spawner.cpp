@@ -24,17 +24,44 @@ void Spawner::CreateObjectSpawner(int id)
 	switch (id)
 	{
 	case TITLEBG_ID:
-		o = new Background;
+		o = new SimpleObject;
+		dynamic_cast<SimpleObject*>(o)->SetName("BG");
 		objectSpawners[id] = o;
 		break;
 
 	case TITLEENTER_ID:
-		o = new TitleEnter;
+		o = new SimpleObject;
+		dynamic_cast<SimpleObject*>(o)->SetName("Text");
 		objectSpawners[id] = o;
 		break;
 
 	case TITLEBAT_ID:
-		o = new TitleBat;
+		o = new SimpleObject;
+		dynamic_cast<SimpleObject*>(o)->SetName("Bat");
+		objectSpawners[id] = o;
+		break;
+
+	case INTROBG_ID:
+		o = new SimpleObject;
+		dynamic_cast<SimpleObject*>(o)->SetName("BG");
+		objectSpawners[id] = o;
+		break;
+
+	case INTROBAT_ID:
+		o = new SimpleObject;
+		dynamic_cast<SimpleObject*>(o)->SetName("Bat");
+		objectSpawners[id] = o;
+		break;
+
+	case INTROCLOUD_ID:
+		o = new SimpleObject;
+		dynamic_cast<SimpleObject*>(o)->SetName("Cloud");
+		objectSpawners[id] = o;
+		break;
+
+	case INTROSIMON_ID:
+		o = new SimpleObject;
+		dynamic_cast<SimpleObject*>(o)->SetName("Simon");
 		objectSpawners[id] = o;
 		break;
 

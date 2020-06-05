@@ -13,51 +13,7 @@ void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	if (index != 2) return;
 
-	std::vector<LPGAMEOBJECT> coObjects;
-
-	float l, t, r, b;
-	GetBoundingBox(l, t, r, b);
-
-	for (LPGAMEOBJECT obj : (*objects))
-	{
-		float lo, to, ro, bo;
-		obj->GetBoundingBox(lo, to, ro, bo);
-
-		if (Collision::AABB(l, t, r, b, lo, to, ro, bo))
-			coObjects.push_back(obj);
-	}
-
-	if (!coObjects.empty())
-	{
-		for (LPGAMEOBJECT obj : coObjects)
-		{
-			if (dynamic_cast<Candle*>(obj))
-			{
-				Candle* candle = dynamic_cast<Candle*>(obj);
-				if (candle->IsAlive() && !candle->IsHit())
-				{
-					candle->TakeDamage(damage, this);
-				}
-			}
-			else if (dynamic_cast<BreakableBlock*>(obj))
-			{
-				BreakableBlock* block = dynamic_cast<BreakableBlock*>(obj);
-				if (block->IsAlive() && !block->IsHit())
-				{
-					block->TakeDamage();
-				}
-
-			}
-			else if (dynamic_cast<LPENEMY>(obj))
-			{
-				LPENEMY e = dynamic_cast<LPENEMY>(obj);
-				if (e->IsAlive())
-				{
-					e->TakeDamage(damage, this);
-				}
-			}
-		}
-	}
+	CheckCollision(objects);
 }
 
 void Whip::Render(float x, float y)
@@ -102,6 +58,35 @@ void Whip::Render(float x, float y)
 			float l, t, r, b;
 			GetBoundingBox(l, t, r, b);
 			Debug::RenderBoundBox(x, y, l, t, r, b);
+		}
+	}
+}
+
+void Whip::ProcessAABBCollision(LPGAMEOBJECT o)
+{
+	if (dynamic_cast<Candle*>(o))
+	{
+		Candle* candle = dynamic_cast<Candle*>(o);
+		if (candle->IsAlive() && !candle->IsHit())
+		{
+			candle->TakeDamage(damage, this);
+		}
+	}
+	else if (dynamic_cast<BreakableBlock*>(o))
+	{
+		BreakableBlock* block = dynamic_cast<BreakableBlock*>(o);
+		if (block->IsAlive() && !block->IsHit())
+		{
+			block->TakeDamage();
+		}
+
+	}
+	else if (dynamic_cast<LPENEMY>(o))
+	{
+		LPENEMY e = dynamic_cast<LPENEMY>(o);
+		if (e->IsAlive())
+		{
+			e->TakeDamage(damage, this);
 		}
 	}
 }

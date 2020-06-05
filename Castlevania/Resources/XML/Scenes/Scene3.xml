@@ -122,7 +122,7 @@
       <Block x="736" y="48"/>
       <Block x="736" y="64"/>
       <Object type="301" x="732" y="88" item="308"/>
-      <Portal x="752" y="80" w="16" h="48" area="-1" scene="3" p_x="-1" p_y="-1"/>
+      <Portal x="752" y="80" w="16" h="48" area="-1" scene="4" p_x="-1" p_y="-1"/>
     </Cell>
     <Cell row="1" column="0">
       <Block x="16" y="96"/>

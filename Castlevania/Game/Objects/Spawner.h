@@ -10,11 +10,9 @@
 #include "Others\Portal.h"
 #include "Others\Candle.h"
 #include "Others\Stair.h"
-#include "Others\Background.h"
-#include "Others\TitleEnter.h"
-#include "Others\TitleBat.h"
 #include "Others\BreakableBlock.h"
 #include "Others\MovingBlock.h"
+#include "Others\SimpleObject.h"
 
 #include "Effect.h"
 

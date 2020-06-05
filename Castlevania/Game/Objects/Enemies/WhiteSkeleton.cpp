@@ -68,7 +68,7 @@ void WhiteSkeleton::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += dt * 0.0005;
 
-	GameObject::CheckSweptCollision(objects);
+	GameObject::CheckCollision(objects);
 
 	if (x > limitR - 16) x = limitR - 16;
 	if (x < limitL) x = limitL;
@@ -76,39 +76,6 @@ void WhiteSkeleton::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	if (!incell && !outview)
 		Enemy::CheckView();
-}
-
-
-void WhiteSkeleton::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
-	float min_tx, float min_ty, float nx, float ny,
-	float& dx, float& dy)
-{
-	for (LPCOEVENT coEvent : *coEventResults)
-	{
-		LPGAMEOBJECT o = coEvent->obj;
-
-		if (dynamic_cast<Block*>(o) ||
-			dynamic_cast<BreakableBlock*>(o))
-		{
-			dx = dx * min_tx + nx * 0.4f;
-			dy = dy * min_ty + ny * 0.4f;
-
-			if (nx != 0)
-			{
-				vx = 0;
-			}
-
-			if (ny == -1)
-			{
-				vy = 0;
-			}
-		}
-		else if (dynamic_cast<Simon*>(o))
-		{
-			Simon* player = dynamic_cast<Simon*>(o);
-			player->TakeHit(2);
-		}
-	}
 }
 
 void WhiteSkeleton::Active()
@@ -120,8 +87,43 @@ void WhiteSkeleton::Active()
 	limitR = default_x + 24;
 }
 
-
 void WhiteSkeleton::Unactive()
 {
 	Enemy::Unactive();
+}
+
+void WhiteSkeleton::ProcessSweptAABBCollision(LPGAMEOBJECT o,
+	float min_tx, float min_ty, float nx, float ny,
+	float& dx, float& dy)
+{
+	if (dynamic_cast<Block*>(o) ||
+		dynamic_cast<BreakableBlock*>(o))
+	{
+		dx = dx * min_tx + nx * 0.4f;
+		dy = dy * min_ty + ny * 0.4f;
+
+		if (nx != 0)
+		{
+			vx = 0;
+		}
+
+		if (ny == -1)
+		{
+			vy = 0;
+		}
+	}
+	else if (dynamic_cast<Simon*>(o))
+	{
+		Simon* player = dynamic_cast<Simon*>(o);
+		player->TakeHit(2);
+	}
+}
+
+void WhiteSkeleton::ProcessAABBCollision(LPGAMEOBJECT o)
+{
+	if (dynamic_cast<Simon*>(o))
+	{
+		Simon* player = dynamic_cast<Simon*>(o);
+		player->TakeHit(2);
+	}
 }

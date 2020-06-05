@@ -7,7 +7,8 @@ class Stair : public GameObject
 private:
 	int direction_x, direction_y;
 
-	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+	void ProcessAABBCollision(LPGAMEOBJECT coObject) {}
+	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy) {}
 

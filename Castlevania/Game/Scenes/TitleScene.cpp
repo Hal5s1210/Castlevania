@@ -6,7 +6,8 @@ void TitleScene::Load()
 	board = Board::GetInstance();
 	board->LoadTexture();
 	Viewport::GetInstance()->SetPosition(0, 0);
-	time = -1;
+	enter = false;
+	time = 0;
 }
 
 void TitleScene::Unload()
@@ -21,25 +22,26 @@ void TitleScene::Update(DWORD dt)
 	for (LPGAMEOBJECT o : objects)
 	{
 		o->Update(dt);
-		if (enter && time == -1)
+		if (enter && time == 0)
 		{
-			if (dynamic_cast<TitleBat*>(o))
+			SimpleObject* s = dynamic_cast<SimpleObject*>(o);
+			if (s->GetName() == "Bat")
 			{
-				dynamic_cast<TitleBat*>(o)->PauseAnimation();
+				s->PauseAnimation();
 			}
-			else if (dynamic_cast<TitleEnter*>(o))
+			else if (s->GetName() == "Text")
 			{
-				dynamic_cast<TitleEnter*>(o)->SetAnimation(1);
+				s->SetAnimation(1);
 			}
 		}
 	}
 
 	if (enter)
 	{
-		if (time == -1) time = GetTickCount();
+		if (time == 0) time = GetTickCount();
 		if (GetTickCount() - time >= 2000)
 		{
-			Scenes::GetInstance()->NextScene(SCENE1_ID);
+			Scenes::GetInstance()->NextScene(INTRO_ID);
 		}
 	}
 }

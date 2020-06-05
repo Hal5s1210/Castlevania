@@ -44,6 +44,9 @@ public:
 	};
 
 private:
+	float default_x, default_y;
+	bool default_flip;
+
 	bool crouch;
 	bool attack;
 	bool on_air;
@@ -83,11 +86,14 @@ private:
 
 	eState state;
 
-	void ProcessCollision(std::vector<LPCOEVENT>* coEventResults, 
+	void ProcessAABBCollision(LPGAMEOBJECT coObject) {}
+	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy);
+
 	void ProcessState();
 	void AutoMove();
+	void CheckInCamera();
 
 
 public:
@@ -100,9 +106,10 @@ public:
 	SubWeapon* GetSubWeapon() { return subweapon; }
 
 	void SetState(eState state);
-
+	void SetDefault(float x, float y, bool flip) { default_x = x; default_y = y; default_flip = flip; }
 	void HitStair(Stair* stair);
 	void TakeHit(int damage);
+	void Reset();
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render(float x = 0, float y = 0);

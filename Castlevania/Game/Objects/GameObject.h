@@ -41,14 +41,20 @@ protected:
 	ANIMATION* currentAnimation;
 
 	LPCOEVENT SweptAABBEx(LPGAMEOBJECT coO);
-	void CalcPotentialCollisions(std::vector<LPGAMEOBJECT>* coObjects, std::vector<LPCOEVENT>& coEvents);
+	bool AABBEx(LPGAMEOBJECT coO);
+	void CalcPotentialCollisions(std::vector<LPGAMEOBJECT>* coObjects,
+		std::vector<LPCOEVENT>& coEvents, 
+		std::vector<LPGAMEOBJECT>& coAABBOs);
 	void FilterCollision(
 		std::vector<LPCOEVENT>& coEvents,
 		std::vector<LPCOEVENT>& coEventsResult,
 		float& min_tx, float& min_ty,
 		float& nx, float& ny);
-	void CheckSweptCollision(std::vector<LPGAMEOBJECT>* coObjects);
-	virtual void ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+
+	void CheckCollision(std::vector<LPGAMEOBJECT>* coObjects);
+	
+	virtual void ProcessAABBCollision(LPGAMEOBJECT coObject) = 0;
+	virtual void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy) = 0;
 

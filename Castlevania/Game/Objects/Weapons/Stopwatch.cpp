@@ -1,14 +1,15 @@
 #include "Stopwatch.h"
 #include "..\..\Scenes\Scene.h"
 
-DWORD Stopwatch::timestop = 5000;
+DWORD Stopwatch::timestop = 3000;
 DWORD Stopwatch::stoptimestart = -1;
 bool Stopwatch::pause = false;
 bool Stopwatch::timeout = true;
 
-void Stopwatch::TimeStop()
+void Stopwatch::TimeStop(int level)
 {
 	pause = true;
+	timestop = 3000 + level * 1000;
 	std::vector<LPENEMY> enemies;
 	enemies = *Scenes::GetInstance()->GetScene()->GetEnemyList();
 	for (LPENEMY e : enemies)

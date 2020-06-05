@@ -56,7 +56,7 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		delete e;
 	}
 
-	GameObject::CheckSweptCollision(objects);
+	GameObject::CheckCollision(objects);
 
 	if ((flip && x >= returnPoint) || (!flip && x <= returnPoint))
 	{
@@ -104,31 +104,26 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 }
 
-void Boomerang::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+void Boomerang::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 	float min_tx, float min_ty, float nx, float ny,
 	float& dx, float& dy)
 {
-	for (LPCOEVENT coEvent : *coEventResults)
+	if (dynamic_cast<Candle*>(o))
 	{
-		LPGAMEOBJECT o = coEvent->obj;
+		Candle* candle = dynamic_cast<Candle*>(o);
 
-		if (dynamic_cast<Candle*>(o))
+		if (candle->IsAlive())
 		{
-			Candle* candle = dynamic_cast<Candle*>(o);
-
-			if (candle->IsAlive())
-			{
-				candle->TakeDamage(damage, this);
-			}
+			candle->TakeDamage(damage, this);
 		}
-		else if (dynamic_cast<Enemy*>(o))
-		{
-			Enemy* e = dynamic_cast<Enemy*>(o);
+	}
+	else if (dynamic_cast<Enemy*>(o))
+	{
+		Enemy* e = dynamic_cast<Enemy*>(o);
 
-			if (e->IsAlive())
-			{
-				e->TakeDamage(damage, this);
-			}
+		if (e->IsAlive())
+		{
+			e->TakeDamage(damage, this);
 		}
 	}
 }

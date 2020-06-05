@@ -35,6 +35,10 @@
 #define TITLEBG_ID						900
 #define TITLEENTER_ID					901
 #define TITLEBAT_ID						902
+#define INTROBG_ID						903
+#define INTROBAT_ID						904
+#define INTROCLOUD_ID					905
+#define INTROSIMON_ID					906
 #endif // !OBJECT_ID
 
 #ifndef ITEM_ID
@@ -81,9 +85,10 @@
 
 #ifndef SCENE_ID
 #define TITLE_ID						-1
-#define SCENE1_ID						0
-#define SCENE2_ID						1
-#define SCENE3_ID						2
-#define SCENE4_ID						3
+#define INTRO_ID						-2
+#define SCENE1_ID						1
+#define SCENE2_ID						2
+#define SCENE3_ID						3
+#define SCENE4_ID						4
 #endif // !SOUND_ID
 

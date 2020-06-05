@@ -12,8 +12,16 @@ void Scene::Load()
 
 void Scene::Unload()
 {
+	for (LPENEMY e : enemies)
+		e->Unactive();
 	enemies.clear();
+
+	for (LPITEM i : items)
+		delete i;
 	items.clear();
+
+	for (LPEFFECT e : effects)
+		delete e;
 	effects.clear();
 
 	if (tilemap) delete tilemap;
@@ -27,6 +35,25 @@ void Scene::Unload()
 	Textures::GetInstance()->Clear();
 }
 
+void Scene::Reset()
+{
+	for (LPENEMY e : enemies)
+		e->Unactive();
+	enemies.clear();
+
+	for (LPITEM i : items)
+		delete i;
+	items.clear();
+
+	for (LPEFFECT e : effects)
+		delete e;
+	effects.clear();
+
+	grid->GetObjectlist(&objects);
+	objects.push_back(player);
+	player->Reset();
+	tilemap->ResetArea();
+}
 
 Scenes* Scenes::_instance = 0;
 
@@ -44,7 +71,7 @@ void Scenes::Add(int id, LPSCENE scene)
 
 void Scenes::SwitchScene()
 {
-	if (switchScene != -1)
+	if (switchScene != -999)
 	{
 		LPSCENE current = scenes[currentID];
 		if (current->IsLoaded())
@@ -53,7 +80,7 @@ void Scenes::SwitchScene()
 		currentID = switchScene;
 		current = scenes[currentID];
 		current->Load();
-		switchScene = -1;
+		switchScene = -999;
 	}
 }
 
@@ -61,5 +88,3 @@ void Scenes::NextScene(int id)
 {
 	switchScene = id;
 }
-
-

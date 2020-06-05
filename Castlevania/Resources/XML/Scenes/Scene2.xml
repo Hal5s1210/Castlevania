@@ -101,7 +101,7 @@
       <Object type="301" x="76" y="24" item="308"/>
       <Object type="317" x="32" y="80" l="32" r="96" flip="true"/>
       <Enemy type="501" x="96" y="48" activeL="96" activeR="144" flip="true"/>
-      <Portal x="0" y="32" w="16" h="48" area="-1" scene="2" p_x="-1" p_y="-1"/>
+      <Portal x="0" y="32" w="16" h="48" area="-1" scene="3" p_x="-1" p_y="-1"/>
     </Cell>
     <Cell row="0" column="1">
       <Block x="128" y="80"/>

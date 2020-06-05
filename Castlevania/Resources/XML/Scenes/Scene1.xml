@@ -141,7 +141,7 @@
       <Block x="720" y="160"/>
       <Block x="736" y="160"/>
       <Block x="752" y="160"/>
-      <Portal x="704" y="112" w="16" h="48" area="-1" scene="1"/>
+      <Portal x="704" y="112" w="16" h="48" area="-1" scene="2"/>
     </Cell>
   </Grid>
   

@@ -73,7 +73,7 @@ void Hunchback::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += dt * 0.0005;
 
-	GameObject::CheckSweptCollision(objects);
+	GameObject::CheckCollision(objects);
 
 	if (!incell && !outview)
 		Enemy::CheckView();
@@ -92,35 +92,39 @@ void Hunchback::Unactive()
 	Enemy::Unactive();
 }
 
-void Hunchback::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+void Hunchback::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 	float min_tx, float min_ty, float nx, float ny,
 	float& dx, float& dy)
 {
-	for (LPCOEVENT coEvent : *coEventResults)
+	if (dynamic_cast<Block*>(o) ||
+		dynamic_cast<BreakableBlock*>(o))
 	{
-		LPGAMEOBJECT o = coEvent->obj;
+		dx = dx * min_tx + nx * 0.4f;
+		dy = jump > 0 ? dy * min_ty + ny * 0.4f : 0;
 
-		if (dynamic_cast<Block*>(o) ||
-			dynamic_cast<BreakableBlock*>(o))
+		if (ny == -1)
 		{
-			dx = dx * min_tx + nx * 0.4f;
-			dy = jump > 0 ? dy * min_ty + ny * 0.4f : 0;
-
-			if (ny == -1)
+			vx = vy = 0;
+			if (!land)
 			{
-				vx = vy = 0;
-				if (!land)
-				{
-					lastjump = GetTickCount();
-					land = true;
-					SetAnimation(0);
-				}
+				lastjump = GetTickCount();
+				land = true;
+				SetAnimation(0);
 			}
 		}
-		else if(dynamic_cast<Simon*>(o))
-		{
-			Simon* player = dynamic_cast<Simon*>(o);
-			player->TakeHit(2);
-		}
+	}
+	else if (dynamic_cast<Simon*>(o))
+	{
+		Simon* player = dynamic_cast<Simon*>(o);
+		player->TakeHit(2);
+	}
+}
+
+void Hunchback::ProcessAABBCollision(LPGAMEOBJECT o)
+{
+	if (dynamic_cast<Simon*>(o))
+	{
+		Simon* player = dynamic_cast<Simon*>(o);
+		player->TakeHit(2);
 	}
 }

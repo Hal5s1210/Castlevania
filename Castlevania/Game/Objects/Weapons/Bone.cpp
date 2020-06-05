@@ -43,7 +43,7 @@ void Bone::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += 0.0005 * dt;
 
-	GameObject::CheckSweptCollision(objects);
+	GameObject::CheckCollision(objects);
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -55,18 +55,13 @@ void Bone::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	}
 }
 
-void Bone::ProcessCollision(std::vector<LPCOEVENT>* coEventResults,
+void Bone::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 	float min_tx, float min_ty, float nx, float ny,
 	float& dx, float& dy)
 {
-	for (LPCOEVENT coEvent : *coEventResults)
+	if (dynamic_cast<Simon*>(o))
 	{
-		LPGAMEOBJECT o = coEvent->obj;
-
-		if (dynamic_cast<Simon*>(o))
-		{
-			Simon* player = dynamic_cast<Simon*>(o);
-			player->TakeHit(1);
-		}
+		Simon* player = dynamic_cast<Simon*>(o);
+		player->TakeHit(1);
 	}
 }

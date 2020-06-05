@@ -27,9 +27,18 @@ private:
 
 	DWORD tickcount;
 
+	DWORD playerdeadtime;
+	DWORD playerdeadtimestart;
+
+	bool gameover;
+
+	int selectchoice;
+
 	RECT GetCharRect(char c, float x, float y);
 	void DrawByChar(char c, float x, float y, int alpha = 255);
 	void Draw(std::string text, float x, float y, int alpha = 255);
+
+	void Reset();
 
 public:
 	Board();
@@ -40,7 +49,14 @@ public:
 
 	void GetSimonData(Whip* whip, SubWeapon* sub);
 	void PlayerHit(int damage);
+	void PlayerDie();
 	int GetPlayerHp() { return playerhp; }
+	void RenderGameover();
+
+	bool IsGameOver() { return gameover; }
+
+	void ConfirmSelection();
+	void ChangeSelection();
 
 	void ItemClaimed(LPITEM item);
 	void AddScore(int score) { this->score += score; }
