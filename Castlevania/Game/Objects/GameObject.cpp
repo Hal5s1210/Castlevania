@@ -34,6 +34,12 @@ void GameObject::Update(DWORD dt)
 	dy = vy * dt;
 }
 
+void GameObject::UpdatePosition()
+{
+	x += dx;
+	y += dy;
+}
+
 LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
 {
 	float sl, st, sr, sb;		// static object bbox
@@ -142,12 +148,7 @@ void GameObject::CheckCollision(std::vector<LPGAMEOBJECT>* coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents, coAABBOs);
 
-	if (coEvents.empty())
-	{
-		x += dx;
-		y += dy;
-	}
-	else
+	if (!coEvents.empty())
 	{
 		std::vector<LPCOEVENT> coEventResults;
 		float min_tx, min_ty, nx, ny;
@@ -164,8 +165,8 @@ void GameObject::CheckCollision(std::vector<LPGAMEOBJECT>* coObjects)
 			ProcessSweptAABBCollision(coEvent->obj, min_tx, min_ty, nx, ny, ddx, ddy);
 		}
 
-		x += ddx;
-		y += ddy;
+		dx = ddx;
+		dy = ddy;
 	}
 
 	if (!coAABBOs.empty())

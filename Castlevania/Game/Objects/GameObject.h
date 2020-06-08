@@ -36,7 +36,7 @@ protected:
 	DWORD dt;
 
 	bool flip;
-	
+
 	std::vector<ANIMATION*> animations;
 	ANIMATION* currentAnimation;
 
@@ -51,7 +51,6 @@ protected:
 		float& min_tx, float& min_ty,
 		float& nx, float& ny);
 
-	void CheckCollision(std::vector<LPGAMEOBJECT>* coObjects);
 	
 	virtual void ProcessAABBCollision(LPGAMEOBJECT coObject) = 0;
 	virtual void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
@@ -81,5 +80,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render(float x = 0, float y = 0) = 0;
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b) = 0;
+	virtual void UpdatePosition();
+	virtual void CheckCollision(std::vector<LPGAMEOBJECT>* coObjects);
 
 };

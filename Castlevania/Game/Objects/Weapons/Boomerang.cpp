@@ -56,7 +56,7 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		delete e;
 	}
 
-	GameObject::CheckCollision(objects);
+	//GameObject::UpdatePosition();
 
 	if ((flip && x >= returnPoint) || (!flip && x <= returnPoint))
 	{

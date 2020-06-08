@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Object>
+
+  <Sprites>
+    <Sprite id="32000" texture="3000" x="0" y="48" w="16" h="16"/>
+    <Sprite id="32001" texture="3000" x="16" y="48" w="16" h="16"/>
+    <Sprite id="32002" texture="3000" x="32" y="48" w="16" h="16"/>
+    <Sprite id="32003" texture="3000" x="48" y="48" w="16" h="16"/>
+    <Sprite id="32004" texture="3000" x="64" y="48" w="16" h="16"/>
+    <Sprite id="32005" texture="3000" x="80" y="48" w="16" h="16"/>
+    <Sprite id="32006" texture="3000" x="96" y="48" w="16" h="16"/>
+    <Sprite id="32007" texture="3000" x="112" y="48" w="16" h="16"/>
+    <Sprite id="32008" texture="3000" x="0" y="64" w="16" h="16"/>
+    <Sprite id="32009" texture="3000" x="16" y="64" w="16" h="16"/>
+    <Sprite id="32010" texture="3000" x="32" y="64" w="16" h="16"/>
+    <Sprite id="32011" texture="3000" x="48" y="64" w="16" h="16"/>
+    <Sprite id="32012" texture="3000" x="64" y="64" w="16" h="16"/>
+    <Sprite id="32013" texture="3000" x="80" y="64" w="16" h="16"/>
+    <Sprite id="32014" texture="3000" x="96" y="64" w="16" h="16"/>
+    <Sprite id="32015" texture="3000" x="112" y="64" w="16" h="16"/>
+  </Sprites>
+
+  <Animations>
+    <Animation id="32000">
+      <Frame sprite="32000" time="20"/>
+      <Frame sprite="32005" time="20"/>
+      <Frame sprite="32010" time="20"/>
+      <Frame sprite="32015" time="20"/>
+      <Frame sprite="32004" time="20"/>
+      <Frame sprite="32009" time="20"/>
+      <Frame sprite="32014" time="20"/>
+      <Frame sprite="32003" time="20"/>
+      <Frame sprite="32008" time="20"/>
+      <Frame sprite="32013" time="20"/>
+      <Frame sprite="32002" time="20"/>
+      <Frame sprite="32007" time="20"/>
+      <Frame sprite="32012" time="20"/>
+      <Frame sprite="32001" time="20"/>
+      <Frame sprite="32006" time="20"/>
+      <Frame sprite="32011" time="20"/>
+    </Animation>
+  </Animations>
+
+  <AnimationSet>
+      <Animation id="32000"/>
+  </AnimationSet>
+
+</Object>

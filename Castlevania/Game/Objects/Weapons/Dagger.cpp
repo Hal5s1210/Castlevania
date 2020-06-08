@@ -41,7 +41,7 @@ void Dagger::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
-	GameObject::CheckCollision(objects);
+	//GameObject::UpdatePosition();
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;

@@ -51,7 +51,7 @@ void HolyWater::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	if (!burning && !startBurn)
 		vy += 0.0005 * dt;
 
-	GameObject::CheckCollision(objects);
+	//GameObject::UpdatePosition();
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;

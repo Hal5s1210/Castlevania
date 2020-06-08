@@ -42,7 +42,7 @@ void Ghost::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		vx = flip ? 0.04 : -0.04;
 		vy = p_y > y ? 0.02 : -0.02;
 
-		GameObject::CheckCollision(objects);
+		//GameObject::UpdatePosition();
 
 		if (!incell && !outview)
 			Enemy::CheckView();
@@ -67,17 +67,6 @@ void Ghost::Active()
 void Ghost::Unactive()
 {
 	Enemy::Unactive();
-}
-
-void Ghost::ProcessSweptAABBCollision(LPGAMEOBJECT o,
-	float min_tx, float min_ty, float nx, float ny,
-	float& dx, float& dy)
-{
-	if (dynamic_cast<Simon*>(o))
-	{
-		Simon* player = dynamic_cast<Simon*>(o);
-		player->TakeHit(2);
-	}
 }
 
 void Ghost::ProcessAABBCollision(LPGAMEOBJECT o)

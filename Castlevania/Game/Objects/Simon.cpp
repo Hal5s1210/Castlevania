@@ -15,7 +15,7 @@ Simon::Simon()
 	hit = false;
 	dead = false;
 	hittime = 500;
-	invulnerabletime = 2000;
+	invulnerabletime = 3000;
 	SetState(Simon::Idle);
 }
 
@@ -115,12 +115,12 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		use_stair = false;
 	}
 
-	if (!hit && on_air && !on_stair)
+	if (!hit && !dead && on_air && !on_stair)
 	{
 		vx = speed_before_jump;
 	}
 
-	GameObject::CheckCollision(objects);
+	//GameObject::UpdatePosition();
 
 	if (attack)
 	{
@@ -259,26 +259,36 @@ void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 		if (dynamic_cast<BreakableBlock*>(o) && !dynamic_cast<BreakableBlock*>(o)->IsAlive()) return;
 
 		on_moving_block = false;
+		bool wall, floor;
 
 		dx = dx * min_tx + nx * 0.4f;
 		if (ny == -1)dy = on_air ? dy * min_ty + ny * 0.4f : 0;
 
+		float lo, ro, to, bo;
+		o->GetBoundingBox(lo, to, ro, bo);
+
 		if (nx != 0)
 		{
-			float ox, oy;
-			o->GetPosition(ox, oy);
-			if (oy < y + 32)
+			if (to < y + 32)
+			{
 				vx = 0;
+			}
 		}
 
 		if (ny == -1)
 		{
-			vy = 0;
-			if (on_air && attack)
+			if (!(x > ro || x + 16 < lo))
+			{
+				vy = 0;
+				on_air = false;
+				speed_before_jump = 0;
+			}
+			else on_air = true;
+
+			if (attack || dead)
 			{
 				vx = 0;
 			}
-			on_air = false;
 
 			if (dynamic_cast<MovingBlock*>(o))
 			{
@@ -309,8 +319,6 @@ void Simon::AutoMove()
 	}
 	else
 	{
-		x += dx;
-
 		if ((auto_dir_x == 1 && x >= auto_dest_x)|| (auto_dir_x == -1 && x <= auto_dest_x))
 		{
 			x = auto_dest_x;
@@ -515,6 +523,7 @@ void Simon::ProcessState()
 		SetAnimation(WALK);
 		currentAnimation->first->Play();
 		vx = -SIMON_SPEED;
+		speed_before_jump = vx;
 		crouch = false;
 		flip = false;
 		break;
@@ -523,6 +532,7 @@ void Simon::ProcessState()
 		SetAnimation(WALK);
 		currentAnimation->first->Play();
 		vx = SIMON_SPEED;
+		speed_before_jump = vx;
 		crouch = false;
 		flip = true;
 		break;
@@ -687,6 +697,7 @@ void Simon::TakeHit(int damage)
 	if (!on_stair)
 	{
 		SetState(Simon::Hitted);
+		ProcessState();
 	}
 	else
 	{

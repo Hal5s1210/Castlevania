@@ -8,6 +8,7 @@ class Whip : public GameObject
 private:
 	int index;
 	int level;
+	bool hit;
 	bool isWhip;
 	int damage;
 
@@ -15,6 +16,7 @@ private:
 	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy) {}
+	void CheckCollision(std::vector<LPGAMEOBJECT>* coObjects);
 
 public:
 	Whip();
@@ -23,7 +25,7 @@ public:
 
 	LPGAMEOBJECT Clone() { return NULL; }
 
-	void UseWhip(bool use) { isWhip = use; }
+	void UseWhip(bool use) { isWhip = use; hit = true; }
 
 	void SetFrameIndex(int i);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);

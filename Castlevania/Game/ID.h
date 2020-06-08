@@ -54,6 +54,15 @@
 #define ITEM_MONEY400_ID				311
 #define ITEM_MONEY700_ID				312
 #define ITEM_MONEY1000_ID				313
+#define ITEM_CROWN_ID					318
+#define ITEM_CHEST_ID					319
+#define ITEM_ISLANDHEAD_ID				320
+#define ITEM_1UP_ID						321
+#define ITEM_PORK_ID					322
+#define ITEM_CROSS_ID					323
+#define ITEM_DOUBLESHOT_ID				324
+#define ITEM_TRIPLESHOT_ID				325
+#define ITEM_CRYSTAL_ID					326
 #endif // !ITEM_ID
 
 #ifndef EFFECT_ID
@@ -64,6 +73,8 @@
 #define EFFECT_700POINT_ID				404
 #define EFFECT_1000POINT_ID				405
 #define EFFECT_BROKENBLOCK_ID			406
+#define EFFECT_2000POINT_ID				407
+#define EFFECT_4000POINT_ID				408
 #endif // !EFFECT_ID
 
 #ifndef ENEMY_ID

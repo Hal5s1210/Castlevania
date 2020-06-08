@@ -19,10 +19,8 @@ void Effect::Update(DWORD dt)
 	GameObject::Update(dt);
 	if (gravity)
 	{
-		vy += 0.0005 * dt;
+		vy += 0.001 * dt;
 	}
-	x += dx;
-	y += dy;
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -57,6 +55,7 @@ void Effect::Render(float x, float y)
 
 void Effect::AddHitEffect(LPGAMEOBJECT hitter, LPGAMEOBJECT obj)
 {
+	if (hitter == NULL || obj == NULL) return;
 	//hitter bbox
 	float lh, th, rh, bh;
 	hitter->GetBoundingBox(lh, th, rh, bh);
@@ -72,8 +71,47 @@ void Effect::AddHitEffect(LPGAMEOBJECT hitter, LPGAMEOBJECT obj)
 	LPEFFECT effect = Spawner::GetInstance()->SpawnEffect(EFFECT_HIT_ID, eff_x, eff_y);
 	Scenes::GetInstance()->GetScene()->AddEffect(effect);
 }
+
 void Effect::AddDeathEffect(RECT r, float x, float y)
 {
 	LPEFFECT e = Spawner::GetInstance()->SpawnEffect(EFFECT_DEAD_ID, x + ((r.right - r.left) / 2) - 4, y + ((r.bottom - r.top) / 2) - 8);
 	Scenes::GetInstance()->GetScene()->AddEffect(e);
+}
+
+void Effect::AddBreakBlockEffect(RECT r, float x, float y)
+{
+	LPEFFECT e1 = Spawner::GetInstance()->SpawnEffect(EFFECT_BROKENBLOCK_ID, x + ((r.right - r.left) / 2), y + ((r.bottom - r.top) / 2));
+	e1->SetSpeed(-0.04, -0.4);
+	e1->UseGravity();
+	e1->OnetimeEffect(false);
+	LPEFFECT e2 = Spawner::GetInstance()->SpawnEffect(EFFECT_BROKENBLOCK_ID, x + ((r.right - r.left) / 2), y + ((r.bottom - r.top) / 2));
+	e2->SetSpeed(0.04, -0.3);
+	e2->UseGravity();
+	e2->OnetimeEffect(false);
+	LPEFFECT e3 = Spawner::GetInstance()->SpawnEffect(EFFECT_BROKENBLOCK_ID, x + ((r.right - r.left) / 2), y + ((r.bottom - r.top) / 2));
+	e3->SetSpeed(-0.02, -0.45);
+	e3->UseGravity();
+	e3->OnetimeEffect(false);
+
+	Scenes::GetInstance()->GetScene()->AddEffect(e1);
+	Scenes::GetInstance()->GetScene()->AddEffect(e2);
+	Scenes::GetInstance()->GetScene()->AddEffect(e3);
+}
+
+
+
+bool Effect::flash = false;
+
+void Effect::RenderBackgroundEffect()
+{
+	if (flash)
+	{
+		Graphics::GetInstance()->FillColor(255, 255, 255);
+		flash = false;
+	}
+}
+
+void Effect::Flash()
+{
+	flash = true;
 }

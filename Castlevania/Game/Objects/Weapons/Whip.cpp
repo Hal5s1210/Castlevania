@@ -62,6 +62,12 @@ void Whip::Render(float x, float y)
 	}
 }
 
+void Whip::CheckCollision(std::vector<LPGAMEOBJECT>* coObjects)
+{
+	GameObject::CheckCollision(coObjects);
+	if (index == 2 & hit) hit = false;
+}
+
 void Whip::ProcessAABBCollision(LPGAMEOBJECT o)
 {
 	if (dynamic_cast<Candle*>(o))
@@ -95,18 +101,21 @@ void Whip::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	if (isWhip && index == 2)
 	{
-		LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
-		RECT rect = sprite->GetRect();
-		int w = rect.right - rect.left;
-		int h = rect.bottom - rect.top;
+		if (hit)
+		{
+			LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+			RECT rect = sprite->GetRect();
+			int w = rect.right - rect.left;
+			int h = rect.bottom - rect.top;
 
-		l = x;
+			l = x;
 
-		if (!flip) l -= w;
+			if (!flip) l -= w;
 
-		t = y + 2;
-		r = l + w;
-		b = t + h - 2;
+			t = y + 2;
+			r = l + w;
+			b = t + h - 2;
+		}
 	}
 	else
 	{

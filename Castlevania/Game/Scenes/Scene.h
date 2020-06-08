@@ -60,9 +60,11 @@ public:
 	void AddEnemy(LPENEMY enemy) { enemies.push_back(enemy); }
 	void AddBullet(Bullet* bullet) { bullets.push_back(bullet); }
 
+	void KillAllEnemies();
+
 	void NextArea(int i) { tilemap->SetArea(i); }
 
-	void Reset();
+	virtual void Reset();
 
 	virtual void Load();
 	virtual void Unload();

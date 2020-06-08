@@ -49,7 +49,7 @@ void VampireBat::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		vx = vy = 0;
 	}
 
-	GameObject::CheckCollision(objects);
+	//GameObject::UpdatePosition();
 
 	if (!incell && !outview)
 		Enemy::CheckView();
@@ -70,22 +70,12 @@ void VampireBat::Unactive()
 }
 
 
-void VampireBat::ProcessSweptAABBCollision(LPGAMEOBJECT o,
-	float min_tx, float min_ty, float nx, float ny,
-	float& dx, float& dy)
-{
-	if (dynamic_cast<Simon*>(o))
-	{
-		Simon* player = dynamic_cast<Simon*>(o);
-		player->TakeHit(2);
-	}
-}
-
 void VampireBat::ProcessAABBCollision(LPGAMEOBJECT o)
 {
 	if (dynamic_cast<Simon*>(o))
 	{
 		Simon* player = dynamic_cast<Simon*>(o);
 		player->TakeHit(2);
+		TakeDamage(1, NULL);
 	}
 }

@@ -73,7 +73,7 @@ void Hunchback::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += dt * 0.0005;
 
-	GameObject::CheckCollision(objects);
+	//GameObject::UpdatePosition();
 
 	if (!incell && !outview)
 		Enemy::CheckView();
@@ -112,11 +112,6 @@ void Hunchback::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 				SetAnimation(0);
 			}
 		}
-	}
-	else if (dynamic_cast<Simon*>(o))
-	{
-		Simon* player = dynamic_cast<Simon*>(o);
-		player->TakeHit(2);
 	}
 }
 

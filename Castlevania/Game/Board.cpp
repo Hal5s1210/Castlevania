@@ -21,7 +21,7 @@ Board::Board()
 	enemyhp = 16;
 	shot = 1;
 	whip = 1;
-	subweapon = 0;
+	subweapon = 5;
 
 	playerdeadtime = 2000;
 	playerdeadtimestart = 0;
@@ -371,14 +371,31 @@ void Board::ItemClaimed(LPITEM item)
 	case Item::Axe:	subweapon = 2; break;
 	case Item::Boomerang: subweapon = 3; break;
 	case Item::HolyWater: subweapon = 4; break;
+	case Item::StopWatch: subweapon = 5; break;
 
 	case Item::SmallHeart: heart += 1; break;
 	case Item::BigHeart: heart += 5; break;
+		
+	case Item::LifeUp: life += 1; break;
+
+	case Item::Pork: playerhp = 16; break;
+		
+	case Item::DoubleShot: shot = 2; break;
+	case Item::TripleShot: shot = 3; break;
 
 	case Item::Money100: score += 100; effect_id = EFFECT_100POINT_ID; break;
 	case Item::Money400: score += 400; effect_id = EFFECT_400POINT_ID; break;
 	case Item::Money700: score += 700; effect_id = EFFECT_700POINT_ID; break;
 	case Item::Money1000: score += 1000; effect_id = EFFECT_1000POINT_ID; break;
+	case Item::Crown: score += 2000; effect_id = EFFECT_2000POINT_ID; break;
+	case Item::Chest: score += 4000; effect_id = EFFECT_4000POINT_ID; break;
+
+	case Item::Cross:
+		Scenes::GetInstance()->GetScene()->KillAllEnemies();
+		Effect::Flash();
+		break;
+
+	case Item::Crystall: break;
 
 	default:
 		break;

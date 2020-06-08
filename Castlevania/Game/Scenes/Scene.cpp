@@ -55,6 +55,16 @@ void Scene::Reset()
 	tilemap->ResetArea();
 }
 
+void Scene::KillAllEnemies()
+{
+	for (LPENEMY e : enemies)
+	{
+		if (e->IsAlive())
+			e->TakeDamage(999, NULL);
+	}
+}
+
+
 Scenes* Scenes::_instance = 0;
 
 Scenes* Scenes::GetInstance()

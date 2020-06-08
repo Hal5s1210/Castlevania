@@ -1,10 +1,13 @@
 #pragma once
 
+#include <d3d9.h>
+
 class Viewport
 {
 private:
 	static Viewport* _instance;
 	float x, y;
+	float vx, vy;
 	int width, height;
 
 public:
@@ -14,8 +17,8 @@ public:
 
 	void SetPosition(float x, float y) { this->x = x; this->y = y; }
 	void SetSize(int w, int h) { width = w; height = h; }
+
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSize(int& w, int& h) { w = width; h = height; }
-
 };
 

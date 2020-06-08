@@ -103,6 +103,8 @@ void PlayScene::Update(DWORD dt)
 		objects.push_back(effects[i]);
 	}
 
+	CheckCollision(&objects);
+
 	AdjustView();
 
 	board->Update(dt);
@@ -110,6 +112,8 @@ void PlayScene::Update(DWORD dt)
 
 void PlayScene::Render()
 {
+	Effect::RenderBackgroundEffect();
+
 	tilemap->Render(x, y);
 	board->Render();
 
@@ -119,6 +123,21 @@ void PlayScene::Render()
 	}
 
 	board->RenderGameover();
+}
+
+void PlayScene::Reset()
+{
+	Scene::Reset();
+	AdjustView();
+}
+
+void PlayScene::CheckCollision(std::vector<LPGAMEOBJECT>* coObjects)
+{
+	for (LPGAMEOBJECT o : *coObjects)
+	{
+		o->CheckCollision(coObjects);
+		o->UpdatePosition();
+	}
 }
 
 void PlayScene::AdjustView()

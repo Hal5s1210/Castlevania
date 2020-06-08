@@ -8,6 +8,8 @@ typedef Effect* LPEFFECT;
 class Effect : public GameObject
 {
 private:
+	static bool flash;
+
 	bool done;
 	bool oneTimeEffect = true;
 	bool gravity;
@@ -35,6 +37,9 @@ public:
 
 	static void AddHitEffect(LPGAMEOBJECT hitter, LPGAMEOBJECT obj);
 	static void AddDeathEffect(RECT r, float x, float y);
+	static void AddBreakBlockEffect(RECT r, float x, float y);
+	static void RenderBackgroundEffect();
+	static void Flash();
 };
 
 

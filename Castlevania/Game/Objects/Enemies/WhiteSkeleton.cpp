@@ -68,7 +68,7 @@ void WhiteSkeleton::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += dt * 0.0005;
 
-	GameObject::CheckCollision(objects);
+	//GameObject::UpdatePosition();
 
 	if (x > limitR - 16) x = limitR - 16;
 	if (x < limitL) x = limitL;
@@ -111,11 +111,6 @@ void WhiteSkeleton::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 		{
 			vy = 0;
 		}
-	}
-	else if (dynamic_cast<Simon*>(o))
-	{
-		Simon* player = dynamic_cast<Simon*>(o);
-		player->TakeHit(2);
 	}
 }
 

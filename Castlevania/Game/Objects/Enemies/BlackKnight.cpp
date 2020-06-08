@@ -46,7 +46,7 @@ void BlackKnight::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		SetAnimation(1);
 	}
 
-	GameObject::CheckCollision(objects);
+	//GameObject::UpdatePosition();
 
 	if (!incell && !outview)
 		Enemy::CheckView();

@@ -21,11 +21,17 @@ public:
 		Money400,
 		Money700,
 		Money1000,
-		Money,
 		SmallHeart,
 		BigHeart,
+		Crown,
+		Chest,
+		IslandHead,
+		LifeUp,
+		Pork,
+		Cross,
 		DoubleShot,
 		TripleShot,
+		Crystall
 	};
 
 private:

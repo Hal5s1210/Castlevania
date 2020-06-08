@@ -11,6 +11,7 @@ Enemy::Enemy()
 void Enemy::Update(DWORD dt)
 {
 	if (!alive || !active || outview) return;
+
 	GameObject::Update(dt);
 }
 

@@ -37,7 +37,7 @@ void Zombie::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += dt * 0.0005;
 
-	GameObject::CheckCollision(objects);
+	//GameObject::UpdatePosition();
 
 	if (!incell && !outview)
 		Enemy::CheckView();
@@ -76,11 +76,6 @@ void Zombie::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 			vy = 0;
 			if (move) vx = flip ? 0.05 : -0.05;
 		}
-	}
-	else if(dynamic_cast<Simon*>(o))
-	{
-		Simon* player = dynamic_cast<Simon*>(o);
-		player->TakeHit(2);
 	}
 }
 

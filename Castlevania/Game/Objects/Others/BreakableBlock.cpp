@@ -72,23 +72,7 @@ void BreakableBlock::TakeDamage()
 		LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
 		RECT r = sprite->GetRect();
 
-		LPEFFECT e1 = Spawner::GetInstance()->SpawnEffect(EFFECT_BROKENBLOCK_ID, x + ((r.right - r.left) / 2), y + ((r.bottom - r.top) / 2));
-		e1->SetSpeed(-0.02, -0.2);
-		e1->UseGravity();
-		e1->OnetimeEffect(false);
-		LPEFFECT e2 = Spawner::GetInstance()->SpawnEffect(EFFECT_BROKENBLOCK_ID, x + ((r.right - r.left) / 2), y + ((r.bottom - r.top) / 2));
-		e2->SetSpeed(0.02, -0.15);
-		e2->UseGravity();
-		e2->OnetimeEffect(false);
-		LPEFFECT e3 = Spawner::GetInstance()->SpawnEffect(EFFECT_BROKENBLOCK_ID, x + ((r.right - r.left) / 2), y + ((r.bottom - r.top) / 2));
-		e3->SetSpeed(-0.01, -0.22);
-		e3->UseGravity();
-		e3->OnetimeEffect(false);
-
-		
-		scene->AddEffect(e1);
-		scene->AddEffect(e2);
-		scene->AddEffect(e3);
+		Effect::AddBreakBlockEffect(r, x, y);
 
 		OutputDebugString(L"Block is break\n");
 

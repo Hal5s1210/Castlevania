@@ -18,6 +18,7 @@ class PlayScene : public Scene
 {
 private:
 	void AdjustView();
+	void CheckCollision(std::vector<LPGAMEOBJECT>* coObjects);
 
 public:
 	PlayScene(float x, float y, std::wstring filepath) : Scene(x, y, filepath)
@@ -25,6 +26,7 @@ public:
 		keyhandler = new PlaySceneKeyHandler(this);
 	}
 
+	void Reset();
 	void Load();
 	void Unload();
 	void Update(DWORD dt);
