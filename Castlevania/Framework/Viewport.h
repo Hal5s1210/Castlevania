@@ -6,9 +6,17 @@ class Viewport
 {
 private:
 	static Viewport* _instance;
+
+	bool auto_move;
+	bool switchview;
+
 	float x, y;
-	float vx, vy;
 	int width, height;
+
+	float vx, vy;
+
+	float dest_x, dest_y;
+	bool reach_dest;
 
 public:
 	Viewport();
@@ -20,5 +28,16 @@ public:
 
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSize(int& w, int& h) { w = width; h = height; }
+
+	void SetSwitchView(bool s) { switchview = s; }
+	bool IsSwitchView() { return switchview; }
+
+	void SetAuto(bool a) { auto_move = a; }
+	bool IsAuto() { return auto_move; }
+
+	void GoToX(float x);
+	bool IsReachAutoDest() { return reach_dest; }
+
+	void Update(DWORD dt);
 };
 

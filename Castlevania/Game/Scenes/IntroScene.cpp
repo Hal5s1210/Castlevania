@@ -44,6 +44,8 @@ void IntroScene::Update(DWORD dt)
 		}
 	}
 
+	board->Update(dt);
+
 	if (scenestart != 0 && GetTickCount() - scenestart >= scenetime)
 	{
 		Scenes::GetInstance()->NextScene(SCENE1_ID);

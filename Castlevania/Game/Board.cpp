@@ -21,7 +21,7 @@ Board::Board()
 	enemyhp = 16;
 	shot = 1;
 	whip = 1;
-	subweapon = 5;
+	subweapon = 0;
 
 	playerdeadtime = 2000;
 	playerdeadtimestart = 0;
@@ -429,6 +429,8 @@ void Board::ChangeSelection()
 
 void Board::Reset()
 {
+	x = 0;
+	y = 0;
 	score = 0;
 	time = 300;
 	heart = 0;
@@ -438,4 +440,5 @@ void Board::Reset()
 	shot = 1;
 	whip = 1;
 	subweapon = 0;
+	Viewport::GetInstance()->SetAuto(false);
 }

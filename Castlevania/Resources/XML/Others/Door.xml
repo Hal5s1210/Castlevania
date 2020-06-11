@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Object>
+
+  <Sprites>
+    <Sprite id="30600" texture="3000" x="64" y="0" w="8" h="48"/>
+    <Sprite id="30601" texture="3000" x="72" y="0" w="24" h="48"/>
+    <Sprite id="30602" texture="3000" x="96" y="0" w="32" h="48"/>
+  </Sprites>
+
+  <Animations>
+    <Animation id="30600">
+      <Frame sprite="30600" time="100"/>
+    </Animation>
+    <Animation id="30601">
+      <Frame sprite="30600" time="100"/>
+      <Frame sprite="30601" time="100"/>
+      <Frame sprite="30602" time="100"/>
+    </Animation>
+    <Animation id="30602">
+      <Frame sprite="30602" time="100"/>
+    </Animation>
+    <Animation id="30603">
+      <Frame sprite="30602" time="100"/>
+      <Frame sprite="30601" time="100"/>
+      <Frame sprite="30600" time="100"/>
+    </Animation>
+  </Animations>
+
+  <AnimationSet>
+    <Animation id="30600"/>
+    <Animation id="30601"/>
+    <Animation id="30602"/>
+    <Animation id="30603"/>
+  </AnimationSet>
+
+</Object>

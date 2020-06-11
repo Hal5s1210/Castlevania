@@ -13,6 +13,7 @@
 #include "Others\BreakableBlock.h"
 #include "Others\MovingBlock.h"
 #include "Others\SimpleObject.h"
+#include "Others\Door.h"
 
 #include "Effect.h"
 

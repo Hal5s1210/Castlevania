@@ -403,11 +403,11 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 			}
 			else if (name == L"Stair")
 			{
-
 				float x = obj.attribute(L"x").as_float();
 				float y = obj.attribute(L"y").as_float();
 				int dir_x = obj.attribute(L"dir_x").as_int();
 				int dir_y = obj.attribute(L"dir_y").as_int();
+
 				Stair* s = new Stair;
 				s->SetPosition(x, y);
 				s->SetDirection(dir_x, dir_y);
@@ -430,20 +430,20 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 				int id = obj.attribute(L"type").as_int();
 				float x = obj.attribute(L"x").as_float();
 				float y = obj.attribute(L"y").as_float();
+				bool flip = obj.attribute(L"flip").as_bool();
 				int item = obj.attribute(L"item").as_int();
 				float vx = obj.attribute(L"vx").as_float();
 				float vy = obj.attribute(L"vy").as_float();
 
 				LPGAMEOBJECT o = Spawner::GetInstance()->SpawnObject(id, x, y, item);
 				o->SetSpeed(vx, vy);
+				o->SetFlip(flip);
 
 				if (id == MOVINGBLOCK_ID)
 				{
 					float l = obj.attribute(L"l").as_float(); 
 					float r = obj.attribute(L"r").as_float();
-					bool flip = obj.attribute(L"flip").as_bool();
 					dynamic_cast<MovingBlock*>(o)->SetActiveArea(l, r);
-					o->SetFlip(flip);
 				}
 
 				cells->at(i).at(j).push_back(o);

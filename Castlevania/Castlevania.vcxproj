@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Objects\Others\Door.cpp" />
     <ClCompile Include="Game\Objects\Bullet.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Bone.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Fireball.cpp" />
@@ -73,6 +74,7 @@
     <ClCompile Include="Game\Objects\Others\SimpleObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Objects\Others\Door.h" />
     <ClInclude Include="Game\Objects\Bullet.h" />
     <ClInclude Include="Game\Objects\Weapons\Bone.h" />
     <ClInclude Include="Game\Objects\Weapons\Fireball.h" />

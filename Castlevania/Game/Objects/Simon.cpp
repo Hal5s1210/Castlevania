@@ -9,6 +9,8 @@ Simon::Simon()
 	whip = new Whip;
 	subweapon = new SubWeapon(this);
 	flip = true;
+	input = true;
+	hit_door = false;
 	attack = false;
 	crouch = false;
 	on_air = true;
@@ -75,8 +77,8 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 		if (reach_dest)
 		{
+			if (!hit_door) input = true;
 			auto_pilot = false;
-			reach_dest = false;
 			if (use_stair)
 			{
 				flip = stair_dir_x == 1 ? true : false;
@@ -262,7 +264,7 @@ void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 		bool wall, floor;
 
 		dx = dx * min_tx + nx * 0.4f;
-		if (ny == -1)dy = on_air ? dy * min_ty + ny * 0.4f : 0;
+		if (ny == -1) dy = on_air ? dy * min_ty + ny * 0.4f : 0;
 
 		float lo, ro, to, bo;
 		o->GetBoundingBox(lo, to, ro, bo);
@@ -277,13 +279,9 @@ void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 
 		if (ny == -1)
 		{
-			if (!(x > ro || x + 16 < lo))
-			{
-				vy = 0;
-				on_air = false;
-				speed_before_jump = 0;
-			}
-			else on_air = true;
+			vy = 0;
+			on_air = false;
+			speed_before_jump = 0;
 
 			if (attack || dead)
 			{
@@ -303,12 +301,43 @@ void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 		{
 			on_moving_block = false;
 			block_vx = 0;
+			on_air = true;
 		}
 	}
 	else if (dynamic_cast<Portal*>(o))
 	{
-		dynamic_cast<Portal*>(o)->Active();
+		if (!hit_door)
+			dynamic_cast<Portal*>(o)->Active();
 	}
+	else if (dynamic_cast<Door*>(o))
+	{
+		hit_door = true;
+		vx = 0;
+		dynamic_cast<Door*>(o)->Active();
+		input = false;
+		float cam_x, cam_y;
+		Viewport::GetInstance()->GetPosition(cam_x, cam_y);
+		cam_x += dynamic_cast<Door*>(o)->IsFlip() ? -128 : 128;
+		Viewport::GetInstance()->GoToX(cam_x);
+	}
+}
+void Simon::ProcessAABBCollision(LPGAMEOBJECT o)
+{
+	if (dynamic_cast<Portal*>(o))
+	{
+		if (!hit_door)
+			dynamic_cast<Portal*>(o)->Active();
+	}
+}
+
+void Simon::GoToX(float dest_x)
+{
+	input = false;
+	reach_dest = false;
+	auto_pilot = true;
+	auto_dir_x = x < dest_x ? 1 : x == dest_x ? 0 : -1;
+	auto_dest_x = dest_x;
+	auto_dest_y = y;
 }
 
 void Simon::AutoMove()
@@ -365,11 +394,11 @@ void Simon::HitStair(Stair* s)
 	if (!on_stair)
 	{
 		use_stair = true;
-
-		s->GetDirection(stair_dir_x, stair_dir_y);
-		s->GetPosition(auto_dest_x, auto_dest_y);
-		auto_dest_y = y;
-		auto_dir_x = x < auto_dest_x ? 1 : x == auto_dest_x ? 0 : -1;
+		if (!auto_pilot)
+		{
+			s->GetDirection(stair_dir_x, stair_dir_y);
+			s->GetPosition(stair_x, stair_y);
+		}
 	}
 	else
 	{
@@ -393,9 +422,9 @@ void Simon::HitStair(Stair* s)
 }
 
 
-void Simon::SetState(eState state)
+void Simon::SetState(eState state, bool priority)
 {
-	if (hit || dead || auto_pilot)
+	if (!priority && (hit || dead || auto_pilot))
 		return;
 
 	switch (state)
@@ -449,7 +478,7 @@ void Simon::SetState(eState state)
 				{
 					if (stair_dir_y == 0) stair_dir_y = -1;
 
-					auto_pilot = true;
+					GoToX(stair_x);
 					this->state = auto_dir_x == 1 ? Simon::WalkR : Simon::WalkL;
 				}
 			}
@@ -476,7 +505,7 @@ void Simon::SetState(eState state)
 				{
 					if (stair_dir_y == 0) stair_dir_y = 1;
 
-					auto_pilot = true;
+					GoToX(stair_x);
 					this->state = auto_dir_x == 1 ? Simon::WalkR : Simon::WalkL;
 				}
 			}
@@ -517,6 +546,13 @@ void Simon::ProcessState()
 		currentAnimation->first->Play();
 		crouch = false;
 		vx = 0;
+		break;
+
+	case Simon::OnAir:
+		SetAnimation(CROUNCH);
+		currentAnimation->first->Play();
+		crouch = false;
+		on_air = true;
 		break;
 
 	case Simon::WalkL:
@@ -613,14 +649,6 @@ void Simon::ProcessState()
 		}
 		break;
 
-	case Simon::OnAir:
-		if (on_air)
-		{
-			SetAnimation(CROUNCH);
-			currentAnimation->first->Play();
-		}
-		break;
-
 	case Simon::StairUp:
 		if (on_stair)
 		{
@@ -692,6 +720,7 @@ void Simon::ProcessState()
 
 void Simon::TakeHit(int damage)
 {
+	return;
 	if (hit || invulnerable) return;
 
 	if (!on_stair)
@@ -701,6 +730,7 @@ void Simon::TakeHit(int damage)
 	}
 	else
 	{
+		hit = true;
 		invulnerable = true;
 		invulnerabletimestart = GetTickCount();
 	}
@@ -713,10 +743,20 @@ void Simon::Reset()
 	x = default_x;
 	y = default_y;
 	flip = default_flip;
+	input = true;
+	hit_door = false;
 	attack = false;
 	crouch = false;
 	on_air = true;
 	hit = false;
 	dead = false;
 	SetState(Simon::Idle);
+}
+
+void Simon::GainControl()
+{
+	input = true;
+	auto_pilot = false;
+	hit_door = false;
+	reach_dest = false;
 }

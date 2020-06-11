@@ -16,9 +16,7 @@
 #define TILESET4_ID						8003
 #endif // !TILESET_ID
 
-#ifndef OBJECT_ID
-#define BLOCK_ID						-1
-#define SIMON_ID						100
+#ifndef WEAPON_ID
 #define WHIP_ID							200
 #define DAGGER_ID						201
 #define AXE_ID							202
@@ -26,12 +24,17 @@
 #define HOLYWATER_ID					204
 #define FIREBALL_ID						210
 #define BONE_ID							211
+#endif // !WEAPON_ID
+
+#ifndef OBJECT_ID
 #define TORCH_ID						300
 #define CANDLE_ID						301
-#define BREAKABLEBLOCK_S2_ID			314
-#define BREAKABLEBLOCK_S3_ID			315
-#define BREAKABLEBLOCK_S4_ID			316
-#define MOVINGBLOCK_ID					317
+#define BREAKABLEBLOCK_S2_ID			302
+#define BREAKABLEBLOCK_S3_ID			303
+#define BREAKABLEBLOCK_S4_ID			304
+#define MOVINGBLOCK_ID					305
+#define DOOR_ID							306
+
 #define TITLEBG_ID						900
 #define TITLEENTER_ID					901
 #define TITLEBAT_ID						902
@@ -40,30 +43,6 @@
 #define INTROCLOUD_ID					905
 #define INTROSIMON_ID					906
 #endif // !OBJECT_ID
-
-#ifndef ITEM_ID
-#define ITEM_WHIP_ID					302
-#define ITEM_DANGER_ID					303
-#define ITEM_AXE_ID						304
-#define ITEM_BOOMERANG_ID				305
-#define ITEM_HOLYWATER_ID				306
-#define ITEM_STOPWATCH_ID				307
-#define ITEM_SMALLHEART_ID				308
-#define ITEM_BIGHEART_ID				309
-#define ITEM_MONEY100_ID				310
-#define ITEM_MONEY400_ID				311
-#define ITEM_MONEY700_ID				312
-#define ITEM_MONEY1000_ID				313
-#define ITEM_CROWN_ID					318
-#define ITEM_CHEST_ID					319
-#define ITEM_ISLANDHEAD_ID				320
-#define ITEM_1UP_ID						321
-#define ITEM_PORK_ID					322
-#define ITEM_CROSS_ID					323
-#define ITEM_DOUBLESHOT_ID				324
-#define ITEM_TRIPLESHOT_ID				325
-#define ITEM_CRYSTAL_ID					326
-#endif // !ITEM_ID
 
 #ifndef EFFECT_ID
 #define EFFECT_HIT_ID					400
@@ -77,14 +56,38 @@
 #define EFFECT_4000POINT_ID				408
 #endif // !EFFECT_ID
 
+#ifndef ITEM_ID
+#define ITEM_WHIP_ID					500
+#define ITEM_DANGER_ID					501
+#define ITEM_AXE_ID						502
+#define ITEM_BOOMERANG_ID				503
+#define ITEM_HOLYWATER_ID				504
+#define ITEM_STOPWATCH_ID				505
+#define ITEM_SMALLHEART_ID				506
+#define ITEM_BIGHEART_ID				507
+#define ITEM_MONEY100_ID				508
+#define ITEM_MONEY400_ID				509
+#define ITEM_MONEY700_ID				510
+#define ITEM_MONEY1000_ID				511
+#define ITEM_CROWN_ID					512
+#define ITEM_CHEST_ID					513
+#define ITEM_ISLANDHEAD_ID				514
+#define ITEM_1UP_ID						515
+#define ITEM_PORK_ID					516
+#define ITEM_CROSS_ID					517
+#define ITEM_DOUBLESHOT_ID				518
+#define ITEM_TRIPLESHOT_ID				519
+#define ITEM_CRYSTAL_ID					520
+#endif // !ITEM_ID
+
 #ifndef ENEMY_ID
-#define VAMPIREBAT_ID					500
-#define BLACKKNIGHT_ID					501
-#define GHOST_ID						502
-#define HUNCHBACK_ID					503
-#define WHITESKELETON_ID				504
-#define RAVEN_ID						505
-#define ZOMBIE_ID						506
+#define VAMPIREBAT_ID					600
+#define BLACKKNIGHT_ID					601
+#define GHOST_ID						602
+#define HUNCHBACK_ID					603
+#define WHITESKELETON_ID				604
+#define RAVEN_ID						605
+#define ZOMBIE_ID						606
 #endif // !ENEMY_ID
 
 

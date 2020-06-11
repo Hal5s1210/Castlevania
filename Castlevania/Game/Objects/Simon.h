@@ -44,6 +44,7 @@ public:
 	};
 
 private:
+	bool input;
 	float default_x, default_y;
 	bool default_flip;
 
@@ -64,6 +65,7 @@ private:
 	int auto_dir_x, auto_dir_y;
 
 	int stair_dir_x, stair_dir_y;
+	float stair_x, stair_y;
 
 	bool on_stair;
 	bool use_stair;
@@ -76,6 +78,8 @@ private:
 	bool invulnerable;
 	bool chopchop;
 
+	bool hit_door;
+
 	DWORD hittimestart;
 	DWORD hittime;
 	DWORD invulnerabletimestart;
@@ -86,7 +90,7 @@ private:
 
 	eState state;
 
-	void ProcessAABBCollision(LPGAMEOBJECT coObject) {}
+	void ProcessAABBCollision(LPGAMEOBJECT coObject);
 	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy);
@@ -105,11 +109,16 @@ public:
 	Whip* GetWhip() { return whip; }
 	SubWeapon* GetSubWeapon() { return subweapon; }
 
-	void SetState(eState state);
+	bool IsInputEnable() { return input; }
+	void GainControl();
+	void SetState(eState state, bool priority = false);
 	void SetDefault(float x, float y, bool flip) { default_x = x; default_y = y; default_flip = flip; }
 	void HitStair(Stair* stair);
 	void TakeHit(int damage);
 	void Reset();
+	void GoToX(float x);
+	bool IsHitDoor() { return hit_door; }
+	bool IsReachAutoDest() { return reach_dest; }
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render(float x = 0, float y = 0);

@@ -17,9 +17,35 @@ void PlayScene::Unload()
 
 void PlayScene::Update(DWORD dt)
 {
+	Viewport* view = Viewport::GetInstance();
+
 	grid->GetObjectlist(&objects);
 
 	objects.push_back(player);
+
+	if (player->IsHitDoor())
+	{
+		player->Update(dt, &objects);
+		for (LPGAMEOBJECT o : objects)
+		{
+			if (dynamic_cast<Simon*>(o)) continue;
+			o->Update(dt);
+		}
+		CheckCollision(&objects);
+		board->Update(dt);
+		view->Update(dt);
+
+		if (view->IsSwitchView())
+		{
+			if (view->IsReachAutoDest())
+			{
+				player->GainControl();
+				view->SetSwitchView(false);
+			}
+		}
+
+		return;
+	}
 
 	for (int i = 0; i < enemies.size(); i++)
 	{
@@ -108,6 +134,8 @@ void PlayScene::Update(DWORD dt)
 	AdjustView();
 
 	board->Update(dt);
+
+	view->Update(dt);
 }
 
 void PlayScene::Render()
@@ -142,10 +170,12 @@ void PlayScene::CheckCollision(std::vector<LPGAMEOBJECT>* coObjects)
 
 void PlayScene::AdjustView()
 {
+	if (Viewport::GetInstance()->IsAuto()) return;
+
 	float player_x, player_y;
 
 	player->GetPosition(player_x, player_y);
-	Viewport::GetInstance()->SetPosition(player_x - 112, player_y - 80);
+	Viewport::GetInstance()->SetPosition(player_x - 120, player_y - 64);
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -173,22 +203,29 @@ void PlaySceneKeyHandler::KeyState(BYTE* state)
 
 	if (player)
 	{
-		if (input->IsKeyDown(PAD_DOWN))
+		if (player->IsInputEnable())
 		{
-			player->SetState(Simon::StairDown);
-			player->SetState(Simon::Crouch);
-		}
-		else if (input->IsKeyDown(PAD_UP))
-		{
-			player->SetState(Simon::StairUp);
-		}
-		else if (input->IsKeyDown(PAD_LEFT))
-		{
-			player->SetState(Simon::WalkL);
-		}
-		else if (input->IsKeyDown(PAD_RIGHT))
-		{
-			player->SetState(Simon::WalkR);
+			if (input->IsKeyDown(PAD_DOWN))
+			{
+				player->SetState(Simon::StairDown);
+				player->SetState(Simon::Crouch);
+			}
+			else if (input->IsKeyDown(PAD_UP))
+			{
+				player->SetState(Simon::StairUp);
+			}
+			else if (input->IsKeyDown(PAD_LEFT))
+			{
+				player->SetState(Simon::WalkL);
+			}
+			else if (input->IsKeyDown(PAD_RIGHT))
+			{
+				player->SetState(Simon::WalkR);
+			}
+			else
+			{
+				player->SetState(Simon::Idle);
+			}
 		}
 		else
 		{
@@ -200,29 +237,29 @@ void PlaySceneKeyHandler::KeyState(BYTE* state)
 
 void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 {
-	Debug::DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-
 	Simon* player = scene->GetPlayer();
 
 	if (player)
 	{
-		switch (KeyCode)
+		if (player->IsInputEnable())
 		{
-		case BUTTON_A:
-			if (Input::GetInstance()->IsKeyDown(PAD_UP))
+			switch (KeyCode)
 			{
-				player->SetState(Simon::SubAttack);
-			}
-			else
-			{
-				player->SetState(Simon::Attack);
-			}
-			break;
+			case BUTTON_A:
+				if (Input::GetInstance()->IsKeyDown(PAD_UP))
+				{
+					player->SetState(Simon::SubAttack);
+				}
+				else
+				{
+					player->SetState(Simon::Attack);
+				}
+				break;
 
-		case BUTTON_B:
-			player->SetState(Simon::Jump);
-			break;
-
+			case BUTTON_B:
+				player->SetState(Simon::Jump);
+				break;
+			}
 		}
 	}
 
@@ -273,5 +310,4 @@ void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 
 void  PlaySceneKeyHandler::OnKeyUp(int KeyCode)
 {
-	Debug::DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 }

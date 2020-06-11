@@ -1,17 +1,16 @@
 #pragma once
-
 #include "..\..\ID.h"
 #include "..\GameObject.h"
 
-class BreakableBlock : public GameObject
+class Door : public GameObject
 {
 private:
-	int hp;
-	bool hit;
-	bool alive;
-	DWORD invulnerableTime;
-	DWORD invulnerableTimeStart;
-	int item;
+	int state;
+
+	bool active;
+	bool open;
+	bool close;
+	bool player_move;
 
 	void ProcessAABBCollision(LPGAMEOBJECT coObject) {}
 	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
@@ -19,16 +18,12 @@ private:
 		float& dx, float& dy) {}
 
 public:
-	BreakableBlock();
+	Door();
 
-	void HoldItem(int id) { item = id; }
-	void SetHP(int n) { hp = n; }
-
-	bool IsHit();
-	bool IsAlive() { return alive; }
-	void TakeDamage();
+	void Active();
 
 	LPGAMEOBJECT Clone();
+	void Update(DWORD dt);
 	void Render(float x, float y);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

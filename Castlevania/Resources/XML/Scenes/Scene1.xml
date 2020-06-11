@@ -3,10 +3,11 @@
 	<Textures>
     <Texture id="1000" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
     <Texture id="2000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
-    <Texture id="3000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
+    <Texture id="3000" path="Resources\Textures\Objects.png" red="116" green="116" blue="116"/>
     <Texture id="4000" path="Resources\Textures\Effects.png" red="116" green="116" blue="116"/>
-    <Texture id="8000" path="Resources\Textures\Tileset1.png" red="255" green="0" blue="255"/>
+    <Texture id="5000" path="Resources\Textures\Items.png" red="116" green="116" blue="116"/>
     <Texture id="7000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
+    <Texture id="8000" path="Resources\Textures\Tileset1.png" red="255" green="0" blue="255"/>
     <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
 	</Textures>
   
@@ -14,35 +15,35 @@
   </Sounds>
 
   <Objects>
-    <Bullet type ="201" path="Resources\XML\Weapons\Dagger.xml"/>
-    <Bullet type ="202" path="Resources\XML\Weapons\Axe.xml"/>
-    <Bullet type ="203" path="Resources\XML\Weapons\Boomerang.xml"/>
-    <Bullet type ="204" path="Resources\XML\Weapons\Holy_Water.xml"/>
-    <Object type ="300" path="Resources\XML\Others\Torch.xml"/>
-    <Item type ="302" path="Resources\XML\Items\Whip.xml"/>
-    <Item type ="303" path="Resources\XML\Items\Dagger.xml"/>
-    <Item type ="304" path="Resources\XML\Items\Axe.xml"/>
-    <Item type ="305" path="Resources\XML\Items\Boomerang.xml"/>
-    <Item type ="306" path="Resources\XML\Items\Holy_Water.xml"/>
-    <Item type ="307" path="Resources\XML\Items\Stop_Watch.xml"/>
-    <Item type ="308" path="Resources\XML\Items\Small_Heart.xml"/>
-    <Item type ="309" path="Resources\XML\Items\Big_Heart.xml"/>
-    <Item type ="310" path="Resources\XML\Items\Money_100.xml"/>
-    <Item type ="311" path="Resources\XML\Items\Money_400.xml"/>
-    <Item type ="312" path="Resources\XML\Items\Money_700.xml"/>
-    <Item type ="313" path="Resources\XML\Items\Money_1000.xml"/>
-    <Effect type ="400" path="Resources\XML\Effects\Hit.xml"/>
-    <Effect type ="401" path="Resources\XML\Effects\Dead.xml"/>
-    <Effect type ="402" path="Resources\XML\Effects\100_Point.xml"/>
-    <Effect type ="403" path="Resources\XML\Effects\400_Point.xml"/>
-    <Effect type ="404" path="Resources\XML\Effects\700_Point.xml"/>
-    <Effect type ="405" path="Resources\XML\Effects\1000_Point.xml"/>
+    <Bullet type="201" path="Resources\XML\Weapons\Dagger.xml"/>
+    <Bullet type="202" path="Resources\XML\Weapons\Axe.xml"/>
+    <Bullet type="203" path="Resources\XML\Weapons\Boomerang.xml"/>
+    <Bullet type="204" path="Resources\XML\Weapons\Holy_Water.xml"/>
+    <Object type="300" path="Resources\XML\Others\Torch.xml"/>
+    <Effect type="400" path="Resources\XML\Effects\Hit.xml"/>
+    <Effect type="401" path="Resources\XML\Effects\Dead.xml"/>
+    <Effect type="402" path="Resources\XML\Effects\100_Point.xml"/>
+    <Effect type="403" path="Resources\XML\Effects\400_Point.xml"/>
+    <Effect type="404" path="Resources\XML\Effects\700_Point.xml"/>
+    <Effect type="405" path="Resources\XML\Effects\1000_Point.xml"/>
+    <Item type="500" path="Resources\XML\Items\Whip.xml"/>
+    <Item type="501" path="Resources\XML\Items\Dagger.xml"/>
+    <Item type="502" path="Resources\XML\Items\Axe.xml"/>
+    <Item type="503" path="Resources\XML\Items\Boomerang.xml"/>
+    <Item type="504" path="Resources\XML\Items\Holy_Water.xml"/>
+    <Item type="505" path="Resources\XML\Items\Stop_Watch.xml"/>
+    <Item type="506" path="Resources\XML\Items\Small_Heart.xml"/>
+    <Item type="507" path="Resources\XML\Items\Big_Heart.xml"/>
+    <Item type="508" path="Resources\XML\Items\Money_100.xml"/>
+    <Item type="509" path="Resources\XML\Items\Money_400.xml"/>
+    <Item type="510" path="Resources\XML\Items\Money_700.xml"/>
+    <Item type="511" path="Resources\XML\Items\Money_1000.xml"/>
   </Objects>
 
   <Player>
     <Resource path="Resources\XML\Simon.xml"/>
     <Whip path="Resources\XML\Weapons\Whip.xml"/>
-    <Position x="16" y="126" flip="true"/>
+    <Position x="16" y="127" flip="true"/>
   </Player>
 
   <Tilesets>
@@ -81,7 +82,7 @@
       <Block x="80" y="160"/>
       <Block x="96" y="160"/>
       <Block x="112" y="160"/>
-      <Object type="300" x="92" y="128" item="309"/>
+      <Object type="300" x="92" y="128" item="507"/>
     </Cell>
 
     <Cell row="1" column="1">
@@ -93,7 +94,7 @@
       <Block x="208" y="160"/>
       <Block x="224" y="160"/>
       <Block x="240" y="160"/>
-      <Object type="300" x="220" y="128" item="302"/>
+      <Object type="300" x="220" y="128" item="500"/>
     </Cell>
 
     <Cell row="1" column="2">
@@ -105,7 +106,7 @@
       <Block x="336" y="160"/>
       <Block x="352" y="160"/>
       <Block x="368" y="160"/>
-      <Object type="300" x="348" y="128" item="302"/>
+      <Object type="300" x="348" y="128" item="500"/>
     </Cell>
 
     <Cell row="1" column="3">
@@ -117,7 +118,7 @@
       <Block x="464" y="160"/>
       <Block x="480" y="160"/>
       <Block x="496" y="160"/>
-      <Object type="300" x="476" y="128" item="309"/>
+      <Object type="300" x="476" y="128" item="507"/>
     </Cell>
 
     <Cell row="1" column="4">
@@ -129,7 +130,7 @@
       <Block x="592" y="160"/>
       <Block x="608" y="160"/>
       <Block x="624" y="160"/>
-      <Object type="300" x="604" y="128" item="303"/>
+      <Object type="300" x="604" y="128" item="501"/>
     </Cell>
 
     <Cell row="1" column="5">

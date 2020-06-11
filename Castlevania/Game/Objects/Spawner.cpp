@@ -83,6 +83,11 @@ void Spawner::CreateObjectSpawner(int id)
 		objectSpawners[id] = o;
 		break;
 
+	case DOOR_ID:
+		o = new Door;
+		objectSpawners[id] = o;
+		break;
+
 	default:
 		break;
 	}
@@ -99,6 +104,12 @@ LPGAMEOBJECT Spawner::SpawnObject(int id, float x, float y, int item_id)
 		case TORCH_ID:
 		case CANDLE_ID:
 			dynamic_cast<Candle*>(o)->HoldItem(item_id);
+			break;
+
+		case BREAKABLEBLOCK_S2_ID:
+		case BREAKABLEBLOCK_S3_ID:
+		case BREAKABLEBLOCK_S4_ID:
+			dynamic_cast<BreakableBlock*>(o)->HoldItem(item_id);
 			break;
 
 		default:

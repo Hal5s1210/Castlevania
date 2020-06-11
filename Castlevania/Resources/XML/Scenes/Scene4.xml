@@ -3,11 +3,12 @@
   <Textures>
     <Texture id="1000" path="Resources\Textures\Simon.png" red="116" green="116" blue="116"/>
     <Texture id="2000" path="Resources\Textures\Weapons.png" red="116" green="116" blue="116"/>
-    <Texture id="3000" path="Resources\Textures\Items_and_Objects.png" red="116" green="116" blue="116"/>
+    <Texture id="3000" path="Resources\Textures\Objects.png" red="116" green="116" blue="116"/>
     <Texture id="4000" path="Resources\Textures\Effects.png" red="116" green="116" blue="116"/>
-    <Texture id="5000" path="Resources\Textures\Enemies.png" red="116" green="116" blue="116"/>
-    <Texture id="8003" path="Resources\Textures\Tileset4.png" red="255" green="0" blue="255"/>
+    <Texture id="5000" path="Resources\Textures\Items.png" red="116" green="116" blue="116"/>
+    <Texture id="6000" path="Resources\Textures\Enemies.png" red="116" green="116" blue="116"/>
     <Texture id="7000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
+    <Texture id="8003" path="Resources\Textures\Tileset4.png" red="255" green="0" blue="255"/>
     <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
   </Textures>
 
@@ -20,19 +21,7 @@
     <Bullet type ="203" path="Resources\XML\Weapons\Boomerang.xml"/>
     <Bullet type ="204" path="Resources\XML\Weapons\Holy_Water.xml"/>
     <Object type="301" path="Resources\XML\Others\Candle.xml"/>
-    <Object type="316" path="Resources\XML\Others\BreakableBlock_S4.xml"/>
-    <Item type="302" path="Resources\XML\Items\Whip.xml"/>
-    <Item type="303" path="Resources\XML\Items\Dagger.xml"/>
-    <Item type="304" path="Resources\XML\Items\Axe.xml"/>
-    <Item type="305" path="Resources\XML\Items\Boomerang.xml"/>
-    <Item type="306" path="Resources\XML\Items\Holy_Water.xml"/>
-    <Item type="307" path="Resources\XML\Items\Stop_Watch.xml"/>
-    <Item type="308" path="Resources\XML\Items\Small_Heart.xml"/>
-    <Item type="309" path="Resources\XML\Items\Big_Heart.xml"/>
-    <Item type="310" path="Resources\XML\Items\Money_100.xml"/>
-    <Item type="311" path="Resources\XML\Items\Money_400.xml"/>
-    <Item type="312" path="Resources\XML\Items\Money_700.xml"/>
-    <Item type="313" path="Resources\XML\Items\Money_1000.xml"/>
+    <Object type="304" path="Resources\XML\Others\BreakableBlock_S4.xml"/>
     <Effect type="400" path="Resources\XML\Effects\Hit.xml"/>
     <Effect type="401" path="Resources\XML\Effects\Dead.xml"/>
     <Effect type="402" path="Resources\XML\Effects\100_Point.xml"/>
@@ -40,13 +29,25 @@
     <Effect type="404" path="Resources\XML\Effects\700_Point.xml"/>
     <Effect type="405" path="Resources\XML\Effects\1000_Point.xml"/>
     <Effect type="406" path="Resources\XML\Effects\BrokenBlock.xml"/>
-    <Enemy type="506" path="Resources\XML\Enemies\Zombie.xml"/>
+    <Item type="500" path="Resources\XML\Items\Whip.xml"/>
+    <Item type="501" path="Resources\XML\Items\Dagger.xml"/>
+    <Item type="502" path="Resources\XML\Items\Axe.xml"/>
+    <Item type="503" path="Resources\XML\Items\Boomerang.xml"/>
+    <Item type="504" path="Resources\XML\Items\Holy_Water.xml"/>
+    <Item type="505" path="Resources\XML\Items\Stop_Watch.xml"/>
+    <Item type="506" path="Resources\XML\Items\Small_Heart.xml"/>
+    <Item type="507" path="Resources\XML\Items\Big_Heart.xml"/>
+    <Item type="508" path="Resources\XML\Items\Money_100.xml"/>
+    <Item type="509" path="Resources\XML\Items\Money_400.xml"/>
+    <Item type="510" path="Resources\XML\Items\Money_700.xml"/>
+    <Item type="511" path="Resources\XML\Items\Money_1000.xml"/>
+    <Enemy type="606" path="Resources\XML\Enemies\Zombie.xml"/>
   </Objects>
 
   <Player>
     <Resource path="Resources\XML\Simon.xml"/>
     <Whip path="Resources\XML\Weapons\Whip.xml"/>
-    <Position x="16" y="46" flip="true"/>
+    <Position x="48" y="47" flip="true"/>
   </Player>
 
   <Tilesets>
@@ -84,12 +85,12 @@
       <Block x="64" y="80"/>
       <Block x="80" y="80"/>
       <Block x="96" y="80"/>
-      <Object type="301" x="92" y="56" item="308"/>
+      <Object type="301" x="92" y="56" item="506"/>
       <Stair x="104" y="64" dir_x="1" dir_y="1"/>
     </Cell>
     <Cell row="0" column="1">
-      <Object type="301" x="154" y="88" item="308"/>
-      <Object type="301" x="218" y="56" item="308"/>
+      <Object type="301" x="154" y="88" item="506"/>
+      <Object type="301" x="218" y="56" item="506"/>
     </Cell>
     <Cell row="0" column="5">
       <Block x="760" y="0"/>
@@ -108,7 +109,7 @@
       <Block x="80" y="176"/>
       <Block x="96" y="176"/>
       <Block x="112" y="176"/>
-      <Object type="301" x="28" y="120" item="308"/>
+      <Object type="301" x="28" y="120" item="506"/>
     </Cell>
     <Cell row="1" column="1">
       <Block x="128" y="112"/>
@@ -141,11 +142,11 @@
       <Block x="336" y="176"/>
       <Block x="352" y="176"/>
       <Block x="368" y="176"/>
-      <Object type="301" x="284" y="152" item="308"/>
-      <Object type="301" x="348" y="120" item="308"/>
-      <Enemy type="506" x="256" y="78" activeL="112" activeR="256" flip="false"/>
-      <Enemy type="506" x="272" y="78" activeL="112" activeR="272" flip="false"/>
-      <Enemy type="506" x="288" y="78" activeL="112" activeR="288" flip="false"/>
+      <Object type="301" x="284" y="152" item="506"/>
+      <Object type="301" x="348" y="120" item="506"/>
+      <Enemy type="606" x="256" y="78" activeL="112" activeR="256" flip="false"/>
+      <Enemy type="606" x="272" y="78" activeL="112" activeR="272" flip="false"/>
+      <Enemy type="606" x="288" y="78" activeL="112" activeR="288" flip="false"/>
       <Stair x="296" y="96" dir_x="1" dir_y="1"/>
       <Stair x="360" y="160" dir_x="-1" dir_y="-1"/>
     </Cell>
@@ -158,8 +159,8 @@
       <Block x="464" y="176"/>
       <Block x="480" y="176"/>
       <Block x="496" y="176"/>
-      <Object type="301" x="412" y="152" item="308"/>
-      <Object type="301" x="476" y="152" item="308"/>
+      <Object type="301" x="412" y="152" item="506"/>
+      <Object type="301" x="476" y="152" item="506"/>
     </Cell>
     <Cell row="1" column="4">
       <Block x="512" y="176"/>
@@ -170,8 +171,8 @@
       <Block x="592" y="176"/>
       <Block x="608" y="176"/>
       <Block x="624" y="176"/>
-      <Object type="301" x="540" y="120" item="308"/>
-      <Object type="301" x="604" y="152" item="308"/>
+      <Object type="301" x="540" y="120" item="506"/>
+      <Object type="301" x="604" y="152" item="506"/>
     </Cell>
     <Cell row="1" column="5">
       <Block x="640" y="176"/>
@@ -190,9 +191,9 @@
       <Block x="760" y="128"/>
       <Block x="760" y="144"/>
       <Block x="760" y="160"/>
-      <Object type="316" x="688" y="144"/>
-      <Object type="301" x="668" y="120" item="308"/>
-      <Object type="301" x="732" y="120" item="308"/>
+      <Object type="304" x="688" y="144"/>
+      <Object type="301" x="668" y="120" item="506"/>
+      <Object type="301" x="732" y="120" item="506"/>
       <Stair x="680" y="128" dir_x="1" dir_y="-1"/>
       <Stair x="712" y="96" dir_x="-1" dir_y="1"/>
     </Cell>
