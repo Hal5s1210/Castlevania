@@ -18,5 +18,5 @@ public:
 	LPENEMY Clone();
 	void Active();
 	void Unactive();
-	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
+	void Brain(DWORD dt);
 };

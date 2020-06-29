@@ -51,6 +51,10 @@ public:
 	void PlayerHit(int damage);
 	void PlayerDie();
 	int GetPlayerHp() { return playerhp; }
+
+	void BossHit(int damage);
+	int GetBossHp() { return enemyhp; }
+
 	void RenderGameover();
 
 	bool IsGameOver() { return gameover; }

@@ -12,6 +12,7 @@
 #define STAIR_DOWN					8
 #define STAIR_UP_ATTACK				9
 #define STAIR_DOWN_ATTACK			10
+#define UPGRADE						11
 #endif // !SIMON_ANI
 
 #define SIMON_SPEED					0.067f
@@ -40,7 +41,8 @@ public:
 		Hitted,
 		Dead,
 		StairUp,
-		StairDown
+		StairDown,
+		Upgrade
 	};
 
 private:
@@ -58,6 +60,8 @@ private:
 	DWORD jumpTime;
 	DWORD jumpStartTime;
 	float speed_before_jump;
+
+	bool upgrade;
 
 	bool auto_pilot;
 	bool reach_dest;
@@ -90,13 +94,14 @@ private:
 
 	eState state;
 
+	void NoCollision();
 	void ProcessAABBCollision(LPGAMEOBJECT coObject);
 	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy);
 
 	void ProcessState();
-	void AutoMove();
+	void AutoMove(std::vector<LPGAMEOBJECT>* objects);
 	void CheckInCamera();
 
 
@@ -108,7 +113,7 @@ public:
 
 	Whip* GetWhip() { return whip; }
 	SubWeapon* GetSubWeapon() { return subweapon; }
-
+	void UpgradeWhip() { SetState(Simon::Upgrade); ProcessState(); }
 	bool IsInputEnable() { return input; }
 	void GainControl();
 	void SetState(eState state, bool priority = false);

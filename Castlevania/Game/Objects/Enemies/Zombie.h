@@ -16,6 +16,6 @@ public:
 	LPENEMY Clone();
 	void Active();
 	void Unactive();
-	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
+	void Brain(DWORD dt);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

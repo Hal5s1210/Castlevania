@@ -35,6 +35,8 @@
 #include "Enemies\Zombie.h"
 #include "Enemies\Raven.h"
 
+#include "Enemies\Bosses\PhantomBat.h"
+
 class Spawner
 {
 private:

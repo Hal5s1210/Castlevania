@@ -355,6 +355,12 @@ void Board::PlayerDie()
 		gameover = true;
 }
 
+void Board::BossHit(int damage)
+{
+	enemyhp -= damage;
+	if (enemyhp < 0) enemyhp = 0;
+}
+
 
 void Board::ItemClaimed(LPITEM item)
 {
@@ -365,6 +371,7 @@ void Board::ItemClaimed(LPITEM item)
 	case Item::Whip:
 		whip++;
 		if (whip > 3) whip = 3;
+		Scenes::GetInstance()->GetScene()->GetPlayer()->UpgradeWhip();
 		break;
 
 	case Item::Dagger:subweapon = 1; break;

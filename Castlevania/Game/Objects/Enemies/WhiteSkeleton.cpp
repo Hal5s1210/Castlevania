@@ -21,15 +21,11 @@ LPENEMY WhiteSkeleton::Clone()
 	return clone;
 }
 
-void WhiteSkeleton::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void WhiteSkeleton::Brain(DWORD dt)
 {
-	if (!alive || !active || outview) return;
-
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
-
-	Enemy::Update(dt);
 
 	if (start && GetTickCount() - startstatetime >= timeeachstate)
 	{
@@ -68,14 +64,8 @@ void WhiteSkeleton::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += dt * 0.0005;
 
-	//GameObject::UpdatePosition();
-
 	if (x > limitR - 16) x = limitR - 16;
 	if (x < limitL) x = limitL;
-
-
-	if (!incell && !outview)
-		Enemy::CheckView();
 }
 
 void WhiteSkeleton::Active()

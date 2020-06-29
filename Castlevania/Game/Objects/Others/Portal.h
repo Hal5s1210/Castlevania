@@ -7,9 +7,11 @@ class Portal : public GameObject
 {
 private:
 	int w, h;
-	int area = -1;
-	int scene = -1;
-	float player_x = -1, player_y = -1;
+	int area;
+	int scene;
+	float player_x, player_y;
+	bool onetime;
+	bool active;
 
 	void ProcessAABBCollision(LPGAMEOBJECT coObject) {}
 	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
@@ -17,9 +19,14 @@ private:
 		float& dx, float& dy) {}
 
 public:
+	Portal();
+
 	LPGAMEOBJECT Clone() { return NULL; }
 	
+	bool IsActive() { return active; }
 	void Active();
+
+	void IsOneTimeUse(bool one) { onetime = one; }
 
 	void SetSize(int w, int h) { this->w = w; this->h = h; }
 

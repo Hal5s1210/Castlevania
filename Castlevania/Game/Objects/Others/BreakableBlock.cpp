@@ -78,7 +78,7 @@ void BreakableBlock::TakeDamage()
 
 		if (item > -1)
 		{
-			LPITEM i = Spawner::GetInstance()->SpawnItem(item, x + ((r.right - r.left) / 2) - 4, y + ((r.bottom - r.top) / 2) - 8);
+			LPITEM i = Spawner::GetInstance()->SpawnItem(item, x + ((r.right - r.left) / 2) - 8, y + ((r.bottom - r.top) / 2) - 9);
 			scene->AddItem(i);
 
 			OutputDebugString(L"Item Drop!!!\n");

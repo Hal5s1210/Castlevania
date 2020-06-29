@@ -16,6 +16,9 @@ void MovingBlock::Update(DWORD dt)
 	vx = flip ? 0.03 : -0.03;
 	GameObject::Update(dt);
 
+	x += dx;
+	y += dy;
+
 	if ((vx < 0 && x <= limit_left) || (vx > 0 && x + 32 >= limit_right))
 	{
 		flip = !flip;

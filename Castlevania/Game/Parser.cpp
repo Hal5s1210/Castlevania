@@ -202,7 +202,7 @@ void Parser::Parse_Object(pugi::xml_node root)
 			LPEFFECT eff = Spawner::GetInstance()->GetEffectSpawner(id);
 			Parser::Parse_AnimationSet(eff, root.child(L"AnimationSet"));
 		}
-		else if (nodeName == L"Enemy")
+		else if (nodeName == L"Enemy" || nodeName == L"Boss")
 		{
 			Spawner::GetInstance()->CreateEnemySpawner(id);
 			LPENEMY enemy = Spawner::GetInstance()->GetEnemySpawner(id);
@@ -383,6 +383,7 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 				int scene = obj.attribute(L"scene").as_int();
 				float p_x = obj.attribute(L"p_x").as_float();
 				float p_y = obj.attribute(L"p_y").as_float();
+				bool onetime = obj.attribute(L"onetime").as_bool();
 
 				Portal* p = new Portal;
 				p->SetPosition(x, y);
@@ -390,6 +391,7 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 				p->SetTargetArea(area);
 				p->SetTargetScene(scene);
 				p->SetPlayerPosition(p_x, p_y);
+				p->IsOneTimeUse(onetime);
 				cells->at(i).at(j).push_back(p);
 			}
 			else if (name == L"Block")
@@ -413,7 +415,7 @@ void Parser::Parse_Cell(std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* cel
 				s->SetDirection(dir_x, dir_y);
 				cells->at(i).at(j).push_back(s);
 			}
-			else if (name == L"Enemy")
+			else if (name == L"Enemy" || name == L"Boss")
 			{
 				int id = obj.attribute(L"type").as_int();
 				float x = obj.attribute(L"x").as_float();

@@ -18,40 +18,30 @@ LPENEMY Ghost::Clone()
 	return clone;
 }
 
-void Ghost::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void Ghost::Brain(DWORD dt)
 {
-
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
 
-	if (!alive && hp > 0 && p_x >= activeL && p_x <= activeR)
+	if (!appear && hp > 0 && p_x >= activeL && p_x <= activeR)
 	{
-		alive = true;
+		appear = true;
 	}
 
-	if (!alive || !active || outview) return;
-
-	Enemy::Update(dt);
-
-	if (alive)
+	if (appear)
 	{
 		if (p_x < x && flip) flip = false;
 		if (p_x > x && !flip) flip = true;
 
-		vx = flip ? 0.04 : -0.04;
+		vx = flip ? 0.03 : -0.03;
 		vy = p_y > y ? 0.02 : -0.02;
-
-		//GameObject::UpdatePosition();
-
-		if (!incell && !outview)
-			Enemy::CheckView();
 	}
-
 }
 
 void Ghost::Render(float x, float y)
 {
+	if (!appear) return;
 	Enemy::Render(x, y);
 }
 
@@ -59,7 +49,7 @@ void Ghost::Render(float x, float y)
 void Ghost::Active()
 {
 	Enemy::Active();
-	alive = false;
+	appear = false;
 	hp = 3;
 }
 
@@ -76,4 +66,9 @@ void Ghost::ProcessAABBCollision(LPGAMEOBJECT o)
 		Simon* player = dynamic_cast<Simon*>(o);
 		player->TakeHit(2);
 	}
+}
+void Ghost::GetBoundingBox(float& l, float& t, float& r, float& b)
+{
+	if (!appear) return;
+	Enemy::GetBoundingBox(l, t, r, b);
 }

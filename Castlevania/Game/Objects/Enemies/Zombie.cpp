@@ -19,15 +19,11 @@ LPENEMY Zombie::Clone()
 	return clone;
 }
 
-void Zombie::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void Zombie::Brain(DWORD dt)
 {
-	if (!alive || !active || outview) return;
-
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
-
-	Enemy::Update(dt);
 
 	if (!move && activeL <= p_x && p_x <= activeR)
 	{
@@ -36,11 +32,6 @@ void Zombie::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	}
 
 	vy += dt * 0.0005;
-
-	//GameObject::UpdatePosition();
-
-	if (!incell && !outview)
-		Enemy::CheckView();
 }
 
 void Zombie::GetBoundingBox(float& l, float& t, float& r, float& b)

@@ -1,22 +1,29 @@
 #pragma once
 
-#include "Enemy.h"
+#include "Boss.h"
 
-class Ghost : public Enemy
+class PhantomBat: public Boss
 {
 private:
-	bool appear;
-	void ProcessAABBCollision(LPGAMEOBJECT coObject);
+	bool awake;
+
+	bool reach_des;
+	float des_x, des_y;
+
+	void ProcessAABBCollision(LPGAMEOBJECT coObject) {}
 	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy) {}
 
+	void GoTo(float desx, float desy);
+
 public:
-	Ghost();
-	LPENEMY Clone();
+	PhantomBat();
 	void Active();
 	void Unactive();
+	Enemy* Clone();
 	void Brain(DWORD dt);
 	void Render(float x, float y);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };
+

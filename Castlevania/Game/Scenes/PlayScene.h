@@ -18,7 +18,6 @@ class PlayScene : public Scene
 {
 private:
 	void AdjustView();
-	void CheckCollision(std::vector<LPGAMEOBJECT>* coObjects);
 
 public:
 	PlayScene(float x, float y, std::wstring filepath) : Scene(x, y, filepath)

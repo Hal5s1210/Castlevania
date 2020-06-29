@@ -22,15 +22,11 @@ LPENEMY Raven::Clone()
 	return clone;
 }
 
-void Raven::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void Raven::Brain(DWORD dt)
 {
-	if (!alive || !active || outview) return;
-
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
-
-	Enemy::Update(dt);
 
 	if (!fly && activeL <= p_x && p_x <= activeR)
 	{
@@ -85,11 +81,6 @@ void Raven::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		vx = vy = 0;
 		SetAnimation(0);
 	}
-
-	//GameObject::UpdatePosition();
-
-	if (!incell && !outview)
-		Enemy::CheckView();
 }
 
 void Raven::Active()

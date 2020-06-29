@@ -56,7 +56,7 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		delete e;
 	}
 
-	//GameObject::UpdatePosition();
+	GameObject::CheckCollision(objects);
 
 	if ((flip && x >= returnPoint) || (!flip && x <= returnPoint))
 	{
@@ -102,6 +102,19 @@ void Boomerang::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		}
 	}
 
+}
+
+void Boomerang::ProcessAABBCollision(LPGAMEOBJECT o)
+{
+	if (dynamic_cast<Enemy*>(o))
+	{
+		Enemy* e = dynamic_cast<Enemy*>(o);
+
+		if (e->IsAlive())
+		{
+			e->TakeDamage(damage, this);
+		}
+	}
 }
 
 void Boomerang::ProcessSweptAABBCollision(LPGAMEOBJECT o,

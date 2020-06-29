@@ -34,6 +34,12 @@
     <Sprite id="11000" texture="1000" x="64" y="64" w="24" h="32"/>
     <Sprite id="11001" texture="1000" x="88" y="64" w="16" h="32"/>
     <Sprite id="11002" texture="1000" x="112" y="64" w="16" h="32"/>
+    
+    <!--Simon upgrade-->
+    <Sprite id="11100" texture="1000" x="80" y="96" w="16" h="32"/>
+    <Sprite id="11101" texture="1000" x="96" y="96" w="16" h="32"/>
+    <Sprite id="11102" texture="1000" x="112" y="96" w="16" h="32"/>
+    
 
   </Sprites>
   
@@ -96,6 +102,11 @@
       <Frame sprite="11001" time="100"/>
       <Frame sprite="11002" time="100"/>
     </Animation>
+    <Animation id="11100">
+      <Frame sprite="11100" time="100"/>
+      <Frame sprite="11101" time="100"/>
+      <Frame sprite="11102" time="100"/>
+    </Animation>
   </Animations>
   
   <AnimationSet>
@@ -110,6 +121,7 @@
     <Animation id="10800"/>
     <Animation id="10900"/>
     <Animation id="11000"/>
+    <Animation id="11100"/>
   </AnimationSet>
   
 </Object>

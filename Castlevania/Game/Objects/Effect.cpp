@@ -22,6 +22,9 @@ void Effect::Update(DWORD dt)
 		vy += 0.001 * dt;
 	}
 
+	x += vx * dt;
+	y += vy * dt;
+
 	float cam_x, cam_y;
 	int cam_w, cam_h;
 	Viewport::GetInstance()->GetSize(cam_w, cam_h);
@@ -78,6 +81,19 @@ void Effect::AddDeathEffect(RECT r, float x, float y)
 	Scenes::GetInstance()->GetScene()->AddEffect(e);
 }
 
+void Effect::AddBossDeathEffect(RECT r, float x, float y)
+{
+	AddDeathEffect(r, x - 8, y - 16);
+	AddDeathEffect(r, x, y - 16);
+	AddDeathEffect(r, x + 8, y - 16);
+	AddDeathEffect(r, x - 8, y);
+	AddDeathEffect(r, x, y);
+	AddDeathEffect(r, x + 8, y);
+	AddDeathEffect(r, x - 8, y + 16);
+	AddDeathEffect(r, x, y + 16);
+	AddDeathEffect(r, x + 8, y + 16);
+}
+
 void Effect::AddBreakBlockEffect(RECT r, float x, float y)
 {
 	LPEFFECT e1 = Spawner::GetInstance()->SpawnEffect(EFFECT_BROKENBLOCK_ID, x + ((r.right - r.left) / 2), y + ((r.bottom - r.top) / 2));
@@ -101,13 +117,21 @@ void Effect::AddBreakBlockEffect(RECT r, float x, float y)
 
 
 bool Effect::flash = false;
+int Effect::flashcount = 0;
 
 void Effect::RenderBackgroundEffect()
 {
 	if (flash)
 	{
-		Graphics::GetInstance()->FillColor(255, 255, 255);
-		flash = false;
+		if (flashcount % 2 == 0)
+			Graphics::GetInstance()->FillColor(255, 255, 255);
+
+		flashcount++;
+		if (flashcount > 6)
+		{
+			flash = false;
+			flashcount = 0;
+		}
 	}
 }
 

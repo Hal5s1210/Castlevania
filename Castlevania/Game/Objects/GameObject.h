@@ -51,7 +51,8 @@ protected:
 		float& min_tx, float& min_ty,
 		float& nx, float& ny);
 
-	
+	virtual void CheckCollision(std::vector<LPGAMEOBJECT>* coObjects);
+	virtual void NoCollision() {}
 	virtual void ProcessAABBCollision(LPGAMEOBJECT coObject) = 0;
 	virtual void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
@@ -80,7 +81,4 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render(float x = 0, float y = 0) = 0;
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b) = 0;
-	virtual void UpdatePosition();
-	virtual void CheckCollision(std::vector<LPGAMEOBJECT>* coObjects);
-
 };

@@ -31,9 +31,8 @@ void PlayScene::Update(DWORD dt)
 			if (dynamic_cast<Simon*>(o)) continue;
 			o->Update(dt);
 		}
-		CheckCollision(&objects);
-		board->Update(dt);
 		view->Update(dt);
+		board->Update(dt);
 
 		if (view->IsSwitchView())
 		{
@@ -49,8 +48,7 @@ void PlayScene::Update(DWORD dt)
 
 	for (int i = 0; i < enemies.size(); i++)
 	{
-		if (!Stopwatch::IsTimePause())
-			enemies[i]->Update(dt, &objects);
+		enemies[i]->Update(dt, &objects);
 
 		if (!enemies[i]->IsInCell() && (enemies[i]->IsOutView() || !enemies[i]->IsAlive()))
 		{
@@ -129,8 +127,6 @@ void PlayScene::Update(DWORD dt)
 		objects.push_back(effects[i]);
 	}
 
-	CheckCollision(&objects);
-
 	AdjustView();
 
 	board->Update(dt);
@@ -157,15 +153,6 @@ void PlayScene::Reset()
 {
 	Scene::Reset();
 	AdjustView();
-}
-
-void PlayScene::CheckCollision(std::vector<LPGAMEOBJECT>* coObjects)
-{
-	for (LPGAMEOBJECT o : *coObjects)
-	{
-		o->CheckCollision(coObjects);
-		o->UpdatePosition();
-	}
 }
 
 void PlayScene::AdjustView()

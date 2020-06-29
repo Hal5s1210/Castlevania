@@ -43,7 +43,7 @@ void Bone::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += 0.0005 * dt;
 
-	//GameObject::UpdatePosition();
+	GameObject::CheckCollision(objects);
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -52,6 +52,15 @@ void Bone::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	if (x < cam_x || x > cam_x + cam_w - 16 || y < cam_y || y> cam_y + cam_w - 16)
 	{
 		outview = true;
+	}
+}
+
+void Bone::ProcessAABBCollision(LPGAMEOBJECT o)
+{
+	if (dynamic_cast<Simon*>(o))
+	{
+		Simon* player = dynamic_cast<Simon*>(o);
+		player->TakeHit(1);
 	}
 }
 

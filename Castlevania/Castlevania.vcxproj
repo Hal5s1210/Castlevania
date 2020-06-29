@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Objects\Enemies\Bosses\Boss.cpp" />
     <ClCompile Include="Game\Objects\Others\Door.cpp" />
     <ClCompile Include="Game\Objects\Bullet.cpp" />
     <ClCompile Include="Game\Objects\Weapons\Bone.cpp" />
@@ -72,8 +73,10 @@
     <ClCompile Include="Game\Objects\Enemies\Raven.cpp" />
     <ClCompile Include="Game\Scenes\IntroScene.cpp" />
     <ClCompile Include="Game\Objects\Others\SimpleObject.cpp" />
+    <ClCompile Include="Game\Objects\Enemies\Bosses\PhantomBat.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\Objects\Enemies\Bosses\Boss.h" />
     <ClInclude Include="Game\Objects\Others\Door.h" />
     <ClInclude Include="Game\Objects\Bullet.h" />
     <ClInclude Include="Game\Objects\Weapons\Bone.h" />
@@ -128,6 +131,7 @@
     <ClInclude Include="Game\Objects\Enemies\Raven.h" />
     <ClInclude Include="Game\Scenes\IntroScene.h" />
     <ClInclude Include="Game\Objects\Others\SimpleObject.h" />
+    <ClInclude Include="Game\Objects\Enemies\Bosses\PhantomBat.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

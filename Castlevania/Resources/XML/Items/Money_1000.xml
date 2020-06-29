@@ -5,15 +5,15 @@
   </Sprites>
 
   <Animations>
-    <Animation id="31100">
-      <Frame sprite="30800" time="10"/>
-      <Frame sprite="30900" time="10"/>
-      <Frame sprite="31000" time="10"/>
+    <Animation id="51100">
+      <Frame sprite="50800" time="10"/>
+      <Frame sprite="50900" time="10"/>
+      <Frame sprite="51000" time="10"/>
     </Animation>
   </Animations>
 
   <AnimationSet>
-      <Animation id="31100"/>
+      <Animation id="51100"/>
   </AnimationSet>
 
 </Object>

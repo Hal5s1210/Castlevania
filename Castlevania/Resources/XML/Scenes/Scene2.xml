@@ -31,6 +31,7 @@
     <Effect type="404" path="Resources\XML\Effects\700_Point.xml"/>
     <Effect type="405" path="Resources\XML\Effects\1000_Point.xml"/>
     <Effect type="406" path="Resources\XML\Effects\BrokenBlock.xml"/>
+    <Effect type="407" path="Resources\XML\Effects\2000_Point.xml"/>
     <Item type="500" path="Resources\XML\Items\Whip.xml"/>
     <Item type="501" path="Resources\XML\Items\Dagger.xml"/>
     <Item type="502" path="Resources\XML\Items\Axe.xml"/>
@@ -43,6 +44,8 @@
     <Item type="509" path="Resources\XML\Items\Money_400.xml"/>
     <Item type="510" path="Resources\XML\Items\Money_700.xml"/>
     <Item type="511" path="Resources\XML\Items\Money_1000.xml"/>
+    <Item type="512" path="Resources\XML\Items\Crown.xml"/>
+    <Item type="518" path="Resources\XML\Items\Double_Shot.xml"/>
     <Enemy type="600" path="Resources\XML\Enemies\VampireBat.xml"/>
     <Enemy type="601" path="Resources\XML\Enemies\BlackKnight.xml"/>
   </Objects>
@@ -65,7 +68,7 @@
         <Row>26,26,45,46,45,46,37,38,33,34,47,47,26,26,47,47,47,10,11,12,2,2,3,4,9,10,13,14,2,2,2,2,3,4,13,14,2,2,3,4,9,10,13,14,2,2,1,1</Row>
         <Row>26,26,44,36,44,36,44,36,44,36,26,26,26,26,47,47,47,8,19,20,2,2,3,4,17,18,21,22,2,2,2,2,3,4,21,22,2,2,3,4,17,18,21,22,2,2,1,1</Row>
         <Row>26,26,43,44,43,44,43,44,43,44,26,26,26,26,47,47,47,16,2,2,13,14,3,4,17,18,2,2,9,6,9,6,3,4,11,12,2,2,3,4,17,18,9,6,2,2,1,1</Row>
-        <Row>26,26,26,26,26,26,26,26,26,26,25,25,25,25,25,25,1,1,2,2,21,22,1,1,1,1,2,2,1,1,1,1,1,1,19,20,2,2,1,1,1,1,1,1,2,2,1,1</Row>
+        <Row>26,26,26,26,26,26,26,26,26,26,25,25,25,25,25,25,1,1,2,2,21,22,1,1,1,1,2,2,1,1,1,1,1,1,19,20,2,2,47,1,1,1,1,1,2,2,1,1</Row>
         <Row>25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,1,2,2,2,17,18,3,4,1,1,2,2,2,2,1,1,1,2,9,6,9,10,1,1,11,12,9,10,2,2,1,1</Row>
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,1,1,3,4,1,1,2,2,2,2,1,1,1,2,1,1,17,18,1,1,19,20,17,18,5,1,1,1</Row>
         <Row>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,13,14,11,12,3,4,1,1,2,2,13,14,1,1,1,2,2,2,17,18,1,1,2,2,2,5,2,2,1,1</Row>
@@ -130,7 +133,7 @@
       <Block x="624" y="80"/>
       <Object type="301" x="524" y="24" item="506"/>
       <Object type="301" x="588" y="24" item="506"/>
-      <Object type="302" x="608" y="80"/>
+      <Object type="302" x="608" y="80" item="518"/>
       <Enemy type="600" x="608" y="32" activeL="608" activeR="688" flip="true"/>
     </Cell>
     <Cell row="0" column="5">
@@ -268,7 +271,7 @@
       <Block x="720"  y="304"/>
       <Stair x="680" y="288" dir_x="-1" dir_y="1"/>
       <Object type="301" x="716" y="312" item="507"/>
-      <Object type="302" x="736" y="288"/>
+      <Object type="302" x="736" y="288" item="512"/>
     </Cell>
   </Grid>
   

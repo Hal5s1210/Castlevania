@@ -31,7 +31,14 @@ void Door::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void Door::Render(float x, float y)
 {
-	currentAnimation->first->Draw(currentAnimation->second, this->x + x, this->y + y,255, flip);
+	float X, Y;
+	LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
+	RECT rect = sprite->GetRect();
+	int w = rect.right - rect.left;
+	X = flip ? this->x + 8 - w : this->x;
+	Y = this->y;
+
+	currentAnimation->first->Draw(currentAnimation->second, X + x, Y + y, 255, flip);
 
 	if (active && currentAnimation->first->IsFrameReset())
 	{

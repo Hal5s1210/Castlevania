@@ -33,7 +33,7 @@ public:
 
 	virtual void Active();
 	virtual void Unactive();
-	void TakeDamage(int damage, LPGAMEOBJECT hitter);
+	virtual void TakeDamage(int damage, LPGAMEOBJECT hitter);
 
 	void SetDefaultFlip(bool flip) { default_flip = flip; }
 	void SetDefaultPosition(float x, float y) { default_x = x; default_y = y; }
@@ -42,8 +42,8 @@ public:
 	void GetDefaultPosition(float& x, float& y) { x = default_x; y = default_y; }
 
 	virtual Enemy* Clone() = 0;
-	virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects) = 0;
-	virtual void Update(DWORD dt);
+	virtual void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
+	virtual void Brain(DWORD dt) = 0;
 	virtual void Render(float x, float y);
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

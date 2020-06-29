@@ -34,12 +34,6 @@ void GameObject::Update(DWORD dt)
 	dy = vy * dt;
 }
 
-void GameObject::UpdatePosition()
-{
-	x += dx;
-	y += dy;
-}
-
 LPCOEVENT GameObject::SweptAABBEx(LPGAMEOBJECT coO)
 {
 	float sl, st, sr, sb;		// static object bbox
@@ -168,6 +162,10 @@ void GameObject::CheckCollision(std::vector<LPGAMEOBJECT>* coObjects)
 		dx = ddx;
 		dy = ddy;
 	}
+	else
+	{
+		NoCollision();
+	}
 
 	if (!coAABBOs.empty())
 	{
@@ -176,4 +174,7 @@ void GameObject::CheckCollision(std::vector<LPGAMEOBJECT>* coObjects)
 			ProcessAABBCollision(o);
 		}
 	}
+
+	x += dx;
+	y += dy;
 }

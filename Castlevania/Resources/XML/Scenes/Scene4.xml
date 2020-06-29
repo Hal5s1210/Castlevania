@@ -7,6 +7,7 @@
     <Texture id="4000" path="Resources\Textures\Effects.png" red="116" green="116" blue="116"/>
     <Texture id="5000" path="Resources\Textures\Items.png" red="116" green="116" blue="116"/>
     <Texture id="6000" path="Resources\Textures\Enemies.png" red="116" green="116" blue="116"/>
+    <Texture id="6100" path="Resources\Textures\Bosses.png" red="116" green="116" blue="116"/>
     <Texture id="7000" path="Resources\Textures\UI_board.png" red="116" green="116" blue="116"/>
     <Texture id="8003" path="Resources\Textures\Tileset4.png" red="255" green="0" blue="255"/>
     <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
@@ -41,7 +42,11 @@
     <Item type="509" path="Resources\XML\Items\Money_400.xml"/>
     <Item type="510" path="Resources\XML\Items\Money_700.xml"/>
     <Item type="511" path="Resources\XML\Items\Money_1000.xml"/>
+    <Item type="517" path="Resources\XML\Items\Cross.xml"/>
+    <Item type="519" path="Resources\XML\Items\Triple_Shot.xml"/>
+    <Item type="520" path="Resources\XML\Items\Crystal.xml"/>
     <Enemy type="606" path="Resources\XML\Enemies\Zombie.xml"/>
+    <Boss type="690" path="Resources\XML\Enemies\PhantomBat.xml"/>
   </Objects>
 
   <Player>
@@ -73,6 +78,7 @@
     </Tilemap>
     <Area default="0">
       <Rect x="0" y="0" w="768" h="192"/>
+      <Rect x="512" y="0" w="256" h="192"/>
     </Area>
   </Map>
 
@@ -89,8 +95,11 @@
       <Stair x="104" y="64" dir_x="1" dir_y="1"/>
     </Cell>
     <Cell row="0" column="1">
-      <Object type="301" x="154" y="88" item="506"/>
-      <Object type="301" x="218" y="56" item="506"/>
+      <Object type="301" x="154" y="88" item="511"/>
+      <Object type="301" x="218" y="56" item="507"/>
+    </Cell>
+    <Cell row="0" column="4">
+      <Boss type="690" x="616" y="24" activeL="624" activeR="640"/>
     </Cell>
     <Cell row="0" column="5">
       <Block x="760" y="0"/>
@@ -109,7 +118,7 @@
       <Block x="80" y="176"/>
       <Block x="96" y="176"/>
       <Block x="112" y="176"/>
-      <Object type="301" x="28" y="120" item="506"/>
+      <Object type="301" x="28" y="120" item="517"/>
     </Cell>
     <Cell row="1" column="1">
       <Block x="128" y="112"/>
@@ -143,7 +152,7 @@
       <Block x="352" y="176"/>
       <Block x="368" y="176"/>
       <Object type="301" x="284" y="152" item="506"/>
-      <Object type="301" x="348" y="120" item="506"/>
+      <Object type="301" x="348" y="120" item="502"/>
       <Enemy type="606" x="256" y="78" activeL="112" activeR="256" flip="false"/>
       <Enemy type="606" x="272" y="78" activeL="112" activeR="272" flip="false"/>
       <Enemy type="606" x="288" y="78" activeL="112" activeR="288" flip="false"/>
@@ -159,7 +168,7 @@
       <Block x="464" y="176"/>
       <Block x="480" y="176"/>
       <Block x="496" y="176"/>
-      <Object type="301" x="412" y="152" item="506"/>
+      <Object type="301" x="412" y="152" item="509"/>
       <Object type="301" x="476" y="152" item="506"/>
     </Cell>
     <Cell row="1" column="4">
@@ -171,7 +180,7 @@
       <Block x="592" y="176"/>
       <Block x="608" y="176"/>
       <Block x="624" y="176"/>
-      <Object type="301" x="540" y="120" item="506"/>
+      <Object type="301" x="540" y="120" item="510"/>
       <Object type="301" x="604" y="152" item="506"/>
     </Cell>
     <Cell row="1" column="5">
@@ -191,8 +200,9 @@
       <Block x="760" y="128"/>
       <Block x="760" y="144"/>
       <Block x="760" y="160"/>
-      <Object type="304" x="688" y="144"/>
-      <Object type="301" x="668" y="120" item="506"/>
+      <Portal x="656" y="96" w="16" h="80" area="1" scene="-1" p_x="-999" p_y="-999" onetime="true"/>
+      <Object type="304" x="688" y="144" item="519"/>
+      <Object type="301" x="668" y="120" item="507"/>
       <Object type="301" x="732" y="120" item="506"/>
       <Stair x="680" y="128" dir_x="1" dir_y="-1"/>
       <Stair x="712" y="96" dir_x="-1" dir_y="1"/>

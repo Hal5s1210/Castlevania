@@ -88,6 +88,7 @@
 #define WHITESKELETON_ID				604
 #define RAVEN_ID						605
 #define ZOMBIE_ID						606
+#define PHANTOMBAT_ID					690
 #endif // !ENEMY_ID
 
 

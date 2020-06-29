@@ -9,7 +9,7 @@ private:
 	bool comeback;
 	bool back;
 
-	void ProcessAABBCollision(LPGAMEOBJECT coObject) {}
+	void ProcessAABBCollision(LPGAMEOBJECT coObject);
 	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,
 		float min_tx, float min_ty, float nx, float ny,
 		float& dx, float& dy);

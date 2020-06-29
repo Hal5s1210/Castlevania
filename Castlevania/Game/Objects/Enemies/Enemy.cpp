@@ -2,17 +2,38 @@
 #include "..\Effect.h"
 #include "..\..\..\Framework\Viewport.h"
 #include "..\..\Board.h"
+#include "..\Weapons\Stopwatch.h"
 
 Enemy::Enemy()
 {
 	invulnerableTime = 300;
 }
 
-void Enemy::Update(DWORD dt)
+void Enemy::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	if (!alive || !active || outview) return;
 
-	GameObject::Update(dt);
+
+	//brain
+	if (!Stopwatch::IsTimePause())
+	{
+		GameObject::Update(dt);
+		Brain(dt);
+	}
+	else
+	{
+		float vxx = vx, vyy = y;
+		vx = vy = 0;
+		GameObject::Update(dt);
+		vx = vxx;
+		vy = vyy;
+	}
+
+	GameObject::CheckCollision(objects);
+
+	//check view
+	if (!incell && !outview)
+		CheckView();
 }
 
 void Enemy::Render(float x, float y)
@@ -21,7 +42,6 @@ void Enemy::Render(float x, float y)
 	if (!alive || outview) return;
 
 	currentAnimation->first->Draw(currentAnimation->second, this->x + x, this->y + y, 255, flip);
-
 
 	if (Debug::IsEnable())
 	{

@@ -22,15 +22,11 @@ LPENEMY Hunchback::Clone()
 	return clone;
 }
 
-void Hunchback::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void Hunchback::Brain(DWORD dt)
 {
-	if (!alive || !active || outview) return;
-
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
-
-	Enemy::Update(dt);
 
 	if (!attack && activeL <= p_x && p_x <= activeR)
 	{
@@ -72,11 +68,6 @@ void Hunchback::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	}
 
 	vy += dt * 0.0005;
-
-	//GameObject::UpdatePosition();
-
-	if (!incell && !outview)
-		Enemy::CheckView();
 }
 
 void Hunchback::Active()

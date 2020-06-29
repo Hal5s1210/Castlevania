@@ -18,15 +18,12 @@ LPENEMY VampireBat::Clone()
 	return clone;
 }
 
-void VampireBat::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void VampireBat::Brain(DWORD dt)
 {
-	if (!alive || !active || outview) return;
-	
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
 
-	Enemy::Update(dt);
 	if (activeL <= p_x && p_x <= activeR &&
 		default_y <= p_y && p_y <= default_y + 64)
 	{
@@ -48,11 +45,6 @@ void VampireBat::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	{
 		vx = vy = 0;
 	}
-
-	//GameObject::UpdatePosition();
-
-	if (!incell && !outview)
-		Enemy::CheckView();
 }
 
 void VampireBat::Active()

@@ -10,6 +10,7 @@ Simon::Simon()
 	subweapon = new SubWeapon(this);
 	flip = true;
 	input = true;
+	upgrade = false;
 	hit_door = false;
 	attack = false;
 	crouch = false;
@@ -73,7 +74,7 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	if (auto_pilot)
 	{
-		AutoMove();
+		AutoMove(objects);
 
 		if (reach_dest)
 		{
@@ -122,7 +123,7 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		vx = speed_before_jump;
 	}
 
-	//GameObject::UpdatePosition();
+	GameObject::CheckCollision(objects);
 
 	if (attack)
 	{
@@ -183,6 +184,14 @@ void Simon::Render(float x, float y)
 		float l, t, r, b;
 		GetBoundingBox(l, t, r, b);
 		Debug::RenderBoundBox(x, y, l, t, r, b);
+	}
+
+	if (upgrade)
+	{
+		if (currentAnimation->first->IsFrameReset())
+		{
+			upgrade = false;;
+		}
 	}
 
 	if (dead)
@@ -249,6 +258,10 @@ void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 	b = t + 32 -2 - fixY;
 }
 
+void Simon::NoCollision()
+{
+}
+
 void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o, 
 	float min_tx, float min_ty, float nx, float ny, 
 	float& dx, float& dy)
@@ -301,7 +314,6 @@ void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 		{
 			on_moving_block = false;
 			block_vx = 0;
-			on_air = true;
 		}
 	}
 	else if (dynamic_cast<Portal*>(o))
@@ -340,7 +352,7 @@ void Simon::GoToX(float dest_x)
 	auto_dest_y = y;
 }
 
-void Simon::AutoMove()
+void Simon::AutoMove(std::vector<LPGAMEOBJECT>* objects)
 {
 	if (auto_dir_x == 0)
 	{
@@ -348,6 +360,8 @@ void Simon::AutoMove()
 	}
 	else
 	{
+		GameObject::CheckCollision(objects);
+
 		if ((auto_dir_x == 1 && x >= auto_dest_x)|| (auto_dir_x == -1 && x <= auto_dest_x))
 		{
 			x = auto_dest_x;
@@ -424,7 +438,7 @@ void Simon::HitStair(Stair* s)
 
 void Simon::SetState(eState state, bool priority)
 {
-	if (!priority && (hit || dead || auto_pilot))
+	if (!priority && (hit || dead || upgrade || auto_pilot))
 		return;
 
 	switch (state)
@@ -436,6 +450,10 @@ void Simon::SetState(eState state, bool priority)
 			this->state = Simon::OnAir;
 			break;
 		}
+		this->state = state;
+		break;
+
+	case Simon::OnAir:
 		this->state = state;
 		break;
 
@@ -529,6 +547,10 @@ void Simon::SetState(eState state, bool priority)
 
 	case Simon::Dead:
 		this->state = Simon::Dead;
+		break;
+
+	case Simon::Upgrade:
+		this->state = Simon::Upgrade;
 		break;
 
 	default:
@@ -705,6 +727,7 @@ void Simon::ProcessState()
 			Debug::DebugOut(L"Simon Hitted\n");
 		}
 		break;
+
 	case Simon::Dead:
 		dead = true;
 		attack = false;
@@ -712,6 +735,13 @@ void Simon::ProcessState()
 		vx = vy = 0;
 		SetAnimation(DEAD);
 		break;
+
+	case Simon::Upgrade:
+		upgrade = true;
+		SetAnimation(UPGRADE);
+		vx = vy = 0;
+		break;
+
 	default:
 		vx = vy = 0;
 		break;
@@ -720,7 +750,6 @@ void Simon::ProcessState()
 
 void Simon::TakeHit(int damage)
 {
-	return;
 	if (hit || invulnerable) return;
 
 	if (!on_stair)
@@ -744,6 +773,7 @@ void Simon::Reset()
 	y = default_y;
 	flip = default_flip;
 	input = true;
+	upgrade = false;
 	hit_door = false;
 	attack = false;
 	crouch = false;

@@ -43,7 +43,7 @@ void Axe::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += 0.0005 * dt;
 
-	//GameObject::UpdatePosition();
+	GameObject::CheckCollision(objects);
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -52,6 +52,19 @@ void Axe::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	if (x < cam_x || x > cam_x + cam_w - 16 || y < cam_y || y> cam_y + cam_w - 16)
 	{
 		outview = true;
+	}
+}
+
+void Axe::ProcessAABBCollision(LPGAMEOBJECT o)
+{
+	if (dynamic_cast<Enemy*>(o))
+	{
+		Enemy* e = dynamic_cast<Enemy*>(o);
+
+		if (e->IsAlive())
+		{
+			e->TakeDamage(damage, this);
+		}
 	}
 }
 

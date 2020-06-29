@@ -9,6 +9,7 @@ class Effect : public GameObject
 {
 private:
 	static bool flash;
+	static int flashcount;
 
 	bool done;
 	bool oneTimeEffect = true;
@@ -37,6 +38,7 @@ public:
 
 	static void AddHitEffect(LPGAMEOBJECT hitter, LPGAMEOBJECT obj);
 	static void AddDeathEffect(RECT r, float x, float y);
+	static void AddBossDeathEffect(RECT r, float x, float y);
 	static void AddBreakBlockEffect(RECT r, float x, float y);
 	static void RenderBackgroundEffect();
 	static void Flash();

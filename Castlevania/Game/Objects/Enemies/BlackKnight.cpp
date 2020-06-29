@@ -18,12 +18,8 @@ LPENEMY BlackKnight::Clone()
 	return clone;
 }
 
-void BlackKnight::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
+void BlackKnight::Brain(DWORD dt)
 {
-	if (!alive || !active || outview) return;
-
-	Enemy::Update(dt);
-
 	if (!stop && ((!flip && x < activeL) || (flip && x > activeR)))
 	{
 		stop = true;
@@ -45,11 +41,6 @@ void BlackKnight::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		vx = flip ? 0.025 : -0.025;
 		SetAnimation(1);
 	}
-
-	//GameObject::UpdatePosition();
-
-	if (!incell && !outview)
-		Enemy::CheckView();
 }
 
 void BlackKnight::Active()

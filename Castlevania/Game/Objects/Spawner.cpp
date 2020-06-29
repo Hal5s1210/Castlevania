@@ -199,6 +199,11 @@ void Spawner::CreateEnemySpawner(int id)
 		o = new Zombie;
 		enemySpawners[id] = o;
 		break;
+		
+	case PHANTOMBAT_ID:
+		o = new PhantomBat;
+		enemySpawners[id] = o;
+		break;
 
 	default:
 		break;

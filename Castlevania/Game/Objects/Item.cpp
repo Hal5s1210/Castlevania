@@ -41,7 +41,7 @@ void Item::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	vy += 0.00025 * dt;
 
-	//GameObject::UpdatePosition();
+	GameObject::CheckCollision(objects);
 }
 
 LPITEM Item::Clone()

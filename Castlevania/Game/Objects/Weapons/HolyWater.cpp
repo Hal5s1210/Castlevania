@@ -51,7 +51,7 @@ void HolyWater::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	if (!burning && !startBurn)
 		vy += 0.0005 * dt;
 
-	//GameObject::UpdatePosition();
+	GameObject::CheckCollision(objects);
 
 	float cam_x, cam_y;
 	int cam_w, cam_h;
@@ -87,6 +87,18 @@ void HolyWater::Render(float x, float y)
 	}
 }
 
+void HolyWater::ProcessAABBCollision(LPGAMEOBJECT o)
+{
+	if (dynamic_cast<Enemy*>(o))
+	{
+		Enemy* e = dynamic_cast<Enemy*>(o);
+
+		if (e->IsAlive())
+		{
+			e->TakeDamage(damage, this);
+		}
+	}
+}
 
 void HolyWater::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 	float min_tx, float min_ty, float nx, float ny,
