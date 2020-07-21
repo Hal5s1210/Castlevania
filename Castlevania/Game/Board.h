@@ -47,6 +47,8 @@ public:
 
 	void LoadTexture();
 
+	void SetStage(int i) { stage = i > 0 ? i : 1; }
+
 	void GetSimonData(Whip* whip, SubWeapon* sub);
 	void PlayerHit(int damage);
 	void PlayerDie();

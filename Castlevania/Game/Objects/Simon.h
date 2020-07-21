@@ -82,6 +82,10 @@ private:
 	bool invulnerable;
 	bool chopchop;
 
+	bool invisible;
+	DWORD invisibletimestart;
+	DWORD invisibletime;
+
 	bool hit_door;
 
 	DWORD hittimestart;
@@ -124,6 +128,7 @@ public:
 	void GoToX(float x);
 	bool IsHitDoor() { return hit_door; }
 	bool IsReachAutoDest() { return reach_dest; }
+	void GoInvisible() { invisible = true; invisibletimestart = GetTickCount(); }
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render(float x = 0, float y = 0);

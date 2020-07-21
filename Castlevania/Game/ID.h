@@ -78,6 +78,7 @@
 #define ITEM_DOUBLESHOT_ID				518
 #define ITEM_TRIPLESHOT_ID				519
 #define ITEM_CRYSTAL_ID					520
+#define ITEM_INVISIBLE_ID				521
 #endif // !ITEM_ID
 
 #ifndef ENEMY_ID

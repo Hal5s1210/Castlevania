@@ -118,6 +118,7 @@ void Item::SetType(int t)
 	case ITEM_DOUBLESHOT_ID: type = eItem::DoubleShot; break;
 	case ITEM_TRIPLESHOT_ID: type = eItem::TripleShot; break;
 	case ITEM_CRYSTAL_ID: type = eItem::Crystall; break;
+	case ITEM_INVISIBLE_ID: type = eItem::Invisible; break;
 
 	default:
 		type = eItem::Unknown;
@@ -139,3 +140,8 @@ void Item::RunEffect(int id)
 	}
 }
 
+void Item::AddItem(int id, RECT r, float x, float y)
+{
+	LPITEM i = Spawner::GetInstance()->SpawnItem(id, x + ((r.right - r.left) / 2) - 4, y + ((r.bottom - r.top) / 2) - 8);
+	Scenes::GetInstance()->GetScene()->AddItem(i);
+}

@@ -47,6 +47,7 @@
     <Item type="513" path="Resources\XML\Items\Chest.xml"/>
     <Item type="515" path="Resources\XML\Items\1up.xml"/>
     <Item type="516" path="Resources\XML\Items\Pork.xml"/>
+    <Item type="521" path="Resources\XML\Items\Invisible.xml"/>
     <Enemy type="602" path="Resources\XML\Enemies\Ghost.xml"/>
     <Enemy type="603" path="Resources\XML\Enemies\Hunchback.xml"/>
     <Enemy type="604" path="Resources\XML\Enemies\WhiteSkeleton.xml"/>
@@ -165,7 +166,7 @@
       <Block x="304" y="160"/>
       <Block x="352" y="160"/>
       <Block x="368" y="160"/>
-      <Object type="301" x="284" y="136" item="506"/>
+      <Object type="301" x="284" y="136" item="521"/>
       <Object type="301" x="348" y="136" item="506"/>
       <Enemy type="604" x="360" y="126" activeL="240" activeR="360" flip="false"/>
       <Stair x="376" y="144" dir_x="1" dir_y="-1"/>

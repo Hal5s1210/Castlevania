@@ -1,6 +1,8 @@
 #include "Boss.h"
 #include "..\..\Effect.h"
+#include "..\..\Item.h"
 #include "..\..\..\Board.h"
+#include "..\..\..\ID.h"
 
 void Boss::TakeDamage(int damage, LPGAMEOBJECT hitter)
 {
@@ -23,6 +25,8 @@ void Boss::TakeDamage(int damage, LPGAMEOBJECT hitter)
 		RECT r = sprite->GetRect();
 
 		Effect::AddBossDeathEffect(r, x, y);
+
+		Item::AddItem(ITEM_CRYSTAL_ID, r, x, y);
 
 		Board::GetInstance()->AddScore(score);
 	}

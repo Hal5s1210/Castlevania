@@ -90,6 +90,7 @@ void Scenes::SwitchScene()
 		currentID = switchScene;
 		current = scenes[currentID];
 		Viewport::GetInstance()->SetAuto(false);
+		Board::GetInstance()->SetStage(currentID);
 		current->Load();
 		switchScene = -999;
 	}

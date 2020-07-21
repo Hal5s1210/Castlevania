@@ -96,8 +96,7 @@ void Candle::TakeDamage(int damage, LPGAMEOBJECT hitter)
 
 		if (item > -1)
 		{
-			LPITEM i = Spawner::GetInstance()->SpawnItem(item, x + ((r.right - r.left) / 2) - 4, y + ((r.bottom - r.top) / 2) - 8);
-			scene->AddItem(i);
+			Item::AddItem(item, r, x, y);
 
 			OutputDebugString(L"Item Drop!!!\n");
 		}

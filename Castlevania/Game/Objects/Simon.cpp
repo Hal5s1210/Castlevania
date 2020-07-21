@@ -17,8 +17,10 @@ Simon::Simon()
 	on_air = true;
 	hit = false;
 	dead = false;
+	invisible = false;
 	hittime = 500;
 	invulnerabletime = 3000;
+	invisibletime = 10000;
 	SetState(Simon::Idle);
 }
 
@@ -48,6 +50,11 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 				SetState(Simon::Idle);
 			}
 		}
+	}
+
+	if (invisible && GetTickCount() - invisibletimestart > invisibletime)
+	{
+		invisible = false;
 	}
 
 	if (GetTickCount() - invulnerabletimestart >= hittime)
@@ -160,6 +167,7 @@ void Simon::Render(float x, float y)
 {
 	float X = this->x + x;
 	float Y = this->y + y;
+	int alpha = 255;
 
 	int i = currentAnimation->second;
 	LPSPRITE sprite = currentAnimation->first->GetFrame(currentAnimation->second);
@@ -169,15 +177,17 @@ void Simon::Render(float x, float y)
 	if (flip) X += fixX;
 	Y += fixY;
 
+	if (invisible) alpha = 100;
+
 	if (invulnerable)
 	{
 		chopchop = !chopchop;
 		if (chopchop)
-			currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
+			currentAnimation->first->Draw(currentAnimation->second, X, Y, alpha, flip);
 
 	}
 	else
-		currentAnimation->first->Draw(currentAnimation->second, X, Y, 255, flip);
+		currentAnimation->first->Draw(currentAnimation->second, X, Y, alpha, flip);
 
 	if (Debug::IsEnable())
 	{
@@ -274,7 +284,6 @@ void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 		if (dynamic_cast<BreakableBlock*>(o) && !dynamic_cast<BreakableBlock*>(o)->IsAlive()) return;
 
 		on_moving_block = false;
-		bool wall, floor;
 
 		dx = dx * min_tx + nx * 0.4f;
 		if (ny == -1) dy = on_air ? dy * min_ty + ny * 0.4f : 0;
@@ -750,7 +759,7 @@ void Simon::ProcessState()
 
 void Simon::TakeHit(int damage)
 {
-	if (hit || invulnerable) return;
+	if (hit || invulnerable || invisible) return;
 
 	if (!on_stair)
 	{
@@ -780,6 +789,7 @@ void Simon::Reset()
 	on_air = true;
 	hit = false;
 	dead = false;
+	invisible = false;
 	SetState(Simon::Idle);
 }
 

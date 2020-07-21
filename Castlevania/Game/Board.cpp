@@ -404,6 +404,8 @@ void Board::ItemClaimed(LPITEM item)
 
 	case Item::Crystall: break;
 
+	case Item::Invisible: Scenes::GetInstance()->GetScene()->GetPlayer()->GoInvisible(); break;
+
 	default:
 		break;
 	}

@@ -31,7 +31,8 @@ public:
 		Cross,
 		DoubleShot,
 		TripleShot,
-		Crystall
+		Crystall,
+		Invisible
 	};
 
 private:
@@ -57,6 +58,8 @@ public:
 
 	void Claim() { claimed = true; }
 	void RunEffect(int id);
+
+	static void AddItem(int id, RECT r, float x, float y);
 
 	LPITEM Clone();
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
