@@ -31,7 +31,7 @@ void PlayScene::Update(DWORD dt)
 			if (dynamic_cast<Simon*>(o)) continue;
 			if (!board->IsPaused()) o->Update(dt);
 		}
-		if (!board->IsPaused()) view->Update(dt);
+		if (!board->IsPaused() && player->IsReachAutoDest()) view->Update(dt);
 		board->Update(dt);
 
 		if (view->IsSwitchView())
@@ -287,6 +287,16 @@ void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 
 	case DIK_F5:
 		Debug::EnableDebugging();
+		break;
+
+	case DIK_F6:
+		Scenes::GetInstance()->GetScene()->KillAllEnemies();
+		Effect::Flash();
+		Sound::GetInstance()->Play(SOUND_CROSS_ID);
+		break;
+
+	case DIK_F7:
+		player->GoInvisible();
 		break;
 
 	default:

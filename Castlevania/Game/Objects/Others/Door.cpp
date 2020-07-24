@@ -78,6 +78,7 @@ void Door::Update(DWORD dt)
 		if (view->IsReachAutoDest())
 		{
 			SetAnimation(1);
+			currentAnimation->second = 0;
 			state = 1;
 		}
 		break;
@@ -86,6 +87,7 @@ void Door::Update(DWORD dt)
 		if (open)
 		{
 			SetAnimation(2);
+			currentAnimation->second = 0;
 			state = 2;
 		}
 		break;
@@ -98,12 +100,14 @@ void Door::Update(DWORD dt)
 			px += flip ? -80 : 80;
 			player->GoToX(px);
 			player->SetState(flip ? Simon::WalkL : Simon::WalkR, true);
+			Debug::DebugOut(L"DestPX: %f\n", px);
 			player_move = true;
 		}
 		if (player->IsReachAutoDest())
 		{
 			player->SetState(Simon::Idle, true);
 			SetAnimation(3);
+			currentAnimation->second = 0;
 			state = 3;
 		}
 		break;
@@ -112,11 +116,12 @@ void Door::Update(DWORD dt)
 		if (close)
 		{
 			SetAnimation(0);
+			currentAnimation->second = 0;
 			float cx, cy;
 			view->GetPosition(cx, cy);
-			cx += flip ? -128 : 128;
-			view->GoToX(cx);
+			cx += flip ? -126 : 126;
 			view->SetSwitchView(true);
+			view->GoToX(cx);
 			Debug::DebugOut(L"DestViewX: %f\n", cx);
 			state = 4;
 		}

@@ -13,7 +13,7 @@ Board::Board()
 	x = 0;
 	y = 0;
 	score = 0;
-	time = 10;
+	time = 300;
 	stage = 1;
 	heart = 0;
 	life = 3;
@@ -235,7 +235,6 @@ void Board::Render()
 void Board::RenderGameover()
 {
 	if (playerdeadtimestart == 0 && !done) return;
-	life = 0;
 	if ((playerdeadtimestart != 0 && GetTickCount() - playerdeadtimestart > playerdeadtime - 500) || (done && gameover))
 	{
 		Draw("?", x, y + 48);
@@ -474,13 +473,15 @@ void Board::ItemClaimed(LPITEM item)
 		break;
 
 	case Item::Crystall:
-		score += 20000;
+		score += 10000;
 		playerhp = 16;
 		victory = true;
 		victorytimestart = GetTickCount();
 		break;
 
-	case Item::Invisible: Scenes::GetInstance()->GetScene()->GetPlayer()->GoInvisible(); break;
+	case Item::Invisible: 
+		Scenes::GetInstance()->GetScene()->GetPlayer()->GoInvisible(); 
+		break;
 
 	default:
 		break;

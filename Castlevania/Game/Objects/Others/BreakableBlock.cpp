@@ -78,7 +78,7 @@ void BreakableBlock::TakeDamage()
 
 		if (item > -1)
 		{
-			Item::AddItem(item, r, x, y);
+			Item::AddItem(item, r, x, y - 2);
 
 			OutputDebugString(L"Item Drop!!!\n");
 		}
