@@ -170,6 +170,9 @@
       <Block x="496" y="176"/>
       <Object type="301" x="412" y="152" item="509"/>
       <Object type="301" x="476" y="152" item="506"/>
+      <Enemy type="606" x="464" y="140" activeL="320" activeR="464" flip="false"/>
+      <Enemy type="606" x="480" y="140" activeL="320" activeR="480" flip="false"/>
+      <Enemy type="606" x="496" y="140" activeL="320" activeR="496" flip="false"/>
     </Cell>
     <Cell row="1" column="4">
       <Block x="512" y="176"/>

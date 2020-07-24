@@ -8,8 +8,8 @@
 
   <Animations>
     <Animation id="52000">
-      <Frame sprite="52000" time="100"/>
-      <Frame sprite="52001" time="100"/>
+      <Frame sprite="52000" time="40"/>
+      <Frame sprite="52001" time="40"/>
     </Animation>
   </Animations>
 

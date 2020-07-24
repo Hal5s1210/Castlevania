@@ -34,6 +34,16 @@ private:
 
 	int selectchoice;
 
+	bool victory;
+	DWORD victorytime;
+	DWORD victorytimestart;
+
+	bool done;
+	DWORD donetime;
+	DWORD donetimestart;
+
+	bool pause;
+
 	RECT GetCharRect(char c, float x, float y);
 	void DrawByChar(char c, float x, float y, int alpha = 255);
 	void Draw(std::string text, float x, float y, int alpha = 255);
@@ -56,10 +66,16 @@ public:
 
 	void BossHit(int damage);
 	int GetBossHp() { return enemyhp; }
+	
+	bool IsPaused() { return pause; }
+	void GamePause();
+	void GameResume();
 
 	void RenderGameover();
 
 	bool IsGameOver() { return gameover; }
+
+	bool IsDone() { return done; }
 
 	void ConfirmSelection();
 	void ChangeSelection();

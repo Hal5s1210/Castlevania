@@ -23,6 +23,8 @@ LPENEMY WhiteSkeleton::Clone()
 
 void WhiteSkeleton::Brain(DWORD dt)
 {
+	srand((unsigned)time(NULL));
+
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
@@ -62,7 +64,7 @@ void WhiteSkeleton::Brain(DWORD dt)
 		}
 	}
 
-	vy += dt * 0.0005;
+	vy += dt * GRAVITY;
 
 	if (x > limitR - 16) x = limitR - 16;
 	if (x < limitL) x = limitL;

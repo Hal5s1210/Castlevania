@@ -27,6 +27,11 @@ void Portal::Active()
 	if (onetime) active = false;
 }
 
+void Portal::Reset()
+{
+	if (onetime) active = true;
+}
+
 
 void Portal::GetBoundingBox(float& l, float& t, float& r, float& b)
 {

@@ -41,7 +41,7 @@ void Axe::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
 	GameObject::Update(dt);
 
-	vy += 0.0005 * dt;
+	vy += dt * GRAVITY;
 
 	GameObject::CheckCollision(objects);
 

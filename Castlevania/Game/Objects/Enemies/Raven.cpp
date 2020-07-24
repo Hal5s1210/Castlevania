@@ -101,6 +101,7 @@ void Raven::ProcessAABBCollision(LPGAMEOBJECT o)
 	{
 		Simon* player = dynamic_cast<Simon*>(o);
 		player->TakeHit(2);
-		TakeDamage(1, NULL);
+		if (!player->IsInvisible())
+			TakeDamage(1, NULL);
 	}
 }

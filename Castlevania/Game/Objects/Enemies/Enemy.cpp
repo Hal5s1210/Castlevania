@@ -68,6 +68,7 @@ void Enemy::Active()
 	active = true;
 	incell = true;
 	outview = false;
+	vx = vy = 0;
 	SetPosition(default_x, default_y);
 	SetAnimation(0);
 	SetFlip(default_flip);

@@ -50,6 +50,11 @@ public:
 	std::wstring GetPath() { return filePath; }
 	Simon* GetPlayer() { return player; }
 	std::vector<LPENEMY>* GetEnemyList() { return &enemies; }
+	std::vector<LPEFFECT>* GetEffectList() { return &effects; }
+	std::vector<LPITEM>* GetItemList() { return &items; }
+	std::vector<Bullet*>* GetBulletList() { return &bullets; }
+	std::vector<LPGAMEOBJECT>* GetObjectList() { return &objects; }
+
 
 	void SetPlayer(Simon* p) { player = p; }
 	void SetGrid(Grid* g) { grid = g; }

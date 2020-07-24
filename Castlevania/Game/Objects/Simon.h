@@ -15,9 +15,8 @@
 #define UPGRADE						11
 #endif // !SIMON_ANI
 
-#define SIMON_SPEED					0.067f
+#define SIMON_SPEED					0.05f
 #define JUMP_FORCE					-0.2f;
-#define GRAVITY						0.0005f;
 
 #include "..\ID.h"
 #include "GameObject.h"
@@ -53,12 +52,15 @@ private:
 	bool crouch;
 	bool attack;
 	bool on_air;
+	bool falling;
+	int fallcount;
 
 	bool on_moving_block;
 	float block_vx;
 
-	DWORD jumpTime;
-	DWORD jumpStartTime;
+	bool jump;
+	DWORD jumptime;
+	DWORD jumpstarttime;
 	float speed_before_jump;
 
 	bool upgrade;
@@ -128,6 +130,7 @@ public:
 	void GoToX(float x);
 	bool IsHitDoor() { return hit_door; }
 	bool IsReachAutoDest() { return reach_dest; }
+	bool IsInvisible() { return invisible; }
 	void GoInvisible() { invisible = true; invisibletimestart = GetTickCount(); }
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);

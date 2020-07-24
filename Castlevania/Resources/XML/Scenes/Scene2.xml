@@ -114,7 +114,7 @@
       <Block x="368" y="80"/>
       <Object type="301" x="332" y="24" item="506"/>
       <Object type="305" x="288" y="80" l="288" r="352" flip="true"/>
-      <Enemy type="601" x="352" y="48" activeL="352" activeR="400" flip="true"/>
+      <Enemy type="601" x="352" y="46" activeL="352" activeR="400" flip="true"/>
       <Object type="306" x="264" y="32" flip="true"/>
     </Cell>
     <Cell row="0" column="3">
@@ -193,7 +193,7 @@
       <Block x="624" y="112"/>
       <Block x="624" y="128"/>
       <Block x="624" y="144"/>
-      <Enemy type="601" x="592" y="112" activeL="576" activeR="592" flip="false"/>
+      <Enemy type="601" x="592" y="110" activeL="576" activeR="592" flip="false"/>
       <Portal x="612" y="176" w="16" h="16" area="0" scene="-1" p_x="640" p_y="184"/>
     </Cell>
     <Cell row="1" column="5">
@@ -219,7 +219,7 @@
       <Block x="624" y="272"/>
       <Stair x="584" y="256" dir_x="1" dir_y="-1"/>
       <Enemy type="600" x="560" y="224" activeL="544" activeR="640" flip="true"/>
-      <Enemy type="601" x="560" y="240" activeL="544" activeR="640" flip="true"/>
+      <Enemy type="601" x="560" y="238" activeL="544" activeR="640" flip="true"/>
     </Cell>
     <Cell row="2" column="5">
       <Block x="640" y="272"/>

@@ -17,6 +17,12 @@ void Candle::Update(DWORD dt)
 
 }
 
+void Candle::Reset()
+{
+	hit = false;
+	alive = true;
+}
+
 void Candle::Render(float x, float y)
 {
 	if (!alive) return;

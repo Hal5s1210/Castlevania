@@ -68,12 +68,12 @@ void Grid::GetObjectlist(std::vector<LPGAMEOBJECT>* list)
 						e->InCell(true);
 					}
 				}
-				if (dynamic_cast<Candle*>(o))
+				else if (dynamic_cast<Candle*>(o))
 				{
 					if(dynamic_cast<Candle*>(o)->IsAlive())
 						list->push_back(o);						
 				}
-				if (dynamic_cast<Portal*>(o))
+				else if (dynamic_cast<Portal*>(o))
 				{
 					if(dynamic_cast<Portal*>(o)->IsActive())
 						list->push_back(o);
@@ -82,6 +82,20 @@ void Grid::GetObjectlist(std::vector<LPGAMEOBJECT>* list)
 				{
 					list->push_back(o);
 				}
+			}
+		}
+	}
+}
+
+void Grid::ObjectReset()
+{
+	for (int i = 0; i < cells.size(); i++)
+	{
+		for (int j = 0; j < cells[i].size(); j++)
+		{
+			for (LPGAMEOBJECT o : cells[i][j])
+			{
+				o->Reset();
 			}
 		}
 	}

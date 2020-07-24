@@ -41,6 +41,8 @@ void BlackKnight::Brain(DWORD dt)
 		vx = flip ? 0.025 : -0.025;
 		SetAnimation(1);
 	}
+
+	vy += dt * GRAVITY;
 }
 
 void BlackKnight::Active()
@@ -59,10 +61,17 @@ void BlackKnight::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 	float min_tx, float min_ty, float nx, float ny,
 	float& dx, float& dy)
 {	
-	if (dynamic_cast<Simon*>(o))
+	if (dynamic_cast<Block*>(o) ||
+		dynamic_cast<BreakableBlock*>(o))
 	{
-		Simon* player = dynamic_cast<Simon*>(o);
-		player->TakeHit(2);
+		dx = dx * min_tx + nx * 0.4f;
+		dy = dy * min_ty + ny * 0.4f;
+
+		if (nx != 0) vx = 0;
+		if (ny != 0)
+		{
+			vy = 0;
+		}
 	}
 }
 

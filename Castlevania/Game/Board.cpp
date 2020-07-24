@@ -26,8 +26,18 @@ Board::Board()
 	playerdeadtime = 2000;
 	playerdeadtimestart = 0;
 
+	victory = false;
+	victorytime = 4000;
+	victorytimestart = 0;
+
 	gameover = false;
 	selectchoice = 1;
+
+	pause = false;
+
+	done = false;
+	donetime = 2000;
+	donetimestart = 0;
 }
 
 Board* Board::GetInstance()
@@ -49,20 +59,53 @@ void Board::Update(DWORD dt)
 		Stopwatch::TimeResume();
 	}
 
-	if (!Stopwatch::IsTimePause()) tickcount += dt;
-	if (tickcount >= 1000)
+	if (!victory)
 	{
-		if (time > 0)
-			time -= tickcount / 1000;
+		if (!Stopwatch::IsTimePause()) tickcount += dt;
+		if (tickcount >= 1000)
+		{
+			if (time > 0)
+				time -= tickcount / 1000;
 
-		tickcount = tickcount % 1000;
+			tickcount = tickcount % 1000;
+		}
+
+		if (time <= 0)
+		{
+			time = 0;
+			playerhp = 0;
+		}
 	}
-
-	if (time <= 0)
+	else
 	{
-		time = 0;
-		playerhp = 0;
+		if (GetTickCount() - victorytimestart > victorytime)
+		{
+			if(!done) GamePause();
+
+			done = true;
+
+			if (time != 0)
+			{
+				time--;
+				score += 10;
+			}
+			else if (heart != 0)
+			{
+				heart--;
+				score += 100;
+			}
+			else if (donetimestart == 0)
+			{
+				donetimestart = GetTickCount();
+			}
+
+			if (!gameover && donetimestart != 0 && GetTickCount() - donetimestart > donetime)
+			{
+				gameover = true;
+			}
+		}
 	}
+	
 
 	if (playerdeadtimestart != 0 && GetTickCount() - playerdeadtimestart > playerdeadtime)
 	{
@@ -168,8 +211,8 @@ void Board::Render()
 
 void Board::RenderGameover()
 {
-	if (playerdeadtimestart == 0) return;
-	if (GetTickCount() - playerdeadtimestart > playerdeadtime - 500)
+	if (playerdeadtimestart == 0 && !done) return;
+	if ((playerdeadtimestart != 0 && GetTickCount() - playerdeadtimestart > playerdeadtime - 500) || (done && gameover))
 	{
 		Draw("?", x, y + 48);
 		Draw("?", x, y + 96);
@@ -178,7 +221,8 @@ void Board::RenderGameover()
 
 		if (gameover)
 		{
-			Draw("CONTINUE", x + 96, y + 132);
+			if (!done) Draw("CONTINUE", x + 96, y + 132);
+			else selectchoice = 2;
 			Draw("GAMEOVER", x + 96, y + 156);
 			if (selectchoice == 1)
 				Draw("~", x + 80, y + 132);
@@ -402,7 +446,12 @@ void Board::ItemClaimed(LPITEM item)
 		Effect::Flash();
 		break;
 
-	case Item::Crystall: break;
+	case Item::Crystall:
+		score += 20000;
+		playerhp = 16;
+		victory = true;
+		victorytimestart = GetTickCount();
+		break;
 
 	case Item::Invisible: Scenes::GetInstance()->GetScene()->GetPlayer()->GoInvisible(); break;
 
@@ -412,6 +461,31 @@ void Board::ItemClaimed(LPITEM item)
 	item->RunEffect(effect_id);
 }
 
+void Board::GamePause()
+{
+	pause = true;
+	std::vector<LPGAMEOBJECT> objs = *Scenes::GetInstance()->GetScene()->GetObjectList();
+	for (LPGAMEOBJECT o : objs)
+	{
+		if (dynamic_cast<Block*>(o) ||
+			dynamic_cast<Portal*>(o) ||
+			dynamic_cast<Stair*>(o)) continue;
+		o->PauseAnimation();
+	}
+}
+
+void Board::GameResume()
+{
+	pause = false;
+	std::vector<LPGAMEOBJECT> objs = *Scenes::GetInstance()->GetScene()->GetObjectList();
+	for (LPGAMEOBJECT o : objs)
+	{
+		if (dynamic_cast<Block*>(o) ||
+			dynamic_cast<Portal*>(o) ||
+			dynamic_cast<Stair*>(o)) continue;
+		o->PlayAnimtion();
+	}
+}
 
 void Board::ConfirmSelection()
 {
@@ -449,5 +523,8 @@ void Board::Reset()
 	shot = 1;
 	whip = 1;
 	subweapon = 0;
+	victory = false;
+	pause = false;
+	done = false;
 	Viewport::GetInstance()->SetAuto(false);
 }

@@ -35,6 +35,8 @@ public:
 	void SetTargetArea(int i) { area = i; }
 	void SetTargetScene(int i) { scene = i; }
 
+	void Reset();
+	
 	void Render(float x, float y);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

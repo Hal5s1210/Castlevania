@@ -22,6 +22,8 @@ public:
 
 	void Active();
 
+	void Reset();
+
 	LPGAMEOBJECT Clone();
 	void Update(DWORD dt);
 	void Render(float x, float y);

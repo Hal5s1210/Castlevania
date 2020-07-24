@@ -49,6 +49,7 @@ void Scene::Reset()
 		delete e;
 	effects.clear();
 
+	grid->ObjectReset();
 	grid->GetObjectlist(&objects);
 	objects.push_back(player);
 	player->Reset();

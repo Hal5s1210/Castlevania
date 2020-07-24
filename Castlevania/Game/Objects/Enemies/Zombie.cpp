@@ -31,7 +31,7 @@ void Zombie::Brain(DWORD dt)
 		vx = flip ? 0.05 : -0.05;
 	}
 
-	vy += dt * 0.0005;
+	vy += dt * GRAVITY;
 }
 
 void Zombie::GetBoundingBox(float& l, float& t, float& r, float& b)

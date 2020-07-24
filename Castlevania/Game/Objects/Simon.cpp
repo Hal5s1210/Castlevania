@@ -15,11 +15,15 @@ Simon::Simon()
 	attack = false;
 	crouch = false;
 	on_air = true;
+	falling = false;
+	jump = false;
 	hit = false;
 	dead = false;
 	invisible = false;
+	fallcount = 0;
 	hittime = 500;
-	invulnerabletime = 3000;
+	jumptime = 1000;
+	invulnerabletime = 2000;
 	invisibletime = 10000;
 	SetState(Simon::Idle);
 }
@@ -57,7 +61,7 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 		invisible = false;
 	}
 
-	if (GetTickCount() - invulnerabletimestart >= hittime)
+	if (GetTickCount() - invulnerabletimestart >= invulnerabletime)
 	{
 		invulnerable = false;
 	}
@@ -105,6 +109,7 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 
 	if (on_stair)
 	{
+		on_air = false;
 		if (step)
 		{
 			float step_speed = 8.f / (200.f / dt) / dt;
@@ -270,6 +275,18 @@ void Simon::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void Simon::NoCollision()
 {
+	if (on_stair || jump) return;
+
+	if (!falling)
+	{
+		fallcount++;
+		if (fallcount > 2)
+		{
+			falling = true;
+			on_air = true;
+			speed_before_jump = 0;
+		}
+	}
 }
 
 void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o, 
@@ -302,7 +319,13 @@ void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 		if (ny == -1)
 		{
 			vy = 0;
+			fallcount = 0;
 			on_air = false;
+			falling = false;
+			if (jump && GetTickCount() - jumpstarttime > jumptime)
+			{
+				jump = false;
+			}
 			speed_before_jump = 0;
 
 			if (attack || dead)
@@ -675,6 +698,8 @@ void Simon::ProcessState()
 			speed_before_jump = vx;
 			crouch = false;
 			on_air = true;
+			jumpstarttime = GetTickCount();
+			jump = true;
 			SetAnimation(CROUNCH);
 			currentAnimation->first->Play();
 		}
@@ -787,6 +812,9 @@ void Simon::Reset()
 	attack = false;
 	crouch = false;
 	on_air = true;
+	on_stair = false;
+	falling = false;
+	jump = false;
 	hit = false;
 	dead = false;
 	invisible = false;

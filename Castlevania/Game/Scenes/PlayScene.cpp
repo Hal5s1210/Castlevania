@@ -25,13 +25,13 @@ void PlayScene::Update(DWORD dt)
 
 	if (player->IsHitDoor())
 	{
-		player->Update(dt, &objects);
+		if (!board->IsPaused()) player->Update(dt, &objects);
 		for (LPGAMEOBJECT o : objects)
 		{
 			if (dynamic_cast<Simon*>(o)) continue;
-			o->Update(dt);
+			if (!board->IsPaused()) o->Update(dt);
 		}
-		view->Update(dt);
+		if (!board->IsPaused()) view->Update(dt);
 		board->Update(dt);
 
 		if (view->IsSwitchView())
@@ -48,7 +48,7 @@ void PlayScene::Update(DWORD dt)
 
 	for (int i = 0; i < enemies.size(); i++)
 	{
-		enemies[i]->Update(dt, &objects);
+		if (!board->IsPaused()) enemies[i]->Update(dt, &objects);
 
 		if (!enemies[i]->IsInCell() && (enemies[i]->IsOutView() || !enemies[i]->IsAlive()))
 		{
@@ -66,7 +66,7 @@ void PlayScene::Update(DWORD dt)
 
 	for (int i = 0; i < bullets.size(); i++)
 	{
-		bullets[i]->Update(dt, &objects);
+		if (!board->IsPaused()) bullets[i]->Update(dt, &objects);
 
 		if (bullets[i]->IsHitSomething() || bullets[i]->IsOutOfView())
 		{
@@ -80,7 +80,7 @@ void PlayScene::Update(DWORD dt)
 		else objects.push_back(bullets[i]);
 	}
 
-	player->Update(dt, &objects);
+	if (!board->IsPaused()) player->Update(dt, &objects);
 
 	for (LPGAMEOBJECT o : objects)
 	{
@@ -88,14 +88,14 @@ void PlayScene::Update(DWORD dt)
 			dynamic_cast<Enemy*>(o) ||
 			dynamic_cast<Bullet*>(o))
 			continue;
-		o->Update(dt);
+		if (!board->IsPaused()) o->Update(dt);
 	}
 
 	for (int i = 0; i < items.size(); i++)
 	{
 		if (!items[i]->IsClaimed())
 		{
-			items[i]->Update(dt, &objects);
+			if (!board->IsPaused()) items[i]->Update(dt, &objects);
 			if (items[i]->IsTimeOut())
 			{
 				delete items[i];
@@ -116,7 +116,7 @@ void PlayScene::Update(DWORD dt)
 
 	for (int i = 0; i < effects.size(); i++)
 	{
-		effects[i]->Update(dt);
+		if (!board->IsPaused()) effects[i]->Update(dt);
 		if (effects[i]->IsOutOfView() || (effects[i]->IsOneTimeEffect() && effects[i]->IsDone()))
 		{
 			delete effects[i];
@@ -131,7 +131,7 @@ void PlayScene::Update(DWORD dt)
 
 	board->Update(dt);
 
-	view->Update(dt);
+	if (!board->IsPaused()) view->Update(dt);
 }
 
 void PlayScene::Render()
@@ -292,7 +292,6 @@ void  PlaySceneKeyHandler::OnKeyDown(int KeyCode)
 	default:
 		break;
 	}
-
 }
 
 void  PlaySceneKeyHandler::OnKeyUp(int KeyCode)

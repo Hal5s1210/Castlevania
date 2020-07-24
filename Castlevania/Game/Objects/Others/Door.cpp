@@ -21,6 +21,14 @@ LPGAMEOBJECT Door::Clone()
 	return clone;
 }
 
+void Door::Reset()
+{
+	state = 0;
+	open = close = false;
+	player_move = false;
+	active = false;
+}
+
 void Door::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = x;

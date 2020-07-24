@@ -19,6 +19,6 @@ public:
 	std::vector<std::vector<std::vector<LPGAMEOBJECT>>>* GetCells() { return &cells; }
 
 	void GetObjectlist(std::vector<LPGAMEOBJECT>* list);
-
+	void ObjectReset();
 };
 

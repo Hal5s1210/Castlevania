@@ -4,6 +4,9 @@
 #include "..\..\Framework\Animation.h"
 #include "..\..\Framework\Debug.h"
 
+
+#define GRAVITY						0.0005f;
+
 class GameObject;
 typedef GameObject* LPGAMEOBJECT;
 
@@ -77,6 +80,8 @@ public:
 	void PlayAnimtion() { currentAnimation->first->Play(); }
 
 	virtual LPGAMEOBJECT Clone() = 0;
+
+	virtual void Reset() {}
 
 	virtual void Update(DWORD dt);
 	virtual void Render(float x = 0, float y = 0) = 0;

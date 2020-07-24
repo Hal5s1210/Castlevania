@@ -24,6 +24,8 @@ LPENEMY Hunchback::Clone()
 
 void Hunchback::Brain(DWORD dt)
 {
+	srand((unsigned)time(NULL));
+
 	Simon* player = Scenes::GetInstance()->GetScene()->GetPlayer();
 	float p_x, p_y;
 	player->GetPosition(p_x, p_y);
@@ -67,7 +69,7 @@ void Hunchback::Brain(DWORD dt)
 		}
 	}
 
-	vy += dt * 0.0005;
+	vy += dt * GRAVITY;
 }
 
 void Hunchback::Active()
