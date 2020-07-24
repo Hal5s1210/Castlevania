@@ -6,6 +6,10 @@
     <Texture id="9001" path="Resources\Textures\Intro.png" red="128" green="128" blue="0"/>
   </Textures>
 
+  <Sounds BGM_id="100">
+    <Sound id="100" path="Resources\Sounds\01. Introduction (Castle Gate).wav"/>
+  </Sounds>
+
   <Objects>
     <Object type ="903" path="Resources\XML\Others\IntroBG.xml"/>
     <Object type ="904" path="Resources\XML\Others\IntroBat.xml"/>

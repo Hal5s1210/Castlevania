@@ -6,7 +6,8 @@ void IntroScene::Load()
 	board = Board::GetInstance();
 	board->LoadTexture();
 	Viewport::GetInstance()->SetPosition(0, 0);
-	scenestart = 0;
+	scenestart = 0; 
+	board->Update(0);
 }
 
 void IntroScene::Unload()
@@ -43,8 +44,6 @@ void IntroScene::Update(DWORD dt)
 			}
 		}
 	}
-
-	board->Update(dt);
 
 	if (scenestart != 0 && GetTickCount() - scenestart >= scenetime)
 	{

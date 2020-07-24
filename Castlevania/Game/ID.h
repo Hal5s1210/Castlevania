@@ -94,8 +94,29 @@
 
 
 #ifndef SOUND_ID
-#define SOUND_INTRO_ID					0
-#define SOUND_COUNTYARD_ID				1000
+#define SOUND_INTRO_ID					100
+#define SOUND_SCENE1_ID					101
+#define SOUND_SCENE2_ID					102
+#define SOUND_SCENE3_ID					103
+#define SOUND_SCENE4_ID					104
+#define SOUND_BOSS_ID					105
+#define SOUND_CLEAR_ID					106
+#define SOUND_DEATH_ID					107
+#define SOUND_GAMEOVER_ID				108
+#define SOUND_WHIP_ID					201
+#define SOUND_DEATHEFFECT_ID			202
+#define SOUND_HITEFFECT_ID				203
+#define SOUND_CLAIMHEART_ID				204
+#define SOUND_CLAIMITEM_ID				205
+#define SOUND_CLAIMWEAPON_ID			206
+#define SOUND_LIFEUP_ID					207
+#define SOUND_CROSS_ID					208
+#define SOUND_INVISIBLEIN_ID			209
+#define SOUND_INVISIBLEOUT_ID			210
+#define SOUND_FALLING_ID				211
+#define SOUND_TIMEOUT_ID				212
+#define SOUND_TIMESCORE_ID				213
+#define SOUND_HEARTSCORE_ID				214
 #endif // !SOUND_ID
 
 
@@ -106,5 +127,5 @@
 #define SCENE2_ID						2
 #define SCENE3_ID						3
 #define SCENE4_ID						4
-#endif // !SOUND_ID
+#endif // !SCENE_ID
 

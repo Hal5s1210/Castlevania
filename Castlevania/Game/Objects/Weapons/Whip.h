@@ -11,6 +11,7 @@ private:
 	bool hit;
 	bool isWhip;
 	int damage;
+	bool sound;
 
 	void ProcessAABBCollision(LPGAMEOBJECT coObject);
 	void ProcessSweptAABBCollision(LPGAMEOBJECT coObject,

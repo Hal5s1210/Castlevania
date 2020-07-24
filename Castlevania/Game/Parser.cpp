@@ -152,6 +152,8 @@ void Parser::Parse_Animation(pugi::xml_node root)
 
 void Parser::Parse_Sound(pugi::xml_node root)
 {
+	int bgm_id = root.attribute(L"BGM_id").as_int();
+	Scenes::GetInstance()->GetScene()->SetBGM(bgm_id);
 	for (pugi::xml_node node : root)
 	{
 		int id = node.attribute(L"id").as_int();

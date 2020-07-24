@@ -66,6 +66,10 @@ void Board::Update(DWORD dt)
 		{
 			if (time > 0)
 				time -= tickcount / 1000;
+			if (time <= 10)
+			{
+				Sound::GetInstance()->Play(SOUND_TIMEOUT_ID);
+			}
 
 			tickcount = tickcount % 1000;
 		}
@@ -80,7 +84,11 @@ void Board::Update(DWORD dt)
 	{
 		if (GetTickCount() - victorytimestart > victorytime)
 		{
-			if(!done) GamePause();
+			if (!done)
+			{
+				GamePause();
+				Sound::GetInstance()->Play(SOUND_CLEAR_ID);
+			}
 
 			done = true;
 
@@ -88,11 +96,13 @@ void Board::Update(DWORD dt)
 			{
 				time--;
 				score += 10;
+				Sound::GetInstance()->Play(SOUND_TIMESCORE_ID);
 			}
 			else if (heart != 0)
 			{
 				heart--;
 				score += 100;
+				Sound::GetInstance()->Play(SOUND_HEARTSCORE_ID);
 			}
 			else if (donetimestart == 0)
 			{
@@ -102,6 +112,7 @@ void Board::Update(DWORD dt)
 			if (!gameover && donetimestart != 0 && GetTickCount() - donetimestart > donetime)
 			{
 				gameover = true;
+				Sound::GetInstance()->Play(SOUND_GAMEOVER_ID);
 			}
 		}
 	}
@@ -397,6 +408,7 @@ void Board::PlayerDie()
 	playerdeadtimestart = GetTickCount();
 	if (life == 1)
 		gameover = true;
+	Sound::GetInstance()->Play(SOUND_DEATH_ID);
 }
 
 void Board::BossHit(int damage)
@@ -459,6 +471,7 @@ void Board::ItemClaimed(LPITEM item)
 		break;
 	}
 	item->RunEffect(effect_id);
+	item->SoundEffect();
 }
 
 void Board::GamePause()

@@ -73,12 +73,14 @@ void Effect::AddHitEffect(LPGAMEOBJECT hitter, LPGAMEOBJECT obj)
 
 	LPEFFECT effect = Spawner::GetInstance()->SpawnEffect(EFFECT_HIT_ID, eff_x, eff_y);
 	Scenes::GetInstance()->GetScene()->AddEffect(effect);
+	Sound::GetInstance()->Play(SOUND_HITEFFECT_ID);
 }
 
 void Effect::AddDeathEffect(RECT r, float x, float y)
 {
 	LPEFFECT e = Spawner::GetInstance()->SpawnEffect(EFFECT_DEAD_ID, x + ((r.right - r.left) / 2) - 4, y + ((r.bottom - r.top) / 2) - 8);
 	Scenes::GetInstance()->GetScene()->AddEffect(e);
+	Sound::GetInstance()->Play(SOUND_DEATHEFFECT_ID);
 }
 
 void Effect::AddBossDeathEffect(RECT r, float x, float y)
@@ -112,6 +114,8 @@ void Effect::AddBreakBlockEffect(RECT r, float x, float y)
 	Scenes::GetInstance()->GetScene()->AddEffect(e1);
 	Scenes::GetInstance()->GetScene()->AddEffect(e2);
 	Scenes::GetInstance()->GetScene()->AddEffect(e3);
+
+	Sound::GetInstance()->Play(SOUND_DEATHEFFECT_ID);
 }
 
 

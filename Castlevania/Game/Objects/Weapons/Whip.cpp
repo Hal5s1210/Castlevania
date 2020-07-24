@@ -11,7 +11,16 @@ Whip::Whip()
 
 void Whip::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 {
-	if (index != 2) return;
+	if (index != 2)
+	{
+		sound = false;
+		return;
+	}
+	if (index == 2 && !sound)
+	{
+		sound = true;
+		Sound::GetInstance()->Play(SOUND_WHIP_ID);
+	}
 
 	CheckCollision(objects);
 }

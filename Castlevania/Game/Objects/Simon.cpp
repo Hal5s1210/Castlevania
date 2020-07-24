@@ -3,6 +3,7 @@
 #include "..\Board.h"
 #include "..\..\Framework\Collision.h"
 #include "..\..\Framework\Viewport.h"
+#include "..\..\Framework\Sound.h"
 
 Simon::Simon()
 {
@@ -59,6 +60,7 @@ void Simon::Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects)
 	if (invisible && GetTickCount() - invisibletimestart > invisibletime)
 	{
 		invisible = false;
+		Sound::GetInstance()->Play(SOUND_INVISIBLEOUT_ID);
 	}
 
 	if (GetTickCount() - invulnerabletimestart >= invulnerabletime)
@@ -321,7 +323,11 @@ void Simon::ProcessSweptAABBCollision(LPGAMEOBJECT o,
 			vy = 0;
 			fallcount = 0;
 			on_air = false;
-			falling = false;
+			if (falling)
+			{
+				Sound::GetInstance()->Play(SOUND_FALLING_ID);
+				falling = false;
+			}
 			if (jump && GetTickCount() - jumpstarttime > jumptime)
 			{
 				jump = false;
@@ -426,6 +432,13 @@ void Simon::CheckInCamera()
 		hit = true;
 		Board::GetInstance()->PlayerHit(16);
 	}
+}
+
+void Simon::GoInvisible()
+{ 
+	invisible = true; 
+	invisibletimestart = GetTickCount();
+	Sound::GetInstance()->Play(SOUND_INVISIBLEIN_ID);
 }
 
 

@@ -8,6 +8,7 @@ void Scene::Load()
 	Parser::Parse_Scene(&scene);
 	loaded = true;
 	OutputDebugString(L"[INFO] PlayScene loaded OK\n");
+	Sound::GetInstance()->Play(bgm, true);
 }
 
 void Scene::Unload()
@@ -54,6 +55,7 @@ void Scene::Reset()
 	objects.push_back(player);
 	player->Reset();
 	tilemap->ResetArea();
+	Sound::GetInstance()->Play(bgm, true);
 }
 
 void Scene::KillAllEnemies()

@@ -145,3 +145,49 @@ void Item::AddItem(int id, RECT r, float x, float y)
 	LPITEM i = Spawner::GetInstance()->SpawnItem(id, x + ((r.right - r.left) / 2) - 4, y + ((r.bottom - r.top) / 2) - 8);
 	Scenes::GetInstance()->GetScene()->AddItem(i);
 }
+
+void Item::SoundEffect()
+{
+	switch (type)
+	{
+	case Item::Whip:
+	case Item::Dagger:
+	case Item::Axe:
+	case Item::Boomerang:
+	case Item::StopWatch:
+	case Item::HolyWater:
+		Sound::GetInstance()->Play(SOUND_CLAIMWEAPON_ID);
+		break;
+
+	case Item::Money100:
+	case Item::Money400:
+	case Item::Money700:
+	case Item::Money1000:
+	case Item::Crown:
+	case Item::Chest:
+	case Item::IslandHead:
+	case Item::Pork:
+	case Item::DoubleShot:
+	case Item::TripleShot:
+	case Item::Invisible:
+	case Item::Crystall:
+		Sound::GetInstance()->Play(SOUND_CLAIMITEM_ID);
+		break;
+
+	case Item::SmallHeart:
+	case Item::BigHeart:
+		Sound::GetInstance()->Play(SOUND_CLAIMHEART_ID);
+		break;
+
+	case Item::LifeUp:
+		Sound::GetInstance()->Play(SOUND_LIFEUP_ID);
+		break;
+
+	case Item::Cross:
+		Sound::GetInstance()->Play(SOUND_CROSS_ID);
+		break;
+
+	default:
+		break;
+	}
+}

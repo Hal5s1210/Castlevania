@@ -26,6 +26,8 @@ protected:
 	std::wstring filePath;
 
 	LPKEYEVENTHANDLER keyhandler;
+	
+	int bgm;
 
 	Grid* grid;
 	Tilemap* tilemap;
@@ -59,6 +61,7 @@ public:
 	void SetPlayer(Simon* p) { player = p; }
 	void SetGrid(Grid* g) { grid = g; }
 	void SetTilemap(Tilemap* t) { tilemap = t; }
+	void SetBGM(int id) { bgm = id; }
 
 	void AddEffect(LPEFFECT effect) { effects.push_back(effect); }
 	void AddItem(LPITEM item) { items.push_back(item); }

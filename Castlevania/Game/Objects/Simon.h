@@ -131,7 +131,7 @@ public:
 	bool IsHitDoor() { return hit_door; }
 	bool IsReachAutoDest() { return reach_dest; }
 	bool IsInvisible() { return invisible; }
-	void GoInvisible() { invisible = true; invisibletimestart = GetTickCount(); }
+	void GoInvisible();
 
 	void Update(DWORD dt, std::vector<LPGAMEOBJECT>* objects);
 	void Render(float x = 0, float y = 0);

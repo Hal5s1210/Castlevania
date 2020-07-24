@@ -11,8 +11,26 @@
     <Texture id="8001" path="Resources\Textures\Tileset2.png" red="255" green="0" blue="255"/>
     <Texture id="-69" path="Resources\Textures\debug_boundbox.png" red="116" green="116" blue="116"/>
   </Textures>
-  
-  <Sounds>
+
+  <Sounds BGM_id="102">
+    <Sound id="102" path="Resources\Sounds\03. Stalker (Armory).wav"/>
+    <Sound id="106" path="Resources\Sounds\12. Stage Clear.wav"/>
+    <Sound id="107" path="Resources\Sounds\14. Death.wav"/>
+    <Sound id="108" path="Resources\Sounds\15. Game Over.wav"/>
+    <Sound id="201" path="Resources\Sounds\Whip.wav"/>
+    <Sound id="202" path="Resources\Sounds\Hit effect.wav"/>
+    <Sound id="203" path="Resources\Sounds\Death effect.wav"/>
+    <Sound id="204" path="Resources\Sounds\Claim heart.wav"/>
+    <Sound id="205" path="Resources\Sounds\Claim item.wav"/>
+    <Sound id="206" path="Resources\Sounds\Claim weapon.wav"/>
+    <Sound id="207" path="Resources\Sounds\Life up.wav"/>
+    <Sound id="208" path="Resources\Sounds\Cross.wav"/>
+    <Sound id="209" path="Resources\Sounds\Invisible in.wav"/>
+    <Sound id="210" path="Resources\Sounds\Invisible out.wav"/>
+    <Sound id="211" path="Resources\Sounds\Falling.wav"/>
+    <Sound id="212" path="Resources\Sounds\Time out.wav"/>
+    <Sound id="213" path="Resources\Sounds\Time score.wav"/>
+    <Sound id="214" path="Resources\Sounds\Heart score.wav"/>
   </Sounds>
 
   <Objects>

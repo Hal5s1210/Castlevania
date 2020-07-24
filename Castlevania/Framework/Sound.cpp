@@ -232,6 +232,29 @@ bool Sound::Play(int id, bool loop)
 	return true;
 }
 
+bool Sound::Stop(int id)
+{
+	HRESULT hr;
+	LPDIRECTSOUNDBUFFER8 buffer = 0;
+	buffer = _secondaryBuffers[id];
+	if (!buffer)
+		return false;
+
+	hr = buffer->Stop(); 
+	if (FAILED(hr))
+		return false;
+
+	return true;
+}
+
+void Sound::StopAll()
+{
+	for (std::unordered_map<int, LPDIRECTSOUNDBUFFER8>::iterator itr = _secondaryBuffers.begin(); itr != _secondaryBuffers.end(); itr++)
+	{
+		itr->second->Stop();
+	}
+}
+
 void Sound::Clear()
 {
 	for (std::unordered_map<int, LPDIRECTSOUNDBUFFER8>::iterator itr = _secondaryBuffers.begin(); itr != _secondaryBuffers.end(); itr++)

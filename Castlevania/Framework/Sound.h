@@ -44,6 +44,8 @@ public:
 
 	void Load(int id, LPCWSTR  dir);
 	bool Play(int id, bool = false);
+	bool Stop(int id);
+	void StopAll();
 	void Remove(int id);
 	void Clear();
 };

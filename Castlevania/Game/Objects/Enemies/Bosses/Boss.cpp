@@ -3,6 +3,7 @@
 #include "..\..\Item.h"
 #include "..\..\..\Board.h"
 #include "..\..\..\ID.h"
+#include "..\..\..\..\Framework\Sound.h"
 
 void Boss::TakeDamage(int damage, LPGAMEOBJECT hitter)
 {
@@ -25,6 +26,8 @@ void Boss::TakeDamage(int damage, LPGAMEOBJECT hitter)
 		RECT r = sprite->GetRect();
 
 		Effect::AddBossDeathEffect(r, x, y);
+
+		Sound::GetInstance()->StopAll();
 
 		Item::AddItem(ITEM_CRYSTAL_ID, r, x, y);
 

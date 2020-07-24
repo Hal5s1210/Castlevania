@@ -58,6 +58,7 @@ public:
 
 	void Claim() { claimed = true; }
 	void RunEffect(int id);
+	void SoundEffect();
 
 	static void AddItem(int id, RECT r, float x, float y);
 

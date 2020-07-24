@@ -48,6 +48,8 @@ void PhantomBat::Brain(DWORD dt)
 	if (!awake && p_x >= activeL && p_x <= activeR)
 	{
 		awake = true;
+		Sound::GetInstance()->StopAll();
+		Sound::GetInstance()->Play(SOUND_BOSS_ID, true);
 	}
 
 	if (awake)
