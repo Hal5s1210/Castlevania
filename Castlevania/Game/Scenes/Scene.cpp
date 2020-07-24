@@ -55,6 +55,7 @@ void Scene::Reset()
 	objects.push_back(player);
 	player->Reset();
 	tilemap->ResetArea();
+	Sound::GetInstance()->StopAll();
 	Sound::GetInstance()->Play(bgm, true);
 }
 

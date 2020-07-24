@@ -20,7 +20,7 @@ Viewport* Viewport::GetInstance()
 void Viewport::GoToX(float dest_x)
 {
 	auto_move = true;
-	reach_dest = x == dest_x;
+	reach_dest = false;
 	vx = x == dest_x ? 0 : x < dest_x ? 0.067 : -0.067;
 	this->dest_x = dest_x;
 }

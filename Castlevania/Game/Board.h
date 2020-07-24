@@ -26,6 +26,7 @@ private:
 	int subweapon;
 
 	DWORD tickcount;
+	bool timeout;
 
 	DWORD playerdeadtime;
 	DWORD playerdeadtimestart;

@@ -13,7 +13,7 @@ Board::Board()
 	x = 0;
 	y = 0;
 	score = 0;
-	time = 300;
+	time = 10;
 	stage = 1;
 	heart = 0;
 	life = 3;
@@ -22,6 +22,8 @@ Board::Board()
 	shot = 1;
 	whip = 1;
 	subweapon = 0;
+
+	timeout = false;
 
 	playerdeadtime = 2000;
 	playerdeadtimestart = 0;
@@ -61,23 +63,33 @@ void Board::Update(DWORD dt)
 
 	if (!victory)
 	{
-		if (!Stopwatch::IsTimePause()) tickcount += dt;
-		if (tickcount >= 1000)
+		if (timeout)
 		{
-			if (time > 0)
-				time -= tickcount / 1000;
-			if (time <= 10)
+			if (!gameover)
 			{
-				Sound::GetInstance()->Play(SOUND_TIMEOUT_ID);
+				Scenes::GetInstance()->GetScene()->GetPlayer()->TakeHit(16);
+				gameover = true;
+			}
+		}
+		else
+		{
+			if (!Stopwatch::IsTimePause()) tickcount += dt;
+			if (tickcount >= 1000)
+			{
+				if (time > 0)
+					time -= tickcount / 1000;
+				if (time <= 10)
+				{
+					Sound::GetInstance()->Play(SOUND_TIMEOUT_ID);
+				}
+
+				tickcount = tickcount % 1000;
 			}
 
-			tickcount = tickcount % 1000;
-		}
-
-		if (time <= 0)
-		{
-			time = 0;
-			playerhp = 0;
+			if (time <= 0)
+			{
+				timeout = true;
+			}
 		}
 	}
 	else
@@ -120,7 +132,7 @@ void Board::Update(DWORD dt)
 
 	if (playerdeadtimestart != 0 && GetTickCount() - playerdeadtimestart > playerdeadtime)
 	{
-		if (life > 1)
+		if (!timeout && life > 1)
 		{
 			life--;
 			Scenes::GetInstance()->GetScene()->Reset();
@@ -223,6 +235,7 @@ void Board::Render()
 void Board::RenderGameover()
 {
 	if (playerdeadtimestart == 0 && !done) return;
+	life = 0;
 	if ((playerdeadtimestart != 0 && GetTickCount() - playerdeadtimestart > playerdeadtime - 500) || (done && gameover))
 	{
 		Draw("?", x, y + 48);
@@ -407,7 +420,9 @@ void Board::PlayerDie()
 {
 	playerdeadtimestart = GetTickCount();
 	if (life == 1)
+	{
 		gameover = true;
+	}
 	Sound::GetInstance()->Play(SOUND_DEATH_ID);
 }
 
@@ -538,6 +553,7 @@ void Board::Reset()
 	subweapon = 0;
 	victory = false;
 	pause = false;
+	timeout = false;
 	done = false;
 	Viewport::GetInstance()->SetAuto(false);
 }
