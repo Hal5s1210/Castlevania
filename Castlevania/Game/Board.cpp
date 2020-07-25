@@ -99,7 +99,6 @@ void Board::Update(DWORD dt)
 			if (!done)
 			{
 				GamePause();
-				Sound::GetInstance()->Play(SOUND_CLEAR_ID);
 			}
 
 			done = true;
@@ -477,6 +476,7 @@ void Board::ItemClaimed(LPITEM item)
 		playerhp = 16;
 		victory = true;
 		victorytimestart = GetTickCount();
+		Sound::GetInstance()->Play(SOUND_CLEAR_ID);
 		break;
 
 	case Item::Invisible: 
